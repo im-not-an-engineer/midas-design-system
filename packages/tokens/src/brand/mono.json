@@ -1,0 +1,18 @@
+{
+  "$description": "브랜드 — mono (웜그레이 + 무채색 primary). '테마 = 포인트 컬러 교체'가 아님을 증명하는 브랜드. (1) neutral 램프를 stone으로 갈아 모든 그레이가 웜톤이 되고, (2) primary·포커스·링크의 시맨틱 매핑을 accent에서 neutral로 바꿔 버튼이 무채색이 된다. accent(red)는 selected 같은 은은한 곳에만 남는다. 시맨틱을 덮었으므로 mono.dark.json이 반드시 있어야 한다(빌드 규칙 5).",
+  "ramp": {
+    "neutral": { "$ramp": "{palette.stone}" },
+    "accent":  { "$ramp": "{palette.red}" }
+  },
+  "color": {
+    "focusRing": { "$value": "{ramp.neutral.900}" },
+    "border": { "focus": { "$value": "{ramp.neutral.900}" } },
+    "fg":     { "link":  { "$value": "{ramp.neutral.900}" } },
+    "action": {
+      "primary": {
+        "bg": { "default": { "$value": "{ramp.neutral.900}" }, "hover": { "$value": "{ramp.neutral.800}" }, "active": { "$value": "{ramp.neutral.700}" } }
+      }
+    },
+    "field": { "border": { "focus": { "$value": "{ramp.neutral.900}" } } }
+  }
+}

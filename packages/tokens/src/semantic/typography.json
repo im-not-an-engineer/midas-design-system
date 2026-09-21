@@ -1,0 +1,37 @@
+{
+  "$description": "2층 Semantic — 타이포 계약. 역할 이름만 있고 px는 없다. 아키타입이 body 크기를 통째로 내리면 화면 밀도가 따라 내려간다.",
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": { "$value": "{scale.fontFamily.systemSans}" },
+      "mono": { "$value": "{scale.fontFamily.systemMono}" }
+    },
+    "size": {
+      "$type": "dimension",
+      "caption":   { "$value": "{scale.fontSize.12}", "$description": "보조 설명, 헬프 텍스트" },
+      "body":      { "$value": "{scale.fontSize.14}", "$description": "기본 본문. 밀도의 기준점." },
+      "bodyLg":    { "$value": "{scale.fontSize.16}" },
+      "headingSm": { "$value": "{scale.fontSize.16}" },
+      "headingMd": { "$value": "{scale.fontSize.20}" },
+      "headingLg": { "$value": "{scale.fontSize.24}" },
+      "display":   { "$value": "{scale.fontSize.30}" }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular":  { "$value": "{scale.fontWeight.regular}" },
+      "medium":   { "$value": "{scale.fontWeight.medium}" },
+      "semibold": { "$value": "{scale.fontWeight.semibold}" }
+    },
+    "lineHeight": {
+      "$type": "number",
+      "tight":  { "$value": "{scale.lineHeight.tight}",  "$description": "제목" },
+      "normal": { "$value": "{scale.lineHeight.normal}", "$description": "본문" },
+      "ui":     { "$value": "{scale.lineHeight.snug}",   "$description": "컨트롤 안 한 줄 텍스트" }
+    },
+    "letterSpacing": {
+      "$type": "dimension",
+      "heading": { "$value": "{scale.letterSpacing.tight}" },
+      "body":    { "$value": "{scale.letterSpacing.normal}" }
+    }
+  }
+}

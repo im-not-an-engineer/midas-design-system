@@ -1,0 +1,38 @@
+{
+  "name": "@ax/react",
+  "version": "0.1.0",
+  "description": "AX 디자인시스템 React 컴포넌트 — 헤드리스(Radix)에 2층 토큰을 바인딩한 스타일 층.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "scripts": {
+    "build": "tsup && node copy-styles.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@ax/tokens": "0.1.0",
+    "@base-ui/react": "1.8.0",
+    "clsx": "2.1.1",
+    "tailwind-merge": "3.7.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.7",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3"
+  }
+}

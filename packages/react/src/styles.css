@@ -1,0 +1,57 @@
+/*
+ * @ax/react — 소비 제품이 import하는 단 하나의 CSS 진입점.
+ *
+ * 제품 쪽에서 할 일:  import "@ax/react/styles.css";
+ */
+
+@import "tailwindcss";
+@import "@ax/tokens/css";
+
+/* 우리 패키지 안의 클래스 문자열도 Tailwind가 훑게 한다.
+   이게 없으면 소비 제품에서 우리 컴포넌트 스타일이 통째로 빠진다. */
+@source "../";
+
+/* 다크는 [data-mode="dark"]로 켜진다. AxTheme가 이 어트리뷰트를 붙인다. */
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+
+@layer base {
+  /*
+   * 테마 어트리뷰트가 붙은 div만 색을 칠하면 그 바깥(body 여백, 오버스크롤 영역)이
+   * 흰색으로 남는다. 라이트에서는 안 보이지만 다크에서는 바로 눈에 띈다.
+   * :root 기본값을 쓰므로, 제품이 themeAttributes()로 <html>에 어트리뷰트를 붙이면
+   * 페이지 전체가 그 테마를 따른다.
+   */
+  html {
+    background-color: var(--color-surface-base);
+    color: var(--color-fg-default);
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  /*
+   * 포커스 링을 한 곳에서 정의한다.
+   * 컴포넌트마다 따로 쓰면 반드시 어긋나고, 어긋난 포커스는 접근성 결함이다.
+   */
+  .ax-focus-ring {
+    outline: none;
+  }
+  .ax-focus-ring:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+/*
+ * Tailwind에 --z-* / --duration-* 네임스페이스가 없어서, 계약 토큰을 쓰는 유틸리티를
+ * 직접 만든다. 이렇게 해두면 z-modal / duration-fast 도 계약 린트가 인식한다.
+ * (그냥 z-modal 이라고 쓰면 Tailwind가 조용히 아무것도 만들지 않는다.)
+ */
+@utility z-sticky  { z-index: var(--z-sticky); }
+@utility z-overlay { z-index: var(--z-overlay); }
+@utility z-modal   { z-index: var(--z-modal); }
+@utility z-popover { z-index: var(--z-popover); }
+@utility z-toast   { z-index: var(--z-toast); }
+
+@utility duration-fast   { transition-duration: var(--duration-fast); }
+@utility duration-normal { transition-duration: var(--duration-normal); }

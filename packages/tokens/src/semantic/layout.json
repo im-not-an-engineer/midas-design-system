@@ -1,0 +1,115 @@
+{
+  "$description": "2층 Semantic — 치수 계약. 아키타입(밀도)이 주로 덮어쓰는 구역이다. 컴포넌트는 px를 직접 쓰지 않고 반드시 이 이름을 쓴다.",
+
+  "size": {
+    "$type": "dimension",
+    "control": {
+      "$description": "누르거나 입력하는 것의 높이. 버튼·인풋·셀렉트·아이콘버튼이 전부 이걸 공유해야 한 줄에 놨을 때 높이가 맞는다.",
+      "sm": { "$value": "{scale.control.32}" },
+      "md": { "$value": "{scale.control.36}" },
+      "lg": { "$value": "{scale.control.44}" }
+    },
+    "icon": {
+      "sm": { "$value": "{scale.icon.14}" },
+      "md": { "$value": "{scale.icon.16}" },
+      "lg": { "$value": "{scale.icon.20}" }
+    },
+    "row": {
+      "$description": "데이터 테이블 행 높이. 밀도의 얼굴.",
+      "sm": { "$value": "{scale.control.32}" },
+      "md": { "$value": "{scale.control.40}" },
+      "lg": { "$value": "{scale.control.48}" }
+    }
+  },
+
+  "space": {
+    "$type": "dimension",
+    "0": { "$value": "{scale.space.0}", "$description": "0. 밀도 결정이 아니라 모든 아키타입 공통이므로 아키타입이 덮지 않는다." },
+    "inset": {
+      "$description": "안쪽 여백(padding).",
+      "xs": { "$value": "{scale.space.4}" },
+      "sm": { "$value": "{scale.space.8}" },
+      "md": { "$value": "{scale.space.12}" },
+      "lg": { "$value": "{scale.space.16}" },
+      "xl": { "$value": "{scale.space.24}" }
+    },
+    "stack": {
+      "$description": "세로로 쌓을 때의 간격.",
+      "xs": { "$value": "{scale.space.4}" },
+      "sm": { "$value": "{scale.space.8}" },
+      "md": { "$value": "{scale.space.12}" },
+      "lg": { "$value": "{scale.space.20}" },
+      "xl": { "$value": "{scale.space.32}" }
+    },
+    "inline": {
+      "$description": "가로로 늘어놓을 때의 간격.",
+      "xs": { "$value": "{scale.space.4}" },
+      "sm": { "$value": "{scale.space.6}" },
+      "md": { "$value": "{scale.space.8}" },
+      "lg": { "$value": "{scale.space.12}" }
+    },
+    "section": {
+      "$description": "페이지 안 큰 덩어리 사이.",
+      "sm": { "$value": "{scale.space.24}" },
+      "md": { "$value": "{scale.space.32}" },
+      "lg": { "$value": "{scale.space.48}" }
+    }
+  },
+
+  "radius": {
+    "$type": "dimension",
+    "control": { "$value": "{scale.radius.6}",  "$description": "버튼·인풋 모서리" },
+    "surface": { "$value": "{scale.radius.8}",  "$description": "카드·패널 모서리" },
+    "overlay": { "$value": "{scale.radius.12}", "$description": "다이얼로그·팝오버 모서리" },
+    "pill":    { "$value": "{scale.radius.full}" },
+    "none":    { "$value": "{scale.radius.0}" }
+  },
+
+  "border": {
+    "$type": "dimension",
+    "width": {
+      "default": { "$value": "1px" },
+      "strong":  { "$value": "2px" }
+    }
+  },
+
+  "focusRing": {
+    "$description": "포커스 링의 굵기와 컨트롤로부터의 거리. 색은 color.focusRing.",
+    "width":  { "$type": "dimension", "$value": "2px" },
+    "offset": { "$type": "dimension", "$value": "2px" }
+  },
+
+  "elevation": {
+    "$type": "shadow",
+    "raised":  { "$value": "{scale.shadow.sm}", "$description": "카드" },
+    "overlay": { "$value": "{scale.shadow.md}", "$description": "팝오버·드롭다운" },
+    "modal":   { "$value": "{scale.shadow.lg}", "$description": "다이얼로그" }
+  },
+
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "fast":   { "$value": "{scale.duration.fast}" },
+      "normal": { "$value": "{scale.duration.normal}" }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard": { "$value": "{scale.easing.standard}" },
+      "exit":     { "$value": "{scale.easing.exit}" }
+    }
+  },
+
+  "opacity": {
+    "$type": "number",
+    "disabled": { "$value": "{scale.opacity.50}" }
+  },
+
+  "z": {
+    "$type": "number",
+    "sticky":  { "$value": 100 },
+    "overlay": { "$value": 200 },
+    "modal":   { "$value": 300 },
+    "popover": { "$value": 400 },
+    "toast":   { "$value": 500 }
+  }
+}
