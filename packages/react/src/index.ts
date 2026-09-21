@@ -13,6 +13,9 @@ export {
 export { Combobox, type ComboboxProps, type ComboboxItem } from './components/combobox';
 export { Autocomplete, type AutocompleteProps } from './components/autocomplete';
 export { NumberField, type NumberFieldProps } from './components/number-field';
+export { Slider, type SliderProps } from './components/slider';
+export { OTPField, type OTPFieldProps } from './components/otp-field';
+export { Fieldset, Form, type FieldsetProps, type FormProps } from './components/fieldset';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,
   type FieldProps, type InputProps, type TextareaProps,
