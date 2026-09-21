@@ -1,12 +1,24 @@
 {
-  "$description": "브랜드 — default. 브랜드가 정하는 첫 번째 것은 '어느 재질이 어느 역할인가'(ramp). 시맨틱은 ramp만 보므로, 여기서 neutral을 stone으로 바꾸면 그레이를 쓰는 80여 개 키가 한 번에 웜그레이가 된다. 두 번째로 정할 수 있는 것은 시맨틱 매핑 자체(예: primary를 무채색으로) — 그건 mono.json 참고.",
+  "$description": "브랜드 — default. 제품의 기본 테마다. accent는 palette.brand(제품 화면에서 추출한 파랑)를 가리킨다. info는 accent와 별개로 둔다 — 브랜드색이 나중에 파랑이 아니게 되어도 정보 알림은 파랑이어야 하기 때문.",
   "ramp": {
-    "$description": "$ramp 은 빌드가 palette의 모든 단계로 펼치는 축약이다. 램프는 통째로만 바꾼다 — 단계 일부만 바꾸는 건 금지(빌드 규칙 6).",
-    "neutral": { "$ramp": "{palette.slate}" },
-    "accent":  { "$ramp": "{palette.blue}" },
-    "info":    { "$ramp": "{palette.blue}" },
-    "success": { "$ramp": "{palette.green}" },
-    "warning": { "$ramp": "{palette.amber}" },
-    "danger":  { "$ramp": "{palette.red}" }
+    "$description": "$ramp 은 빌드가 palette의 모든 단계로 펼치는 축약이다. 램프는 통째로만 바꾼다(빌드 규칙 6). 브랜드 색이 바뀌면 accent 한 줄만 고친다.",
+    "neutral": {
+      "$ramp": "{palette.slate}"
+    },
+    "accent": {
+      "$ramp": "{palette.brand}"
+    },
+    "info": {
+      "$ramp": "{palette.blue}"
+    },
+    "success": {
+      "$ramp": "{palette.green}"
+    },
+    "warning": {
+      "$ramp": "{palette.amber}"
+    },
+    "danger": {
+      "$ramp": "{palette.red}"
+    }
   }
 }

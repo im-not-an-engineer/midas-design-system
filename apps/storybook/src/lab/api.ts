@@ -99,6 +99,9 @@ export const api = {
   async save(overlay: Overlay): Promise<{ files: string[]; log: string }> {
     return post('/__ax/save', { overlay });
   },
+  async ramp(hex: string, reference: string, anchorStep?: string): Promise<{ ramp: Record<string, string>; anchorStep: string }> {
+    return post('/__ax/ramp', { hex, reference, anchorStep });
+  },
 };
 
 // ── 소스에서 편집 가능한 항목을 뽑아낸다. 하드코딩하지 않으므로 토큰을 추가하면 랩이 따라온다. ──
@@ -139,9 +142,9 @@ export function leavesReferencing(json: Json, prefix: string, trail: string[] = 
   return out;
 }
 
-/** 팔레트 이름 → 단계 → 헥스 */
-export function palettes(sources: Record<string, Json>): Record<string, Record<string, string>> {
-  const pal = sources['primitive/color.json']?.palette ?? {};
+/** 팔레트 이름 → 단계 → 헥스. 편집 중인 overlay(새로 만든 램프 포함)를 반영한다. */
+export function palettes(sources: Record<string, Json>, overlay: Overlay = {}): Record<string, Record<string, string>> {
+  const pal = deepMerge(sources['primitive/color.json'] ?? {}, overlay['primitive/color.json'] ?? {}).palette ?? {};
   const out: Record<string, Record<string, string>> = {};
   for (const [name, steps] of Object.entries<Json>(pal)) {
     if (name.startsWith('$')) continue;

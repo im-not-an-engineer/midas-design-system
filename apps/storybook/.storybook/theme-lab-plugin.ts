@@ -63,6 +63,18 @@ export function themeLab(): Plugin {
             return json(res, 200, { vars: await resolveOne(SRC, { overlay, brand, archetype, mode }) });
           }
 
+          // 브랜드 색 하나 → 램프 11단계. 기준 램프의 명도·채도 곡선을 빌려 쓴다.
+          if (req.url === '/__ax/ramp') {
+            const { hex, reference = 'blue', anchorStep } = await readBody(req);
+            const { generateRamp } = await import(/* @vite-ignore */ path.join(TOKENS, 'ramp.mjs'));
+            const palette = JSON.parse(await readFile(path.join(SRC, 'primitive/color.json'), 'utf8')).palette;
+            const ref = Object.fromEntries(
+              Object.entries<any>(palette[reference] ?? {}).filter(([k]) => !k.startsWith('$')).map(([k, v]) => [k, v.$value]),
+            );
+            if (!Object.keys(ref).length) throw new Error(`기준 램프 palette.${reference} 이 없습니다.`);
+            return json(res, 200, generateRamp(hex, ref, anchorStep));
+          }
+
           // 저장: 규칙 1~6을 모두 통과해야 파일을 쓴다. 실패하면 아무것도 쓰지 않는다.
           if (req.url === '/__ax/save') {
             const { overlay } = await readBody(req);

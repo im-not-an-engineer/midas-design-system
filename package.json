@@ -16,7 +16,8 @@
     "verify": "npm run build && npm run typecheck && npm run build -w @ax/playground",
     "dev": "npm run dev -w @ax/playground",
     "storybook": "npm run storybook -w @ax/storybook",
-    "build-storybook": "npm run build-storybook -w @ax/storybook"
+    "build-storybook": "npm run build-storybook -w @ax/storybook",
+    "ramp": "npm run ramp -w @ax/tokens --"
   },
   "engines": {
     "node": ">=22"

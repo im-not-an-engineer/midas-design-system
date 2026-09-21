@@ -3,16 +3,23 @@
   "version": "0.1.0",
   "description": "AX 디자인시스템 토큰 — 3계층 구조, 2층이 테마-컴포넌트 계약. 프레임워크 무관(CSS 변수 + JSON).",
   "type": "module",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./css": "./dist/tokens.css",
     "./contract.json": "./dist/contract.json",
     "./src/*": "./src/*"
   },
   "scripts": {
     "build": "node build.mjs",
-    "check": "node ../../scripts/check-contract.mjs"
+    "check": "node ../../scripts/check-contract.mjs",
+    "ramp": "node ramp.mjs"
   },
   "devDependencies": {
     "style-dictionary": "5.5.5"

@@ -74,7 +74,7 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelPro
     } finally { setSaving(false); }
   }
 
-  const pal = palettes(sources.sources);
+  const pal = palettes(sources.sources, overlay);
   const ramps = effectiveRamps(sources.sources, overlay, axes.brand);
   const scales = scaleOptions(sources.sources);
   const semanticColors = leavesReferencing(merged('semantic/color.json').color ?? {}, 'ramp');
@@ -117,6 +117,8 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelPro
             ))}
           </Group>
         )}
+
+        <BrandRamp palettes={pal} overlay={overlay} setOverlay={setOverlay} brand={axes.brand} readOnly={readOnly} onEdit={() => setResult(null)} />
 
         <Group title="재질 — 팔레트" hint={`색을 눌러 바꿉니다 · ${targetFile.palette()}`} defaultOpen>
           {Object.entries(pal).map(([name, steps]) => {
@@ -216,6 +218,71 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelPro
         </Group>
       </div>
     </aside>
+  );
+}
+
+/**
+ * 브랜드가 주는 건 보통 "메인 색 한 개"인데 토큰이 필요로 하는 건 11단계다.
+ * 기존 램프의 명도·채도 곡선을 빌려 만들면 accent만 바꿔도 화면의 리듬이 그대로 남는다.
+ * 브랜드 색은 어느 한 단계에 **그대로** 들어간다 — 가이드의 헥스가 화면에 없으면
+ * "우리 색이 아니다"라는 말을 듣는다.
+ */
+function BrandRamp({ palettes: pal, overlay, setOverlay, brand, readOnly, onEdit }: {
+  palettes: Record<string, Record<string, string>>;
+  overlay: Overlay; setOverlay: (o: Overlay) => void; brand: string; readOnly: boolean; onEdit: () => void;
+}) {
+  const [hex, setHex] = React.useState('#1b62d4');
+  const [name, setName] = React.useState('brand');
+  const [reference, setReference] = React.useState('blue');
+  const [assign, setAssign] = React.useState(true);
+  const [busy, setBusy] = React.useState(false);
+  const [note, setNote] = React.useState<string | null>(null);
+  const valid = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex.trim()) && /^[a-z][a-z0-9]*$/.test(name);
+
+  async function generate() {
+    setBusy(true); setNote(null); onEdit();
+    try {
+      const { ramp, anchorStep } = await api.ramp(hex.trim(), reference);
+      let next = withEdit(overlay, targetFile.palette(), ['palette', name],
+        Object.fromEntries(Object.entries(ramp).map(([k, v]) => [k, { $value: v }])));
+      if (assign) next = withEdit(next, targetFile.ramp(brand), ['ramp', 'accent'], { $ramp: `{palette.${name}}` });
+      setOverlay(next);
+      setNote(`palette.${name} 을 만들었습니다 — 브랜드 색은 ${anchorStep} 단계에 그대로 들어갔습니다.` +
+        (assign ? ` accent를 여기에 배정했습니다.` : ' 아래 "역할 — 램프"에서 accent에 배정하세요.'));
+    } catch (e: any) { setNote(`실패: ${String(e?.message ?? e)}`); } finally { setBusy(false); }
+  }
+
+  return (
+    <Group title="브랜드 색에서 램프 만들기" hint="헥스 한 개 → 11단계" defaultOpen>
+      <p className={HINT}>브랜드 가이드의 색 하나를 넣으면 기준 램프의 명도 곡선을 빌려 11단계를 만듭니다.</p>
+      <Row label="브랜드 색">
+        <span className="flex items-center gap-inline-xs">
+          <label className="relative size-control-sm shrink-0 cursor-pointer rounded-control border border-solid border-border-default" style={{ background: valid ? hex : 'transparent' }}>
+            <input type="color" disabled={readOnly} value={/^#[0-9a-f]{6}$/i.test(hex) ? hex : '#000000'}
+              onChange={(e) => setHex(e.target.value)} className="absolute inset-0 size-full cursor-pointer opacity-0" aria-label="브랜드 색" />
+          </label>
+          <input value={hex} disabled={readOnly} onChange={(e) => setHex(e.target.value)} spellCheck={false}
+            className="h-control-sm w-full min-w-0 rounded-control border border-solid border-field-border-default bg-field-bg-default px-inset-sm font-mono text-body text-field-fg-default ax-focus-ring" />
+        </span>
+      </Row>
+      <Row label="램프 이름" hint="palette.<이름>">
+        <input value={name} disabled={readOnly} onChange={(e) => setName(e.target.value)} spellCheck={false}
+          className="h-control-sm w-full rounded-control border border-solid border-field-border-default bg-field-bg-default px-inset-sm font-mono text-body text-field-fg-default ax-focus-ring" />
+      </Row>
+      <Row label="기준 램프" hint="명도 곡선을 빌려올 곳">
+        <select className={SELECT} disabled={readOnly} value={reference} onChange={(e) => setReference(e.target.value)}>
+          {Object.keys(pal).map((p) => <option key={p} value={p}>{p}</option>)}
+        </select>
+      </Row>
+      <label className="flex items-center gap-inline-sm text-caption text-fg-default">
+        <input type="checkbox" checked={assign} disabled={readOnly} onChange={(e) => setAssign(e.target.checked)} />
+        만들면서 accent에 바로 배정 ({targetFile.ramp(brand)})
+      </label>
+      <Button size="sm" intent="secondary" disabled={readOnly || !valid || busy} onClick={generate}>
+        {busy ? '만드는 중…' : '램프 만들기'}
+      </Button>
+      {note && <p className={HINT}>{note}</p>}
+    </Group>
   );
 }
 
