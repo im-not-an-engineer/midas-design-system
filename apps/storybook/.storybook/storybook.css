@@ -1,3 +1,5 @@
-@import "@ax/react/styles.css";
+/* 컴포넌트를 src로 alias한 것과 같은 이유로 스타일도 src를 직접 본다 — @utility 추가가 재빌드 없이 반영된다.
+   (배포 패키지의 dist/styles.css는 copy-styles.mjs가 같은 파일에서 만든다.) */
+@import "../../../packages/react/src/styles.css";
 /* 스토리 파일 안의 레이아웃용 클래스도 Tailwind가 훑게 한다. 스토리도 계약 토큰만 쓴다. */
 @source "../../../packages/react/src";

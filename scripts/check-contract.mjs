@@ -82,6 +82,7 @@ const NOT_A_CLASS = [
   /^\.{0,2}\//,                      // 상대 경로 (./components/dialog)
   /^(data|aria)-[a-z-]+$/,           // 어트리뷰트 이름. data-[state=open]: 같은 변형은 통과시킨다
   /^[^a-z[-]/i,                      // 영문자·대괄호·음수부호로 시작하지 않으면 클래스가 아님 (—, ×, + …)
+  /=$|^</,                           // JSX 속성 이름 조각(name=)이나 태그(<Avatar) — 따옴표 짝이 어긋나 새어 들어온 것
 ];
 
 async function* walk(dir) {

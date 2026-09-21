@@ -40,6 +40,9 @@ export { Toolbar, ToolbarGroup, ToolbarButton, ToolbarLink, ToolbarInput, Toolba
 export { Toggle, ToggleGroup, type ToggleProps, type ToggleGroupProps } from './components/toggle';
 export { ScrollArea, type ScrollAreaProps } from './components/scroll-area';
 export { Separator, type SeparatorProps } from './components/separator';
+
+export { Avatar, AvatarGroup, type AvatarProps, type AvatarSize } from './components/avatar';
+export { Progress, Meter, type ProgressProps, type MeterProps } from './components/progress';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,
   type FieldProps, type InputProps, type TextareaProps,
