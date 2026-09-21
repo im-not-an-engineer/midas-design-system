@@ -1,5 +1,7 @@
 # AX 디자인시스템
 
+**스토리북:** https://im-not-an-engineer.github.io/midas-design-system/ (`main` 푸시마다 자동 배포)
+
 제품이 그대로 받아 쓰는 디자인시스템 라이브러리. **코드가 source of truth이며 Figma는 아니다.**
 
 ```
