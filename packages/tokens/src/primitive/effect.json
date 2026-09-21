@@ -83,7 +83,6 @@
       }
     },
     "opacity": {
-      "$type": "number",
       "0": {
         "$value": 0
       },
@@ -98,7 +97,8 @@
       },
       "100": {
         "$value": 1
-      }
+      },
+      "$type": "number"
     }
   }
 }

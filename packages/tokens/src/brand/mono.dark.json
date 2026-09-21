@@ -1,15 +1,48 @@
 {
   "$description": "mono 브랜드의 다크 보정. mono.json이 덮은 시맨틱 키는 전역 dark.json이 accent로 되돌려 버리므로, 여기서 다크 값을 다시 정한다. 무채색 primary는 다크에서 반전된다(밝은 버튼, 어두운 글자).",
   "color": {
-    "focusRing": { "$value": "{ramp.neutral.50}" },
-    "border": { "focus": { "$value": "{ramp.neutral.50}" } },
-    "fg":     { "link":  { "$value": "{ramp.neutral.50}" } },
-    "action": {
-      "primary": {
-        "bg": { "default": { "$value": "{ramp.neutral.100}" }, "hover": { "$value": "{ramp.neutral.200}" }, "active": { "$value": "{ramp.neutral.300}" } },
-        "fg": { "default": { "$value": "{ramp.neutral.950}" }, "disabled": { "$value": "{ramp.neutral.600}" } }
+    "focusRing": {
+      "$value": "{ramp.neutral.50}"
+    },
+    "border": {
+      "focus": {
+        "$value": "{ramp.neutral.50}"
       }
     },
-    "field": { "border": { "focus": { "$value": "{ramp.neutral.50}" } } }
+    "fg": {
+      "link": {
+        "$value": "{ramp.neutral.50}"
+      }
+    },
+    "action": {
+      "primary": {
+        "bg": {
+          "default": {
+            "$value": "{ramp.neutral.100}"
+          },
+          "hover": {
+            "$value": "{ramp.neutral.200}"
+          },
+          "active": {
+            "$value": "{ramp.neutral.300}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.950}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.600}"
+          }
+        }
+      }
+    },
+    "field": {
+      "border": {
+        "focus": {
+          "$value": "{ramp.neutral.50}"
+        }
+      }
+    }
   }
 }

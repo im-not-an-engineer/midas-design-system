@@ -144,7 +144,7 @@ ramp 기준으로 적혀 있어 램프 교체에는 자동으로 따라오지만
 2층 키를 잘게 쪼갤수록 유연해지지만 유지가 어려워진다. 그래서 **역할 × 강조도 × 상태**
 수준을 유지하고, 정말 한 컴포넌트에만 필요한 예외가 생기면 그때 3층을 연다.
 
-## 규칙 여섯 가지 (빌드가 강제한다)
+## 규칙 일곱 가지 (빌드가 강제한다)
 
 1. **1층은 CSS로 나가지 않는다.** `--palette-blue-600` 같은 변수는 존재하지 않는다.
 2. **테마 delta는 계약에 있는 키만 덮을 수 있다.** 새 키를 만들면 빌드 실패.
@@ -156,6 +156,9 @@ ramp 기준으로 적혀 있어 램프 교체에는 자동으로 따라오지만
    그대로 뜬다. 값이 같아도 적는다 — "같다"도 결정이다.
 5. **브랜드가 시맨틱 색 키를 덮었으면 `brand/<이름>.dark.json`이 그 키들을 전부 덮어야 한다.**
 6. **램프는 `$ramp` 축약으로 통째로만 바꾼다.** 단계 하나만 바꾸면 그레이 계단이 어긋난다.
+7. **토큰 소스 JSON은 한 가지 포맷이어야 한다.** 테마 랩이 저장할 때 파일을 통째로 다시 쓰므로,
+   포맷이 제각각이면 값 하나를 바꿔도 파일 전체가 바뀐 것으로 보여 **협업 시 충돌이 난다.**
+   `npm run format:tokens` 로 고친다.
 
 그리고 계약 린트가 하나 더 있다:
 
@@ -184,6 +187,8 @@ npm run verify          # 전체 검증 (토큰 빌드 → 계약 린트 → 패
 npm run build           # 토큰 + 린트 + React 패키지
 npm run build:tokens    # 토큰만
 npm run lint:contract   # 계약 린트만
+npm run format:tokens   # 토큰 소스 JSON 포맷 맞추기 (규칙 7)
+npm run build:registry  # 레지스트리 JSON 생성
 npm run dev             # playground 개발 서버
 npm run storybook       # 스토리북 (localhost:6006). 스토리는 컴포넌트 옆 *.stories.tsx
 npm run build-storybook # 정적 빌드 → apps/storybook/storybook-static
@@ -198,6 +203,39 @@ Node 22 이상 (`.nvmrc` = 26). `npm install` 한 번이면 워크스페이스 �
 `main`에 푸시하면 GitHub Actions(`.github/workflows/storybook.yml`)가 토큰 빌드 → 계약 린트 →
 컴포넌트 빌드 → 타입 검사 → 스토리북 빌드 → GitHub Pages 배포를 순서대로 한다. 앞 단계가
 실패하면 배포하지 않는다. 저장소 Settings → Pages → Source를 **GitHub Actions**로 두어야 한다.
+
+## 자주 하는 작업 — 절차
+
+### 프리셋 추가 (제품군이 늘 때)
+
+1. `packages/tokens/src/archetype/<이름>.json` — 기존 파일(`workbench.json` 등)을 복사해 값만 바꾼다.
+   **치수만** 넣는다. 색을 넣으면 규칙 3이 막는다.
+2. `packages/tokens/presets.json` 에 한 덩어리 추가:
+   ```json
+   "console": { "product": true, "archetype": "console", "brand": "default",
+                "label": "콘솔", "title": "…", "description": "…" }
+   ```
+3. `npm run verify` — 축 파일을 빼먹었으면 **무엇을 만들어야 하는지 알려주며 막는다.**
+
+이것만으로 스토리북 툴바와 레지스트리 배포에 동시에 나타난다(같은 파일을 읽으므로).
+
+**프리셋마다 색을 다르게 하려면 브랜드도 필요하다.** 지금 `saas`와 `landing`은
+`brand: "default"` 를 공유하므로 색이 같다. 랜딩만 다른 accent 를 쓰려면
+`brand/landing.json` 을 만들고 프리셋이 그걸 가리키게 한다 — 시맨틱 매핑까지 바꾸면
+규칙 5에 따라 `brand/landing.dark.json` 도 함께 만들어야 한다.
+
+### 토큰 키 추가 (테마로 바꿀 수 있는 것을 늘릴 때)
+
+1. `semantic/color.json` 또는 `semantic/layout.json` 에 키 추가 — **역할 이름**으로 짓는다
+   (`surface.inverse` ○ / `surface.cardHeader` ✗ — 컴포넌트 이름이 들어가면 3층 소관)
+2. 색이면 `mode/dark.json` 에도 값을 적는다 — 안 적으면 규칙 4가 막는다
+3. 컴포넌트가 그 토큰을 **참조하게** 한다. 이걸 빼먹으면 키만 있고 아무것도 안 바뀐다
+4. `npm run verify`
+
+### UI 폴리싱 (대부분의 작업)
+
+테마 랩에서 값을 바꾸고 저장한다. 저장 위치는 패널에 표시된다 —
+치수는 고른 프리셋의 아키타입 파일로, 색은 팔레트나 계약으로 간다.
 
 ## 토큰 고치는 법
 

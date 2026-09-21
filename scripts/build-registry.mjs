@@ -97,6 +97,19 @@ const RESET = ['--color-*','--spacing','--spacing-*','--radius-*','--text-*','--
 
 async function main() {
   const layers = await listLayers(TOKENS_SRC);
+
+  // 프리셋이 없는 축을 가리키면 여기서 막는다. 그냥 두면 ENOENT 만 뜨고
+  // 무엇을 만들어야 하는지 알 수 없다.
+  for (const [name, cfg] of Object.entries(ALL_PRESETS)) {
+    const missing = [];
+    if (cfg.archetype !== 'base' && !layers.archetypes.includes(cfg.archetype))
+      missing.push(`packages/tokens/src/archetype/${cfg.archetype}.json  (치수 delta — 기존 파일을 복사해 시작하세요)`);
+    if (cfg.brand !== 'default' && !layers.brands.includes(cfg.brand))
+      missing.push(`packages/tokens/src/brand/${cfg.brand}.json  (램프 배정)`);
+    if (missing.length) throw new Error(
+      `프리셋 "${name}" 이 없는 파일을 가리킵니다:\n  ${missing.join('\n  ')}\n` +
+      `presets.json 에 프리셋을 추가할 때는 그 축 파일도 함께 만들어야 합니다.`);
+  }
   const base = await baseCss();
   await rm(OUT, { recursive: true, force: true });
   await mkdir(path.join(OUT, 'r'), { recursive: true });

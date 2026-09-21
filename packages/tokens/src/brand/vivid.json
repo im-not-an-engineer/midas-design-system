@@ -1,6 +1,8 @@
 {
   "$description": "브랜드 — vivid (주황). 포인트 컬러만 다른 브랜드는 이 한 줄이 전부다. 나머지 램프와 시맨틱 매핑은 default를 그대로 물려받는다.",
   "ramp": {
-    "accent": { "$ramp": "{palette.orange}" }
+    "accent": {
+      "$ramp": "{palette.orange}"
+    }
   }
 }

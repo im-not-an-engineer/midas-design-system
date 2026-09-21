@@ -39,11 +39,11 @@
     }
   },
   "space": {
-    "$type": "dimension",
     "0": {
       "$value": "{scale.space.0}",
       "$description": "0. 밀도 결정이 아니라 모든 아키타입 공통이므로 아키타입이 덮지 않는다."
     },
+    "$type": "dimension",
     "inset": {
       "$description": "안쪽 여백(padding).",
       "xs": {

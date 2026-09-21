@@ -2,51 +2,121 @@
   "$description": "1층 Primitive — 치수 재료. 이름이 곧 px 값이라 디자이너가 읽을 수 있다.",
   "scale": {
     "space": {
-      "$type": "dimension",
-      "0":  { "$value": "0px" },
-      "2":  { "$value": "2px" },
-      "4":  { "$value": "4px" },
-      "6":  { "$value": "6px" },
-      "8":  { "$value": "8px" },
-      "10": { "$value": "10px" },
-      "12": { "$value": "12px" },
-      "16": { "$value": "16px" },
-      "20": { "$value": "20px" },
-      "24": { "$value": "24px" },
-      "32": { "$value": "32px" },
-      "40": { "$value": "40px" },
-      "48": { "$value": "48px" },
-      "64": { "$value": "64px" }
+      "0": {
+        "$value": "0px"
+      },
+      "2": {
+        "$value": "2px"
+      },
+      "4": {
+        "$value": "4px"
+      },
+      "6": {
+        "$value": "6px"
+      },
+      "8": {
+        "$value": "8px"
+      },
+      "10": {
+        "$value": "10px"
+      },
+      "12": {
+        "$value": "12px"
+      },
+      "16": {
+        "$value": "16px"
+      },
+      "20": {
+        "$value": "20px"
+      },
+      "24": {
+        "$value": "24px"
+      },
+      "32": {
+        "$value": "32px"
+      },
+      "40": {
+        "$value": "40px"
+      },
+      "48": {
+        "$value": "48px"
+      },
+      "64": {
+        "$value": "64px"
+      },
+      "$type": "dimension"
     },
     "control": {
-      "$type": "dimension",
-      "24": { "$value": "24px" },
-      "28": { "$value": "28px" },
-      "32": { "$value": "32px" },
-      "36": { "$value": "36px" },
-      "40": { "$value": "40px" },
-      "44": { "$value": "44px" },
-      "48": { "$value": "48px" }
+      "24": {
+        "$value": "24px"
+      },
+      "28": {
+        "$value": "28px"
+      },
+      "32": {
+        "$value": "32px"
+      },
+      "36": {
+        "$value": "36px"
+      },
+      "40": {
+        "$value": "40px"
+      },
+      "44": {
+        "$value": "44px"
+      },
+      "48": {
+        "$value": "48px"
+      },
+      "$type": "dimension"
     },
     "radius": {
+      "0": {
+        "$value": "0px"
+      },
+      "2": {
+        "$value": "2px"
+      },
+      "3": {
+        "$value": "3px"
+      },
+      "4": {
+        "$value": "4px"
+      },
+      "6": {
+        "$value": "6px"
+      },
+      "8": {
+        "$value": "8px"
+      },
+      "12": {
+        "$value": "12px"
+      },
+      "16": {
+        "$value": "16px"
+      },
       "$type": "dimension",
-      "0":    { "$value": "0px" },
-      "2":    { "$value": "2px" },
-      "3":    { "$value": "3px" },
-      "4":    { "$value": "4px" },
-      "6":    { "$value": "6px" },
-      "8":    { "$value": "8px" },
-      "12":   { "$value": "12px" },
-      "16":   { "$value": "16px" },
-      "full": { "$value": "9999px" }
+      "full": {
+        "$value": "9999px"
+      }
     },
     "icon": {
-      "$type": "dimension",
-      "12": { "$value": "12px" },
-      "14": { "$value": "14px" },
-      "16": { "$value": "16px" },
-      "20": { "$value": "20px" },
-      "24": { "$value": "24px" }
+      "12": {
+        "$value": "12px"
+      },
+      "14": {
+        "$value": "14px"
+      },
+      "16": {
+        "$value": "16px"
+      },
+      "20": {
+        "$value": "20px"
+      },
+      "24": {
+        "$value": "24px"
+      },
+      "$type": "dimension"
     }
   }
 }

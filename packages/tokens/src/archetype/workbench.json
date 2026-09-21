@@ -1,23 +1,143 @@
 {
   "$description": "아키타입 delta — workbench (고밀도 업무 도구). 2층 계약에 이미 있는 키만 덮어쓴다. 새 키를 만들면 빌드가 실패한다.",
   "size": {
-    "control": { "sm": { "$value": "{scale.control.24}" }, "md": { "$value": "{scale.control.28}" }, "lg": { "$value": "{scale.control.32}" } },
-    "icon":    { "sm": { "$value": "{scale.icon.12}" },    "md": { "$value": "{scale.icon.14}" },    "lg": { "$value": "{scale.icon.16}" } },
-    "row":     { "sm": { "$value": "{scale.control.24}" }, "md": { "$value": "{scale.control.28}" }, "lg": { "$value": "{scale.control.32}" } }
+    "control": {
+      "sm": {
+        "$value": "{scale.control.24}"
+      },
+      "md": {
+        "$value": "{scale.control.28}"
+      },
+      "lg": {
+        "$value": "{scale.control.32}"
+      }
+    },
+    "icon": {
+      "sm": {
+        "$value": "{scale.icon.12}"
+      },
+      "md": {
+        "$value": "{scale.icon.14}"
+      },
+      "lg": {
+        "$value": "{scale.icon.16}"
+      }
+    },
+    "row": {
+      "sm": {
+        "$value": "{scale.control.24}"
+      },
+      "md": {
+        "$value": "{scale.control.28}"
+      },
+      "lg": {
+        "$value": "{scale.control.32}"
+      }
+    }
   },
   "space": {
-    "inset":   { "xs": { "$value": "{scale.space.2}" }, "sm": { "$value": "{scale.space.4}" },  "md": { "$value": "{scale.space.8}" },  "lg": { "$value": "{scale.space.12}" }, "xl": { "$value": "{scale.space.16}" } },
-    "stack":   { "xs": { "$value": "{scale.space.2}" }, "sm": { "$value": "{scale.space.4}" },  "md": { "$value": "{scale.space.8}" },  "lg": { "$value": "{scale.space.12}" }, "xl": { "$value": "{scale.space.20}" } },
-    "inline":  { "xs": { "$value": "{scale.space.2}" }, "sm": { "$value": "{scale.space.4}" },  "md": { "$value": "{scale.space.6}" },  "lg": { "$value": "{scale.space.8}" } },
-    "section": { "sm": { "$value": "{scale.space.16}" }, "md": { "$value": "{scale.space.24}" }, "lg": { "$value": "{scale.space.32}" } }
+    "inset": {
+      "xs": {
+        "$value": "{scale.space.2}"
+      },
+      "sm": {
+        "$value": "{scale.space.4}"
+      },
+      "md": {
+        "$value": "{scale.space.8}"
+      },
+      "lg": {
+        "$value": "{scale.space.12}"
+      },
+      "xl": {
+        "$value": "{scale.space.16}"
+      }
+    },
+    "stack": {
+      "xs": {
+        "$value": "{scale.space.2}"
+      },
+      "sm": {
+        "$value": "{scale.space.4}"
+      },
+      "md": {
+        "$value": "{scale.space.8}"
+      },
+      "lg": {
+        "$value": "{scale.space.12}"
+      },
+      "xl": {
+        "$value": "{scale.space.20}"
+      }
+    },
+    "inline": {
+      "xs": {
+        "$value": "{scale.space.2}"
+      },
+      "sm": {
+        "$value": "{scale.space.4}"
+      },
+      "md": {
+        "$value": "{scale.space.6}"
+      },
+      "lg": {
+        "$value": "{scale.space.8}"
+      }
+    },
+    "section": {
+      "sm": {
+        "$value": "{scale.space.16}"
+      },
+      "md": {
+        "$value": "{scale.space.24}"
+      },
+      "lg": {
+        "$value": "{scale.space.32}"
+      }
+    }
   },
   "radius": {
-    "control": { "$value": "{scale.radius.3}" },
-    "surface": { "$value": "{scale.radius.4}" },
-    "overlay": { "$value": "{scale.radius.6}" }
+    "control": {
+      "$value": "{scale.radius.3}"
+    },
+    "surface": {
+      "$value": "{scale.radius.4}"
+    },
+    "overlay": {
+      "$value": "{scale.radius.6}"
+    }
   },
   "font": {
-    "size":       { "caption": { "$value": "{scale.fontSize.11}" }, "body": { "$value": "{scale.fontSize.13}" }, "bodyLg": { "$value": "{scale.fontSize.14}" }, "headingSm": { "$value": "{scale.fontSize.14}" }, "headingMd": { "$value": "{scale.fontSize.16}" }, "headingLg": { "$value": "{scale.fontSize.20}" }, "display": { "$value": "{scale.fontSize.24}" } },
-    "lineHeight": { "normal": { "$value": "{scale.lineHeight.snug}" }, "ui": { "$value": "{scale.lineHeight.tight}" } }
+    "size": {
+      "caption": {
+        "$value": "{scale.fontSize.11}"
+      },
+      "body": {
+        "$value": "{scale.fontSize.13}"
+      },
+      "bodyLg": {
+        "$value": "{scale.fontSize.14}"
+      },
+      "headingSm": {
+        "$value": "{scale.fontSize.14}"
+      },
+      "headingMd": {
+        "$value": "{scale.fontSize.16}"
+      },
+      "headingLg": {
+        "$value": "{scale.fontSize.20}"
+      },
+      "display": {
+        "$value": "{scale.fontSize.24}"
+      }
+    },
+    "lineHeight": {
+      "normal": {
+        "$value": "{scale.lineHeight.snug}"
+      },
+      "ui": {
+        "$value": "{scale.lineHeight.tight}"
+      }
+    }
   }
 }

@@ -18,7 +18,8 @@
     "storybook": "npm run storybook -w @ax/storybook",
     "build-storybook": "npm run build-storybook -w @ax/storybook && npm run build:registry && cp -R registry/r apps/storybook/storybook-static/",
     "ramp": "npm run ramp -w @ax/tokens --",
-    "build:registry": "node scripts/build-registry.mjs"
+    "build:registry": "node scripts/build-registry.mjs",
+    "format:tokens": "node scripts/format-tokens.mjs"
   },
   "engines": {
     "node": ">=22"
