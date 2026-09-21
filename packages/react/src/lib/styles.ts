@@ -87,3 +87,28 @@ export const POPUP_ITEM = [
 export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-medium text-fg-muted';
 export const POPUP_SEPARATOR = '-mx-inset-xs my-inset-xs h-px bg-border-subtle';
 export const POPUP_EMPTY = 'px-inset-sm py-inset-md text-caption text-fg-muted';
+
+/** 모달 계열(Dialog, AlertDialog, Drawer)의 뒷배경. */
+export const MODAL_BACKDROP = [
+  'fixed inset-0 z-overlay bg-surface-scrim',
+  'transition-opacity duration-fast ease-standard',
+  'data-starting-style:opacity-0 data-ending-style:opacity-0',
+].join(' ');
+
+/** 모달 계열의 면. 위치·크기는 각 컴포넌트가 더한다. */
+export const MODAL_SURFACE = [
+  'z-modal outline-none',
+  'bg-surface-overlay text-fg-default',
+  'border border-solid border-border-default shadow-modal',
+  'font-sans text-body',
+].join(' ');
+
+/** 중앙 다이얼로그의 너비 단계. 밀도가 아니라 가독성 문제라 아키타입과 무관한 px다. */
+export const DIALOG_WIDTH = {
+  sm: 'max-w-[380px]',
+  md: 'max-w-[560px]',
+  lg: 'max-w-[800px]',
+} as const;
+
+export const DIALOG_TITLE = 'text-heading-sm font-semibold leading-tight tracking-heading text-fg-default';
+export const DIALOG_DESCRIPTION = 'text-body leading-normal text-fg-muted';

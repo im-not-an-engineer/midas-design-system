@@ -16,6 +16,20 @@ export { NumberField, type NumberFieldProps } from './components/number-field';
 export { Slider, type SliderProps } from './components/slider';
 export { OTPField, type OTPFieldProps } from './components/otp-field';
 export { Fieldset, Form, type FieldsetProps, type FormProps } from './components/fieldset';
+
+export {
+  AlertDialog, AlertDialogTrigger, AlertDialogClose, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogConfirmFooter,
+  type AlertDialogContentProps,
+} from './components/alert-dialog';
+export { Popover, PopoverTrigger, PopoverClose, PopoverContent, PopoverTitle, PopoverDescription, type PopoverContentProps } from './components/popover';
+export { Tooltip, TooltipProvider, type TooltipProps } from './components/tooltip';
+export { PreviewCard, PreviewCardTrigger, PreviewCardContent, type PreviewCardContentProps } from './components/preview-card';
+export { Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerTitle, DrawerDescription, DrawerFooter, DrawerCloseButton, type DrawerProps } from './components/drawer';
+export {
+  ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuGroup, ContextMenuSeparator,
+  ContextMenuCheckboxItem, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSub, ContextMenuSubTrigger, ContextMenuSubContent,
+} from './components/context-menu';
+export { ToastProvider, useToastManager, type ToastProviderProps, type ToastType } from './components/toast';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,
   type FieldProps, type InputProps, type TextareaProps,

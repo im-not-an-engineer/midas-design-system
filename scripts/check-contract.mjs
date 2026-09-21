@@ -49,6 +49,16 @@ function extractCandidates(src) {
     const attr = /([A-Za-z_$][\w$]*)\s*=\s*\{?\s*$/.exec(cleaned.slice(0, m.index));
     if (attr && attr[1] !== 'className') continue;
 
+    // 객체 키 위치({ 'bottom-right': … }, 앞이 { 또는 , 또는 줄 시작이고 뒤가 :)와
+    // 타입/속성 인덱스(['swipeDirection'])는 클래스가 아니다. 삼항(? 'a' : 'b')은 앞이 ?라 남는다.
+    const before = cleaned.slice(0, m.index).replace(/\s+$/, '');
+    const after = cleaned.slice(m.index + m[0].length).replace(/^\s+/, '');
+    const prev = before.slice(-1);
+    if (after.startsWith(']')) continue;
+    // 타입 유니언·옵셔널 속성 타입의 리터럴('a' | 'b', size?: 'sm')은 클래스가 아니다.
+    if (prev === '|' || after.startsWith('|') || /\?\s*:\s*$/.test(before)) continue;
+    if (after.startsWith(':') && (prev === '{' || prev === ',' || prev === '' || before.endsWith('\n'))) continue;
+
     const line = cleaned.slice(0, m.index).split('\n').length;
     for (const raw of m[2].split(/\s+/)) {
       const c = raw.trim();
@@ -67,6 +77,7 @@ const NOT_A_CLASS = [
   /^--/,                          // CSS 변수 이름
   /[{}$()]/,                      // 템플릿 자리표시자
   /^ax-/,                            // 우리가 손으로 쓴 CSS 클래스 (.ax-* 규약)
+  /^[^[]*[A-Z]/,                  // 대괄호 앞에 대문자 = camelCase 식별자
   /^[a-z]+$/,                        // 하이픈 없는 소문자 단어 = prop 값 등
   /^\.{0,2}\//,                      // 상대 경로 (./components/dialog)
   /^(data|aria)-[a-z-]+$/,           // 어트리뷰트 이름. data-[state=open]: 같은 변형은 통과시킨다

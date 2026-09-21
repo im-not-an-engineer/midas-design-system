@@ -3,6 +3,7 @@ import { Dialog as Base } from '@base-ui/react/dialog';
 import { cn } from '../lib/cn';
 import { Button } from './button';
 import { usePortalContainer } from '../lib/theme';
+import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, DIALOG_TITLE, DIALOG_DESCRIPTION } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #3 — 오버레이.
@@ -25,36 +26,22 @@ export const DialogClose = Base.Close;
 /** `render`로 우리 Button과 합성한다: <DialogTrigger render={<Button />}>열기</DialogTrigger> */
 export const DialogTrigger = Base.Trigger;
 
-const WIDTH = {
-  sm: 'max-w-[380px]',
-  md: 'max-w-[560px]',
-  lg: 'max-w-[800px]',
-} as const;
-
 export interface DialogContentProps extends React.ComponentProps<typeof Base.Popup> {
-  width?: keyof typeof WIDTH;
+  width?: keyof typeof DIALOG_WIDTH;
 }
 
 export function DialogContent({ width = 'md', className, children, ...props }: DialogContentProps) {
   const container = usePortalContainer();
   return (
     <Base.Portal container={container ?? undefined}>
-      <Base.Backdrop
-        className={cn(
-          'fixed inset-0 z-overlay bg-surface-scrim',
-          'transition-opacity duration-fast ease-standard',
-          'data-starting-style:opacity-0 data-ending-style:opacity-0',
-        )}
-      />
+      <Base.Backdrop className={MODAL_BACKDROP} />
       <Base.Popup
         className={cn(
-          'fixed left-1/2 top-1/2 z-modal -translate-x-1/2 -translate-y-1/2',
+          MODAL_SURFACE,
+          'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
           'w-[calc(100vw-2rem)]',
-          WIDTH[width],
-          'flex flex-col gap-stack-md',
-          'bg-surface-overlay text-fg-default',
-          'border border-solid border-border-default rounded-overlay shadow-modal',
-          'p-inset-lg font-sans text-body',
+          DIALOG_WIDTH[width],
+          'flex flex-col gap-stack-md rounded-overlay p-inset-lg',
           'transition-[opacity,scale] duration-fast ease-standard',
           'data-starting-style:opacity-0 data-starting-style:scale-[0.97]',
           'data-ending-style:opacity-0 data-ending-style:scale-[0.97]',
@@ -78,14 +65,14 @@ export function DialogHeader({ className, ...props }: React.ComponentProps<'div'
 export function DialogTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {
   return (
     <Base.Title
-      className={cn('text-heading-sm font-semibold leading-tight tracking-heading text-fg-default', className)}
+      className={cn(DIALOG_TITLE, className)}
       {...props}
     />
   );
 }
 
 export function DialogDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
-  return <Base.Description className={cn('text-body leading-normal text-fg-muted', className)} {...props} />;
+  return <Base.Description className={cn(DIALOG_DESCRIPTION, className)} {...props} />;
 }
 
 /** 버튼 줄. 순서는 [보조 … 주] 고정 — 화면마다 순서가 바뀌면 사용자가 매번 다시 읽어야 한다. */

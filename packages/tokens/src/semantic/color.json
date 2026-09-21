@@ -2,75 +2,325 @@
   "$description": "2층 Semantic — 계약(contract). 이 키 집합은 모든 테마에서 동일하다. 컴포넌트는 오직 이 이름만 참조한다. 값은 palette가 아니라 ramp(역할 램프)를 가리킨다 — 어느 재질이 neutral/accent인지는 브랜드가 정하므로, 브랜드가 그레이를 웜그레이로 통째로 바꿔도 이 파일은 그대로다. 여기 값은 '기본 테마의 매핑'일 뿐이며 파생 테마는 일부만 덮어쓴다.",
   "color": {
     "$type": "color",
-
     "surface": {
       "$description": "면. 무엇을 담는 배경.",
-      "base":     { "$value": "{ramp.neutral.0}",   "$description": "페이지 바탕" },
-      "subtle":   { "$value": "{ramp.neutral.50}",  "$description": "한 단계 눌린 영역 (테이블 헤더, 섹션 바탕)" },
-      "sunken":   { "$value": "{ramp.neutral.100}", "$description": "가장 안쪽 (코드 블록, 트랙)" },
-      "raised":   { "$value": "{ramp.neutral.0}",   "$description": "떠 있는 면 (카드, 패널)" },
-      "overlay":  { "$value": "{ramp.neutral.0}",   "$description": "가장 위 (다이얼로그, 팝오버)" },
-      "scrim":    { "$value": "rgba(15, 23, 42, 0.45)", "$description": "모달 뒤 어둠막" },
-      "hover":    { "$value": "{ramp.neutral.100}", "$description": "행·항목 호버" },
-      "selected": { "$value": "{ramp.accent.50}",   "$description": "행·항목 선택" }
+      "base": {
+        "$value": "{ramp.neutral.0}",
+        "$description": "페이지 바탕"
+      },
+      "subtle": {
+        "$value": "{ramp.neutral.50}",
+        "$description": "한 단계 눌린 영역 (테이블 헤더, 섹션 바탕)"
+      },
+      "sunken": {
+        "$value": "{ramp.neutral.100}",
+        "$description": "가장 안쪽 (코드 블록, 트랙)"
+      },
+      "raised": {
+        "$value": "{ramp.neutral.0}",
+        "$description": "떠 있는 면 (카드, 패널)"
+      },
+      "overlay": {
+        "$value": "{ramp.neutral.0}",
+        "$description": "가장 위 (다이얼로그, 팝오버)"
+      },
+      "scrim": {
+        "$value": "rgba(15, 23, 42, 0.45)",
+        "$description": "모달 뒤 어둠막"
+      },
+      "hover": {
+        "$value": "{ramp.neutral.100}",
+        "$description": "행·항목 호버"
+      },
+      "selected": {
+        "$value": "{ramp.accent.50}",
+        "$description": "행·항목 선택"
+      },
+      "inverse": {
+        "$value": "{ramp.neutral.900}",
+        "$description": "밝은 화면 위의 어두운 면 (툴팁). 다크에서는 반대로 밝아진다."
+      }
     },
-
     "fg": {
       "$description": "전경. 글자와 아이콘.",
-      "default":  { "$value": "{ramp.neutral.900}" },
-      "muted":    { "$value": "{ramp.neutral.600}", "$description": "보조 설명" },
-      "subtle":   { "$value": "{ramp.neutral.400}", "$description": "플레이스홀더, 비활성 라벨" },
-      "onAccent": { "$value": "{ramp.neutral.0}",   "$description": "강조색 면 위의 글자" },
-      "link":     { "$value": "{ramp.accent.600}" },
-      "disabled": { "$value": "{ramp.neutral.400}" }
+      "default": {
+        "$value": "{ramp.neutral.900}"
+      },
+      "muted": {
+        "$value": "{ramp.neutral.600}",
+        "$description": "보조 설명"
+      },
+      "subtle": {
+        "$value": "{ramp.neutral.400}",
+        "$description": "플레이스홀더, 비활성 라벨"
+      },
+      "onAccent": {
+        "$value": "{ramp.neutral.0}",
+        "$description": "강조색 면 위의 글자"
+      },
+      "link": {
+        "$value": "{ramp.accent.600}"
+      },
+      "disabled": {
+        "$value": "{ramp.neutral.400}"
+      },
+      "onInverse": {
+        "$value": "{ramp.neutral.0}",
+        "$description": "inverse 면 위의 글자"
+      }
     },
-
     "border": {
-      "default": { "$value": "{ramp.neutral.200}" },
-      "subtle":  { "$value": "{ramp.neutral.100}" },
-      "strong":  { "$value": "{ramp.neutral.300}" },
-      "focus":   { "$value": "{ramp.accent.600}" }
+      "default": {
+        "$value": "{ramp.neutral.200}"
+      },
+      "subtle": {
+        "$value": "{ramp.neutral.100}"
+      },
+      "strong": {
+        "$value": "{ramp.neutral.300}"
+      },
+      "focus": {
+        "$value": "{ramp.accent.600}"
+      }
     },
-
-    "focusRing": { "$value": "{ramp.accent.600}", "$description": "포커스 링 색. 모든 컴포넌트가 공유." },
-
+    "focusRing": {
+      "$value": "{ramp.accent.600}",
+      "$description": "포커스 링 색. 모든 컴포넌트가 공유."
+    },
     "action": {
       "$description": "누를 수 있는 것. intent × part × state의 곱. 이 네 intent 외에는 추가하지 않는다. primary가 accent를 쓰는 건 기본 매핑일 뿐 — 무채색 primary 브랜드는 이 키를 ramp.neutral로 덮는다.",
       "primary": {
-        "bg":     { "default": { "$value": "{ramp.accent.600}" }, "hover": { "$value": "{ramp.accent.700}" }, "active": { "$value": "{ramp.accent.800}" }, "disabled": { "$value": "{ramp.neutral.200}" } },
-        "fg":     { "default": { "$value": "{ramp.neutral.0}" }, "disabled": { "$value": "{ramp.neutral.400}" } },
-        "border": { "default": { "$value": "transparent" } }
+        "bg": {
+          "default": {
+            "$value": "{ramp.accent.600}"
+          },
+          "hover": {
+            "$value": "{ramp.accent.700}"
+          },
+          "active": {
+            "$value": "{ramp.accent.800}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.200}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.0}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.400}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "transparent"
+          }
+        }
       },
       "secondary": {
-        "bg":     { "default": { "$value": "{ramp.neutral.0}" }, "hover": { "$value": "{ramp.neutral.50}" }, "active": { "$value": "{ramp.neutral.100}" }, "disabled": { "$value": "{ramp.neutral.50}" } },
-        "fg":     { "default": { "$value": "{ramp.neutral.900}" }, "disabled": { "$value": "{ramp.neutral.400}" } },
-        "border": { "default": { "$value": "{ramp.neutral.300}" } }
+        "bg": {
+          "default": {
+            "$value": "{ramp.neutral.0}"
+          },
+          "hover": {
+            "$value": "{ramp.neutral.50}"
+          },
+          "active": {
+            "$value": "{ramp.neutral.100}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.50}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.900}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.400}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "{ramp.neutral.300}"
+          }
+        }
       },
       "ghost": {
-        "bg":     { "default": { "$value": "transparent" }, "hover": { "$value": "{ramp.neutral.100}" }, "active": { "$value": "{ramp.neutral.200}" }, "disabled": { "$value": "transparent" } },
-        "fg":     { "default": { "$value": "{ramp.neutral.700}" }, "disabled": { "$value": "{ramp.neutral.400}" } },
-        "border": { "default": { "$value": "transparent" } }
+        "bg": {
+          "default": {
+            "$value": "transparent"
+          },
+          "hover": {
+            "$value": "{ramp.neutral.100}"
+          },
+          "active": {
+            "$value": "{ramp.neutral.200}"
+          },
+          "disabled": {
+            "$value": "transparent"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.700}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.400}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "transparent"
+          }
+        }
       },
       "destructive": {
-        "bg":     { "default": { "$value": "{ramp.danger.600}" }, "hover": { "$value": "{ramp.danger.700}" }, "active": { "$value": "{ramp.danger.800}" }, "disabled": { "$value": "{ramp.neutral.200}" } },
-        "fg":     { "default": { "$value": "{ramp.neutral.0}" }, "disabled": { "$value": "{ramp.neutral.400}" } },
-        "border": { "default": { "$value": "transparent" } }
+        "bg": {
+          "default": {
+            "$value": "{ramp.danger.600}"
+          },
+          "hover": {
+            "$value": "{ramp.danger.700}"
+          },
+          "active": {
+            "$value": "{ramp.danger.800}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.200}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.0}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.400}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "transparent"
+          }
+        }
       }
     },
-
     "field": {
       "$description": "입력 컨트롤. action과 분리한 이유: 입력은 invalid 상태가 있고 기본 배경이 다르다.",
-      "bg":     { "default": { "$value": "{ramp.neutral.0}" }, "hover": { "$value": "{ramp.neutral.0}" }, "disabled": { "$value": "{ramp.neutral.50}" }, "readonly": { "$value": "{ramp.neutral.50}" } },
-      "fg":     { "default": { "$value": "{ramp.neutral.900}" }, "placeholder": { "$value": "{ramp.neutral.400}" }, "disabled": { "$value": "{ramp.neutral.400}" } },
-      "border": { "default": { "$value": "{ramp.neutral.300}" }, "hover": { "$value": "{ramp.neutral.400}" }, "focus": { "$value": "{ramp.accent.600}" }, "invalid": { "$value": "{ramp.danger.600}" }, "disabled": { "$value": "{ramp.neutral.200}" } }
+      "bg": {
+        "default": {
+          "$value": "{ramp.neutral.0}"
+        },
+        "hover": {
+          "$value": "{ramp.neutral.0}"
+        },
+        "disabled": {
+          "$value": "{ramp.neutral.50}"
+        },
+        "readonly": {
+          "$value": "{ramp.neutral.50}"
+        }
+      },
+      "fg": {
+        "default": {
+          "$value": "{ramp.neutral.900}"
+        },
+        "placeholder": {
+          "$value": "{ramp.neutral.400}"
+        },
+        "disabled": {
+          "$value": "{ramp.neutral.400}"
+        }
+      },
+      "border": {
+        "default": {
+          "$value": "{ramp.neutral.300}"
+        },
+        "hover": {
+          "$value": "{ramp.neutral.400}"
+        },
+        "focus": {
+          "$value": "{ramp.accent.600}"
+        },
+        "invalid": {
+          "$value": "{ramp.danger.600}"
+        },
+        "disabled": {
+          "$value": "{ramp.neutral.200}"
+        }
+      }
     },
-
     "status": {
       "$description": "피드백. 각 상태는 subtle(연한 면) / fg(그 면 위 글자) / border / solid(꽉 찬 면) / onSolid. info는 accent와 별개 램프다 — 브랜드색이 주황이어도 정보 알림은 파랑이어야 한다.",
-      "info":    { "subtle": { "$value": "{ramp.info.50}" },    "fg": { "$value": "{ramp.info.700}" },    "border": { "$value": "{ramp.info.200}" },    "solid": { "$value": "{ramp.info.600}" },    "onSolid": { "$value": "{ramp.neutral.0}" } },
-      "success": { "subtle": { "$value": "{ramp.success.50}" }, "fg": { "$value": "{ramp.success.700}" }, "border": { "$value": "{ramp.success.200}" }, "solid": { "$value": "{ramp.success.600}" }, "onSolid": { "$value": "{ramp.neutral.0}" } },
-      "warning": { "subtle": { "$value": "{ramp.warning.50}" }, "fg": { "$value": "{ramp.warning.800}" }, "border": { "$value": "{ramp.warning.200}" }, "solid": { "$value": "{ramp.warning.500}" }, "onSolid": { "$value": "{ramp.neutral.900}" } },
-      "danger":  { "subtle": { "$value": "{ramp.danger.50}" },  "fg": { "$value": "{ramp.danger.700}" },  "border": { "$value": "{ramp.danger.200}" },  "solid": { "$value": "{ramp.danger.600}" },  "onSolid": { "$value": "{ramp.neutral.0}" } }
+      "info": {
+        "subtle": {
+          "$value": "{ramp.info.50}"
+        },
+        "fg": {
+          "$value": "{ramp.info.700}"
+        },
+        "border": {
+          "$value": "{ramp.info.200}"
+        },
+        "solid": {
+          "$value": "{ramp.info.600}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.0}"
+        }
+      },
+      "success": {
+        "subtle": {
+          "$value": "{ramp.success.50}"
+        },
+        "fg": {
+          "$value": "{ramp.success.700}"
+        },
+        "border": {
+          "$value": "{ramp.success.200}"
+        },
+        "solid": {
+          "$value": "{ramp.success.600}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.0}"
+        }
+      },
+      "warning": {
+        "subtle": {
+          "$value": "{ramp.warning.50}"
+        },
+        "fg": {
+          "$value": "{ramp.warning.800}"
+        },
+        "border": {
+          "$value": "{ramp.warning.200}"
+        },
+        "solid": {
+          "$value": "{ramp.warning.500}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.900}"
+        }
+      },
+      "danger": {
+        "subtle": {
+          "$value": "{ramp.danger.50}"
+        },
+        "fg": {
+          "$value": "{ramp.danger.700}"
+        },
+        "border": {
+          "$value": "{ramp.danger.200}"
+        },
+        "solid": {
+          "$value": "{ramp.danger.600}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.0}"
+        }
+      }
     }
   }
 }

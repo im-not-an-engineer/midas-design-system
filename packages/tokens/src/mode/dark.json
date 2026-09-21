@@ -2,50 +2,305 @@
   "$description": "런타임 모드 delta — dark. ramp 기준으로 적으므로 브랜드와 무관하다: 브랜드가 neutral을 웜그레이로 바꾸면 다크도 자동으로 웜 다크가 된다. 빌드 규칙 4에 의해 2층의 모든 색 키가 여기 적혀야 한다 — 값이 라이트와 같아도 적는다. 브랜드가 시맨틱 매핑을 바꿨다면(예: 무채색 primary) 그 키의 다크 값은 brand/<이름>.dark.json이 책임진다.",
   "color": {
     "surface": {
-      "base": { "$value": "{ramp.neutral.950}" }, "subtle": { "$value": "{ramp.neutral.900}" }, "sunken": { "$value": "{ramp.neutral.1000}" },
-      "raised": { "$value": "{ramp.neutral.900}" }, "overlay": { "$value": "{ramp.neutral.800}" }, "scrim": { "$value": "rgba(2, 6, 23, 0.65)" },
-      "hover": { "$value": "{ramp.neutral.800}" }, "selected": { "$value": "{ramp.accent.950}" }
+      "base": {
+        "$value": "{ramp.neutral.950}"
+      },
+      "subtle": {
+        "$value": "{ramp.neutral.900}"
+      },
+      "sunken": {
+        "$value": "{ramp.neutral.1000}"
+      },
+      "raised": {
+        "$value": "{ramp.neutral.900}"
+      },
+      "overlay": {
+        "$value": "{ramp.neutral.800}"
+      },
+      "scrim": {
+        "$value": "rgba(2, 6, 23, 0.65)"
+      },
+      "hover": {
+        "$value": "{ramp.neutral.800}"
+      },
+      "selected": {
+        "$value": "{ramp.accent.950}"
+      },
+      "inverse": {
+        "$value": "{ramp.neutral.100}"
+      }
     },
     "fg": {
-      "default": { "$value": "{ramp.neutral.50}" }, "muted": { "$value": "{ramp.neutral.400}" }, "subtle": { "$value": "{ramp.neutral.500}" },
-      "onAccent": { "$value": "{ramp.neutral.0}" }, "link": { "$value": "{ramp.accent.400}" }, "disabled": { "$value": "{ramp.neutral.600}" }
+      "default": {
+        "$value": "{ramp.neutral.50}"
+      },
+      "muted": {
+        "$value": "{ramp.neutral.400}"
+      },
+      "subtle": {
+        "$value": "{ramp.neutral.500}"
+      },
+      "onAccent": {
+        "$value": "{ramp.neutral.0}"
+      },
+      "link": {
+        "$value": "{ramp.accent.400}"
+      },
+      "disabled": {
+        "$value": "{ramp.neutral.600}"
+      },
+      "onInverse": {
+        "$value": "{ramp.neutral.950}"
+      }
     },
     "border": {
-      "default": { "$value": "{ramp.neutral.800}" }, "subtle": { "$value": "{ramp.neutral.900}" }, "strong": { "$value": "{ramp.neutral.700}" }, "focus": { "$value": "{ramp.accent.500}" }
+      "default": {
+        "$value": "{ramp.neutral.800}"
+      },
+      "subtle": {
+        "$value": "{ramp.neutral.900}"
+      },
+      "strong": {
+        "$value": "{ramp.neutral.700}"
+      },
+      "focus": {
+        "$value": "{ramp.accent.500}"
+      }
     },
-    "focusRing": { "$value": "{ramp.accent.500}" },
+    "focusRing": {
+      "$value": "{ramp.accent.500}"
+    },
     "action": {
       "primary": {
-        "bg": { "default": { "$value": "{ramp.accent.500}" }, "hover": { "$value": "{ramp.accent.600}" }, "active": { "$value": "{ramp.accent.700}" }, "disabled": { "$value": "{ramp.neutral.800}" } },
-        "fg": { "default": { "$value": "{ramp.neutral.0}" }, "disabled": { "$value": "{ramp.neutral.600}" } },
-        "border": { "default": { "$value": "transparent" } }
+        "bg": {
+          "default": {
+            "$value": "{ramp.accent.500}"
+          },
+          "hover": {
+            "$value": "{ramp.accent.600}"
+          },
+          "active": {
+            "$value": "{ramp.accent.700}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.800}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.0}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.600}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "transparent"
+          }
+        }
       },
       "secondary": {
-        "bg": { "default": { "$value": "{ramp.neutral.900}" }, "hover": { "$value": "{ramp.neutral.800}" }, "active": { "$value": "{ramp.neutral.700}" }, "disabled": { "$value": "{ramp.neutral.900}" } },
-        "fg": { "default": { "$value": "{ramp.neutral.50}" }, "disabled": { "$value": "{ramp.neutral.600}" } },
-        "border": { "default": { "$value": "{ramp.neutral.700}" } }
+        "bg": {
+          "default": {
+            "$value": "{ramp.neutral.900}"
+          },
+          "hover": {
+            "$value": "{ramp.neutral.800}"
+          },
+          "active": {
+            "$value": "{ramp.neutral.700}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.900}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.50}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.600}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "{ramp.neutral.700}"
+          }
+        }
       },
       "ghost": {
-        "bg": { "default": { "$value": "transparent" }, "hover": { "$value": "{ramp.neutral.800}" }, "active": { "$value": "{ramp.neutral.700}" }, "disabled": { "$value": "transparent" } },
-        "fg": { "default": { "$value": "{ramp.neutral.300}" }, "disabled": { "$value": "{ramp.neutral.600}" } },
-        "border": { "default": { "$value": "transparent" } }
+        "bg": {
+          "default": {
+            "$value": "transparent"
+          },
+          "hover": {
+            "$value": "{ramp.neutral.800}"
+          },
+          "active": {
+            "$value": "{ramp.neutral.700}"
+          },
+          "disabled": {
+            "$value": "transparent"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.300}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.600}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "transparent"
+          }
+        }
       },
       "destructive": {
-        "bg": { "default": { "$value": "{ramp.danger.500}" }, "hover": { "$value": "{ramp.danger.600}" }, "active": { "$value": "{ramp.danger.700}" }, "disabled": { "$value": "{ramp.neutral.800}" } },
-        "fg": { "default": { "$value": "{ramp.neutral.0}" }, "disabled": { "$value": "{ramp.neutral.600}" } },
-        "border": { "default": { "$value": "transparent" } }
+        "bg": {
+          "default": {
+            "$value": "{ramp.danger.500}"
+          },
+          "hover": {
+            "$value": "{ramp.danger.600}"
+          },
+          "active": {
+            "$value": "{ramp.danger.700}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.800}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{ramp.neutral.0}"
+          },
+          "disabled": {
+            "$value": "{ramp.neutral.600}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "transparent"
+          }
+        }
       }
     },
     "field": {
-      "bg": { "default": { "$value": "{ramp.neutral.900}" }, "hover": { "$value": "{ramp.neutral.900}" }, "disabled": { "$value": "{ramp.neutral.950}" }, "readonly": { "$value": "{ramp.neutral.950}" } },
-      "fg": { "default": { "$value": "{ramp.neutral.50}" }, "placeholder": { "$value": "{ramp.neutral.500}" }, "disabled": { "$value": "{ramp.neutral.600}" } },
-      "border": { "default": { "$value": "{ramp.neutral.700}" }, "hover": { "$value": "{ramp.neutral.600}" }, "focus": { "$value": "{ramp.accent.500}" }, "invalid": { "$value": "{ramp.danger.400}" }, "disabled": { "$value": "{ramp.neutral.800}" } }
+      "bg": {
+        "default": {
+          "$value": "{ramp.neutral.900}"
+        },
+        "hover": {
+          "$value": "{ramp.neutral.900}"
+        },
+        "disabled": {
+          "$value": "{ramp.neutral.950}"
+        },
+        "readonly": {
+          "$value": "{ramp.neutral.950}"
+        }
+      },
+      "fg": {
+        "default": {
+          "$value": "{ramp.neutral.50}"
+        },
+        "placeholder": {
+          "$value": "{ramp.neutral.500}"
+        },
+        "disabled": {
+          "$value": "{ramp.neutral.600}"
+        }
+      },
+      "border": {
+        "default": {
+          "$value": "{ramp.neutral.700}"
+        },
+        "hover": {
+          "$value": "{ramp.neutral.600}"
+        },
+        "focus": {
+          "$value": "{ramp.accent.500}"
+        },
+        "invalid": {
+          "$value": "{ramp.danger.400}"
+        },
+        "disabled": {
+          "$value": "{ramp.neutral.800}"
+        }
+      }
     },
     "status": {
-      "info":    { "subtle": { "$value": "{ramp.info.950}" },    "fg": { "$value": "{ramp.info.300}" },    "border": { "$value": "{ramp.info.900}" },    "solid": { "$value": "{ramp.info.500}" },    "onSolid": { "$value": "{ramp.neutral.0}" } },
-      "success": { "subtle": { "$value": "{ramp.success.950}" }, "fg": { "$value": "{ramp.success.300}" }, "border": { "$value": "{ramp.success.900}" }, "solid": { "$value": "{ramp.success.500}" }, "onSolid": { "$value": "{ramp.neutral.0}" } },
-      "warning": { "subtle": { "$value": "{ramp.warning.950}" }, "fg": { "$value": "{ramp.warning.300}" }, "border": { "$value": "{ramp.warning.900}" }, "solid": { "$value": "{ramp.warning.400}" }, "onSolid": { "$value": "{ramp.neutral.900}" } },
-      "danger":  { "subtle": { "$value": "{ramp.danger.950}" },  "fg": { "$value": "{ramp.danger.300}" },  "border": { "$value": "{ramp.danger.900}" },  "solid": { "$value": "{ramp.danger.500}" },  "onSolid": { "$value": "{ramp.neutral.0}" } }
+      "info": {
+        "subtle": {
+          "$value": "{ramp.info.950}"
+        },
+        "fg": {
+          "$value": "{ramp.info.300}"
+        },
+        "border": {
+          "$value": "{ramp.info.900}"
+        },
+        "solid": {
+          "$value": "{ramp.info.500}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.0}"
+        }
+      },
+      "success": {
+        "subtle": {
+          "$value": "{ramp.success.950}"
+        },
+        "fg": {
+          "$value": "{ramp.success.300}"
+        },
+        "border": {
+          "$value": "{ramp.success.900}"
+        },
+        "solid": {
+          "$value": "{ramp.success.500}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.0}"
+        }
+      },
+      "warning": {
+        "subtle": {
+          "$value": "{ramp.warning.950}"
+        },
+        "fg": {
+          "$value": "{ramp.warning.300}"
+        },
+        "border": {
+          "$value": "{ramp.warning.900}"
+        },
+        "solid": {
+          "$value": "{ramp.warning.400}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.900}"
+        }
+      },
+      "danger": {
+        "subtle": {
+          "$value": "{ramp.danger.950}"
+        },
+        "fg": {
+          "$value": "{ramp.danger.300}"
+        },
+        "border": {
+          "$value": "{ramp.danger.900}"
+        },
+        "solid": {
+          "$value": "{ramp.danger.500}"
+        },
+        "onSolid": {
+          "$value": "{ramp.neutral.0}"
+        }
+      }
     }
   }
 }
