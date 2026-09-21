@@ -1,5 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import { themeLab } from './theme-lab-plugin';
+import { themeLab } from './theme-lab-plugin.ts'; // 확장자 명시 — Storybook ESM 로더가 확장자 없는 import를 경고한다
 
 const config: StorybookConfig = {
   // 스토리는 컴포넌트 옆에 둔다. 그래야 계약 린트(scripts/check-contract.mjs)가 스토리의 클래스도 검사한다.
