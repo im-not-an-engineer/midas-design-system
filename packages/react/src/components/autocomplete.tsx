@@ -25,7 +25,7 @@ export function Autocomplete({ items, placeholder = '검색…', size = 'md', em
   return (
     <Base.Root items={items} {...props}>
       <Base.Input placeholder={placeholder} data-size={size} className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[size], className)} />
-      <Base.Portal container={container}>
+      <Base.Portal container={container ?? undefined}>
         <Base.Positioner sideOffset={4} className="z-popover">
           <Base.Popup className={cn(POPUP_SURFACE, 'w-(--anchor-width) max-h-[min(var(--available-height),320px)] overflow-y-auto')}>
             <Base.Empty className={POPUP_EMPTY}>{emptyText}</Base.Empty>

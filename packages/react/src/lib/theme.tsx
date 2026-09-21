@@ -32,7 +32,11 @@ const ThemeContext = React.createContext<ThemeContextValue>({ portalContainer: n
 
 export const useTheme = () => React.useContext(ThemeContext);
 
-/** 오버레이 컴포넌트가 포털 컨테이너를 얻을 때 쓴다. null이면 Radix 기본값(body). */
+/**
+ * 오버레이 컴포넌트가 포털 컨테이너를 얻을 때 쓴다.
+ * null이면 Portal에 `container={container ?? undefined}`로 넘겨라 — Base UI는 null을 '기본값(body)'이 아니라
+ * '컨테이너 없음'으로 보고 아무것도 렌더하지 않는다. (스토리북에서 Select가 안 열리던 원인)
+ */
 export const usePortalContainer = () => React.useContext(ThemeContext).portalContainer;
 
 /**

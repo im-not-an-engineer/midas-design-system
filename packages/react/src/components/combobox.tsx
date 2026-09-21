@@ -72,7 +72,7 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
           </Base.Trigger>
         </div>
       </Base.InputGroup>
-      <Base.Portal container={container}>
+      <Base.Portal container={container ?? undefined}>
         <Base.Positioner sideOffset={4} className="z-popover">
           <Base.Popup className={cn(POPUP_SURFACE, 'w-(--anchor-width) max-h-[min(var(--available-height),320px)] overflow-y-auto')}>
             <Base.Empty className={POPUP_EMPTY}>{emptyText}</Base.Empty>

@@ -32,7 +32,7 @@ export interface MenuContentProps extends React.ComponentProps<typeof Base.Popup
 export function MenuContent({ className, sideOffset = 4, align, side, ...props }: MenuContentProps) {
   const container = usePortalContainer();
   return (
-    <Base.Portal container={container}>
+    <Base.Portal container={container ?? undefined}>
       <Base.Positioner sideOffset={sideOffset} align={align} side={side} className="z-popover">
         <Base.Popup className={cn(POPUP_SURFACE, className)} {...props} />
       </Base.Positioner>

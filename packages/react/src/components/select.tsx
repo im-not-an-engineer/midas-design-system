@@ -56,7 +56,7 @@ export function SelectValue(props: React.ComponentProps<typeof Base.Value>) {
 export function SelectContent({ className, children, ...props }: React.ComponentProps<typeof Base.Popup>) {
   const container = usePortalContainer();
   return (
-    <Base.Portal container={container}>
+    <Base.Portal container={container ?? undefined}>
       <Base.Positioner sideOffset={4} alignItemWithTrigger={false} className="z-popover">
         <Base.Popup className={cn(POPUP_SURFACE, 'min-w-(--anchor-width)', className)} {...props}>
           <Base.List>{children}</Base.List>

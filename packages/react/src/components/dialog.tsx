@@ -38,7 +38,7 @@ export interface DialogContentProps extends React.ComponentProps<typeof Base.Pop
 export function DialogContent({ width = 'md', className, children, ...props }: DialogContentProps) {
   const container = usePortalContainer();
   return (
-    <Base.Portal container={container}>
+    <Base.Portal container={container ?? undefined}>
       <Base.Backdrop
         className={cn(
           'fixed inset-0 z-overlay bg-surface-scrim',
