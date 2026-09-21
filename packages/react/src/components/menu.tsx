@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Menu as Base } from '@base-ui/react/menu';
 import { cn } from '../lib/cn';
 import { usePortalContainer } from '../lib/theme';
+import { POPUP_SURFACE, POPUP_ITEM, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #4 — 팝오버 계열의 대표.
@@ -20,28 +21,6 @@ export const MenuTrigger = Base.Trigger;
 export const MenuSub = Base.SubmenuRoot;
 export const MenuRadioGroup = Base.RadioGroup;
 
-const SURFACE = [
-  'min-w-[180px] origin-(--transform-origin) overflow-hidden',
-  // 팝업 자체에는 포커스 링을 그리지 않는다. 열릴 때 포커스를 받으므로 그냥 두면
-  // 브라우저 기본 아웃라인(OS 강조색)이 우리 테마를 뚫고 나온다.
-  // 키보드 사용자에게는 항목의 data-highlighted 배경이 위치를 알려준다.
-  'outline-none',
-  'bg-surface-overlay text-fg-default',
-  'border border-solid border-border-default rounded-surface shadow-overlay',
-  'p-inset-xs font-sans text-body',
-  'transition-[opacity,scale] duration-fast ease-standard',
-  'data-starting-style:opacity-0 data-starting-style:scale-[0.97]',
-  'data-ending-style:opacity-0 data-ending-style:scale-[0.97]',
-].join(' ');
-
-const ITEM = [
-  'relative flex items-center gap-inline-sm',
-  'h-control-sm px-inset-sm rounded-control',
-  'leading-ui outline-none select-none cursor-pointer',
-  'data-highlighted:bg-surface-hover',
-  'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
-  '[&_svg]:size-icon-sm [&_svg]:shrink-0',
-].join(' ');
 
 export interface MenuContentProps extends React.ComponentProps<typeof Base.Popup> {
   /** 트리거로부터의 간격. Positioner로 전달된다. */
@@ -55,7 +34,7 @@ export function MenuContent({ className, sideOffset = 4, align, side, ...props }
   return (
     <Base.Portal container={container}>
       <Base.Positioner sideOffset={sideOffset} align={align} side={side} className="z-popover">
-        <Base.Popup className={cn(SURFACE, className)} {...props} />
+        <Base.Popup className={cn(POPUP_SURFACE, className)} {...props} />
       </Base.Positioner>
     </Base.Portal>
   );
@@ -69,7 +48,7 @@ export interface MenuItemProps extends React.ComponentProps<typeof Base.Item> {
 export function MenuItem({ className, destructive, ...props }: MenuItemProps) {
   return (
     <Base.Item
-      className={cn(ITEM, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)}
+      className={cn(POPUP_ITEM, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)}
       {...props}
     />
   );
@@ -77,7 +56,7 @@ export function MenuItem({ className, destructive, ...props }: MenuItemProps) {
 
 export function MenuCheckboxItem({ className, children, ...props }: React.ComponentProps<typeof Base.CheckboxItem>) {
   return (
-    <Base.CheckboxItem className={cn(ITEM, 'pl-inset-lg', className)} {...props}>
+    <Base.CheckboxItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
       <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
         <Base.CheckboxItemIndicator aria-hidden>✓</Base.CheckboxItemIndicator>
       </span>
@@ -88,7 +67,7 @@ export function MenuCheckboxItem({ className, children, ...props }: React.Compon
 
 export function MenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof Base.RadioItem>) {
   return (
-    <Base.RadioItem className={cn(ITEM, 'pl-inset-lg', className)} {...props}>
+    <Base.RadioItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
       <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
         <Base.RadioItemIndicator aria-hidden>•</Base.RadioItemIndicator>
       </span>
@@ -115,7 +94,7 @@ export function MenuGroup({ label, children, ...props }: MenuGroupProps) {
   return (
     <Base.Group {...props}>
       {label != null && (
-        <Base.GroupLabel className="px-inset-sm py-inset-xs text-caption font-medium text-fg-muted">
+        <Base.GroupLabel className={POPUP_GROUP_LABEL}>
           {label}
         </Base.GroupLabel>
       )}
@@ -125,12 +104,12 @@ export function MenuGroup({ label, children, ...props }: MenuGroupProps) {
 }
 
 export function MenuSeparator({ className, ...props }: React.ComponentProps<typeof Base.Separator>) {
-  return <Base.Separator className={cn('-mx-inset-xs my-inset-xs h-px bg-border-subtle', className)} {...props} />;
+  return <Base.Separator className={cn(POPUP_SEPARATOR, className)} {...props} />;
 }
 
 export function MenuSubTrigger({ className, children, ...props }: React.ComponentProps<typeof Base.SubmenuTrigger>) {
   return (
-    <Base.SubmenuTrigger className={cn(ITEM, 'justify-between', className)} {...props}>
+    <Base.SubmenuTrigger className={cn(POPUP_ITEM, 'justify-between', className)} {...props}>
       {children}
       <span aria-hidden className="text-fg-subtle">
         ›

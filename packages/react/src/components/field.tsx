@@ -3,6 +3,7 @@ import { Field as Base } from '@base-ui/react/field';
 import { Input as BaseInput } from '@base-ui/react/input';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
+import { FIELD_CONTROL, FIELD_CONTROL_SIZE } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #2 — 입력 컨트롤과 그 주변.
@@ -77,25 +78,6 @@ export function FieldError({ className, ...props }: React.ComponentProps<typeof 
   return <Base.Error className={cn('font-sans text-caption leading-normal text-status-danger-fg', className)} {...props} />;
 }
 
-const CONTROL_BASE = [
-  'w-full font-sans text-body leading-ui',
-  'bg-field-bg-default text-field-fg-default',
-  'border border-solid border-field-border-default rounded-control',
-  'placeholder:text-field-fg-placeholder',
-  'transition-colors duration-fast ease-standard',
-  'ax-focus-ring',
-  'hover:not-disabled:not-data-invalid:border-field-border-hover',
-  'data-invalid:border-field-border-invalid',
-  'disabled:bg-field-bg-disabled disabled:text-field-fg-disabled disabled:border-field-border-disabled disabled:cursor-not-allowed',
-  'data-disabled:bg-field-bg-disabled data-disabled:text-field-fg-disabled data-disabled:border-field-border-disabled',
-  'read-only:bg-field-bg-readonly',
-].join(' ');
-
-const CONTROL_SIZE: Record<Size, string> = {
-  sm: 'h-control-sm px-inset-sm',
-  md: 'h-control-md px-inset-sm',
-  lg: 'h-control-lg px-inset-md',
-};
 
 export interface InputProps extends Omit<React.ComponentProps<typeof BaseInput>, 'size'> {
   /** 생략하면 감싸는 Field의 size를 따른다. */
@@ -109,7 +91,7 @@ export function Input({ size, required, className, ...props }: InputProps) {
     <BaseInput
       data-size={s}
       required={required ?? ctx.required}
-      className={cn(CONTROL_BASE, CONTROL_SIZE[s], className)}
+      className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[s], className)}
       {...props}
     />
   );
@@ -128,7 +110,7 @@ export function Textarea({ size, required, className, rows = 3, ...props }: Text
     <Base.Control
       render={<textarea rows={rows} required={required ?? ctx.required} {...props} />}
       data-size={s}
-      className={cn(CONTROL_BASE, 'h-auto px-inset-sm py-inset-sm resize-y', className)}
+      className={cn(FIELD_CONTROL, 'h-auto px-inset-sm py-inset-sm resize-y', className)}
     />
   );
 }

@@ -41,3 +41,49 @@ export const SELECTION_GROUP = {
 
 export const GROUP_LABEL = 'font-sans text-caption font-medium leading-ui text-fg-default';
 export const GROUP_DESCRIPTION = 'font-sans text-caption leading-normal text-fg-muted';
+
+/** 입력 컨트롤(Input, Textarea, Select 트리거, Combobox 입력…)의 공통 외형. 폼 컨트롤은 한 가족이다. */
+export const FIELD_CONTROL = [
+  'w-full font-sans text-body leading-ui',
+  'bg-field-bg-default text-field-fg-default',
+  'border border-solid border-field-border-default rounded-control',
+  'placeholder:text-field-fg-placeholder data-placeholder:text-field-fg-placeholder',
+  'transition-colors duration-fast ease-standard',
+  'ax-focus-ring',
+  'hover:not-disabled:not-data-disabled:not-data-invalid:border-field-border-hover',
+  'data-invalid:border-field-border-invalid',
+  'disabled:bg-field-bg-disabled disabled:text-field-fg-disabled disabled:border-field-border-disabled disabled:cursor-not-allowed',
+  'data-disabled:bg-field-bg-disabled data-disabled:text-field-fg-disabled data-disabled:border-field-border-disabled data-disabled:cursor-not-allowed',
+  'read-only:bg-field-bg-readonly data-readonly:bg-field-bg-readonly',
+].join(' ');
+
+export const FIELD_CONTROL_SIZE = {
+  sm: 'h-control-sm px-inset-sm',
+  md: 'h-control-md px-inset-sm',
+  lg: 'h-control-lg px-inset-md',
+} as const;
+
+/** 팝업 면(Menu, Select, Combobox, Popover…). 팝업은 한 가족이다. */
+export const POPUP_SURFACE = [
+  'min-w-[180px] origin-(--transform-origin) overflow-hidden outline-none',
+  'bg-surface-overlay text-fg-default',
+  'border border-solid border-border-default rounded-surface shadow-overlay',
+  'p-inset-xs font-sans text-body',
+  'transition-[opacity,scale] duration-fast ease-standard',
+  'data-starting-style:opacity-0 data-starting-style:scale-[0.97]',
+  'data-ending-style:opacity-0 data-ending-style:scale-[0.97]',
+].join(' ');
+
+/** 팝업 항목. 높이가 control.sm이라 아키타입과 함께 조여진다. */
+export const POPUP_ITEM = [
+  'relative flex items-center gap-inline-sm',
+  'h-control-sm px-inset-sm rounded-control',
+  'leading-ui outline-none select-none cursor-pointer',
+  'data-highlighted:bg-surface-hover',
+  'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
+  '[&_svg]:size-icon-sm [&_svg]:shrink-0',
+].join(' ');
+
+export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-medium text-fg-muted';
+export const POPUP_SEPARATOR = '-mx-inset-xs my-inset-xs h-px bg-border-subtle';
+export const POPUP_EMPTY = 'px-inset-sm py-inset-md text-caption text-fg-muted';

@@ -7,6 +7,13 @@ export { Checkbox, CheckboxGroup, type CheckboxProps, type CheckboxGroupProps } 
 export { Radio, RadioGroup, type RadioProps, type RadioGroupProps } from './components/radio';
 export { Switch, type SwitchProps } from './components/switch';
 export {
+  Select, SelectRoot, SelectTrigger, SelectValue, SelectContent, SelectOption, SelectGroup, SelectGroupLabel, SelectSeparator,
+  type SelectProps, type SelectItem,
+} from './components/select';
+export { Combobox, type ComboboxProps, type ComboboxItem } from './components/combobox';
+export { Autocomplete, type AutocompleteProps } from './components/autocomplete';
+export { NumberField, type NumberFieldProps } from './components/number-field';
+export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,
   type FieldProps, type InputProps, type TextareaProps,
 } from './components/field';
