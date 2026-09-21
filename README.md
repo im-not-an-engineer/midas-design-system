@@ -230,8 +230,13 @@ npx shadcn add https://im-not-an-engineer.github.io/midas-design-system/r/button
 | `landing` | archetype `consumer` | 마케팅 페이지. 컨트롤 44px, 둥근 모서리, 옅은 그림자 |
 
 **프리셋은 아키타입을 굳혀서 내보낸다.** 제품은 `[data-archetype]` 다축 전환을 받지 않고
-`:root` + 다크만 받는다 — 다축 전환은 우리 테마 랩에만 남는다. 바깥에 보이는 이름과
-내부 축은 `scripts/build-registry.mjs` 의 `PRESETS` 한 곳에서 이어지므로, 이름은 한 줄로 바뀐다.
+`:root` + 다크만 받는다 — 제품 코드에는 선택지 자체가 없으므로 "뭘 써야 하지"가 생기지 않는다.
+
+**제품팀에게는 프리셋 이름만 보여준다.** 스토리북 툴바도 `프리셋` 하나로 줄여 두었다 —
+아키타입·브랜드라는 내부 축은 테마 랩에서만 다룬다. 바깥 이름과 내부 축은
+`packages/tokens/presets.json` 한 곳에서 이어지고, 레지스트리 생성기와 스토리북 툴바가
+같은 파일을 읽으므로 둘이 어긋날 수 없다. `product: false` 인 항목(`_mono`, `_vivid`)은
+축이 실제로 도는지 보여주는 검증용이라 **배포되지 않는다.**
 
 제품 쪽 요구사항은 **Tailwind v4 + React 18+** 뿐이다. npm 레지스트리도, 인증 토큰도 필요 없다.
 

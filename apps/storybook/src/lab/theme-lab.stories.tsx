@@ -4,6 +4,9 @@ import { AxTheme } from '@ax/react';
 import { api, type Overlay, type Sources } from './api';
 import { Panel } from './panel';
 import { Gallery } from './gallery';
+import presetsFile from '../../../../packages/tokens/presets.json';
+
+const PRESETS = presetsFile.presets as Record<string, { archetype: string; brand: string; label: string }>;
 
 /**
  * 테마 랩 — 전 컴포넌트를 띄워놓고 토큰을 일괄 조정한다.
@@ -72,7 +75,8 @@ function Lab({ archetype, brand, mode }: { archetype: string; brand: string; mod
 }
 
 export const 랩: StoryObj = {
-  render: (_args, { globals }) => (
-    <Lab archetype={globals.archetype ?? 'base'} brand={globals.brand ?? 'default'} mode={globals.mode ?? 'light'} />
-  ),
+  render: (_args, { globals }) => {
+    const p = PRESETS[globals.preset ?? 'saas'] ?? PRESETS.saas;
+    return <Lab archetype={p.archetype} brand={p.brand} mode={globals.mode ?? 'light'} />;
+  },
 };

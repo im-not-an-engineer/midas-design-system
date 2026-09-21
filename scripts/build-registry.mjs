@@ -22,19 +22,13 @@ const OUT = path.join(root, 'registry');
 /** 배포 주소. 레지스트리 항목이 서로를 가리킬 때 쓴다. */
 const BASE = process.env.REGISTRY_URL ?? 'https://im-not-an-engineer.github.io/midas-design-system';
 
-/** 바깥에 보이는 이름 ↔ 내부 축. 이름을 바꾸려면 여기 한 줄만 고친다. */
-const PRESETS = {
-  saas: {
-    archetype: 'workbench', brand: 'default',
-    title: 'AX 디자인시스템 — SaaS',
-    description: '고밀도 업무 도구용. 컨트롤 28px, 촘촘한 간격, 각진 모서리.',
-  },
-  landing: {
-    archetype: 'consumer', brand: 'default',
-    title: 'AX 디자인시스템 — 랜딩',
-    description: '마케팅·랜딩 페이지용. 컨트롤 44px, 넉넉한 간격, 둥근 모서리, 옅은 그림자.',
-  },
-};
+/**
+ * 바깥에 보이는 이름 ↔ 내부 축. packages/tokens/presets.json 이 유일한 출처다 —
+ * 스토리북 툴바도 같은 파일을 읽으므로 둘이 어긋날 수 없다.
+ * product:false 인 것은 축 검증용이라 배포하지 않는다.
+ */
+const ALL_PRESETS = JSON.parse(await readFile(path.join(root, 'packages/tokens/presets.json'), 'utf8')).presets;
+const PRESETS = Object.fromEntries(Object.entries(ALL_PRESETS).filter(([, v]) => v.product));
 
 /** 소비 저장소에서의 위치. shadcn 규약(@/components/ui, @/lib)을 따른다. */
 const TARGET = {
