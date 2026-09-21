@@ -3,7 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "description": "AX 디자인시스템 — 토큰 계약 + 헤드리스 바인딩 스타일 층",
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "build": "npm run build:tokens && npm run lint:contract && npm run build:react",
     "build:tokens": "npm run build -w @ax/tokens",
@@ -11,7 +14,11 @@
     "lint:contract": "node scripts/check-contract.mjs",
     "typecheck": "npm run typecheck -w @ax/react",
     "verify": "npm run build && npm run typecheck && npm run build -w @ax/playground",
-    "dev": "npm run dev -w @ax/playground"
+    "dev": "npm run dev -w @ax/playground",
+    "storybook": "npm run storybook -w @ax/storybook",
+    "build-storybook": "npm run build-storybook -w @ax/storybook"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=22"
+  }
 }

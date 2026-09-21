@@ -6,6 +6,7 @@
 packages/tokens   @ax/tokens   토큰. 프레임워크 무관(CSS 변수 + JSON).
 packages/react    @ax/react    React 컴포넌트. 헤드리스(Base UI)에 토큰을 바인딩한 스타일 층.
 apps/playground                테마 축이 실제로 도는지 확인하는 검증용 화면.
+apps/storybook                 검수 장치. 툴바에서 아키타입·브랜드·모드를 바꾸며 모든 상태를 확인한다.
 ```
 
 ## 제품에서 쓰는 법
@@ -153,7 +154,19 @@ npm run build           # 토큰 + 린트 + React 패키지
 npm run build:tokens    # 토큰만
 npm run lint:contract   # 계약 린트만
 npm run dev             # playground 개발 서버
+npm run storybook       # 스토리북 (localhost:6006). 스토리는 컴포넌트 옆 *.stories.tsx
+npm run build-storybook # 정적 빌드 → apps/storybook/storybook-static
 ```
+
+## 환경
+
+Node 22 이상 (`.nvmrc` = 26). `npm install` 한 번이면 워크스페이스 전체가 설치된다.
+
+## 배포
+
+`main`에 푸시하면 GitHub Actions(`.github/workflows/storybook.yml`)가 토큰 빌드 → 계약 린트 →
+컴포넌트 빌드 → 타입 검사 → 스토리북 빌드 → GitHub Pages 배포를 순서대로 한다. 앞 단계가
+실패하면 배포하지 않는다. 저장소 Settings → Pages → Source를 **GitHub Actions**로 두어야 한다.
 
 ## 토큰 고치는 법
 
@@ -166,6 +179,13 @@ npm run dev             # playground 개발 서버
 | 새 재질(색 램프) | `packages/tokens/src/primitive/color.json` — 그레이는 단계 집합(0~1000)이 slate와 같아야 한다 |
 
 고친 뒤 `npm run build:tokens`. `dist/`는 생성물이므로 직접 고치지 않는다.
+
+## 스토리 작성 규칙
+
+- 컴포넌트 옆에 `<이름>.stories.tsx`. 계약 린트가 스토리도 검사하므로 스토리 안 레이아웃도 계약 토큰만 쓴다.
+- 컴포넌트마다 **상태 매트릭스 스토리**(intent × size × disabled/invalid…)를 하나 둔다. 아키타입을
+  바꿨을 때 모든 칸이 같이 움직이는지 보는 용도다. 오버레이는 `open` 고정 스토리를 하나 더 둔다(스냅샷용).
+- 툴바 세 축은 `contract.json`의 `axes`에서 읽는다. 브랜드·아키타입을 추가하면 툴바가 따라온다.
 
 ## 알려진 한계
 
