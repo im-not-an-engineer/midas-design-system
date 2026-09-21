@@ -25,7 +25,12 @@ const preview: Preview = {
   },
   initialGlobals: { archetype: 'base', brand: 'default', mode: 'light' },
   decorators: [
-    (Story, { globals }) => (
+    (Story, { globals, parameters }) =>
+      // 테마 랩은 스스로 테마 컨테이너를 만든다 — 편집 중인 색이 랩 UI까지 물들면
+      // 대비가 무너져 패널을 읽을 수 없게 된다.
+      parameters.axOwnTheme ? (
+        <Story />
+      ) : (
       <AxTheme
         archetype={globals.archetype}
         brand={globals.brand}

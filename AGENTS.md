@@ -37,6 +37,20 @@ Tailwind 기본 테마를 비웠기 때문이다. 쓸 수 있는 건 계약 토�
 **계약에 없는 값이 정말 필요하면 클래스를 지어내지 말고 멈춰서 물어본다.**
 토큰을 추가하는 건 사람의 결정이다. `npm run lint:contract`가 어차피 빌드를 막는다.
 
+## 1-1. 클래스를 보간으로 만들지 않는다
+
+```tsx
+// ✗ Tailwind가 생성하지 못한다 — 화면에서 스타일이 조용히 빠지고 계약 린트도 잡을 수 없다
+className={`bg-status-${type}-subtle`}
+
+// ✓ 룩업 맵. 이 저장소 전체가 이 방식이다 (button.tsx의 INTENT, toast.tsx의 TYPE …)
+const TONE = { info: 'bg-status-info-subtle', danger: 'bg-status-danger-subtle' };
+className={TONE[type]}
+```
+
+Tailwind는 소스를 **문자열로** 훑는다. 완성된 클래스 이름이 소스에 없으면 CSS도 없다.
+린트는 보간에 붙은 조각을 검증할 수 없으므로 이건 사람이 지켜야 하는 규약이다.
+
 ## 2. px를 박지 않는다
 
 특히 높이·여백·글자 크기. 이것들은 아키타입이 통째로 바꾸는 값이다. 한 군데라도

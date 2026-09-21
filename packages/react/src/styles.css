@@ -62,3 +62,7 @@
   to   { transform: translateX(250%); }
 }
 @utility animate-indeterminate { animation: ax-indeterminate 1.4s var(--ease-standard) infinite; }
+
+/* --border-width-* 도 Tailwind 네임스페이스가 없다. 계약에 있는 토큰이니 쓸 수 있게 한다. */
+@utility border-width-default { border-width: var(--border-width-default); }
+@utility border-width-strong  { border-width: var(--border-width-strong); }

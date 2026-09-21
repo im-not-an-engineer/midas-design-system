@@ -22,7 +22,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const stylesEntry = path.join(root, 'packages/react/src/styles.css');
 
 /** 스캔 대상. 새 패키지를 만들면 여기에 추가한다. */
-const SCAN_DIRS = [path.join(root, 'packages/react/src'), path.join(root, 'apps/playground/src')];
+const SCAN_DIRS = [path.join(root, 'packages/react/src'), path.join(root, 'apps/playground/src'), path.join(root, 'apps/storybook/src')];
 
 /**
  * 후보 추출: 문자열 리터럴 안의 공백으로 나뉜 토큰만 본다.
@@ -40,31 +40,89 @@ function extractCandidates(src) {
     .replace(/^\s*(import|export)\s+[^\n]*from\s*['"][^'"]*['"];?/gm, (m) => ' '.repeat(m.length));
 
   const out = [];
-  const re = /(['"`])((?:\\.|(?!\1)[^\\])*)\1/g;
-  let m;
-  while ((m = re.exec(cleaned))) {
-    // JSX 속성값으로 바로 붙은 문자열은 className일 때만 클래스다.
-    // side="inline-end", intent="primary" 같은 prop 값을 클래스로 오인하지 않기 위해서다.
-    // cn(...) 인자나 const 배열 안의 문자열은 앞에 `속성=`가 없으므로 그대로 통과한다.
-    const attr = /([A-Za-z_$][\w$]*)\s*=\s*\{?\s*$/.exec(cleaned.slice(0, m.index));
-    if (attr && attr[1] !== 'className') continue;
+  const lineAt = (i) => cleaned.slice(0, i).split('\n').length;
 
-    // 객체 키 위치({ 'bottom-right': … }, 앞이 { 또는 , 또는 줄 시작이고 뒤가 :)와
-    // 타입/속성 인덱스(['swipeDirection'])는 클래스가 아니다. 삼항(? 'a' : 'b')은 앞이 ?라 남는다.
-    const before = cleaned.slice(0, m.index).replace(/\s+$/, '');
-    const after = cleaned.slice(m.index + m[0].length).replace(/^\s+/, '');
-    const prev = before.slice(-1);
-    if (after.startsWith(']')) continue;
-    // 타입 유니언·옵셔널 속성 타입의 리터럴('a' | 'b', size?: 'sm')은 클래스가 아니다.
-    if (prev === '|' || after.startsWith('|') || /\?\s*:\s*$/.test(before)) continue;
-    if (after.startsWith(':') && (prev === '{' || prev === ',' || prev === '' || before.endsWith('\n'))) continue;
+  /** 문자열 리터럴 하나를 건너뛴다(중첩 판별용). */
+  const skipString = (at, to) => {
+    const q = cleaned[at];
+    let i = at + 1;
+    while (i < to && cleaned[i] !== q) { if (cleaned[i] === '\\') i += 2; else i++; }
+    return i + 1;
+  };
 
-    const line = cleaned.slice(0, m.index).split('\n').length;
-    for (const raw of m[2].split(/\s+/)) {
-      const c = raw.trim();
-      if (c) out.push({ candidate: c, line });
+  /**
+   * 문자열 리터럴 하나를 읽어 정적 조각과 ${...} 구간으로 나눈다.
+   * 조각에는 '보간에 붙어 있는가'를 표시한다 — `bg-${x}-subtle` 처럼 토큰 가운데가
+   * 보간이면 그 조각은 온전한 클래스 이름이 아니라서 검증할 수 없다.
+   */
+  const readLiteral = (start, to) => {
+    const q = cleaned[start];
+    const segs = [];
+    const exprs = [];
+    let i = start + 1, segStart = i, gluedLeft = false;
+    while (i < to && cleaned[i] !== q) {
+      if (cleaned[i] === '\\') { i += 2; continue; }
+      if (q === '`' && cleaned[i] === '$' && cleaned[i + 1] === '{') {
+        segs.push({ text: cleaned.slice(segStart, i), at: segStart, gluedLeft, gluedRight: true });
+        let depth = 1, j = i + 2;
+        while (j < to && depth > 0) {
+          const c = cleaned[j];
+          if (c === "'" || c === '"' || c === '`') { j = skipString(j, to); continue; }
+          if (c === '{') depth++;
+          else if (c === '}') { depth--; if (depth === 0) break; }
+          j++;
+        }
+        exprs.push([i + 2, j]);
+        i = j + 1; segStart = i; gluedLeft = true; continue;
+      }
+      i++;
     }
-  }
+    segs.push({ text: cleaned.slice(segStart, i), at: segStart, gluedLeft, gluedRight: false });
+    return { end: i, segs, exprs };
+  };
+
+  /** 이 리터럴을 통째로 무시해야 하는가 — 문맥으로 판단한다. */
+  const ignoreLiteral = (openedAt, closedAt) => {
+    const before = cleaned.slice(0, openedAt).replace(/\s+$/, '');
+    const after = cleaned.slice(closedAt + 1).replace(/^\s+/, '');
+    // JSX 속성값으로 바로 붙은 문자열은 className일 때만 클래스다 (side="inline-end" 등 제외).
+    // 단 `const CARD = '...'` 같은 변수 선언은 속성이 아니다 — 스타일 상수를 모아두는 흔한 방식이라
+    // 이걸 속성으로 오인하면 그 파일의 클래스가 통째로 검사에서 빠진다.
+    const attr = /(?:^|[\s(,{])(?:(const|let|var)\s+)?([A-Za-z_$][\w$]*)\s*=\s*\{?\s*$/.exec(before);
+    if (attr && !attr[1] && attr[2] !== 'className') return true;
+    const prev = before.slice(-1);
+    if (after.startsWith(']')) return true;                                  // 타입/속성 인덱스 ['x']
+    if (prev === '|' || after.startsWith('|') || /\?\s*:\s*$/.test(before)) return true; // 유니언 타입
+    if (after.startsWith(':') && (prev === '{' || prev === ',' || prev === '' || before.endsWith('\n'))) return true; // 객체 키
+    return false;
+  };
+
+  const scan = (from, to) => {
+    let i = from;
+    while (i < to) {
+      const ch = cleaned[i];
+      if (ch === '\\') { i += 2; continue; }
+      if (ch !== "'" && ch !== '"' && ch !== '`') { i++; continue; }
+
+      const openedAt = i;
+      const { end, segs, exprs } = readLiteral(i, to);
+      if (!ignoreLiteral(openedAt, end)) {
+        for (const seg of segs) {
+          const tokens = seg.text.split(/\s+/).filter(Boolean);
+          if (!tokens.length) continue;
+          // 보간에 붙은 양 끝 토큰은 온전한 클래스가 아니다 — 검증할 수 없으므로 뺀다.
+          if (seg.gluedRight && !/\s$/.test(seg.text)) tokens.pop();
+          if (seg.gluedLeft && !/^\s/.test(seg.text)) tokens.shift();
+          for (const c of tokens) out.push({ candidate: c, line: lineAt(seg.at) });
+        }
+      }
+      // ${...} 안은 코드다 — 다시 훑어 그 안의 문자열만 후보로 삼는다.
+      for (const [a, b] of exprs) scan(a, b);
+      i = end + 1;
+    }
+  };
+
+  scan(0, cleaned.length);
   return out;
 }
 
@@ -83,6 +141,8 @@ const NOT_A_CLASS = [
   /^(data|aria)-[a-z-]+$/,           // 어트리뷰트 이름. data-[state=open]: 같은 변형은 통과시킨다
   /^[^a-z[-]/i,                      // 영문자·대괄호·음수부호로 시작하지 않으면 클래스가 아님 (—, ×, + …)
   /=$|^</,                           // JSX 속성 이름 조각(name=)이나 태그(<Avatar) — 따옴표 짝이 어긋나 새어 들어온 것
+  /[가-힣]/,                          // 한글이 섞였으면 클래스가 아니다 (보간된 문장의 조각)
+  /-$/,                              // 하이픈으로 끝남 = 접두사 조각
 ];
 
 async function* walk(dir) {

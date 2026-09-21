@@ -12,7 +12,7 @@
     "build:tokens": "npm run build -w @ax/tokens",
     "build:react": "npm run build -w @ax/react",
     "lint:contract": "node scripts/check-contract.mjs",
-    "typecheck": "npm run typecheck -w @ax/react",
+    "typecheck": "npm run typecheck -w @ax/react && npm run typecheck -w @ax/storybook",
     "verify": "npm run build && npm run typecheck && npm run build -w @ax/playground",
     "dev": "npm run dev -w @ax/playground",
     "storybook": "npm run storybook -w @ax/storybook",
