@@ -211,6 +211,36 @@ Node 22 이상 (`.nvmrc` = 26). `npm install` 한 번이면 워크스페이스 �
 
 고친 뒤 `npm run build:tokens`. `dist/`는 생성물이므로 직접 고치지 않는다.
 
+## 배포 — shadcn 호환 레지스트리
+
+제품은 npm 패키지를 설치하는 대신 **소스를 자기 레포로 복사해 소유한다.**
+
+```bash
+npx shadcn add https://im-not-an-engineer.github.io/midas-design-system/r/saas.json     # 프리셋 먼저
+npx shadcn add https://im-not-an-engineer.github.io/midas-design-system/r/button.json   # 필요한 컴포넌트
+```
+
+프리셋이 토큰(`@theme`) · 다크 · 커스텀 유틸리티 · `lib/ax/*` 를 한 번에 깔고,
+컴포넌트 항목은 `components/ui/<이름>.tsx` 로 복사된다. 내부 의존(예: dialog → button)은
+`registryDependencies` 로 따라온다.
+
+| 프리셋 | 내부 축 | 성격 |
+|---|---|---|
+| `saas` | archetype `workbench` | 고밀도 업무 도구. 컨트롤 28px, 각진 모서리 |
+| `landing` | archetype `consumer` | 마케팅 페이지. 컨트롤 44px, 둥근 모서리, 옅은 그림자 |
+
+**프리셋은 아키타입을 굳혀서 내보낸다.** 제품은 `[data-archetype]` 다축 전환을 받지 않고
+`:root` + 다크만 받는다 — 다축 전환은 우리 테마 랩에만 남는다. 바깥에 보이는 이름과
+내부 축은 `scripts/build-registry.mjs` 의 `PRESETS` 한 곳에서 이어지므로, 이름은 한 줄로 바뀐다.
+
+제품 쪽 요구사항은 **Tailwind v4 + React 18+** 뿐이다. npm 레지스트리도, 인증 토큰도 필요 없다.
+
+### 주의 — `@theme` 은 `css` 필드로 못 보낸다
+
+shadcn 의 CSS 기록기가 `css` 안의 `@theme` 블록을 해석하지 못한다(`update-css: Unknown word …`).
+토큰은 `cssVars.theme` 으로 보내고, `@utility` · `@layer` · `@custom-variant` · 선택자 블록만
+`css` 로 보낸다. 생성기가 이미 그렇게 나눈다.
+
 ## 테마 랩 — 전 컴포넌트를 띄워놓고 토큰을 일괄 조정
 
 ```bash

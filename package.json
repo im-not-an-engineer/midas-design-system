@@ -13,11 +13,12 @@
     "build:react": "npm run build -w @ax/react",
     "lint:contract": "node scripts/check-contract.mjs",
     "typecheck": "npm run typecheck -w @ax/react && npm run typecheck -w @ax/storybook",
-    "verify": "npm run build && npm run typecheck && npm run build -w @ax/playground",
+    "verify": "npm run build && npm run typecheck && npm run build:registry && npm run build -w @ax/playground",
     "dev": "npm run dev -w @ax/playground",
     "storybook": "npm run storybook -w @ax/storybook",
-    "build-storybook": "npm run build-storybook -w @ax/storybook",
-    "ramp": "npm run ramp -w @ax/tokens --"
+    "build-storybook": "npm run build-storybook -w @ax/storybook && npm run build:registry && cp -R registry/r apps/storybook/storybook-static/",
+    "ramp": "npm run ramp -w @ax/tokens --",
+    "build:registry": "node scripts/build-registry.mjs"
   },
   "engines": {
     "node": ">=22"
