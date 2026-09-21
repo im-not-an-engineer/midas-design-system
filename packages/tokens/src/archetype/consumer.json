@@ -1,23 +1,148 @@
 {
   "$description": "아키타입 delta — consumer (캐주얼 B2C 웹앱). 터치 타깃이 크고 모서리가 둥글며 숨 쉴 공간이 많다.",
   "size": {
-    "control": { "sm": { "$value": "{scale.control.36}" }, "md": { "$value": "{scale.control.44}" }, "lg": { "$value": "{scale.control.48}" } },
-    "icon":    { "sm": { "$value": "{scale.icon.16}" },    "md": { "$value": "{scale.icon.20}" },    "lg": { "$value": "{scale.icon.24}" } },
-    "row":     { "sm": { "$value": "{scale.control.44}" }, "md": { "$value": "{scale.control.48}" }, "lg": { "$value": "{scale.space.64}" } }
+    "control": {
+      "sm": {
+        "$value": "{scale.control.36}"
+      },
+      "md": {
+        "$value": "{scale.control.44}"
+      },
+      "lg": {
+        "$value": "{scale.control.48}"
+      }
+    },
+    "icon": {
+      "sm": {
+        "$value": "{scale.icon.16}"
+      },
+      "md": {
+        "$value": "{scale.icon.20}"
+      },
+      "lg": {
+        "$value": "{scale.icon.24}"
+      }
+    },
+    "row": {
+      "sm": {
+        "$value": "{scale.control.44}"
+      },
+      "md": {
+        "$value": "{scale.control.48}"
+      },
+      "lg": {
+        "$value": "{scale.space.64}"
+      }
+    }
   },
   "space": {
-    "inset":   { "xs": { "$value": "{scale.space.6}" },  "sm": { "$value": "{scale.space.12}" }, "md": { "$value": "{scale.space.16}" }, "lg": { "$value": "{scale.space.24}" }, "xl": { "$value": "{scale.space.32}" } },
-    "stack":   { "xs": { "$value": "{scale.space.8}" },  "sm": { "$value": "{scale.space.12}" }, "md": { "$value": "{scale.space.16}" }, "lg": { "$value": "{scale.space.24}" }, "xl": { "$value": "{scale.space.40}" } },
-    "inline":  { "xs": { "$value": "{scale.space.6}" },  "sm": { "$value": "{scale.space.8}" },  "md": { "$value": "{scale.space.12}" }, "lg": { "$value": "{scale.space.16}" } },
-    "section": { "sm": { "$value": "{scale.space.32}" }, "md": { "$value": "{scale.space.48}" }, "lg": { "$value": "{scale.space.64}" } }
+    "inset": {
+      "xs": {
+        "$value": "{scale.space.6}"
+      },
+      "sm": {
+        "$value": "{scale.space.12}"
+      },
+      "md": {
+        "$value": "{scale.space.16}"
+      },
+      "lg": {
+        "$value": "{scale.space.24}"
+      },
+      "xl": {
+        "$value": "{scale.space.32}"
+      }
+    },
+    "stack": {
+      "xs": {
+        "$value": "{scale.space.8}"
+      },
+      "sm": {
+        "$value": "{scale.space.12}"
+      },
+      "md": {
+        "$value": "{scale.space.16}"
+      },
+      "lg": {
+        "$value": "{scale.space.24}"
+      },
+      "xl": {
+        "$value": "{scale.space.40}"
+      }
+    },
+    "inline": {
+      "xs": {
+        "$value": "{scale.space.6}"
+      },
+      "sm": {
+        "$value": "{scale.space.8}"
+      },
+      "md": {
+        "$value": "{scale.space.12}"
+      },
+      "lg": {
+        "$value": "{scale.space.16}"
+      }
+    },
+    "section": {
+      "sm": {
+        "$value": "{scale.space.32}"
+      },
+      "md": {
+        "$value": "{scale.space.48}"
+      },
+      "lg": {
+        "$value": "{scale.space.64}"
+      }
+    }
   },
   "radius": {
-    "control": { "$value": "{scale.radius.12}" },
-    "surface": { "$value": "{scale.radius.16}" },
-    "overlay": { "$value": "{scale.radius.16}" }
+    "control": {
+      "$value": "{scale.radius.12}"
+    },
+    "surface": {
+      "$value": "{scale.radius.16}"
+    },
+    "overlay": {
+      "$value": "{scale.radius.16}"
+    }
   },
   "font": {
-    "size":       { "caption": { "$value": "{scale.fontSize.14}" }, "body": { "$value": "{scale.fontSize.16}" }, "bodyLg": { "$value": "{scale.fontSize.18}" }, "headingSm": { "$value": "{scale.fontSize.20}" }, "headingMd": { "$value": "{scale.fontSize.24}" }, "headingLg": { "$value": "{scale.fontSize.30}" }, "display": { "$value": "{scale.fontSize.36}" } },
-    "lineHeight": { "normal": { "$value": "{scale.lineHeight.relaxed}" }, "ui": { "$value": "{scale.lineHeight.normal}" } }
+    "size": {
+      "caption": {
+        "$value": "{scale.fontSize.14}"
+      },
+      "body": {
+        "$value": "{scale.fontSize.16}"
+      },
+      "bodyLg": {
+        "$value": "{scale.fontSize.18}"
+      },
+      "headingSm": {
+        "$value": "{scale.fontSize.20}"
+      },
+      "headingMd": {
+        "$value": "{scale.fontSize.24}"
+      },
+      "headingLg": {
+        "$value": "{scale.fontSize.30}"
+      },
+      "display": {
+        "$value": "{scale.fontSize.36}"
+      }
+    },
+    "lineHeight": {
+      "normal": {
+        "$value": "{scale.lineHeight.relaxed}"
+      },
+      "ui": {
+        "$value": "{scale.lineHeight.normal}"
+      }
+    }
+  },
+  "elevation": {
+    "control": {
+      "$value": "{scale.shadow.sm}"
+    }
   }
 }

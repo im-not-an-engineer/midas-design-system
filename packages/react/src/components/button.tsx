@@ -21,6 +21,8 @@ const BASE = [
   'gap-inline-sm',
   'font-sans text-body font-medium leading-ui whitespace-nowrap',
   'rounded-control border border-solid',
+  // 컨트롤 그림자. 기본 테마는 '없음'이고, 켜는 테마(consumer)에서만 보인다.
+  'shadow-control',
   'transition-colors duration-fast ease-standard',
   'select-none cursor-pointer',
   'ax-focus-ring',

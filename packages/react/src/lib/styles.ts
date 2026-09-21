@@ -9,7 +9,7 @@
 /** 체크박스·라디오의 '박스'. 크기는 아이콘과 같은 급(size.icon.*)이라 아이콘 옆에 놓아도 줄이 맞는다. */
 export const SELECTION_BOX = [
   'relative inline-flex shrink-0 items-center justify-center',
-  'border border-solid border-field-border-default bg-field-bg-default',
+  'border border-solid border-field-border-default bg-field-bg-default shadow-control',
   'transition-colors duration-fast ease-standard cursor-pointer',
   'ax-focus-ring',
   'hover:not-data-disabled:not-data-checked:border-field-border-hover',
@@ -47,6 +47,7 @@ export const FIELD_CONTROL = [
   'w-full font-sans text-body leading-ui',
   'bg-field-bg-default text-field-fg-default',
   'border border-solid border-field-border-default rounded-control',
+  'shadow-control',
   'placeholder:text-field-fg-placeholder data-placeholder:text-field-fg-placeholder',
   'transition-colors duration-fast ease-standard',
   'ax-focus-ring',

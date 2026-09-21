@@ -28,7 +28,7 @@ const twMerge = extendTailwindMerge({
       'font-weight': namesUnder('--font-weight-'),
       leading: namesUnder('--leading-'),
       tracking: namesUnder('--tracking-'),
-      shadow: namesUnder('--shadow-'),
+      shadow: namesUnder('--elevation-'), // 유틸리티 이름은 shadow-*, 토큰은 --elevation-*
       ease: namesUnder('--ease-'),
     },
   },

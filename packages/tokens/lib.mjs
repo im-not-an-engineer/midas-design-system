@@ -32,7 +32,9 @@ const NAME_MAP = [
   [['radius'],                (p) => `radius-${p.slice(1).join('-')}`],
   [['border', 'width'],       (p) => `border-width-${p.slice(2).join('-')}`],
   [['focusRing'],             (p) => `focus-ring-${p.slice(1).join('-')}`],
-  [['elevation'],             (p) => `shadow-${p.slice(1).join('-')}`],
+  // Tailwind의 shadow 유틸리티는 값을 빌드 시점에 인라인해서 런타임 테마 교체가 안 된다.
+  // 그래서 --shadow-* 네임스페이스를 피하고, styles.css에서 var()를 읽는 유틸리티를 직접 만든다.
+  [['elevation'],             (p) => `elevation-${p.slice(1).join('-')}`],
   [['font', 'family'],        (p) => `font-${p.slice(2).join('-')}`],
   [['font', 'size'],          (p) => `text-${p.slice(2).join('-')}`],
   [['font', 'weight'],        (p) => `font-weight-${p.slice(2).join('-')}`],

@@ -3,30 +3,102 @@
   "scale": {
     "shadow": {
       "$type": "shadow",
-      "sm": { "$value": { "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "0px", "color": "rgba(15, 23, 42, 0.08)" } },
-      "md": { "$value": { "offsetX": "0px", "offsetY": "4px", "blur": "8px", "spread": "-2px", "color": "rgba(15, 23, 42, 0.10)" } },
-      "lg": { "$value": { "offsetX": "0px", "offsetY": "12px", "blur": "24px", "spread": "-6px", "color": "rgba(15, 23, 42, 0.14)" } }
+      "none": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "sm": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "rgba(15, 23, 42, 0.08)"
+        }
+      },
+      "md": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "-2px",
+          "color": "rgba(15, 23, 42, 0.10)"
+        }
+      },
+      "lg": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "12px",
+          "blur": "24px",
+          "spread": "-6px",
+          "color": "rgba(15, 23, 42, 0.14)"
+        }
+      }
     },
     "duration": {
       "$type": "duration",
-      "instant": { "$value": "0ms" },
-      "fast":    { "$value": "120ms" },
-      "normal":  { "$value": "200ms" },
-      "slow":    { "$value": "320ms" }
+      "instant": {
+        "$value": "0ms"
+      },
+      "fast": {
+        "$value": "120ms"
+      },
+      "normal": {
+        "$value": "200ms"
+      },
+      "slow": {
+        "$value": "320ms"
+      }
     },
     "easing": {
       "$type": "cubicBezier",
-      "standard":   { "$value": [0.2, 0, 0, 1] },
-      "emphasized": { "$value": [0.3, 0, 0, 1] },
-      "exit":       { "$value": [0.4, 0, 1, 1] }
+      "standard": {
+        "$value": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      },
+      "emphasized": {
+        "$value": [
+          0.3,
+          0,
+          0,
+          1
+        ]
+      },
+      "exit": {
+        "$value": [
+          0.4,
+          0,
+          1,
+          1
+        ]
+      }
     },
     "opacity": {
       "$type": "number",
-      "0":   { "$value": 0 },
-      "40":  { "$value": 0.4 },
-      "50":  { "$value": 0.5 },
-      "60":  { "$value": 0.6 },
-      "100": { "$value": 1 }
+      "0": {
+        "$value": 0
+      },
+      "40": {
+        "$value": 0.4
+      },
+      "50": {
+        "$value": 0.5
+      },
+      "60": {
+        "$value": 0.6
+      },
+      "100": {
+        "$value": 1
+      }
     }
   }
 }
