@@ -124,9 +124,11 @@ export function Gallery() {
         </Section>
 
         <Section title="오버레이 — 열어둔 채로 보는 것">
-          {/* 팝업이 트리거 아래로 뜨므로 각자 자리를 확보해 서로 가리지 않게 한다. */}
+          {/* 팝업이 트리거 아래로 뜨므로 각자 자리를 확보해 서로 가리지 않게 한다.
+              Menu는 modal 기본값이 true라 열어두면 바깥(편집 패널 포함)의 포인터 입력이
+              전부 막힌다 — 여기서는 '보기용'으로 열어두는 것이므로 반드시 꺼야 한다. */}
           <div className="flex h-[160px] w-[200px] flex-col">
-            <Menu open><MenuTrigger render={<Button />}>메뉴</MenuTrigger>
+            <Menu open modal={false}><MenuTrigger render={<Button />}>메뉴</MenuTrigger>
               <MenuContent align="start"><MenuGroup label="이슈"><MenuItem>이름 바꾸기</MenuItem><MenuItem disabled>보관</MenuItem></MenuGroup><MenuSeparator /><MenuItem destructive>삭제</MenuItem></MenuContent>
             </Menu>
           </div>
