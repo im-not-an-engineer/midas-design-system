@@ -30,6 +30,16 @@ export {
   ContextMenuCheckboxItem, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSub, ContextMenuSubTrigger, ContextMenuSubContent,
 } from './components/context-menu';
 export { ToastProvider, useToastManager, type ToastProviderProps, type ToastType } from './components/toast';
+
+export { Tabs, TabsList, Tab, TabsPanel } from './components/tabs';
+export { Accordion, AccordionItem, type AccordionItemProps } from './components/accordion';
+export { Collapsible, CollapsibleTrigger, CollapsiblePanel } from './components/collapsible';
+export { NavigationMenu, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, NavigationMenuLinkCard } from './components/navigation-menu';
+export { Menubar, MenubarTrigger } from './components/menubar';
+export { Toolbar, ToolbarGroup, ToolbarButton, ToolbarLink, ToolbarInput, ToolbarSeparator } from './components/toolbar';
+export { Toggle, ToggleGroup, type ToggleProps, type ToggleGroupProps } from './components/toggle';
+export { ScrollArea, type ScrollAreaProps } from './components/scroll-area';
+export { Separator, type SeparatorProps } from './components/separator';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,
   type FieldProps, type InputProps, type TextareaProps,
