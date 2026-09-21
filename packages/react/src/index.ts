@@ -3,6 +3,9 @@ export type { Size, Intent, Status, FieldState } from './lib/types';
 export { AxTheme, useTheme, usePortalContainer, themeAttributes, type ThemeProps } from './lib/theme';
 
 export { Button, type ButtonProps } from './components/button';
+export { Checkbox, CheckboxGroup, type CheckboxProps, type CheckboxGroupProps } from './components/checkbox';
+export { Radio, RadioGroup, type RadioProps, type RadioGroupProps } from './components/radio';
+export { Switch, type SwitchProps } from './components/switch';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,
   type FieldProps, type InputProps, type TextareaProps,
