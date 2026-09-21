@@ -27,7 +27,8 @@ Tailwind 기본 테마를 비웠기 때문이다. 쓸 수 있는 건 계약 토�
 | 줄 간격 | `leading-tight` `leading-normal` `leading-ui` |
 | 면 | `bg-surface-base/subtle/sunken/raised/overlay/hover/selected` |
 | 글자·아이콘 색 | `text-fg-default/muted/subtle/on-accent/link/disabled` |
-| 테두리 | `border-border-default/subtle/strong/focus` |
+| 테두리 색 | `border-border-default/subtle/strong/focus` |
+| 테두리 두께 | `border-width-default` `border-width-strong` — `border`(1px 고정)를 쓰지 않는다 |
 | 그림자 | `shadow-control`(컨트롤) `shadow-raised` `shadow-overlay` `shadow-modal` |
 | 아이콘 크기 | `size-icon-sm/md/lg` |
 | 겹침 순서 | `z-sticky` `z-overlay` `z-modal` `z-popover` `z-toast` |
