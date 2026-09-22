@@ -4,7 +4,7 @@ import { cn } from '../lib/cn';
 import { Check, ChevronDown, X } from '../lib/icons';
 import type { Size } from '../lib/types';
 import { usePortalContainer } from '../lib/theme';
-import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_EMPTY } from '../lib/styles';
+import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_EMPTY } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Combobox. 긴 목록에서 타이핑으로 걸러 하나를 고른다.
@@ -64,7 +64,7 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
             <Base.List>
               {(item: ComboboxItem) => (
                 <Base.Item key={item.value} value={item} disabled={item.disabled} className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, 'data-selected:font-medium')}>
-                  <Base.ItemIndicator className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
+                  <Base.ItemIndicator className={POPUP_ITEM_MARKER}>
                     <Check aria-hidden />
                   </Base.ItemIndicator>
                   <span className="truncate">{item.label}</span>

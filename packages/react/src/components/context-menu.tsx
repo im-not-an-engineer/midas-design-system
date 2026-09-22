@@ -3,7 +3,7 @@ import { ContextMenu as Base } from '@base-ui/react/context-menu';
 import { cn } from '../lib/cn';
 import { Check, ChevronRight, CircleSmall } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
-import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
+import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 오버레이 가족 — ContextMenu. 우클릭·길게 누르기로 커서 위치에 뜨는 메뉴. 파트·스타일은 Menu와 같다.
@@ -46,7 +46,7 @@ export function ContextMenuSeparator({ className, ...props }: React.ComponentPro
 export function ContextMenuCheckboxItem({ className, children, ...props }: React.ComponentProps<typeof Base.CheckboxItem>) {
   return (
     <Base.CheckboxItem className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, className)} {...props}>
-      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center"><Base.CheckboxItemIndicator aria-hidden><Check /></Base.CheckboxItemIndicator></span>
+      <span className={POPUP_ITEM_MARKER}><Base.CheckboxItemIndicator aria-hidden><Check /></Base.CheckboxItemIndicator></span>
       {children}
     </Base.CheckboxItem>
   );
@@ -55,7 +55,7 @@ export function ContextMenuCheckboxItem({ className, children, ...props }: React
 export function ContextMenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof Base.RadioItem>) {
   return (
     <Base.RadioItem className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, className)} {...props}>
-      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center"><Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" /></Base.RadioItemIndicator></span>
+      <span className={POPUP_ITEM_MARKER}><Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" /></Base.RadioItemIndicator></span>
       {children}
     </Base.RadioItem>
   );

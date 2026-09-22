@@ -86,12 +86,21 @@ export const POPUP_SURFACE = [
 /** 팝업 항목. 높이가 control.sm이라 아키타입과 함께 조여진다. */
 export const POPUP_ITEM = [
   'relative flex items-center gap-inline-sm',
-  'h-control-sm px-inset-sm rounded-control',
+  'h-control-md px-inset-sm rounded-control',
   'leading-ui outline-none select-none cursor-pointer',
+  // 선택은 남아 있는 상태, 하이라이트는 커서가 지금 있는 자리다. 둘이 겹치면
+  // 하이라이트가 이겨야 어디를 고르는 중인지 보인다. 클래스를 뒤에 두는 것으로는
+  // 안 된다 — Tailwind 가 자기 순서로 정렬해서 data-selected 가 이긴다. 조건으로 뺀다.
+  'data-selected:not-data-highlighted:bg-surface-selected',
+  'data-checked:not-data-highlighted:bg-surface-selected',
   'data-highlighted:bg-surface-hover',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');
+
+/** 항목 왼쪽의 선택 표시자(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
+export const POPUP_ITEM_MARKER =
+  'absolute left-inset-xs flex size-icon-sm items-center justify-center text-fg-link';
 
 /**
  * 왼쪽에 표시자(체크·점)가 붙는 팝업 항목의 들여쓰기.
