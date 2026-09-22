@@ -104,6 +104,12 @@
       "ui": {
         "$value": "{scale.lineHeight.tight}"
       }
+    },
+    "size": {
+      "body": {
+        "$value": "{scale.fontSize.13}",
+        "$description": "업무 도구 본문은 기본 계약(14)보다 한 단계 조인다. caption(12)·bodyLg(16)은 계약 그대로."
+      }
     }
   }
 }
