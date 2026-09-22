@@ -125,6 +125,22 @@ Portal의 `container`에 넘긴다.
 제목만 단독으로 쓰는 컴포넌트는 없다. Base UI의 GroupLabel이 Group 밖에서
 런타임 에러를 내기 때문에 둘을 하나로 묶어뒀다.
 
+## 6-3. 아이콘은 `lib/icons`를 거친다
+
+아이콘 라이브러리를 컴포넌트에서 직접 import하지 않는다.
+
+```tsx
+import { ChevronDown } from 'lucide-react';   // ✗
+import { ChevronDown } from '../lib/icons';   // ○
+```
+
+`lib/icons.ts`는 지금은 재export 한 줄이다. 나중에 프리셋별로 다른 세트가 필요해지면
+**이 파일이 아이콘 계약이 된다** — 컴포넌트는 한 줄도 안 바꾸고 여기서 매핑한다.
+직접 import가 하나라도 들어가면 그 날 컴포넌트 33개를 다 고쳐야 한다.
+
+아이콘은 `currentColor`로 그려진 것만 쓴다. 색이 박힌 SVG에는 토큰이 닿지 않는다.
+크기는 `size-icon-{sm,md,lg}` 계약으로, 컴포넌트 안에서 직접 px를 주지 않는다.
+
 ## 7. 파괴적 동작
 
 확인 단계를 둔다. `DialogConfirmFooter`에 `intent="destructive"`.
