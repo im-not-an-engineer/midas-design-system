@@ -148,8 +148,8 @@
     },
     "offset": {
       "$type": "dimension",
-      "$value": "{scale.space.0}",
-      "$description": "0 이다 — 오프셋이 있으면 브라우저가 링 반지름을 그만큼 키워서 상자보다 둥글어 보인다."
+      "$value": "{scale.space.2}",
+      "$description": "상자에서 띄우는 거리. 브라우저는 오프셋만큼 링 반지름도 키우므로(radius+offset) 링이 상자보다 둥글게 보인다."
     }
   },
   "elevation": {
