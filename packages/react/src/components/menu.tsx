@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Menu as Base } from '@base-ui/react/menu';
 import { cn } from '../lib/cn';
+import { Check, ChevronRight, CircleSmall } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
 import { POPUP_SURFACE, POPUP_ITEM, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
@@ -58,7 +59,7 @@ export function MenuCheckboxItem({ className, children, ...props }: React.Compon
   return (
     <Base.CheckboxItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
       <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
-        <Base.CheckboxItemIndicator aria-hidden>✓</Base.CheckboxItemIndicator>
+        <Base.CheckboxItemIndicator aria-hidden><Check /></Base.CheckboxItemIndicator>
       </span>
       {children}
     </Base.CheckboxItem>
@@ -69,7 +70,7 @@ export function MenuRadioItem({ className, children, ...props }: React.Component
   return (
     <Base.RadioItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
       <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
-        <Base.RadioItemIndicator aria-hidden>•</Base.RadioItemIndicator>
+        <Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" /></Base.RadioItemIndicator>
       </span>
       {children}
     </Base.RadioItem>
@@ -111,9 +112,7 @@ export function MenuSubTrigger({ className, children, ...props }: React.Componen
   return (
     <Base.SubmenuTrigger className={cn(POPUP_ITEM, 'justify-between', className)} {...props}>
       {children}
-      <span aria-hidden className="text-fg-subtle">
-        ›
-      </span>
+      <ChevronRight aria-hidden className="text-fg-subtle" />
     </Base.SubmenuTrigger>
   );
 }

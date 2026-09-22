@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ContextMenu as Base } from '@base-ui/react/context-menu';
 import { cn } from '../lib/cn';
+import { Check, ChevronRight, CircleSmall } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
 import { POPUP_SURFACE, POPUP_ITEM, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
@@ -45,7 +46,7 @@ export function ContextMenuSeparator({ className, ...props }: React.ComponentPro
 export function ContextMenuCheckboxItem({ className, children, ...props }: React.ComponentProps<typeof Base.CheckboxItem>) {
   return (
     <Base.CheckboxItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
-      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center"><Base.CheckboxItemIndicator aria-hidden>✓</Base.CheckboxItemIndicator></span>
+      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center"><Base.CheckboxItemIndicator aria-hidden><Check /></Base.CheckboxItemIndicator></span>
       {children}
     </Base.CheckboxItem>
   );
@@ -54,7 +55,7 @@ export function ContextMenuCheckboxItem({ className, children, ...props }: React
 export function ContextMenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof Base.RadioItem>) {
   return (
     <Base.RadioItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
-      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center"><Base.RadioItemIndicator aria-hidden>•</Base.RadioItemIndicator></span>
+      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center"><Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" /></Base.RadioItemIndicator></span>
       {children}
     </Base.RadioItem>
   );
@@ -63,7 +64,7 @@ export function ContextMenuRadioItem({ className, children, ...props }: React.Co
 export function ContextMenuSubTrigger({ className, children, ...props }: React.ComponentProps<typeof Base.SubmenuTrigger>) {
   return (
     <Base.SubmenuTrigger className={cn(POPUP_ITEM, 'justify-between', className)} {...props}>
-      {children}<span aria-hidden className="text-fg-subtle">›</span>
+      {children}<ChevronRight aria-hidden className="text-fg-subtle" />
     </Base.SubmenuTrigger>
   );
 }

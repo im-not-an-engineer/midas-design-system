@@ -15,4 +15,4 @@
  */
 // 한 줄로 쓴다 — 계약 린트는 한 줄짜리 import/export 만 걷어내므로, 여러 줄로 쪼개면
 // 'lucide-react' 가 클래스 후보로 새어 들어가 빌드가 막힌다.
-export { Check, ChevronDown, Ellipsis, Minus, Plus, X } from 'lucide-react';
+export { AlignCenter, AlignLeft, Archive, Check, ChevronDown, ChevronRight, CircleSmall, Ellipsis, Minus, Plus, X } from 'lucide-react';

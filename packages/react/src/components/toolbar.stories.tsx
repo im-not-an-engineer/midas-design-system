@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, ToolbarLink } from './toolbar';
 import { Toggle, ToggleGroup } from './toggle';
+import { AlignCenter, AlignLeft } from '../lib/icons';
 
 const meta = { title: '컴포넌트/내비/Toolbar', component: Toolbar } satisfies Meta<typeof Toolbar>;
 export default meta;
@@ -16,8 +17,8 @@ export const 서식도구: Story = {
       </ToggleGroup>
       <ToolbarSeparator />
       <ToolbarGroup aria-label="정렬">
-        <ToolbarButton aria-label="왼쪽">≡</ToolbarButton>
-        <ToolbarButton aria-label="가운데">≡</ToolbarButton>
+        <ToolbarButton aria-label="왼쪽"><AlignLeft aria-hidden /></ToolbarButton>
+        <ToolbarButton aria-label="가운데"><AlignCenter aria-hidden /></ToolbarButton>
       </ToolbarGroup>
       <ToolbarSeparator />
       <ToolbarLink href="#">도움말</ToolbarLink>

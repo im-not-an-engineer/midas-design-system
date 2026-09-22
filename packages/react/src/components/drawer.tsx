@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Drawer as Base } from '@base-ui/react/drawer';
 import { cn } from '../lib/cn';
+import { X } from '../lib/icons';
 import { Button } from './button';
 import { usePortalContainer } from '../lib/theme';
 import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_TITLE, DIALOG_DESCRIPTION } from '../lib/styles';
@@ -70,5 +71,5 @@ export function DrawerFooter({ className, ...props }: React.ComponentProps<'div'
   return <div className={cn('mt-auto flex items-center justify-end gap-inline-md pt-inset-sm', className)} {...props} />;
 }
 export function DrawerCloseButton() {
-  return <Base.Close render={<Button intent="ghost" iconOnly aria-label="닫기" />}><span aria-hidden>✕</span></Base.Close>;
+  return <Base.Close render={<Button intent="ghost" iconOnly aria-label="닫기" />}><X aria-hidden /></Base.Close>;
 }

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tooltip, TooltipProvider } from './tooltip';
 import { Button } from './button';
+import { Archive } from '../lib/icons';
 
 const meta: Meta<typeof Tooltip> = {
   title: '컴포넌트/오버레이/Tooltip',
@@ -14,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 export const 기본: Story = {
   render: () => (
     <>
-      <Tooltip content="이슈를 보관합니다. 목록에서 사라지지만 삭제되지 않습니다."><Button iconOnly aria-label="보관"><span aria-hidden>▤</span></Button></Tooltip>
+      <Tooltip content="이슈를 보관합니다. 목록에서 사라지지만 삭제되지 않습니다."><Button iconOnly aria-label="보관"><Archive aria-hidden /></Button></Tooltip>
       <Tooltip content="아래" side="bottom"><Button intent="ghost">아래</Button></Tooltip>
       <Tooltip content="오른쪽" side="right"><Button intent="ghost">오른쪽</Button></Tooltip>
     </>
