@@ -244,7 +244,7 @@
           "$value": "{ramp.accent.700}"
         },
         "invalid": {
-          "$value": "{ramp.danger.600}"
+          "$value": "{ramp.danger.500}"
         },
         "disabled": {
           "$value": "{ramp.neutral.200}"
@@ -309,7 +309,7 @@
           "$value": "{ramp.danger.50}"
         },
         "fg": {
-          "$value": "{ramp.danger.700}"
+          "$value": "{ramp.danger.600}"
         },
         "border": {
           "$value": "{ramp.danger.200}"
