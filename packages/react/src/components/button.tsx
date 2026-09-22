@@ -51,7 +51,9 @@ const INTENT: Record<Intent, string> = {
 };
 
 const SIZE: Record<Size, string> = {
-  sm: 'h-control-sm px-inset-sm [&_svg]:size-icon-sm',
+  // sm 만 굵기를 한 단계 낮춘다 — 28px 상자에서 semibold 는 글자가 뭉쳐 보인다.
+  // 모서리는 세 크기가 같다(rounded-control).
+  sm: 'h-control-sm px-inset-sm [&_svg]:size-icon-sm font-medium',
   md: 'h-control-md px-inset-md [&_svg]:size-icon-md',
   lg: 'h-control-lg px-inset-lg [&_svg]:size-icon-lg',
 };
