@@ -46,6 +46,10 @@
       },
       "semibold": {
         "$value": "{scale.fontWeight.semibold}"
+      },
+      "bold": {
+        "$value": "{scale.fontWeight.bold}",
+        "$description": "버튼처럼 눌러야 하는 것의 글자. semibold(제목)보다 한 단계 위다."
       }
     },
     "lineHeight": {
