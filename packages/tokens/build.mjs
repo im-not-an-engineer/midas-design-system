@@ -45,7 +45,7 @@ async function main() {
   for (const [k, m] of Object.entries(archetypes)) console.log(`  아키타입 ${k.padEnd(10)} → ${n(m)}개 덮어씀`);
   for (const [k, b] of Object.entries(brands))     console.log(`  브랜드   ${k.padEnd(10)} → 라이트 ${n(b.light)}개, 다크 보정 ${n(b.dark)}개`);
   console.log(`  모드     dark       → ${n(dark)}개 덮어씀`);
-  console.log(`✓ 규칙 1~7 통과 (1층 비노출 · 계약 키만 · 브랜드∩아키타입=∅ · 다크 완전 · 브랜드 다크 책임 · 램프 통째 · 포맷 일치)`);
+  console.log(`✓ 규칙 1~8 통과 (1층 비노출 · 계약 키만 · 브랜드∩아키타입=∅ · 다크 완전 · 브랜드 다크 책임 · 램프 통째 · 포맷 일치 · 치수 순서)`);
 }
 
 main().catch((e) => { console.error('\n✗ 빌드 실패\n' + e.message + '\n'); process.exit(1); });
