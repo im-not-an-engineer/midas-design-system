@@ -4,7 +4,7 @@ import { cn } from '../lib/cn';
 import { Check, ChevronDown } from '../lib/icons';
 import type { Size } from '../lib/types';
 import { usePortalContainer } from '../lib/theme';
-import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
+import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Select. 정해진 목록에서 하나를 고른다.
@@ -58,7 +58,7 @@ export function SelectContent({ className, children, ...props }: React.Component
 
 export function SelectOption({ className, children, ...props }: React.ComponentProps<typeof Base.Item>) {
   return (
-    <Base.Item className={cn(POPUP_ITEM, 'pl-inset-lg data-selected:font-medium', className)} {...props}>
+    <Base.Item className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, 'data-selected:font-medium', className)} {...props}>
       <Base.ItemIndicator className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
         <Check aria-hidden />
       </Base.ItemIndicator>

@@ -49,7 +49,8 @@ export function FieldLabel({ className, children, ...props }: React.ComponentPro
   return (
     <Base.Label
       className={cn(
-        'font-sans text-caption font-medium leading-ui text-fg-default',
+        // 레이블은 아래 글자(설명·에러, caption)보다 한 단계 크다.
+        'font-sans text-body font-medium leading-ui text-fg-default',
         // 아래쪽(설명·에러)과는 stack-sm(4px). 레이블만 margin 을 더해 입력칸과 8px 이 된다.
         'mb-stack-sm',
         'data-disabled:text-fg-disabled',

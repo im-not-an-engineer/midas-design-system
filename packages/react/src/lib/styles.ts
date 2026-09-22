@@ -93,6 +93,16 @@ export const POPUP_ITEM = [
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');
 
+/**
+ * 왼쪽에 표시자(체크·점)가 붙는 팝업 항목의 들여쓰기.
+ * 표시자 위치(inset-xs) + 표시자 크기(icon-sm) + 표시자와 글자 사이(inline-md).
+ *
+ * 값을 박으면 아이콘 척도를 바꿨을 때 글자가 표시자를 덮는다 — pl-inset-lg(16px)가
+ * 12px 아이콘 기준이었는데 아이콘이 14px 이 되면서 실제로 2px 겹쳤다.
+ */
+export const POPUP_ITEM_INDENT =
+  'pl-[calc(var(--spacing-inset-xs)+var(--spacing-icon-sm)+var(--spacing-inline-md))]';
+
 export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-medium text-fg-muted';
 export const POPUP_SEPARATOR = '-mx-inset-xs my-inset-xs h-px bg-border-subtle';
 export const POPUP_EMPTY = 'px-inset-sm py-inset-md text-caption text-fg-muted';
