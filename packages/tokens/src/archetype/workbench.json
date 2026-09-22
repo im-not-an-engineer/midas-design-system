@@ -14,13 +14,13 @@
     },
     "icon": {
       "sm": {
-        "$value": "{scale.icon.12}"
-      },
-      "md": {
         "$value": "{scale.icon.14}"
       },
-      "lg": {
+      "md": {
         "$value": "{scale.icon.16}"
+      },
+      "lg": {
+        "$value": "{scale.icon.20}"
       }
     },
     "row": {
