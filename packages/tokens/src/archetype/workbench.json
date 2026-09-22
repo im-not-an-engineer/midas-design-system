@@ -97,29 +97,6 @@
     }
   },
   "font": {
-    "size": {
-      "caption": {
-        "$value": "{scale.fontSize.11}"
-      },
-      "body": {
-        "$value": "{scale.fontSize.13}"
-      },
-      "bodyLg": {
-        "$value": "{scale.fontSize.14}"
-      },
-      "headingSm": {
-        "$value": "{scale.fontSize.14}"
-      },
-      "headingMd": {
-        "$value": "{scale.fontSize.16}"
-      },
-      "headingLg": {
-        "$value": "{scale.fontSize.20}"
-      },
-      "display": {
-        "$value": "{scale.fontSize.24}"
-      }
-    },
     "lineHeight": {
       "normal": {
         "$value": "{scale.lineHeight.snug}"

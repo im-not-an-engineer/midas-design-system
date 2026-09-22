@@ -26,12 +26,19 @@ export const SELECTION_BOX_SIZE = {
   lg: 'size-icon-lg',
 } as const;
 
-/** 박스 옆 레이블. 비활성이면 글자도 흐려진다. */
+/** 박스 옆 레이블. 비활성이면 글자도 흐려진다. 글자 크기는 SELECTION_LABEL_SIZE 가 정한다. */
 export const SELECTION_LABEL = [
   'inline-flex items-center gap-inline-sm',
-  'font-sans text-body leading-ui text-fg-default select-none cursor-pointer',
+  'font-sans leading-ui text-fg-default select-none cursor-pointer',
   'has-data-disabled:text-fg-disabled has-data-disabled:cursor-not-allowed',
 ].join(' ');
+
+/** 레이블 글자도 크기를 따라간다 — 박스만 커지고 글자가 그대로면 균형이 어긋난다. */
+export const SELECTION_LABEL_SIZE = {
+  sm: 'text-caption',
+  md: 'text-body',
+  lg: 'text-body-lg',
+} as const;
 
 /** 항목 묶음(CheckboxGroup, RadioGroup)의 컨테이너. */
 export const SELECTION_GROUP = {

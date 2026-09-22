@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch as Base } from '@base-ui/react/switch';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { SELECTION_LABEL, GROUP_DESCRIPTION } from '../lib/styles';
+import { SELECTION_LABEL, SELECTION_LABEL_SIZE, GROUP_DESCRIPTION } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Switch. 즉시 적용되는 켬/끔. 저장 버튼이 따로 있으면 Checkbox를 쓴다.
@@ -56,7 +56,7 @@ export function Switch({ size = 'md', label, description, className, ...props }:
   );
   if (label == null) return track;
   return (
-    <label className={cn(SELECTION_LABEL, description != null && 'items-start')}>
+    <label className={cn(SELECTION_LABEL, SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
       {track}
       {description == null ? (
         label

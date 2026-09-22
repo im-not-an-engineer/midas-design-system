@@ -4,7 +4,7 @@ import { CheckboxGroup as BaseGroup } from '@base-ui/react/checkbox-group';
 import { cn } from '../lib/cn';
 import { Check, Minus } from '../lib/icons';
 import type { Size } from '../lib/types';
-import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION } from '../lib/styles';
+import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Checkbox.
@@ -42,7 +42,7 @@ export function Checkbox({ size = 'md', label, description, className, ...props 
   );
   if (label == null) return box;
   return (
-    <label className={cn(SELECTION_LABEL, description != null && 'items-start')}>
+    <label className={cn(SELECTION_LABEL, SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
       {box}
       {description == null ? (
         label
