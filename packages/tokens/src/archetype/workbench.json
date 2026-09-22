@@ -3,13 +3,13 @@
   "size": {
     "control": {
       "sm": {
-        "$value": "{scale.control.24}"
-      },
-      "md": {
         "$value": "{scale.control.28}"
       },
-      "lg": {
+      "md": {
         "$value": "{scale.control.32}"
+      },
+      "lg": {
+        "$value": "{scale.control.36}"
       }
     },
     "icon": {
@@ -25,32 +25,32 @@
     },
     "row": {
       "sm": {
-        "$value": "{scale.control.24}"
-      },
-      "md": {
         "$value": "{scale.control.28}"
       },
-      "lg": {
+      "md": {
         "$value": "{scale.control.32}"
+      },
+      "lg": {
+        "$value": "{scale.control.36}"
       }
     }
   },
   "space": {
     "inset": {
       "xs": {
-        "$value": "{scale.space.2}"
-      },
-      "sm": {
         "$value": "{scale.space.4}"
       },
-      "md": {
+      "sm": {
         "$value": "{scale.space.8}"
       },
-      "lg": {
+      "md": {
         "$value": "{scale.space.12}"
       },
-      "xl": {
+      "lg": {
         "$value": "{scale.space.16}"
+      },
+      "xl": {
+        "$value": "{scale.space.20}"
       }
     },
     "stack": {
