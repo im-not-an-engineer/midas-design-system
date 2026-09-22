@@ -108,6 +108,55 @@ export function generateRamp(hex, reference, anchorStep) {
   return { ramp, anchorStep: anchor.step };
 }
 
+/** 재질의 대표색 — 채도가 가장 높은 단계. 무채색 램프는 여기서도 채도가 낮게 나온다. */
+function representative(material) {
+  let best = null;
+  for (const [step, v] of Object.entries(material)) {
+    if (step.startsWith('$')) continue;
+    const o = rgbToOklch(hexToRgb(v.$value ?? v));
+    if (!best || o.C > best.C) best = { step, ...o };
+  }
+  return best;
+}
+
+const hueDelta = (a, b) => Math.abs((((a - b) % 360) + 540) % 360 - 180);
+/** 채도가 이보다 낮으면 회색 계열로 본다 — 색상각 비교가 의미 없어진다. */
+const GRAY = 0.05;
+
+/**
+ * 새 색이 기존 재질과 겹치는지 검사한다. palette를 늘릴 때 중복 재질을 막는 용도.
+ * 판정은 색상각과 채도비 둘 다 본다 — slate와 blue는 색상각이 6°지만 채도가
+ * 0.037 대 0.215라 전혀 다른 색이고, 그런 쌍을 겹친다고 부르면 안 된다.
+ *
+ * @returns 색상각이 가까운 순으로 정렬된 행들
+ */
+export function checkCollision(hex, palette) {
+  const target = rgbToOklch(hexToRgb(hex));
+  return Object.entries(palette)
+    .filter(([k]) => !k.startsWith('$'))
+    .map(([name, material]) => {
+      const rep = representative(material);
+      const dh = hueDelta(target.h, rep.h);
+      const ratio = rep.C > 1e-6 ? target.C / rep.C : Infinity;
+      const gray = target.C < GRAY || rep.C < GRAY;
+      return { name, rep, dh, ratio, gray, collides: !gray && dh <= 20 && ratio >= 0.67 && ratio <= 1.5 };
+    })
+    .sort((a, b) => a.dh - b.dh);
+}
+
+/** 색상환에서 새 색이 어느 재질들 사이에 앉는지. 유채색만 놓고 본다. */
+function neighbours(hex, rows) {
+  const h = ((rgbToOklch(hexToRgb(hex)).h % 360) + 360) % 360;
+  const ring = rows
+    .filter((r) => r.rep.C >= GRAY)
+    .map((r) => ({ name: r.name, h: ((r.rep.h % 360) + 360) % 360 }))
+    .sort((a, b) => a.h - b.h);
+  if (!ring.length) return null;
+  const next = ring.find((r) => r.h > h) ?? ring[0];
+  const prev = [...ring].reverse().find((r) => r.h < h) ?? ring[ring.length - 1];
+  return { prev, next, h };
+}
+
 /** CLI: node ramp.mjs <헥스> [기준램프이름] — 결과를 JSON으로 찍는다. */
 if (import.meta.url === `file://${process.argv[1]}`) {
   const [hex, refName = 'blue'] = process.argv.slice(2);
@@ -119,7 +168,27 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     Object.entries(palette[refName] ?? {}).filter(([k]) => !k.startsWith('$')).map(([k, v]) => [k, v.$value]),
   );
   if (!Object.keys(reference).length) { console.error(`기준 램프 palette.${refName} 이 없습니다.`); process.exit(1); }
+
+  // 중복 검사 — 만들기 전에 보여준다. 막지는 않는다(판단은 사람이 한다).
+  const rows = checkCollision(hex, palette);
+  const deg = (n) => `${String(Math.round(n)).padStart(3)}°`;
+  console.error('기존 재질과의 거리 (각 재질의 채도가 가장 높은 단계 기준):');
+  for (const r of rows.slice(0, 4)) {
+    const note = r.collides ? '  ← 겹칩니다'
+      : r.gray ? '  (회색 계열 — 색상각 비교 안 함)' : '';
+    console.error(`  ${r.name.padEnd(9)} 색상각 ${deg(r.dh)}  채도비 ${r.ratio.toFixed(2)}${note}`);
+  }
+  const hit = rows.filter((r) => r.collides);
+  // 색상환 지도는 '새 자리'를 찾을 때 쓸모 있다. 이미 겹쳤으면 경고만으로 충분하다.
+  const n = hit.length ? null : neighbours(hex, rows);
+  if (n) console.error(`색상환에서의 자리: ${n.prev.name}(${Math.round(n.prev.h)}°) — [새 색 ${Math.round(n.h)}°] — ${n.next.name}(${Math.round(n.next.h)}°)`);
+  if (hit.length) {
+    console.error(`\n⚠ ${hit.map((r) => r.name).join(', ')} 와 색상각·채도가 모두 가깝습니다.`);
+    console.error('  새 재질을 만들기 전에, 기존 재질을 ramp에 배정하는 것으로 끝나지 않는지 확인하세요.');
+    console.error('  재질이 늘수록 "비슷한 게 이미 있나"를 알기 어려워집니다.\n');
+  }
+
   const { ramp, anchorStep } = generateRamp(hex, reference);
-  console.error(`기준 램프 ${refName} · 브랜드 색이 앉은 단계: ${anchorStep}`);
+  console.error(`기준 램프 ${refName} · 새 색이 앉은 단계: ${anchorStep}`);
   console.log(JSON.stringify(Object.fromEntries(Object.entries(ramp).map(([k, v]) => [k, { $value: v }])), null, 2));
 }

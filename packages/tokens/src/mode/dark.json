@@ -301,6 +301,16 @@
           "$value": "{ramp.neutral.0}"
         }
       }
+    },
+    "decorative": {
+      "1": {
+        "subtle": {
+          "$value": "{ramp.decorative1.950}"
+        },
+        "fg": {
+          "$value": "{ramp.decorative1.300}"
+        }
+      }
     }
   }
 }

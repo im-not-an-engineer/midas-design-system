@@ -321,6 +321,19 @@
           "$value": "{ramp.neutral.0}"
         }
       }
+    },
+    "decorative": {
+      "1": {
+        "subtle": {
+          "$value": "{ramp.decorative1.100}",
+          "$description": "아이콘이 앉는 연한 칩 바탕. status가 50을 쓰는 것과 다르다 — 칩은 배너보다 작아서 한 단계 더 필요하다."
+        },
+        "fg": {
+          "$value": "{ramp.decorative1.600}",
+          "$description": "그 위의 아이콘 색"
+        }
+      },
+      "$description": "장식. 뜻이 없고 서로 구분되기만 하면 되는 색 — 기능 아이콘, 카테고리 칩. 반드시 번호로 부른다(decorative.1). decorative.purple 처럼 색 이름을 넣으면 브랜드가 배정을 바꾼 순간 이름이 거짓말이 된다. 슬롯을 늘리려면 brand/default.json 에 ramp.decorativeN 을 추가하고, 여기에 짝을 만들고, mode/dark.json 에도 같은 키를 적는다(규칙 4)."
     }
   }
 }
