@@ -9,7 +9,7 @@ import { SELECTION_LABEL, SELECTION_LABEL_SIZE, GROUP_DESCRIPTION } from '../lib
  *
  * 크기는 새 토큰 없이 아이콘 급에서 나온다:
  *   트랙 높이 = --spacing-icon-{size},  너비 = 높이 × 1.75
- *   썸        = 트랙 높이 - inset-xs   → 위아래 틈이 inset-xs 의 절반씩
+ *   썸        = 트랙 높이 - 틈×2,  틈 = inset-xs × 0.75  → 사방 3px
  *
  * 예전에는 트랙이 한 단계 위(icon-{size+1})였는데, 아이콘 사다리 간격이 고르지 않아
  * (14/16/20) 크기마다 틈이 1px~2px 로 들쭉날쭉했고 md 트랙이 레이블 글자보다 커졌다.
@@ -21,11 +21,12 @@ const TRACK: Record<Size, string> = {
   md: 'h-icon-md w-[calc(var(--spacing-icon-md)*1.75)]',
   lg: 'h-icon-lg w-[calc(var(--spacing-icon-lg)*1.75)]',
 };
-// 켠 위치 = 높이×0.75 + 틈/2 (= 너비 - 썸 - 틈/2 를 푼 것).
+// 틈을 inset-xs 그대로 쓰면 14~20px 트랙에서 썸이 점처럼 작아진다. 4분의 3만 쓴다.
+// 켠 위치 = 높이×0.75 + 틈 (= 너비 - 썸 - 틈 을 푼 것).
 const THUMB: Record<Size, string> = {
-  sm: 'size-[calc(var(--spacing-icon-sm)-var(--spacing-inset-xs))] translate-x-[calc(var(--spacing-inset-xs)/2)] data-checked:translate-x-[calc(var(--spacing-icon-sm)*0.75+var(--spacing-inset-xs)/2)]',
-  md: 'size-[calc(var(--spacing-icon-md)-var(--spacing-inset-xs))] translate-x-[calc(var(--spacing-inset-xs)/2)] data-checked:translate-x-[calc(var(--spacing-icon-md)*0.75+var(--spacing-inset-xs)/2)]',
-  lg: 'size-[calc(var(--spacing-icon-lg)-var(--spacing-inset-xs))] translate-x-[calc(var(--spacing-inset-xs)/2)] data-checked:translate-x-[calc(var(--spacing-icon-lg)*0.75+var(--spacing-inset-xs)/2)]',
+  sm: 'size-[calc(var(--spacing-icon-sm)-var(--spacing-inset-xs)*1.5)] translate-x-[calc(var(--spacing-inset-xs)*0.75)] data-checked:translate-x-[calc(var(--spacing-icon-sm)*0.75+var(--spacing-inset-xs)*0.75)]',
+  md: 'size-[calc(var(--spacing-icon-md)-var(--spacing-inset-xs)*1.5)] translate-x-[calc(var(--spacing-inset-xs)*0.75)] data-checked:translate-x-[calc(var(--spacing-icon-md)*0.75+var(--spacing-inset-xs)*0.75)]',
+  lg: 'size-[calc(var(--spacing-icon-lg)-var(--spacing-inset-xs)*1.5)] translate-x-[calc(var(--spacing-inset-xs)*0.75)] data-checked:translate-x-[calc(var(--spacing-icon-lg)*0.75+var(--spacing-inset-xs)*0.75)]',
 };
 
 export interface SwitchProps extends React.ComponentProps<typeof Base.Root> {
