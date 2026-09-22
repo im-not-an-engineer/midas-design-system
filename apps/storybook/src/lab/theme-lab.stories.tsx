@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AxTheme } from '@ax/react';
-import { api, type Overlay, type Sources } from './api';
+import { affectedComponents, changedVars, type Usage, api, type Overlay, type Sources } from './api';
 import { Panel } from './panel';
 import { Gallery } from './gallery';
 import presetsFile from '../../../../packages/tokens/presets.json';
@@ -28,10 +28,20 @@ function Lab({ archetype, brand, mode }: { archetype: string; brand: string; mod
   const [sources, setSources] = React.useState<Sources | null>(null);
   const [overlay, setOverlay] = React.useState<Overlay>({});
   const [vars, setVars] = React.useState<Record<string, string> | null>(null);
+  // 편집이 무엇을 바꿨는지 알려면 "편집 없는 같은 조합"이 필요하다. 축이 바뀔 때만 다시 받는다.
+  const [baseVars, setBaseVars] = React.useState<Record<string, string> | null>(null);
+  const [usage, setUsage] = React.useState<Usage | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const readOnly = !!error;
 
   React.useEffect(() => { api.sources().then(setSources).catch((e) => setError(String(e.message ?? e))); }, []);
+  React.useEffect(() => { api.usage().then(setUsage).catch(() => setUsage(null)); }, []);
+  React.useEffect(() => {
+    if (!sources) return;
+    let alive = true;
+    api.preview({}, { brand, archetype, mode }).then((v) => alive && setBaseVars(v)).catch(() => alive && setBaseVars(null));
+    return () => { alive = false; };
+  }, [brand, archetype, mode, sources]);
 
   // 편집이 멈추면 미리보기를 갱신한다. 색상 선택기를 드래그하는 동안에도 따라올 만큼 가볍다.
   React.useEffect(() => {
@@ -69,7 +79,13 @@ function Lab({ archetype, brand, mode }: { archetype: string; brand: string; mod
       >
         <Gallery />
       </AxTheme>
-      {sources && <Panel sources={sources} overlay={overlay} setOverlay={setOverlay} axes={{ brand, archetype, mode }} readOnly={readOnly} />}
+      {sources && (
+        <Panel
+          sources={sources} overlay={overlay} setOverlay={setOverlay}
+          axes={{ brand, archetype, mode }} readOnly={readOnly}
+          affected={affectedComponents(changedVars(baseVars, vars), usage)}
+        />
+      )}
     </div>
   );
 }

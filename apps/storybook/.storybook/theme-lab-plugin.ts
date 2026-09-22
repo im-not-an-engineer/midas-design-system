@@ -8,6 +8,7 @@ import path from 'node:path';
 const run = promisify(execFile);
 const TOKENS = fileURLToPath(new URL('../../../packages/tokens/', import.meta.url));
 const SRC = path.join(TOKENS, 'src');
+const ROOT = fileURLToPath(new URL('../../../', import.meta.url));
 
 /**
  * 테마 랩 개발 서버.
@@ -19,6 +20,7 @@ const SRC = path.join(TOKENS, 'src');
  * 정적 빌드(GitHub Pages)에는 이 플러그인이 없다 → 랩은 읽기 전용으로 동작한다.
  */
 export function themeLab(): Plugin {
+  let usageCache: Promise<unknown> | null = null;
   const lib = () => import(/* @vite-ignore */ path.join(TOKENS, 'lib.mjs'));
   const json = (res: any, code: number, body: unknown) => {
     res.statusCode = code;
@@ -55,6 +57,16 @@ export function themeLab(): Plugin {
             const sources: Record<string, unknown> = {};
             for (const rel of files) sources[rel] = JSON.parse(await readFile(path.join(SRC, rel), 'utf8'));
             return json(res, 200, { sources, layers: { ...L, brandDarks: [...L.brandDarks] } });
+          }
+
+          // 어느 계약 토큰이 어느 컴포넌트에 쓰이는가. 소스를 훑어야 해서 한 번만 만들고 재사용한다.
+          // (컴포넌트를 고치면 서버를 다시 켜야 갱신된다 — 토큰 작업 중에는 바뀌지 않는 값이다.)
+          if (req.url === '/__ax/usage') {
+            usageCache ??= (async () => {
+              const { buildUsageIndex } = await import(/* @vite-ignore */ path.join(ROOT, 'scripts/token-usage.mjs'));
+              return buildUsageIndex();
+            })();
+            return json(res, 200, await usageCache);
           }
 
           // 편집 중 미리보기: 선택한 조합 하나만 해석한다(~13ms). 규칙 검사는 저장할 때.

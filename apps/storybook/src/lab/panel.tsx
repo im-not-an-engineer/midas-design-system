@@ -52,9 +52,11 @@ export interface PanelProps {
   setOverlay: (next: Overlay) => void;
   axes: { brand: string; archetype: string; mode: string };
   readOnly: boolean;
+  /** 지금 편집이 실제로 닿는 컴포넌트 이름들. 값 하나를 바꿨을 때 어디까지 번지는지 보여준다. */
+  affected?: string[];
 }
 
-export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelProps) {
+export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected = [] }: PanelProps) {
   const [saving, setSaving] = React.useState(false);
   const [result, setResult] = React.useState<{ ok: boolean; text: string } | null>(null);
   const merged = (rel: string) => deepMerge(sources.sources[rel] ?? {}, overlay[rel] ?? {});
@@ -106,6 +108,11 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelPro
       <div className="flex min-h-0 flex-1 flex-col gap-stack-sm overflow-y-auto p-inset-md">
         {edits.length > 0 && (
           <Group title="변경 사항" hint={`${edits.length}개`} defaultOpen>
+            {affected.length > 0 && (
+              <p className={HINT}>
+                <span className="text-fg-default">닿는 컴포넌트 {affected.length}개</span> — {affected.join(', ')}
+              </p>
+            )}
             {edits.map(({ file, path, leaf }) => (
               <div key={`${file}/${path.join('.')}`} className="flex items-center justify-between gap-inline-sm">
                 <span className="flex min-w-0 flex-col gap-stack-xs">

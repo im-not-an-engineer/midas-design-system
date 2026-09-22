@@ -102,7 +102,34 @@ export const api = {
   async ramp(hex: string, reference: string, anchorStep?: string): Promise<{ ramp: Record<string, string>; anchorStep: string }> {
     return post('/__ax/ramp', { hex, reference, anchorStep });
   },
+  /** 계약 토큰 → 그 토큰을 쓰는 컴포넌트 이름들. 서버가 한 번 만들어 캐시한다. */
+  async usage(): Promise<Usage> {
+    const res = await fetch('/__ax/usage');
+    if (!res.ok) throw new Error('사용처 색인을 읽지 못했습니다');
+    return res.json();
+  },
 };
+
+export interface Usage {
+  usage: Record<string, string[]>;
+  byComponent: Record<string, string[]>;
+}
+
+/**
+ * 편집이 실제로 바꾸는 계약 키를 고른다 — 편집 전후의 해석 결과를 비교하는 방식이다.
+ * 편집한 경로(palette·ramp·semantic·archetype)가 제각각이라 경로에서 키 이름을
+ * 계산하려 들면 층마다 규칙이 달라 어긋난다. 값이 달라진 것이 곧 영향받은 키다.
+ */
+export function changedVars(before: Record<string, string> | null, after: Record<string, string> | null): string[] {
+  if (!before || !after) return [];
+  return Object.keys(after).filter((k) => before[k] !== after[k]).sort();
+}
+
+/** 바뀐 키들을 쓰는 컴포넌트 이름 — 중복 없이, 이름순. */
+export function affectedComponents(vars: string[], usage: Usage | null): string[] {
+  if (!usage) return [];
+  return [...new Set(vars.flatMap((v) => usage.usage[v] ?? []))].sort();
+}
 
 // ── 소스에서 편집 가능한 항목을 뽑아낸다. 하드코딩하지 않으므로 토큰을 추가하면 랩이 따라온다. ──
 
