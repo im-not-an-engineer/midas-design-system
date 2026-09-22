@@ -179,13 +179,13 @@
       "destructive": {
         "bg": {
           "default": {
-            "$value": "{ramp.danger.600}"
+            "$value": "{ramp.danger.500}"
           },
           "hover": {
-            "$value": "{ramp.danger.700}"
+            "$value": "{ramp.danger.600}"
           },
           "active": {
-            "$value": "{ramp.danger.800}"
+            "$value": "{ramp.danger.700}"
           },
           "disabled": {
             "$value": "{ramp.neutral.200}"
