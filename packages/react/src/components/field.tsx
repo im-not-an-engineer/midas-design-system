@@ -39,7 +39,7 @@ export function Field({ size = 'md', required = false, className, ...props }: Fi
   const value = React.useMemo(() => ({ size, required }), [size, required]);
   return (
     <FieldCtx.Provider value={value}>
-      <Base.Root data-size={size} className={cn('flex flex-col gap-stack-xs', className)} {...props} />
+      <Base.Root data-size={size} className={cn('flex flex-col gap-stack-sm', className)} {...props} />
     </FieldCtx.Provider>
   );
 }
@@ -50,6 +50,8 @@ export function FieldLabel({ className, children, ...props }: React.ComponentPro
     <Base.Label
       className={cn(
         'font-sans text-caption font-medium leading-ui text-fg-default',
+        // 아래쪽(설명·에러)과는 stack-sm(4px). 레이블만 margin 을 더해 입력칸과 8px 이 된다.
+        'mb-stack-sm',
         'data-disabled:text-fg-disabled',
         className,
       )}
@@ -57,7 +59,7 @@ export function FieldLabel({ className, children, ...props }: React.ComponentPro
     >
       {children}
       {required && (
-        <span aria-hidden className="ml-inline-xs text-status-danger-fg">
+        <span aria-hidden className="ml-inline-xs text-fg-link">
           *
         </span>
       )}
