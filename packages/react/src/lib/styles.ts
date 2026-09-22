@@ -28,8 +28,8 @@ export const SELECTION_BOX_SIZE = {
 
 /** 박스 옆 레이블. 비활성이면 글자도 흐려진다. 글자 크기는 SELECTION_LABEL_SIZE 가 정한다. */
 export const SELECTION_LABEL = [
-  // 박스와 글자 사이는 inline-lg — sm(4px)은 붙어 보인다.
-  'inline-flex items-center gap-inline-lg',
+  // 박스와 글자 사이는 inline-md(6px). sm(4px)은 붙어 보이고 lg(8px)은 벌어져 보인다.
+  'inline-flex items-center gap-inline-md',
   'font-sans leading-ui text-fg-default select-none cursor-pointer',
   'has-data-disabled:text-fg-disabled has-data-disabled:cursor-not-allowed',
 ].join(' ');

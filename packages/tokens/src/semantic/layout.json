@@ -148,7 +148,8 @@
     },
     "offset": {
       "$type": "dimension",
-      "$value": "2px"
+      "$value": "{scale.space.0}",
+      "$description": "0 이다 — 오프셋이 있으면 브라우저가 링 반지름을 그만큼 키워서 상자보다 둥글어 보인다."
     }
   },
   "elevation": {
