@@ -137,6 +137,10 @@
       },
       "strong": {
         "$value": "2px"
+      },
+      "heavy": {
+        "$value": "2.5px",
+        "$description": "테두리가 곧 형태인 곳(슬라이더 썸). default 1 · strong 2 다음 단계."
       }
     }
   },

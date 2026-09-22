@@ -17,15 +17,17 @@ export interface SliderProps extends React.ComponentProps<typeof Base.Root> {
 }
 
 export function Slider({ showValue, className, ...props }: SliderProps) {
+  // 썸은 트랙 끝에서 절반이 바깥으로 나간다. 값 글자와의 간격에 그만큼(icon-lg/2)을
+  // 더해야 100 일 때 겹치지 않는다.
   return (
-    <Base.Root className={cn('flex w-full items-center gap-inline-md', className)} {...props}>
+    <Base.Root className={cn('flex w-full items-center gap-[calc(var(--spacing-icon-lg)/2+var(--spacing-inline-md))]', className)} {...props}>
       <Base.Control className="relative flex h-control-sm w-full touch-none select-none items-center">
         <Base.Track className="relative h-[calc(var(--spacing-icon-sm)/3)] w-full rounded-pill bg-border-strong data-disabled:bg-field-border-disabled">
           <Base.Indicator className="rounded-pill bg-action-primary-bg-default data-disabled:bg-action-primary-bg-disabled" />
           <Base.Thumb
             className={cn(
               'size-icon-lg rounded-pill bg-fg-on-accent shadow-raised',
-              'border-2 border-solid border-action-primary-bg-default',
+              'border-width-heavy border-solid border-action-primary-bg-default',
               'transition-[box-shadow] duration-fast ease-standard',
               'data-dragging:shadow-overlay',
               'data-focused:outline-2 data-focused:outline-solid data-focused:outline-focus-ring data-focused:outline-offset-2',

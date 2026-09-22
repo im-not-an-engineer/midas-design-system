@@ -93,7 +93,7 @@ export const POPUP_ITEM = [
   // 안 된다 — Tailwind 가 자기 순서로 정렬해서 data-selected 가 이긴다. 조건으로 뺀다.
   'data-selected:not-data-highlighted:bg-surface-selected',
   'data-checked:not-data-highlighted:bg-surface-selected',
-  'data-highlighted:bg-surface-hover',
+  'data-highlighted:bg-surface-accent-hover',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');

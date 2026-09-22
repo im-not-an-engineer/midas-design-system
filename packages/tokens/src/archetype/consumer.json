@@ -109,6 +109,9 @@
   },
   "font": {
     "size": {
+      "footnote": {
+        "$value": "{scale.fontSize.12}"
+      },
       "caption": {
         "$value": "{scale.fontSize.14}"
       },
