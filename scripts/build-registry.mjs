@@ -183,7 +183,7 @@ async function main() {
       extends: 'none', // shadcn 기본 스타일을 물려받지 않는다 — 토큰은 우리 것이다
       title: cfg.title,
       description: cfg.description,
-      dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+      dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge', 'lucide-react'],
       files: [...libSources, contractFile(name, light)],
       cssVars: { theme: themeVars },
       css,

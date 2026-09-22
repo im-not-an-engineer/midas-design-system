@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Checkbox as Base } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseGroup } from '@base-ui/react/checkbox-group';
 import { cn } from '../lib/cn';
+import { Check, Minus } from '../lib/icons';
 import type { Size } from '../lib/types';
 import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION } from '../lib/styles';
 
@@ -15,17 +16,6 @@ import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_GROUP, GR
  *   invalid/disabled  → --color-field-border-invalid / --color-field-*-disabled
  *   모서리            → control 모서리의 절반 (16px 박스에 6px는 과하다)
  */
-
-const CheckIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="size-[70%]" aria-hidden>
-    <path d="M3 8.5l3.2 3L13 4.5" />
-  </svg>
-);
-const DashIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="size-[70%]" aria-hidden>
-    <path d="M3.5 8h9" />
-  </svg>
-);
 
 export interface CheckboxProps extends React.ComponentProps<typeof Base.Root> {
   size?: Size;
@@ -45,7 +35,7 @@ export function Checkbox({ size = 'md', label, description, className, ...props 
       <Base.Indicator
         className="flex items-center justify-center text-fg-on-accent"
         render={(indicatorProps, state) => (
-          <span {...indicatorProps}>{state.indeterminate ? <DashIcon /> : <CheckIcon />}</span>
+          <span {...indicatorProps}>{state.indeterminate ? <Minus className="size-[70%]" aria-hidden /> : <Check className="size-[70%]" aria-hidden />}</span>
         )}
       />
     </Base.Root>

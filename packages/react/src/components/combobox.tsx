@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Combobox as Base } from '@base-ui/react/combobox';
 import { cn } from '../lib/cn';
+import { Check, ChevronDown, X } from '../lib/icons';
 import type { Size } from '../lib/types';
 import { usePortalContainer } from '../lib/theme';
 import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_EMPTY } from '../lib/styles';
@@ -17,22 +18,6 @@ export interface ComboboxItem {
   label: string;
   disabled?: boolean;
 }
-
-const ChevronIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M4 6l4 4 4-4" />
-  </svg>
-);
-const XIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
-    <path d="M4 4l8 8M12 4l-8 8" />
-  </svg>
-);
-const CheckIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M3 8.5l3.2 3L13 4.5" />
-  </svg>
-);
 
 /** 입력 오른쪽에 붙는 지우기·열기 버튼. 컨트롤 높이 안에 들어가는 아이콘 급 크기. */
 const INLINE_BUTTON = [
@@ -65,10 +50,10 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
         />
         <div className="absolute right-inset-xs flex items-center">
           <Base.Clear aria-label="선택 지우기" className={INLINE_BUTTON}>
-            <XIcon />
+            <X aria-hidden />
           </Base.Clear>
           <Base.Trigger aria-label="목록 열기" className={INLINE_BUTTON}>
-            <ChevronIcon />
+            <ChevronDown aria-hidden />
           </Base.Trigger>
         </div>
       </Base.InputGroup>
@@ -80,7 +65,7 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
               {(item: ComboboxItem) => (
                 <Base.Item key={item.value} value={item} disabled={item.disabled} className={cn(POPUP_ITEM, 'pl-inset-lg data-selected:font-medium')}>
                   <Base.ItemIndicator className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
-                    <CheckIcon />
+                    <Check aria-hidden />
                   </Base.ItemIndicator>
                   <span className="truncate">{item.label}</span>
                 </Base.Item>
