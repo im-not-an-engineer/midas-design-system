@@ -96,17 +96,6 @@
       }
     }
   },
-  "radius": {
-    "control": {
-      "$value": "{scale.radius.3}"
-    },
-    "surface": {
-      "$value": "{scale.radius.4}"
-    },
-    "overlay": {
-      "$value": "{scale.radius.6}"
-    }
-  },
   "font": {
     "size": {
       "caption": {
