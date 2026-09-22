@@ -88,12 +88,10 @@ export const POPUP_ITEM = [
   'relative flex items-center gap-inline-sm',
   'h-control-md px-inset-sm rounded-control',
   'leading-ui outline-none select-none cursor-pointer',
-  // 선택은 남아 있는 상태, 하이라이트는 커서가 지금 있는 자리다. 둘이 겹치면
-  // 하이라이트가 이겨야 어디를 고르는 중인지 보인다. 클래스를 뒤에 두는 것으로는
-  // 안 된다 — Tailwind 가 자기 순서로 정렬해서 data-selected 가 이긴다. 조건으로 뺀다.
-  'data-selected:not-data-highlighted:bg-surface-selected',
-  'data-checked:not-data-highlighted:bg-surface-selected',
-  'data-highlighted:bg-surface-accent-hover',
+  // 선택된 항목은 호버해도 그대로 둔다 — 이미 골라둔 것이라 더 강조할 이유가 없다.
+  // 호버 표시는 아직 고르지 않은 항목에만 준다.
+  'data-selected:bg-surface-selected data-checked:bg-surface-selected',
+  'data-highlighted:not-data-selected:not-data-checked:bg-surface-accent-hover',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');
