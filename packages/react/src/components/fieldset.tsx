@@ -20,13 +20,15 @@ export interface FieldsetProps extends React.ComponentProps<typeof Base.Root> {
 
 export function Fieldset({ legend, description, className, children, ...props }: FieldsetProps) {
   return (
-    <Base.Root className={cn('m-0 flex min-w-0 flex-col gap-stack-md border-0 p-0', className)} {...props}>
+    <Base.Root className={cn('m-0 flex min-w-0 flex-col gap-stack-lg border-0 p-0', className)} {...props}>
       {legend != null && (
-        <Base.Legend className="p-0 font-sans text-heading-sm font-semibold leading-tight tracking-heading text-fg-default">
+        // legend 는 <fieldset> 의 첫 자식이어야 해서 설명과 함께 div 로 감쌀 수 없다.
+        // 그래서 간격을 margin 으로 만든다 — 루트 gap(12) 위에서 계산한다.
+        <Base.Legend className={cn('p-0 font-sans text-heading-sm font-semibold leading-tight tracking-heading text-fg-default', description == null && 'mb-stack-md')}>
           {legend}
         </Base.Legend>
       )}
-      {description != null && <p className="mt-stack-sm font-sans text-caption leading-normal text-fg-muted">{description}</p>}
+      {description != null && <p className="-mt-stack-md mb-stack-md font-sans text-caption leading-normal text-fg-muted">{description}</p>}
       {children}
     </Base.Root>
   );

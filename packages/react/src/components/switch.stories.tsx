@@ -17,7 +17,7 @@ export const 상태: Story = {
   render: () => (
     <div className="flex flex-col gap-stack-md">
       {(['sm', 'md', 'lg'] as const).map((size) => (
-        <div key={size} className="flex flex-wrap items-center gap-inline-lg">
+        <div key={size} className="flex flex-wrap items-center gap-inset-md">
           <span className="w-[32px] text-caption text-fg-muted">{size}</span>
           <Switch size={size} label="꺼짐" />
           <Switch size={size} label="켜짐" defaultChecked />

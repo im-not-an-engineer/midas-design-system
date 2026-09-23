@@ -72,8 +72,14 @@ export const SELECTION_LABEL_SIZE = {
  */
 export const SELECTION_GROUP = {
   vertical: 'flex flex-col gap-stack-sm has-[[data-slot=description]]:gap-stack-lg',
-  horizontal: 'flex flex-wrap items-center gap-inline-lg',
+  // 가로 간격 척도(inline)는 lg=8px 가 끝이라 한 단계 더는 inset-md(12px)를 빌려 쓴다.
+  horizontal: 'flex flex-wrap items-center gap-inset-md',
 } as const;
+
+/** 묶음 전체 — 제목 묶음과 항목들 사이. 제목 안쪽(아래)보다 넓어야 두 덩어리로 읽힌다. */
+export const SELECTION_GROUP_WRAP = 'flex flex-col gap-stack-md';
+/** 묶음 제목과 그 설명 사이. 팝오버 제목↔설명과 같은 값이다. */
+export const SELECTION_GROUP_HEADER = 'flex flex-col gap-stack-sm';
 
 export const GROUP_LABEL = 'font-sans text-caption font-medium leading-ui text-fg-default';
 export const GROUP_DESCRIPTION = 'font-sans text-caption leading-normal text-fg-muted';
