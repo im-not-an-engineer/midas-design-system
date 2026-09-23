@@ -35,7 +35,7 @@ export function Checkbox({ size = 'md', label, description, className, ...props 
       <Base.Indicator
         className="flex items-center justify-center text-fg-on-accent"
         render={(indicatorProps, state) => (
-          <span {...indicatorProps}>{state.indeterminate ? <Minus className="size-[70%]" aria-hidden /> : <Check className="size-[70%]" aria-hidden />}</span>
+          <span {...indicatorProps}>{state.indeterminate ? <Minus className="size-full" aria-hidden /> : <Check className="size-full" aria-hidden />}</span>
         )}
       />
     </Base.Root>

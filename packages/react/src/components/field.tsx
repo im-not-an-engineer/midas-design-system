@@ -61,7 +61,7 @@ export function FieldLabel({ className, children, ...props }: React.ComponentPro
       {children}
       {/* 별표 대신 점 — 별표는 글자라 폰트마다 크기·높이가 달라지고 글줄 위로 뜬다. */}
       {required && (
-        <span aria-hidden className="ml-inline-xs inline-block size-inset-xs rounded-pill bg-fg-link align-middle" />
+        <span aria-hidden className="ml-inline-xs inline-block size-inset-xs rounded-pill bg-fg-link align-super" />
       )}
     </Base.Label>
   );

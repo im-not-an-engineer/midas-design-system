@@ -21,7 +21,8 @@ export interface ComboboxItem {
 
 /** 입력 오른쪽에 붙는 지우기·열기 버튼. 컨트롤 높이 안에 들어가는 아이콘 급 크기. */
 const INLINE_BUTTON = [
-  'inline-flex shrink-0 items-center justify-center size-icon-lg rounded-control',
+    // 20px 정사각에 control 모서리(6px)는 과하다 — 체크박스와 같이 절반을 쓴다.
+  'inline-flex shrink-0 items-center justify-center size-icon-lg rounded-[calc(var(--radius-control)/2)]',
   'text-fg-muted cursor-pointer transition-colors duration-fast ease-standard',
   'hover:bg-surface-hover hover:text-fg-default',
   'data-disabled:pointer-events-none data-disabled:text-fg-disabled',
