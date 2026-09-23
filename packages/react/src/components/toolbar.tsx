@@ -33,7 +33,10 @@ export function ToolbarButton({ className, ...props }: React.ComponentProps<type
         'inline-flex h-control-sm min-w-control-sm items-center justify-center gap-inline-xs px-inset-sm rounded-control',
         'font-sans text-body leading-ui text-fg-default select-none cursor-pointer',
         'transition-colors duration-fast ease-standard ax-focus-ring',
-        'hover:not-disabled:bg-surface-hover data-pressed:bg-surface-selected data-pressed:text-fg-default',
+        'hover:not-disabled:bg-surface-hover data-pressed:bg-surface-selected',
+        // 비활성이면 눌림 글자색을 죽인다 — 안 그러면 Tailwind 순서상 data-pressed 가 이겨
+        // 못 누르는 버튼이 눌린 것처럼 진하게 보인다.
+        'data-pressed:not-disabled:not-data-disabled:text-fg-default',
         'disabled:text-fg-disabled disabled:cursor-not-allowed data-disabled:text-fg-disabled',
         '[&_svg]:size-icon-sm',
         className,

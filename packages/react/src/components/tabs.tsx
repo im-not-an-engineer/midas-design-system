@@ -39,7 +39,7 @@ export function Tab({ className, ...props }: React.ComponentProps<typeof Base.Ta
         'inline-flex h-control-md items-center justify-center gap-inline-sm px-inset-md rounded-control',
         'font-sans text-body font-medium leading-ui text-fg-muted whitespace-nowrap select-none cursor-pointer',
         'transition-colors duration-fast ease-standard ax-focus-ring',
-        'hover:not-data-disabled:text-fg-default data-active:text-fg-default',
+        'hover:not-data-disabled:text-fg-default data-active:not-data-disabled:text-fg-default',
         'data-disabled:text-fg-disabled data-disabled:cursor-not-allowed',
         '[&_svg]:size-icon-sm',
         className,
