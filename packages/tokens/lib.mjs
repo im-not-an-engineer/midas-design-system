@@ -14,6 +14,8 @@
  *   4. dark.json은 2층의 모든 색 키를 명시적으로 덮어야 한다.
  *   5. 브랜드가 시맨틱 색 키를 덮었으면 brand/<이름>.dark.json이 그 키들을 전부 덮어야 한다.
  *   6. 램프는 $ramp 축약으로 통째로만 바꾼다.
+ *   8. 같은 치수 사다리 안의 단계는 반드시 커져야 한다 (sm < md < lg). 같아도 실패.
+ *      (7은 소스 포맷 규칙으로 build.mjs에 있다 — 랩은 항상 정규화해 쓰므로 여기서 볼 게 없다.)
  */
 import StyleDictionary from 'style-dictionary';
 import { readFile, readdir } from 'node:fs/promises';
@@ -156,6 +158,46 @@ function diff(base, variant, label) {
   return out;
 }
 
+/**
+ * 규칙 8 — 치수 사다리. 같은 사다리 안의 단계는 반드시 커져야 한다.
+ * 테마 랩은 드롭다운에서 아무 scale 단계나 고를 수 있어서 md ≥ lg 같은 뒤집힘을 막을 게 없다.
+ * font.size는 본문·제목 두 사다리로 나눈다 — bodyLg와 headingSm은 굵기로 갈리는 다른 역할이라
+ * 같은 px여도 정상이다(기본 계약에서 둘 다 16). radius는 뺀다 — scale.radius가 16 다음 바로 full로
+ * 끝나서 consumer가 surface=overlay=16인 게 실수가 아니다. 단계를 늘릴지는 사람이 정한다.
+ */
+const LADDERS = [
+  ['size.control',  ['sm', 'md', 'lg']],
+  ['size.icon',     ['sm', 'md', 'lg']],
+  ['size.row',      ['sm', 'md', 'lg']],
+  ['space.inset',   ['xs', 'sm', 'md', 'lg', 'xl']],
+  ['space.stack',   ['xs', 'sm', 'md', 'lg', 'xl']],
+  ['space.inline',  ['xs', 'sm', 'md', 'lg']],
+  ['space.section', ['sm', 'md', 'lg']],
+  ['font.size',     ['caption', 'body', 'bodyLg'],                          '본문'],
+  ['font.size',     ['headingSm', 'headingMd', 'headingLg', 'display'],    '제목'],
+];
+
+/** 해석된 값 맵({cssVar: value})에서 사다리를 검사한다. 뒤집힌 곳을 문장으로 돌려준다. */
+function ladderViolations(base, values, label) {
+  const byPath = Object.fromEntries(Object.values(base).map((t) => [t.path, t]));
+  const px = (v) => { const n = parseFloat(v); if (Number.isNaN(n)) throw new Error(`${label}: 치수 값을 숫자로 읽을 수 없습니다: ${v}`); return n; };
+  const out = [];
+  for (const [prefix, steps, sub] of LADDERS) {
+    const name = sub ? `${prefix} ${sub}` : prefix;
+    const rungs = steps.map((step) => {
+      const t = byPath[`${prefix}.${step}`];
+      if (!t) throw new Error(`규칙 8의 사다리 ${name} 에 ${prefix}.${step} 이 없습니다. 계약 키가 바뀌었으면 lib.mjs 의 LADDERS 도 고치세요.`);
+      const cssVar = Object.keys(base).find((k) => base[k] === t);
+      return { step, value: values[cssVar] };
+    });
+    for (let i = 1; i < rungs.length; i++) {
+      const a = rungs[i - 1], b = rungs[i];
+      if (!(px(a.value) < px(b.value))) out.push(`${name.padEnd(18)} ${a.step}(${a.value}) ≥ ${b.step}(${b.value})`);
+    }
+  }
+  return out;
+}
+
 const namesIn = async (src, dir) =>
   (await readdir(path.join(src, dir))).map((f) => /^([a-z0-9.-]+)\.json$/.exec(f)?.[1]).filter(Boolean).sort(); // 점 허용: mono.dark.json
 
@@ -189,7 +231,7 @@ export async function resolveOne(src, { overlay = {}, brand = 'default', archety
   return Object.fromEntries(Object.entries(flat).map(([k, t]) => [k, t.value]));
 }
 
-/** 전체 빌드. 규칙 1~6을 전부 검사하고 CSS·계약을 돌려준다. 파일은 쓰지 않는다. */
+/** 전체 빌드. 규칙 1~6·8을 전부 검사하고 CSS·계약을 돌려준다. 파일은 쓰지 않는다. */
 export async function buildAll(src, { overlay = {} } = {}) {
   const L = await listLayers(src);
   const BASE_FILES = [...L.primitive, ...L.semantic, 'brand/default.json'];
@@ -201,6 +243,19 @@ export async function buildAll(src, { overlay = {} } = {}) {
 
   const archetypes = {};
   for (const n of L.archetypes) archetypes[n] = diff(base, await flattenTokens(await load([`archetype/${n}.json`])), `archetype/${n}`);
+
+  // 규칙 8: 치수 사다리 순서. 기본 계약 + 각 아키타입만 본다 — 브랜드는 규칙 3이 치수를 못 건드리게
+  // 막고, 모드는 색만 바꾸므로 치수가 달라지는 축은 아키타입뿐이다.
+  {
+    const baseValues = Object.fromEntries(Object.entries(base).map(([k, t]) => [k, t.value]));
+    const bad = [];
+    for (const v of ladderViolations(base, baseValues, '기본 계약')) bad.push(`  기본 계약          ${v}`);
+    for (const [n, delta] of Object.entries(archetypes))
+      for (const v of ladderViolations(base, { ...baseValues, ...delta }, `archetype/${n}`)) bad.push(`  archetype/${n.padEnd(10)} ${v}`);
+    if (bad.length) throw new Error(
+      `치수 사다리가 뒤집힌 곳 ${bad.length}개:\n${bad.join('\n')}\n` +
+      `같은 사다리 안의 단계는 반드시 커져야 합니다 — 같아도 안 됩니다. 컴포넌트가 size="lg" 를 골랐는데 md 와 같거나 작아지면 크기 prop 이 거짓말이 됩니다. — 규칙 8`);
+  }
 
   const darkFull = await flattenTokens(await load(['mode/dark.json']));
   const dark = diff(base, darkFull, 'mode/dark');

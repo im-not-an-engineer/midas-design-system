@@ -1,5 +1,5 @@
 {
-  "$description": "브랜드 — default. 제품의 기본 테마다. accent는 palette.blue(제품 화면에서 추출한 파랑)를 가리킨다. info는 accent와 별개로 둔다 — 브랜드색이 나중에 파랑이 아니게 되어도 정보 알림은 파랑이어야 하기 때문.",
+  "$description": "브랜드 — default. 제품의 기본 테마다. accent는 palette.blue를 가리킨다 — 폴리싱 1차(PR #1)에서 추출값(azure) 대신 blue로 확정했고 primary는 700을 쓴다. info는 accent와 별개로 둔다 — 브랜드색이 나중에 파랑이 아니게 되어도 정보 알림은 파랑이어야 하기 때문.",
   "ramp": {
     "$description": "$ramp 은 빌드가 palette의 모든 단계로 펼치는 축약이다. 램프는 통째로만 바꾼다(빌드 규칙 6). 브랜드 색이 바뀌면 accent 한 줄만 고친다.",
     "neutral": {
