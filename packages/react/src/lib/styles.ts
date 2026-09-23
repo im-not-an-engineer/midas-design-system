@@ -151,7 +151,14 @@ export const POPUP_ITEM_INDENT =
 
 export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-medium text-fg-muted';
 export const POPUP_SEPARATOR = '-mx-inset-xs my-inset-xs h-px bg-border-subtle';
-export const POPUP_EMPTY = 'px-inset-sm py-inset-md text-caption text-fg-muted';
+/**
+ * "결과 없음" 안내. 이 요소는 aria-live 알림 자리라 항목이 있어도 DOM 에 남는다 —
+ * 지울 수 없으니 비어 있을 때만 높이를 0 으로 접는다(display:none 으로 감추면
+ * 접근성 트리에서 빠져 나중에 글이 들어와도 안 읽힐 수 있다).
+ * 높이는 항목 한 줄과 같게 둔다 — 그래야 결과가 있든 없든 팝업 위아래 여백이 같다.
+ */
+export const POPUP_EMPTY =
+  'flex h-control-md items-center px-inset-sm text-caption text-fg-muted empty:h-0 empty:overflow-hidden';
 
 /** 모달 계열(Dialog, AlertDialog, Drawer)의 뒷배경. */
 export const MODAL_BACKDROP = [
