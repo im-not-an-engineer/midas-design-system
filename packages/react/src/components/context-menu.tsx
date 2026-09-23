@@ -3,7 +3,7 @@ import { ContextMenu as Base } from '@base-ui/react/context-menu';
 import { cn } from '../lib/cn';
 import { Check, ChevronRight, CircleSmall } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
-import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_ACT, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
+import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 오버레이 가족 — ContextMenu. 우클릭·길게 누르기로 커서 위치에 뜨는 메뉴. 파트·스타일은 Menu와 같다.
@@ -27,7 +27,7 @@ export function ContextMenuContent({ className, ...props }: React.ComponentProps
 }
 
 export function ContextMenuItem({ className, destructive, ...props }: React.ComponentProps<typeof Base.Item> & { destructive?: boolean }) {
-  return <Base.Item className={cn(POPUP_ITEM, POPUP_ITEM_ACT, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)} {...props} />;
+  return <Base.Item className={cn(POPUP_ITEM, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)} {...props} />;
 }
 
 export function ContextMenuGroup({ label, children, ...props }: React.ComponentProps<typeof Base.Group> & { label?: React.ReactNode }) {
@@ -63,7 +63,7 @@ export function ContextMenuRadioItem({ className, children, ...props }: React.Co
 
 export function ContextMenuSubTrigger({ className, children, ...props }: React.ComponentProps<typeof Base.SubmenuTrigger>) {
   return (
-    <Base.SubmenuTrigger className={cn(POPUP_ITEM, POPUP_ITEM_ACT, 'justify-between', className)} {...props}>
+    <Base.SubmenuTrigger className={cn(POPUP_ITEM, 'justify-between', className)} {...props}>
       {children}<ChevronRight aria-hidden className="text-fg-subtle" />
     </Base.SubmenuTrigger>
   );

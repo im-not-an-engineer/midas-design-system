@@ -85,32 +85,27 @@ export const POPUP_SURFACE = [
 
 /** 팝업 항목. 높이가 control.sm이라 아키타입과 함께 조여진다. */
 /**
- * 팝업 항목의 공통 뼈대. 면 색은 성격에 따라 아래 둘 중 하나를 더한다.
+ * 팝업 항목의 공통 뼈대.
  *
- * 팝업 항목은 두 종류다. 고르는 목록(Select·Combobox·체크 메뉴)에는 "선택"이라는
- * 남아 있는 상태가 있고, 실행 메뉴(이름 바꾸기·삭제)에는 없다. 색이 뜻을 담으려면
- * 키 컬러는 고르는 쪽에만 써야 한다 — 실행 메뉴까지 파랗게 하면 커서가 지나간 것이
- * "선택됨"처럼 읽힌다.
+ * 호버는 중립 회색이다. 커서가 지나가는 것은 뜻이 없는 일시적 표시라, 키 컬러를
+ * 여기까지 쓰면 "선택됨"과 구분이 흐려진다. 키 컬러는 선택에만 쓴다(POPUP_ITEM_PICK).
+ * Ant Design·Material·Primer 가 쓰는 방식이다.
  */
 export const POPUP_ITEM = [
   'relative flex items-center gap-inline-sm',
   'h-control-md px-inset-sm rounded-control',
   'leading-ui outline-none select-none cursor-pointer',
+  // 선택된 항목은 호버해도 그대로 둔다 — 이미 골라둔 것이라 회색으로 덮을 이유가 없다.
+  'data-highlighted:not-data-selected:not-data-checked:bg-surface-hover',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');
 
 /**
- * 고르는 목록의 항목. 선택은 남아 있는 상태라 호버해도 그대로 두고,
- * 호버 표시는 아직 고르지 않은 항목에만 준다.
+ * 고르는 목록(Select·Combobox·체크 메뉴)의 항목. 선택이라는 남아 있는 상태가
+ * 있는 쪽에만 붙인다. 실행 메뉴(이름 바꾸기·삭제)에는 선택이 없어 붙이지 않는다.
  */
-export const POPUP_ITEM_PICK = [
-  'data-selected:bg-surface-selected data-checked:bg-surface-selected',
-  'data-highlighted:not-data-selected:not-data-checked:bg-surface-accent-subtle',
-].join(' ');
-
-/** 실행 메뉴의 항목. 고를 것이 없으므로 호버는 중립 회색이다. */
-export const POPUP_ITEM_ACT = 'data-highlighted:bg-surface-hover';
+export const POPUP_ITEM_PICK = 'data-selected:bg-surface-selected data-checked:bg-surface-selected';
 
 /** 항목 왼쪽의 선택 표시자(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
 export const POPUP_ITEM_MARKER =

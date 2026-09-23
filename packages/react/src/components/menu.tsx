@@ -3,7 +3,7 @@ import { Menu as Base } from '@base-ui/react/menu';
 import { cn } from '../lib/cn';
 import { Check, ChevronRight, CircleSmall } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
-import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_ACT, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
+import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #4 — 팝오버 계열의 대표.
@@ -49,7 +49,7 @@ export interface MenuItemProps extends React.ComponentProps<typeof Base.Item> {
 export function MenuItem({ className, destructive, ...props }: MenuItemProps) {
   return (
     <Base.Item
-      className={cn(POPUP_ITEM, POPUP_ITEM_ACT, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)}
+      className={cn(POPUP_ITEM, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)}
       {...props}
     />
   );
@@ -110,7 +110,7 @@ export function MenuSeparator({ className, ...props }: React.ComponentProps<type
 
 export function MenuSubTrigger({ className, children, ...props }: React.ComponentProps<typeof Base.SubmenuTrigger>) {
   return (
-    <Base.SubmenuTrigger className={cn(POPUP_ITEM, POPUP_ITEM_ACT, 'justify-between', className)} {...props}>
+    <Base.SubmenuTrigger className={cn(POPUP_ITEM, 'justify-between', className)} {...props}>
       {children}
       <ChevronRight aria-hidden className="text-fg-subtle" />
     </Base.SubmenuTrigger>
