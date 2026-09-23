@@ -68,12 +68,24 @@ export function DrawerContent({ className, children, ...props }: React.Component
  * 구분선은 패널 끝까지 긋는다(-mx-inset-lg). 안쪽 여백만큼 물러나 있으면
  * 영역이 나뉜 게 아니라 장식처럼 보인다.
  */
-export function DrawerHeader({ className, children, ...props }: React.ComponentProps<'div'>) {
+export interface DrawerHeaderProps extends React.ComponentProps<'div'> {
+  /**
+   * 오른쪽 끝에 붙는 것 — 보통 `<DrawerCloseButton />`.
+   * **반드시 여기로 넣는다.** 밖에서 헤더를 가로 flex 로 감싸면 헤더가 제목 너비만큼만
+   * 차지해서 구분선이 패널 중간에서 끊긴다.
+   */
+  action?: React.ReactNode;
+}
+
+export function DrawerHeader({ className, children, action, ...props }: DrawerHeaderProps) {
   return (
     // 구분선 위 inset-md, 아래 stack-md + Content 의 flex gap(stack-md).
     // 위쪽만 키우면 선이 본문에 붙어 구역이 나뉜 느낌이 안 난다 — 여백을 양쪽에 나눈다.
     <div className="mb-stack-md flex flex-col">
-      <div className={cn('flex flex-col pb-inset-md', TITLE_DESC_GAP, className)} {...props}>{children}</div>
+      <div className="flex items-start justify-between gap-inline-md pb-inset-md">
+        <div className={cn('flex min-w-0 flex-col', TITLE_DESC_GAP, className)} {...props}>{children}</div>
+        {action}
+      </div>
       <Separator className="-mx-inset-lg w-auto" />
     </div>
   );
