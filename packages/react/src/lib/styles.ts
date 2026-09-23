@@ -71,7 +71,7 @@ export const SELECTION_LABEL_SIZE = {
  * 묶음이 제대로 나뉜다. 설명이 하나라도 있을 때만 벌리므로, 한 줄짜리 목록은 촘촘하게 남는다.
  */
 export const SELECTION_GROUP = {
-  vertical: 'flex flex-col gap-stack-sm has-[[data-slot=description]]:gap-stack-lg',
+  vertical: 'flex flex-col gap-stack-md has-[[data-slot=description]]:gap-stack-xl',
   // 가로 간격 척도(inline)는 lg=8px 가 끝이라 한 단계 더는 inset-md(12px)를 빌려 쓴다.
   horizontal: 'flex flex-wrap items-center gap-inset-md',
 } as const;
