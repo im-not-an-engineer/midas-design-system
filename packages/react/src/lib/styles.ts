@@ -91,7 +91,7 @@ export const POPUP_ITEM = [
   // 선택된 항목은 호버해도 그대로 둔다 — 이미 골라둔 것이라 더 강조할 이유가 없다.
   // 호버 표시는 아직 고르지 않은 항목에만 준다.
   'data-selected:bg-surface-selected data-checked:bg-surface-selected',
-  'data-highlighted:not-data-selected:not-data-checked:bg-surface-accent-hover',
+  'data-highlighted:not-data-selected:not-data-checked:bg-surface-accent-subtle',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');
