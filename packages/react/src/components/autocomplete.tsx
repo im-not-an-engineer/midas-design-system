@@ -3,7 +3,7 @@ import { Autocomplete as Base } from '@base-ui/react/autocomplete';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
 import { usePortalContainer } from '../lib/theme';
-import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_EMPTY } from '../lib/styles';
+import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_PICK, POPUP_EMPTY } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Autocomplete. 자유 입력이되 제안 목록을 보여준다(검색창, 태그 입력).
@@ -31,7 +31,7 @@ export function Autocomplete({ items, placeholder = '검색…', size = 'md', em
             <Base.Empty className={POPUP_EMPTY}>{emptyText}</Base.Empty>
             <Base.List>
               {(item: string) => (
-                <Base.Item key={item} value={item} className={POPUP_ITEM}>
+                <Base.Item key={item} value={item} className={cn(POPUP_ITEM, POPUP_ITEM_PICK)}>
                   <span className="truncate">{item}</span>
                 </Base.Item>
               )}
