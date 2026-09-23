@@ -9,6 +9,7 @@ import {
   Popover, PopoverTrigger, PopoverContent, PopoverTitle, PopoverDescription,
   Tooltip, TooltipProvider, PreviewCard, PreviewCardTrigger, PreviewCardContent,
   Menu, MenuTrigger, MenuContent, MenuGroup, MenuItem, MenuSeparator,
+  AxTheme,
   Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
   ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter,
@@ -126,7 +127,13 @@ export function Gallery() {
         <Section title="오버레이 — 열어둔 채로 보는 것">
           {/* 팝업이 트리거 아래로 뜨므로 각자 자리를 확보해 서로 가리지 않게 한다.
               Menu는 modal 기본값이 true라 열어두면 바깥(편집 패널 포함)의 포인터 입력이
-              전부 막힌다 — 여기서는 '보기용'으로 열어두는 것이므로 반드시 꺼야 한다. */}
+              전부 막힌다 — 여기서는 '보기용'으로 열어두는 것이므로 반드시 꺼야 한다.
+
+              중첩 AxTheme: 이 데모들은 항상 열려 있어 z-popover(400)로 떠 있고, 그대로 두면
+              다이얼로그(z-modal 300)를 덮는다. AxTheme 은 자기 자신이 포털 컨테이너이므로
+              한 겹 감싸면 팝업이 이 구역 안으로 들어오고, 구역을 z-sticky(100) 쌓기 맥락에
+              두면 400 이 그 안에 갇혀 다이얼로그가 위로 올라온다. */}
+          <AxTheme className="isolate z-sticky flex flex-wrap items-start gap-inline-lg gap-y-stack-md">
           <div className="flex h-[160px] w-[200px] flex-col">
             <Menu open modal={false}><MenuTrigger render={<Button />}>메뉴</MenuTrigger>
               <MenuContent align="start"><MenuGroup label="이슈"><MenuItem>이름 바꾸기</MenuItem><MenuItem disabled>보관</MenuItem></MenuGroup><MenuSeparator /><MenuItem destructive>삭제</MenuItem></MenuContent>
@@ -145,6 +152,7 @@ export function Gallery() {
               <PreviewCardContent><div className="flex items-center gap-inline-sm"><Avatar size="sm" name="양희윤" /><span className="text-body">양희윤 · 디자이너</span></div></PreviewCardContent>
             </PreviewCard>
           </div>
+          </AxTheme>
         </Section>
 
         <Section title="내비 · 레이아웃">
