@@ -167,7 +167,7 @@ export function Gallery() {
           <Collapsible defaultOpen><CollapsibleTrigger render={<Button intent="ghost" size="sm" />}>고급 옵션</CollapsibleTrigger><CollapsiblePanel><p className="text-body text-fg-muted">열린 패널</p></CollapsiblePanel></Collapsible>
           <Menubar><Menu><MenubarTrigger>파일</MenubarTrigger><MenuContent align="start"><MenuItem>새로</MenuItem></MenuContent></Menu><Menu><MenubarTrigger>편집</MenubarTrigger><MenuContent align="start"><MenuItem>실행 취소</MenuItem></MenuContent></Menu></Menubar>
           <Toolbar aria-label="도구"><ToolbarGroup><ToolbarButton><b>B</b></ToolbarButton><ToolbarButton><i>I</i></ToolbarButton></ToolbarGroup><ToolbarSeparator /><ToolbarButton>정렬</ToolbarButton></Toolbar>
-          <ScrollArea className="h-[110px] w-[220px] rounded-surface border border-solid border-border-default">
+          <ScrollArea className="h-[calc(var(--spacing-inset-sm)+var(--spacing-row-md)*3.4+var(--border-width-default)*2)] w-[220px] rounded-surface border border-solid border-border-default">
             <ul className="flex flex-col p-inset-sm">{Array.from({ length: 10 }, (_, i) => <li key={i} className="flex h-row-md items-center px-inset-sm text-body">ISSUE-{240 - i}</li>)}</ul>
           </ScrollArea>
           <div className="flex w-[220px] flex-col gap-stack-sm text-body"><span>위</span><Separator label="또는" /><span>아래</span></div>
