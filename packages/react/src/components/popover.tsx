@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Popover as Base } from '@base-ui/react/popover';
 import { cn } from '../lib/cn';
 import { usePortalContainer } from '../lib/theme';
-import { POPUP_SURFACE } from '../lib/styles';
+import { POPUP_SURFACE, TITLE_DESC_MARGIN } from '../lib/styles';
 
 /**
  * 오버레이 가족 — Popover. 트리거 옆에 붙는 작은 패널(필터, 설정, 도움말). 포커스를 받는다.
@@ -35,5 +35,5 @@ export function PopoverTitle({ className, ...props }: React.ComponentProps<typeo
   return <Base.Title className={cn('text-body font-semibold leading-ui text-fg-default', className)} {...props} />;
 }
 export function PopoverDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
-  return <Base.Description className={cn('mt-stack-xs text-caption leading-normal text-fg-muted', className)} {...props} />;
+  return <Base.Description className={cn(TITLE_DESC_MARGIN, 'text-caption leading-normal text-fg-muted', className)} {...props} />;
 }

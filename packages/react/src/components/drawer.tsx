@@ -5,7 +5,7 @@ import { X } from '../lib/icons';
 import { Button } from './button';
 import { Separator } from './separator';
 import { usePortalContainer } from '../lib/theme';
-import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_TITLE, DIALOG_DESCRIPTION } from '../lib/styles';
+import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_TITLE, DIALOG_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
 
 /**
  * 오버레이 가족 — Drawer. 화면 가장자리에서 밀려 나오는 패널. 스와이프로 닫힌다(Base UI).
@@ -73,7 +73,7 @@ export function DrawerHeader({ className, children, ...props }: React.ComponentP
     // 구분선 위 inset-md, 아래 stack-md + Content 의 flex gap(stack-md).
     // 위쪽만 키우면 선이 본문에 붙어 구역이 나뉜 느낌이 안 난다 — 여백을 양쪽에 나눈다.
     <div className="mb-stack-md flex flex-col">
-      <div className={cn('flex flex-col gap-stack-xs pb-inset-md', className)} {...props}>{children}</div>
+      <div className={cn('flex flex-col pb-inset-md', TITLE_DESC_GAP, className)} {...props}>{children}</div>
       <Separator className="-mx-inset-lg w-auto" />
     </div>
   );

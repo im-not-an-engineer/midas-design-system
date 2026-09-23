@@ -26,6 +26,18 @@ export const SELECTION_BOX_SIZE = {
   lg: 'size-icon-lg',
 } as const;
 
+/**
+ * 제목과 그 아래 설명 사이. Dialog·Drawer·Popover·Toast·체크박스 설명까지 전부 같은 값이라
+ * 한 곳에 둔다. stack-xs(workbench 2px)일 때는 두 줄이 한 덩어리로 뭉쳐 읽혔다.
+ * 척도에 10px 단계가 없어 그 위인 stack-lg(12px)로 맞춘다.
+ */
+export const TITLE_DESC_GAP = 'gap-stack-lg';
+/** 위와 같은 간격을 flex gap 이 아니라 margin 으로 줘야 하는 자리(Popover 처럼 부모가 flex 가 아닐 때). */
+export const TITLE_DESC_MARGIN = 'mt-stack-lg';
+
+/** 제목 줄. 아래 설명(GROUP_DESCRIPTION)과 같은 굵기면 어느 쪽이 제목인지 안 보인다. */
+export const TITLE_IN_PAIR = 'font-medium text-fg-default';
+
 /** 박스 옆 레이블. 비활성이면 글자도 흐려진다. 글자 크기는 SELECTION_LABEL_SIZE 가 정한다. */
 export const SELECTION_LABEL = [
   // 박스와 글자 사이는 inline-md(6px). sm(4px)은 붙어 보이고 lg(8px)은 벌어져 보인다.
@@ -41,9 +53,15 @@ export const SELECTION_LABEL_SIZE = {
   lg: 'text-body-lg',
 } as const;
 
-/** 항목 묶음(CheckboxGroup, RadioGroup)의 컨테이너. */
+/**
+ * 항목 묶음(CheckboxGroup, RadioGroup)의 컨테이너.
+ *
+ * 설명이 붙으면 항목 하나가 두 줄이 되고, 그 안쪽 간격이 TITLE_DESC_GAP(12px)이다.
+ * 항목 사이가 그대로 4px 이면 설명이 아래 항목에 붙어 읽힌다 — 안쪽보다 바깥이 넓어야
+ * 묶음이 제대로 나뉜다. 설명이 하나라도 있을 때만 벌리므로, 한 줄짜리 목록은 촘촘하게 남는다.
+ */
 export const SELECTION_GROUP = {
-  vertical: 'flex flex-col gap-stack-sm',
+  vertical: 'flex flex-col gap-stack-sm has-[[data-slot=description]]:gap-stack-xl',
   horizontal: 'flex flex-wrap items-center gap-inline-lg',
 } as const;
 

@@ -3,7 +3,7 @@ import { Dialog as Base } from '@base-ui/react/dialog';
 import { cn } from '../lib/cn';
 import { Button } from './button';
 import { usePortalContainer } from '../lib/theme';
-import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, DIALOG_TITLE, DIALOG_DESCRIPTION } from '../lib/styles';
+import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, DIALOG_TITLE, DIALOG_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #3 — 오버레이.
@@ -59,7 +59,7 @@ export function DialogContent({ width = 'md', className, children, ...props }: D
 }
 
 export function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('flex flex-col gap-stack-xs', className)} {...props} />;
+  return <div className={cn('flex flex-col', TITLE_DESC_GAP, className)} {...props} />;
 }
 
 export function DialogTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {

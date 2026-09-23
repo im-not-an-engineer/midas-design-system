@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Toast as Base } from '@base-ui/react/toast';
 import { cn } from '../lib/cn';
+import { TITLE_DESC_GAP } from '../lib/styles';
 import { X } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
 
@@ -39,7 +40,7 @@ function ToastList() {
       )}
     >
       <Base.Content className="flex items-start gap-inline-md p-inset-md">
-        <div className="flex min-w-0 flex-1 flex-col gap-stack-xs">
+        <div className={cn("flex min-w-0 flex-1 flex-col", TITLE_DESC_GAP)}>
           <Base.Title className="text-body font-semibold leading-ui" />
           <Base.Description className="text-caption leading-normal text-fg-muted" />
           {toast.actionProps && (
