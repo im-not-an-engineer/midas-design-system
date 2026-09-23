@@ -141,6 +141,43 @@ import { ChevronDown } from '../lib/icons';   // ○
 아이콘은 `currentColor`로 그려진 것만 쓴다. 색이 박힌 SVG에는 토큰이 닿지 않는다.
 크기는 `size-icon-{sm,md,lg}` 계약으로, 컴포넌트 안에서 직접 px를 주지 않는다.
 
+## 6-4. 상태 두 개가 같은 속성을 다툴 때는 `not-`
+
+Tailwind 는 클래스를 **적은 순서가 아니라 자기 순서로** 정렬한다. 그래서 같은 속성에
+상태 변형을 나란히 걸면, 뒤에 적어도 의도와 반대로 이기는 쪽이 생긴다.
+
+```tsx
+// ✗ 선택된 항목에 커서를 올리면 회색이 파랑을 덮는다 — 순서를 바꿔도 소용없다
+'data-selected:bg-surface-selected data-highlighted:bg-surface-hover'
+
+// ○ 지는 쪽의 조건에서 이기는 쪽을 빼낸다
+'data-selected:bg-surface-selected data-highlighted:not-data-selected:bg-surface-hover'
+```
+
+폴리싱 1차에서 같은 함정을 네 번 밟았다. 겹치는 조합은 대체로 정해져 있다.
+
+| 이기는 쪽 | 지는 쪽 | 어디 |
+|---|---|---|
+| `data-selected` · `data-checked` | `data-highlighted` | 팝업 항목 |
+| `data-disabled` | `data-pressed` | 토글 · 툴바 |
+| `data-disabled` | `data-active` | 탭 |
+
+**비활성은 언제나 이긴다.** 누를 수 없는 것에 눌림·호버 표시가 남으면 거짓말이 된다.
+
+## 6-5. 컴포넌트는 네 자리에 들어가야 끝난다
+
+```
+components/<이름>.tsx          부품
+components/<이름>.stories.tsx  컴포넌트 목록에 뜬다
+index.ts 의 export             제품이 `from '@ax/react'` 로 쓸 수 있다
+lab/gallery.tsx                테마 랩에서 색을 바꿀 때 같이 움직이는 게 보인다
+```
+
+세 번째를 빠뜨리면 **레지스트리에는 나가는데 패키지에서는 못 불러온다.** 빌드도
+타입체크도 통과하므로 아무도 모른다. `npm run lint:components` 가 이걸 막는다
+(verify 에 물려 있다). 정적으로 깔 수 없는 컴포넌트는 그 스크립트의
+`GALLERY_EXEMPT` 에 **이유와 함께** 적는다.
+
 ## 7. 파괴적 동작
 
 확인 단계를 둔다. `DialogConfirmFooter`에 `intent="destructive"`.
