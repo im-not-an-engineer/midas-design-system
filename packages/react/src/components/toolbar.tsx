@@ -47,7 +47,7 @@ export function ToolbarButton({ className, ...props }: React.ComponentProps<type
 }
 
 export const ToolbarLink = ({ className, ...props }: React.ComponentProps<typeof Base.Link>) => (
-  <Base.Link className={cn('inline-flex h-control-sm items-center px-inset-xs rounded-control font-sans text-caption text-fg-link no-underline ax-focus-ring hover:underline', className)} {...props} />
+  <Base.Link className={cn('inline-flex h-control-sm items-center px-inset-sm rounded-control font-sans text-caption text-fg-link no-underline ax-focus-ring hover:underline', className)} {...props} />
 );
 
 export const ToolbarInput = ({ className, ...props }: React.ComponentProps<typeof Base.Input>) => (

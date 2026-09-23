@@ -10,7 +10,7 @@ export const 기본: Story = {
     <Tabs defaultValue="overview">
       <TabsList>
         <Tab value="overview">개요</Tab>
-        <Tab value="issues">이슈 <span className="inline-flex items-center rounded-pill bg-surface-inverse px-inset-sm py-inset-xs text-caption text-fg-on-inverse">12</span></Tab>
+        <Tab value="issues">이슈 <span className="inline-flex items-center rounded-pill bg-surface-inverse px-[calc(var(--spacing-inset-xs)*1.5)] py-inset-xs text-footnote text-fg-on-inverse">12</span></Tab>
         <Tab value="settings">설정</Tab>
         <Tab value="billing" disabled>결제</Tab>
       </TabsList>

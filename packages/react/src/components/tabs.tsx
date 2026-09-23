@@ -36,7 +36,7 @@ export function Tab({ className, ...props }: React.ComponentProps<typeof Base.Ta
   return (
     <Base.Tab
       className={cn(
-        'inline-flex h-control-md items-center justify-center gap-inline-sm px-inset-md rounded-control',
+        'inline-flex h-control-md items-center justify-center gap-inline-md px-inset-md rounded-control',
         'font-sans text-body font-semibold leading-ui text-fg-muted whitespace-nowrap select-none cursor-pointer',
         'transition-colors duration-fast ease-standard ax-focus-ring',
         'hover:not-data-disabled:text-fg-default data-active:not-data-disabled:text-fg-default',
