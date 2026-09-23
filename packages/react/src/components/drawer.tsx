@@ -72,7 +72,10 @@ export function DrawerHeader({ className, ...props }: React.ComponentProps<'div'
     <div
       className={cn(
         'flex flex-col gap-stack-xs',
-        '-mx-inset-lg px-inset-lg pb-inset-sm border-b border-solid border-border-subtle',
+        '-mx-inset-lg px-inset-lg border-b border-solid border-border-subtle',
+        // 구분선 위 inset-md, 아래 stack-md + Content 의 flex gap(stack-md).
+        // pb 만 키우면 선이 본문 쪽에 붙어 구역이 나뉜 느낌이 안 난다 — 여백을 양쪽에 나눈다.
+        'pb-inset-md mb-stack-md',
         className,
       )}
       {...props}
@@ -93,7 +96,11 @@ export function DrawerFooter({ className, ...props }: React.ComponentProps<'div'
     <div
       className={cn(
         'mt-auto flex items-center justify-end gap-inline-md',
-        '-mx-inset-lg px-inset-lg pt-inset-sm border-t border-solid border-border-subtle',
+        '-mx-inset-lg px-inset-lg border-t border-solid border-border-subtle',
+        // 위는 Content 의 flex gap(stack-md) 하나뿐이라, 아래를 머리말의 pb+mb 와 같게 준다.
+        // inset-xl = inset-md + stack-md 가 workbench·consumer 양쪽에서 성립해,
+        // '머리말↔본문' 과 '본문↔버튼줄' 두 간격이 어느 아키타입에서도 같다.
+        'pt-inset-xl',
         className,
       )}
       {...props}
