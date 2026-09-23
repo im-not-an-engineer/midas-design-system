@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Popover, PopoverTrigger, PopoverContent, PopoverTitle, PopoverDescription } from './popover';
 import { Button } from './button';
 import { Checkbox } from './checkbox';
+import { Separator } from './separator';
 
 const meta = { title: '컴포넌트/오버레이/Popover', component: PopoverContent } satisfies Meta<typeof PopoverContent>;
 export default meta;
@@ -14,6 +15,9 @@ export const 필터: Story = {
       <PopoverContent align="start">
         <PopoverTitle>표시할 상태</PopoverTitle>
         <PopoverDescription>고른 상태의 이슈만 목록에 보입니다.</PopoverDescription>
+        {/* 머리말과 고르는 목록은 성격이 다른 구역이라 선으로 나눈다.
+            -mx-inset-md 로 팝오버 끝까지 — 안쪽 여백만큼 물러나면 장식으로 보인다. */}
+        <Separator className="-mx-inset-md mt-inset-md w-auto" />
         {/* 고르는 줄이라 셀 높이를 맞춘다 — 척도에 24px 단계가 없어 가장 가까운 row-sm(28px). */}
         <div className="mt-stack-md flex flex-col">
           {['대기', '진행', '완료'].map((s, i) => (

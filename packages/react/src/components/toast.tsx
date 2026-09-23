@@ -42,7 +42,7 @@ function ToastList() {
       <Base.Content className="flex items-start gap-inline-md p-inset-md">
         <div className={cn("flex min-w-0 flex-1 flex-col", TITLE_DESC_GAP)}>
           <div className="flex items-center gap-inline-md">
-            <span aria-hidden className={cn('size-inset-xs shrink-0 rounded-pill', DOT[(toast.type as ToastType) ?? 'info'] ?? DOT.info)} />
+            <span aria-hidden className={cn('size-inset-sm shrink-0 rounded-pill', DOT[(toast.type as ToastType) ?? 'info'] ?? DOT.info)} />
             <Base.Title className="text-body font-semibold leading-ui" />
           </div>
           <Base.Description className="text-caption leading-normal text-fg-muted" />

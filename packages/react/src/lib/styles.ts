@@ -34,10 +34,10 @@ export const SELECTION_BOX_SIZE = {
 export const TITLE_DESC_GAP = 'gap-stack-lg';
 /**
  * 위와 같은 자리지만 flex gap 이 아니라 margin 으로 줘야 하는 곳(Popover 처럼 부모가 flex 가 아닐 때).
- * 값은 한 단계 아래(stack-md 8px)다 — 팝오버는 상자가 작아 12px 이면 제목이 떠 보인다.
+ * 값은 두 단계 아래(stack-sm 4px)다 — 팝오버는 상자가 작아 12px 이면 제목이 떠 보인다.
  * 그래서 이 한 자리만 "최소 10px" 밖에 있다.
  */
-export const TITLE_DESC_MARGIN = 'mt-stack-md';
+export const TITLE_DESC_MARGIN = 'mt-stack-sm';
 
 /**
  * 선택 컨트롤(체크박스·라디오·스위치)의 레이블↔설명. 본문보다 작은 글자가 두 줄 붙는 자리라
