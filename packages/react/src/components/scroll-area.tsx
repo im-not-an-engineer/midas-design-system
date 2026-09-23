@@ -33,4 +33,7 @@ const SCROLLBAR = [
   'data-hovering:opacity-100 data-scrolling:opacity-100',
   'data-[orientation=vertical]:justify-center data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:justify-center',
 ].join(' ');
-const THUMB = 'flex-1 rounded-pill bg-border-strong hover:bg-fg-subtle';
+// 손잡이는 선도 면도 아니고 '잡는 표시'라 fg 계열을 쓴다. 선 색(border-*)을 배경으로
+// 빌려 쓰면 테마가 선만 진하게 조정했을 때 손잡이가 엉뚱하게 따라간다.
+// 호버에서 대비가 커지는 방향은 라이트(400→600)·다크(500→400) 둘 다 성립한다.
+const THUMB = 'flex-1 rounded-pill bg-fg-subtle hover:bg-fg-muted';
