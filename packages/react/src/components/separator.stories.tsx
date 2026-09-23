@@ -18,7 +18,7 @@ export const 가로: Story = {
 
 export const 세로: Story = {
   render: () => (
-    <div className="flex h-control-md items-center gap-inline-md text-body">
+    <div className="flex h-control-md items-center gap-inset-md text-body">
       <span>양희윤</span><Separator orientation="vertical" /><span>HRS개발팀</span><Separator orientation="vertical" /><span className="text-fg-muted">2026-09-21</span>
     </div>
   ),

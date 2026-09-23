@@ -73,13 +73,6 @@ const ICON_EDGE: Record<Size, string> = {
   lg: 'has-[>svg:first-child:not(:only-child)]:pl-inset-md has-[>svg:last-child:not(:only-child)]:pr-inset-md',
 };
 
-/** 박스가 없는 ghost 는 테두리·배경이 없어 같은 여백도 더 벌어 보인다. 한 단계씩 더 좁힌다. */
-const GHOST_PAD: Record<Size, string> = {
-  sm: 'px-inset-xs has-[>svg:first-child:not(:only-child)]:pl-0 has-[>svg:last-child:not(:only-child)]:pr-0',
-  md: 'px-inset-sm has-[>svg:first-child:not(:only-child)]:pl-inset-xs has-[>svg:last-child:not(:only-child)]:pr-inset-xs',
-  lg: 'px-inset-md has-[>svg:first-child:not(:only-child)]:pl-inset-sm has-[>svg:last-child:not(:only-child)]:pr-inset-sm',
-};
-
 /**
  * 맨 글자를 span 으로 감싼다. 글자는 DOM 에서 요소가 아니라 CSS 선택자에 안 잡힌다 —
  * 감싸지 않으면 `<svg/>추가` 에서 svg 가 첫 자식이면서 마지막 자식이 되어,
@@ -145,7 +138,6 @@ export function Button({
       children: wrapText(children),
       className: cn(
         BASE, INTENT[intent], SIZE[size], ICON_EDGE[size],
-        intent === 'ghost' && GHOST_PAD[size],
         iconOnly && ICON_ONLY[size],
         fullWidth && 'w-full',
         className,

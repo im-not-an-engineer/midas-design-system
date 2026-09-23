@@ -21,7 +21,9 @@ export function Separator({ orientation = 'horizontal', label, className, ...pro
   return (
     <Base
       orientation={orientation}
-      className={cn('shrink-0 bg-border-default', orientation === 'horizontal' ? 'h-px w-full' : 'w-px self-stretch', className)}
+      // 세로 선은 부모 높이를 다 채우지 않는다(self-stretch ✗). 글줄 사이에 서는 선이라
+      // 32px 은 너무 길었다 — Toolbar 구분선과 같은 icon-lg(20px)로 맞춘다. className 으로 덮을 수 있다.
+      className={cn('shrink-0 bg-border-default', orientation === 'horizontal' ? 'h-px w-full' : 'h-icon-lg w-px', className)}
       {...props}
     />
   );
