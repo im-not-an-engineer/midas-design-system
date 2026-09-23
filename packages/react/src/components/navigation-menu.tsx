@@ -35,7 +35,7 @@ export function NavigationMenu({ className, children, ...props }: React.Componen
 export const NavigationMenuItem = Base.Item;
 
 const TRIGGER = [
-  'inline-flex h-control-md items-center gap-inline-xs px-inset-md rounded-control',
+  'inline-flex h-control-md items-center gap-inline-xs px-inset-xl rounded-control',
   'font-sans text-body font-medium leading-ui text-fg-muted select-none cursor-pointer no-underline',
   'transition-colors duration-fast ease-standard ax-focus-ring',
   'hover:text-fg-default hover:bg-surface-hover data-popup-open:text-fg-default data-popup-open:bg-surface-hover data-active:text-fg-default',

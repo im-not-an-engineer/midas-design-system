@@ -32,8 +32,18 @@ export const SELECTION_BOX_SIZE = {
  * 척도에 10px 단계가 없어 그 위인 stack-lg(12px)로 맞춘다.
  */
 export const TITLE_DESC_GAP = 'gap-stack-lg';
-/** 위와 같은 간격을 flex gap 이 아니라 margin 으로 줘야 하는 자리(Popover 처럼 부모가 flex 가 아닐 때). */
-export const TITLE_DESC_MARGIN = 'mt-stack-lg';
+/**
+ * 위와 같은 자리지만 flex gap 이 아니라 margin 으로 줘야 하는 곳(Popover 처럼 부모가 flex 가 아닐 때).
+ * 값은 한 단계 아래(stack-md 8px)다 — 팝오버는 상자가 작아 12px 이면 제목이 떠 보인다.
+ * 그래서 이 한 자리만 "최소 10px" 밖에 있다.
+ */
+export const TITLE_DESC_MARGIN = 'mt-stack-md';
+
+/**
+ * 선택 컨트롤(체크박스·라디오·스위치)의 레이블↔설명. 본문보다 작은 글자가 두 줄 붙는 자리라
+ * TITLE_DESC_GAP(12px)은 두 줄이 갈라져 보인다. 두 단계 아래인 stack-sm(4px).
+ */
+export const SELECTION_DESC_GAP = 'gap-stack-sm';
 
 /** 제목 줄. 아래 설명(GROUP_DESCRIPTION)과 같은 굵기면 어느 쪽이 제목인지 안 보인다. */
 export const TITLE_IN_PAIR = 'font-medium text-fg-default';
@@ -61,7 +71,7 @@ export const SELECTION_LABEL_SIZE = {
  * 묶음이 제대로 나뉜다. 설명이 하나라도 있을 때만 벌리므로, 한 줄짜리 목록은 촘촘하게 남는다.
  */
 export const SELECTION_GROUP = {
-  vertical: 'flex flex-col gap-stack-sm has-[[data-slot=description]]:gap-stack-xl',
+  vertical: 'flex flex-col gap-stack-sm has-[[data-slot=description]]:gap-stack-lg',
   horizontal: 'flex flex-wrap items-center gap-inline-lg',
 } as const;
 

@@ -70,7 +70,8 @@ export function MenuRadioItem({ className, children, ...props }: React.Component
   return (
     <Base.RadioItem className={cn(POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, className)} {...props}>
       <span className={POPUP_ITEM_MARKER}>
-        <Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" /></Base.RadioItemIndicator>
+        {/* 점은 아이콘 칸(icon-sm)을 다 채우면 체크와 무게가 안 맞는다 — 3/4로 줄인다. */}
+        <Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" className="size-[calc(var(--spacing-icon-sm)*0.75)]" /></Base.RadioItemIndicator>
       </span>
       {children}
     </Base.RadioItem>

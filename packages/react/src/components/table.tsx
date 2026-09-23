@@ -121,7 +121,7 @@ export function TableEmpty({ colSpan, children = '표시할 항목이 없습니�
   return (
     <tr>
       <td colSpan={colSpan} className="py-section-sm text-center">
-        <div className="flex flex-col items-center gap-stack-sm">
+        <div className="flex flex-col items-center gap-stack-lg">
           <span className="text-body text-fg-muted">{children}</span>
           {action}
         </div>

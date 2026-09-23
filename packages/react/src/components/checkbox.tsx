@@ -4,7 +4,7 @@ import { CheckboxGroup as BaseGroup } from '@base-ui/react/checkbox-group';
 import { cn } from '../lib/cn';
 import { Check, Minus } from '../lib/icons';
 import type { Size } from '../lib/types';
-import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION, TITLE_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
+import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Checkbox.
@@ -49,7 +49,7 @@ export function Checkbox({ size = 'md', label, description, className, ...props 
       {description == null ? (
         label
       ) : (
-        <span className={cn("flex flex-col", TITLE_DESC_GAP)}>
+        <span className={cn("flex flex-col", SELECTION_DESC_GAP)}>
           <span className={TITLE_IN_PAIR}>{label}</span>
           <span data-slot="description" className={GROUP_DESCRIPTION}>{description}</span>
         </span>

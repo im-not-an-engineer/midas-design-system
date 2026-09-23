@@ -8,7 +8,7 @@ type Story = StoryObj<typeof meta>;
 
 export const 가로: Story = {
   render: () => (
-    <div className="flex w-[320px] flex-col gap-stack-md text-body">
+    <div className="flex w-[320px] flex-col gap-stack-lg text-body">
       <p>위 내용</p><Separator /><p>아래 내용</p>
       <Separator label="또는" />
       <Button intent="secondary" fullWidth>다른 방법으로 계속</Button>

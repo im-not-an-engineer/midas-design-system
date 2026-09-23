@@ -3,7 +3,7 @@ import { Radio as Base } from '@base-ui/react/radio';
 import { RadioGroup as BaseGroup } from '@base-ui/react/radio-group';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION, TITLE_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
+import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Radio. Checkbox와 같은 박스 스타일에 모서리만 원형.
@@ -31,7 +31,7 @@ export function Radio({ size = 'md', label, description, className, ...props }: 
       {description == null ? (
         label
       ) : (
-        <span className={cn("flex flex-col", TITLE_DESC_GAP)}>
+        <span className={cn("flex flex-col", SELECTION_DESC_GAP)}>
           <span className={TITLE_IN_PAIR}>{label}</span>
           <span data-slot="description" className={GROUP_DESCRIPTION}>{description}</span>
         </span>

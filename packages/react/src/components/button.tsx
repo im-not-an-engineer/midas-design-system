@@ -18,7 +18,8 @@ import type { Intent, Size } from '../lib/types';
 
 const BASE = [
   'inline-flex shrink-0 items-center justify-center',
-  'gap-inline-sm',
+  // 아이콘과 글자 사이. inline-sm(4px)은 아이콘이 글자에 붙어 한 덩어리로 보였다.
+  'gap-inline-md',
   'font-sans text-body font-semibold leading-ui whitespace-nowrap',
   // 두께도 계약에서 온다 — 'border'(1px 고정)를 쓰면 테마가 두께를 바꿀 수 없다.
   'rounded-control border-width-default border-solid',
@@ -58,6 +59,38 @@ const SIZE: Record<Size, string> = {
   lg: 'h-control-lg px-inset-lg [&_svg]:size-icon-lg',
 };
 
+/**
+ * 아이콘이 붙은 쪽만 한 단계 좁힌다. 아이콘은 자기 상자 안에 이미 여백을 품고 있어서,
+ * 글자와 같은 값을 주면 그쪽만 더 벌어 보인다. md 기준 아이콘 쪽 8px / 글자 쪽 12px.
+ *
+ * `:only-child` 를 빼는 이유: 아이콘 전용 버튼은 정사각(px-0)이라 여기 걸리면 안 된다.
+ * 글자를 span 으로 감싸는 것(wrapText)이 전제다 — 맨 글자는 요소가 아니라서
+ * CSS 가 못 보고, 그러면 아이콘이 첫 자식이자 마지막 자식이 되어 앞뒤를 가릴 수 없다.
+ */
+const ICON_EDGE: Record<Size, string> = {
+  sm: 'has-[>svg:first-child:not(:only-child)]:pl-inset-xs has-[>svg:last-child:not(:only-child)]:pr-inset-xs',
+  md: 'has-[>svg:first-child:not(:only-child)]:pl-inset-sm has-[>svg:last-child:not(:only-child)]:pr-inset-sm',
+  lg: 'has-[>svg:first-child:not(:only-child)]:pl-inset-md has-[>svg:last-child:not(:only-child)]:pr-inset-md',
+};
+
+/** 박스가 없는 ghost 는 테두리·배경이 없어 같은 여백도 더 벌어 보인다. 한 단계씩 더 좁힌다. */
+const GHOST_PAD: Record<Size, string> = {
+  sm: 'px-inset-xs has-[>svg:first-child:not(:only-child)]:pl-0 has-[>svg:last-child:not(:only-child)]:pr-0',
+  md: 'px-inset-sm has-[>svg:first-child:not(:only-child)]:pl-inset-xs has-[>svg:last-child:not(:only-child)]:pr-inset-xs',
+  lg: 'px-inset-md has-[>svg:first-child:not(:only-child)]:pl-inset-sm has-[>svg:last-child:not(:only-child)]:pr-inset-sm',
+};
+
+/**
+ * 맨 글자를 span 으로 감싼다. 글자는 DOM 에서 요소가 아니라 CSS 선택자에 안 잡힌다 —
+ * 감싸지 않으면 `<svg/>추가` 에서 svg 가 첫 자식이면서 마지막 자식이 되어,
+ * 아이콘이 앞인지 뒤인지 구분할 수 없다.
+ */
+function wrapText(children: React.ReactNode): React.ReactNode {
+  return React.Children.map(children, (c) =>
+    typeof c === 'string' || typeof c === 'number' ? <span>{c}</span> : c,
+  );
+}
+
 /** 아이콘만 있는 버튼은 가로 여백을 빼고 정사각으로 만든다. */
 const ICON_ONLY: Record<Size, string> = {
   sm: 'w-control-sm px-0',
@@ -91,6 +124,7 @@ export function Button({
   render,
   type,
   ref,
+  children,
   ...props
 }: ButtonProps) {
   return useRender({
@@ -108,7 +142,14 @@ export function Button({
     props: {
       type: type ?? 'button',
       ...props,
-      className: cn(BASE, INTENT[intent], SIZE[size], iconOnly && ICON_ONLY[size], fullWidth && 'w-full', className),
+      children: wrapText(children),
+      className: cn(
+        BASE, INTENT[intent], SIZE[size], ICON_EDGE[size],
+        intent === 'ghost' && GHOST_PAD[size],
+        iconOnly && ICON_ONLY[size],
+        fullWidth && 'w-full',
+        className,
+      ),
     },
   });
 }

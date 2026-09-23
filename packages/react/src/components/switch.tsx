@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch as Base } from '@base-ui/react/switch';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { SELECTION_LABEL, SELECTION_LABEL_SIZE, GROUP_DESCRIPTION, TITLE_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
+import { SELECTION_LABEL, SELECTION_LABEL_SIZE, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Switch. 즉시 적용되는 켬/끔. 저장 버튼이 따로 있으면 Checkbox를 쓴다.
@@ -65,7 +65,7 @@ export function Switch({ size = 'md', label, description, className, ...props }:
       {description == null ? (
         label
       ) : (
-        <span className={cn("flex flex-col", TITLE_DESC_GAP)}>
+        <span className={cn("flex flex-col", SELECTION_DESC_GAP)}>
           <span className={TITLE_IN_PAIR}>{label}</span>
           <span data-slot="description" className={GROUP_DESCRIPTION}>{description}</span>
         </span>

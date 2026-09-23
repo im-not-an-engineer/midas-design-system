@@ -17,6 +17,9 @@ export interface SliderProps extends React.ComponentProps<typeof Base.Root> {
 }
 
 export function Slider({ showValue, className, ...props }: SliderProps) {
+  // 범위(값이 배열)면 끝마다 썸이 하나씩 있어야 한다. 하나만 그리면 한쪽 끝을 잡을 수 없다.
+  const value = (props.value ?? props.defaultValue) as number | number[] | undefined;
+  const thumbs = Array.isArray(value) ? value.length : 1;
   return (
     <Base.Root className={cn('flex w-full items-center gap-inline-md', className)} {...props}>
       {/* Base UI 는 썸을 inset-inline-start:X% + translate:-50% 로 놓아 양 끝에서 절반이 밖으로 나간다.
@@ -24,16 +27,20 @@ export function Slider({ showValue, className, ...props }: SliderProps) {
       <Base.Control className="relative flex h-control-sm w-full touch-none select-none items-center px-[calc(var(--spacing-icon-lg)/2)]">
         <Base.Track className="relative h-[calc(var(--spacing-icon-sm)/2.5)] w-full rounded-pill bg-surface-track data-disabled:bg-field-border-disabled">
           <Base.Indicator className="rounded-pill bg-action-primary-bg-default data-disabled:bg-action-primary-bg-disabled" />
-          <Base.Thumb
-            className={cn(
-              'size-icon-lg rounded-pill bg-fg-on-accent shadow-raised',
-              'border-width-heavy border-solid border-action-primary-bg-default',
-              'transition-[box-shadow] duration-fast ease-standard',
-              'data-dragging:shadow-overlay',
-              'data-focused:outline-2 data-focused:outline-solid data-focused:outline-focus-ring data-focused:outline-offset-2',
-              'data-disabled:border-action-primary-bg-disabled data-disabled:cursor-not-allowed',
-            )}
-          />
+          {Array.from({ length: thumbs }, (_, i) => (
+            <Base.Thumb
+              key={i}
+              index={i}
+              className={cn(
+                'size-icon-lg rounded-pill bg-fg-on-accent shadow-raised',
+                'border-width-heavy border-solid border-action-primary-bg-default',
+                'transition-[box-shadow] duration-fast ease-standard',
+                'data-dragging:shadow-overlay',
+                'data-focused:outline-2 data-focused:outline-solid data-focused:outline-focus-ring data-focused:outline-offset-2',
+                'data-disabled:border-action-primary-bg-disabled data-disabled:cursor-not-allowed',
+              )}
+            />
+          ))}
         </Base.Track>
       </Base.Control>
       {showValue && <Base.Value className="shrink-0 min-w-[3ch] text-right font-sans text-caption tabular-nums text-fg-muted" />}
