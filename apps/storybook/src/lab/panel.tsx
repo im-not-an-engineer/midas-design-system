@@ -52,9 +52,11 @@ export interface PanelProps {
   setOverlay: (next: Overlay) => void;
   axes: { brand: string; archetype: string; mode: string };
   readOnly: boolean;
+  /** 지금 편집이 실제로 닿는 컴포넌트 이름들. 값 하나를 바꿨을 때 어디까지 번지는지 보여준다. */
+  affected?: string[];
 }
 
-export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelProps) {
+export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected = [] }: PanelProps) {
   const [saving, setSaving] = React.useState(false);
   const [result, setResult] = React.useState<{ ok: boolean; text: string } | null>(null);
   const merged = (rel: string) => deepMerge(sources.sources[rel] ?? {}, overlay[rel] ?? {});
@@ -106,6 +108,11 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelPro
       <div className="flex min-h-0 flex-1 flex-col gap-stack-sm overflow-y-auto p-inset-md">
         {edits.length > 0 && (
           <Group title="변경 사항" hint={`${edits.length}개`} defaultOpen>
+            {affected.length > 0 && (
+              <p className={HINT}>
+                <span className="text-fg-default">닿는 컴포넌트 {affected.length}개</span> — {affected.join(', ')}
+              </p>
+            )}
             {edits.map(({ file, path, leaf }) => (
               <div key={`${file}/${path.join('.')}`} className="flex items-center justify-between gap-inline-sm">
                 <span className="flex min-w-0 flex-col gap-stack-xs">
@@ -227,17 +234,24 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly }: PanelPro
  * 브랜드 색은 어느 한 단계에 **그대로** 들어간다 — 가이드의 헥스가 화면에 없으면
  * "우리 색이 아니다"라는 말을 듣는다.
  */
+/**
+ * 재질 이름은 색으로만 짓는다. 역할·소유자 이름을 쓰면 배정이 바뀌는 순간 이름이 거짓말이
+ * 된다 — palette.brand 를 palette.azure 로 되돌린 적이 있다. 여기서 미리 막는다.
+ */
+const NOT_A_COLOR = new Set(['brand', 'primary', 'secondary', 'accent', 'main', 'point', 'theme', 'default']);
+
 function BrandRamp({ palettes: pal, overlay, setOverlay, brand, readOnly, onEdit }: {
   palettes: Record<string, Record<string, string>>;
   overlay: Overlay; setOverlay: (o: Overlay) => void; brand: string; readOnly: boolean; onEdit: () => void;
 }) {
   const [hex, setHex] = React.useState('#1b62d4');
-  const [name, setName] = React.useState('brand');
+  const [name, setName] = React.useState('');
   const [reference, setReference] = React.useState('blue');
   const [assign, setAssign] = React.useState(true);
   const [busy, setBusy] = React.useState(false);
   const [note, setNote] = React.useState<string | null>(null);
-  const valid = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex.trim()) && /^[a-z][a-z0-9]*$/.test(name);
+  const badName = NOT_A_COLOR.has(name);
+  const valid = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex.trim()) && /^[a-z][a-z0-9]*$/.test(name) && !badName;
 
   async function generate() {
     setBusy(true); setNote(null); onEdit();
@@ -265,8 +279,8 @@ function BrandRamp({ palettes: pal, overlay, setOverlay, brand, readOnly, onEdit
             className="h-control-sm w-full min-w-0 rounded-control border border-solid border-field-border-default bg-field-bg-default px-inset-sm font-mono text-body text-field-fg-default ax-focus-ring" />
         </span>
       </Row>
-      <Row label="램프 이름" hint="palette.<이름>">
-        <input value={name} disabled={readOnly} onChange={(e) => setName(e.target.value)} spellCheck={false}
+      <Row label="램프 이름" hint="palette.<이름> · 색 이름으로">
+        <input value={name} placeholder="cobalt" disabled={readOnly} onChange={(e) => setName(e.target.value)} spellCheck={false}
           className="h-control-sm w-full rounded-control border border-solid border-field-border-default bg-field-bg-default px-inset-sm font-mono text-body text-field-fg-default ax-focus-ring" />
       </Row>
       <Row label="기준 램프" hint="명도 곡선을 빌려올 곳">
@@ -278,6 +292,11 @@ function BrandRamp({ palettes: pal, overlay, setOverlay, brand, readOnly, onEdit
         <input type="checkbox" checked={assign} disabled={readOnly} onChange={(e) => setAssign(e.target.checked)} />
         만들면서 accent에 바로 배정 ({targetFile.ramp(brand)})
       </label>
+      {badName && (
+        <p className={HINT}>
+          재질 이름은 색으로 짓습니다. 역할이나 소유자를 이름에 넣으면 배정이 바뀌는 순간 이름이 거짓말이 됩니다 — azure 는 되고 brand 는 안 됩니다.
+        </p>
+      )}
       <Button size="sm" intent="secondary" disabled={readOnly || !valid || busy} onClick={generate}>
         {busy ? '만드는 중…' : '램프 만들기'}
       </Button>

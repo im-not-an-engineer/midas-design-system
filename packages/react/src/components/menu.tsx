@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Menu as Base } from '@base-ui/react/menu';
 import { cn } from '../lib/cn';
+import { Check, ChevronRight, CircleSmall } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
-import { POPUP_SURFACE, POPUP_ITEM, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
+import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #4 — 팝오버 계열의 대표.
@@ -56,9 +57,9 @@ export function MenuItem({ className, destructive, ...props }: MenuItemProps) {
 
 export function MenuCheckboxItem({ className, children, ...props }: React.ComponentProps<typeof Base.CheckboxItem>) {
   return (
-    <Base.CheckboxItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
-      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
-        <Base.CheckboxItemIndicator aria-hidden>✓</Base.CheckboxItemIndicator>
+    <Base.CheckboxItem className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, className)} {...props}>
+      <span className={POPUP_ITEM_MARKER}>
+        <Base.CheckboxItemIndicator aria-hidden><Check /></Base.CheckboxItemIndicator>
       </span>
       {children}
     </Base.CheckboxItem>
@@ -67,9 +68,9 @@ export function MenuCheckboxItem({ className, children, ...props }: React.Compon
 
 export function MenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof Base.RadioItem>) {
   return (
-    <Base.RadioItem className={cn(POPUP_ITEM, 'pl-inset-lg', className)} {...props}>
-      <span className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
-        <Base.RadioItemIndicator aria-hidden>•</Base.RadioItemIndicator>
+    <Base.RadioItem className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, className)} {...props}>
+      <span className={POPUP_ITEM_MARKER}>
+        <Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" /></Base.RadioItemIndicator>
       </span>
       {children}
     </Base.RadioItem>
@@ -111,9 +112,7 @@ export function MenuSubTrigger({ className, children, ...props }: React.Componen
   return (
     <Base.SubmenuTrigger className={cn(POPUP_ITEM, 'justify-between', className)} {...props}>
       {children}
-      <span aria-hidden className="text-fg-subtle">
-        ›
-      </span>
+      <ChevronRight aria-hidden className="text-fg-subtle" />
     </Base.SubmenuTrigger>
   );
 }

@@ -19,7 +19,7 @@ import type { Intent, Size } from '../lib/types';
 const BASE = [
   'inline-flex shrink-0 items-center justify-center',
   'gap-inline-sm',
-  'font-sans text-body font-medium leading-ui whitespace-nowrap',
+  'font-sans text-body font-semibold leading-ui whitespace-nowrap',
   // 두께도 계약에서 온다 — 'border'(1px 고정)를 쓰면 테마가 두께를 바꿀 수 없다.
   'rounded-control border-width-default border-solid',
   // 컨트롤 그림자. 기본 테마는 '없음'이고, 켜는 테마(consumer)에서만 보인다.
@@ -51,7 +51,9 @@ const INTENT: Record<Intent, string> = {
 };
 
 const SIZE: Record<Size, string> = {
-  sm: 'h-control-sm px-inset-sm [&_svg]:size-icon-sm',
+  // sm 만 굵기를 한 단계 낮춘다 — 28px 상자에서 semibold 는 글자가 뭉쳐 보인다.
+  // 모서리는 세 크기가 같다(rounded-control).
+  sm: 'h-control-sm px-inset-sm [&_svg]:size-icon-sm font-medium',
   md: 'h-control-md px-inset-md [&_svg]:size-icon-md',
   lg: 'h-control-lg px-inset-lg [&_svg]:size-icon-lg',
 };

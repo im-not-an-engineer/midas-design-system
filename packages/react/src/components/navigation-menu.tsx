@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationMenu as Base } from '@base-ui/react/navigation-menu';
 import { cn } from '../lib/cn';
+import { ChevronDown } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
 import { POPUP_SURFACE } from '../lib/styles';
 
@@ -8,10 +9,6 @@ import { POPUP_SURFACE } from '../lib/styles';
  * 내비 가족 — NavigationMenu. 상단 글로벌 내비. 항목에 호버·포커스하면 하나의 팝업이 항목 사이를 미끄러진다.
  * 팝업이 List 밖 Portal에 하나만 있는 구조라, NavigationMenu가 Portal까지 통째로 감싼다 — 쓰는 쪽은 Item만 나열한다.
  */
-
-const Chevron = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M4 6l4 4 4-4" /></svg>
-);
 
 export function NavigationMenu({ className, children, ...props }: React.ComponentProps<typeof Base.Root>) {
   const container = usePortalContainer();
@@ -49,7 +46,7 @@ export function NavigationMenuTrigger({ className, children, ...props }: React.C
   return (
     <Base.Trigger className={cn(TRIGGER, className)} {...props}>
       {children}
-      <Base.Icon className="flex text-fg-subtle transition-transform duration-normal ease-standard data-popup-open:rotate-180"><Chevron /></Base.Icon>
+      <Base.Icon className="flex text-fg-subtle transition-transform duration-normal ease-standard data-popup-open:rotate-180"><ChevronDown aria-hidden /></Base.Icon>
     </Base.Trigger>
   );
 }

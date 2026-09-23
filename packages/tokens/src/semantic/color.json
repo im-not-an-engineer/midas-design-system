@@ -33,12 +33,16 @@
         "$description": "행·항목 호버"
       },
       "selected": {
-        "$value": "{ramp.accent.50}",
-        "$description": "행·항목 선택"
+        "$value": "{ramp.accent.100}",
+        "$description": "선택된 행·항목. accentHover(50)보다 한 단계 진해야 호버와 구분된다."
       },
       "inverse": {
         "$value": "{ramp.neutral.900}",
         "$description": "밝은 화면 위의 어두운 면 (툴팁). 다크에서는 반대로 밝아진다."
+      },
+      "accentHover": {
+        "$value": "{ramp.accent.50}",
+        "$description": "키 컬러 맥락에서의 호버 면. 목록·메뉴처럼 선택이 있는 곳은 회색 대신 이걸 쓴다."
       }
     },
     "fg": {
@@ -59,7 +63,7 @@
         "$description": "강조색 면 위의 글자"
       },
       "link": {
-        "$value": "{ramp.accent.600}"
+        "$value": "{ramp.accent.700}"
       },
       "disabled": {
         "$value": "{ramp.neutral.400}"
@@ -80,11 +84,11 @@
         "$value": "{ramp.neutral.300}"
       },
       "focus": {
-        "$value": "{ramp.accent.600}"
+        "$value": "{ramp.accent.700}"
       }
     },
     "focusRing": {
-      "$value": "{ramp.accent.600}",
+      "$value": "{ramp.accent.700}",
       "$description": "포커스 링 색. 모든 컴포넌트가 공유."
     },
     "action": {
@@ -92,13 +96,13 @@
       "primary": {
         "bg": {
           "default": {
-            "$value": "{ramp.accent.600}"
-          },
-          "hover": {
             "$value": "{ramp.accent.700}"
           },
-          "active": {
+          "hover": {
             "$value": "{ramp.accent.800}"
+          },
+          "active": {
+            "$value": "{ramp.accent.900}"
           },
           "disabled": {
             "$value": "{ramp.neutral.200}"
@@ -179,13 +183,13 @@
       "destructive": {
         "bg": {
           "default": {
-            "$value": "{ramp.danger.600}"
+            "$value": "{ramp.danger.500}"
           },
           "hover": {
-            "$value": "{ramp.danger.700}"
+            "$value": "{ramp.danger.600}"
           },
           "active": {
-            "$value": "{ramp.danger.800}"
+            "$value": "{ramp.danger.700}"
           },
           "disabled": {
             "$value": "{ramp.neutral.200}"
@@ -241,10 +245,10 @@
           "$value": "{ramp.neutral.400}"
         },
         "focus": {
-          "$value": "{ramp.accent.600}"
+          "$value": "{ramp.accent.700}"
         },
         "invalid": {
-          "$value": "{ramp.danger.600}"
+          "$value": "{ramp.danger.500}"
         },
         "disabled": {
           "$value": "{ramp.neutral.200}"
@@ -309,7 +313,7 @@
           "$value": "{ramp.danger.50}"
         },
         "fg": {
-          "$value": "{ramp.danger.700}"
+          "$value": "{ramp.danger.600}"
         },
         "border": {
           "$value": "{ramp.danger.200}"

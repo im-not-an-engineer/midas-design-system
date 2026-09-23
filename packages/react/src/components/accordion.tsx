@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Accordion as Base } from '@base-ui/react/accordion';
 import { cn } from '../lib/cn';
+import { ChevronDown } from '../lib/icons';
 
 /**
  * 내비 가족 — Accordion. 여러 섹션을 접고 펼친다(FAQ, 설정 묶음). 하나만이면 Collapsible.
@@ -11,13 +12,6 @@ import { cn } from '../lib/cn';
 
 export const Accordion = ({ className, ...props }: React.ComponentProps<typeof Base.Root>) => (
   <Base.Root className={cn('flex w-full flex-col', className)} {...props} />
-);
-
-const Chevron = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden
-    className="shrink-0 text-fg-muted transition-transform duration-normal ease-standard group-data-panel-open:rotate-180">
-    <path d="M4 6l4 4 4-4" />
-  </svg>
 );
 
 export interface AccordionItemProps extends Omit<React.ComponentProps<typeof Base.Item>, 'title'> {
@@ -38,7 +32,7 @@ export function AccordionItem({ title, className, children, ...props }: Accordio
           )}
         >
           {title}
-          <Chevron />
+          <ChevronDown aria-hidden className="shrink-0 text-fg-muted transition-transform duration-normal ease-standard group-data-panel-open:rotate-180" />
         </Base.Trigger>
       </Base.Header>
       <Base.Panel

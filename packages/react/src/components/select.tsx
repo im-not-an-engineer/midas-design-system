@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Select as Base } from '@base-ui/react/select';
 import { cn } from '../lib/cn';
+import { Check, ChevronDown } from '../lib/icons';
 import type { Size } from '../lib/types';
 import { usePortalContainer } from '../lib/theme';
-import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
+import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Select. 정해진 목록에서 하나를 고른다.
@@ -19,17 +20,6 @@ export interface SelectItem<V extends string = string> {
   disabled?: boolean;
 }
 
-const ChevronIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M4 6l4 4 4-4" />
-  </svg>
-);
-const CheckIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M3 8.5l3.2 3L13 4.5" />
-  </svg>
-);
-
 // ── 조립용 파트 ─────────────────────────────────────────────────────────────
 export const SelectRoot = Base.Root;
 export const SelectGroup = Base.Group;
@@ -43,7 +33,7 @@ export function SelectTrigger({ size = 'md', className, children, ...props }: Re
     >
       {children}
       <Base.Icon className="flex shrink-0 text-fg-muted [&_svg]:size-icon-sm">
-        <ChevronIcon />
+        <ChevronDown aria-hidden />
       </Base.Icon>
     </Base.Trigger>
   );
@@ -68,9 +58,9 @@ export function SelectContent({ className, children, ...props }: React.Component
 
 export function SelectOption({ className, children, ...props }: React.ComponentProps<typeof Base.Item>) {
   return (
-    <Base.Item className={cn(POPUP_ITEM, 'pl-inset-lg data-selected:font-medium', className)} {...props}>
-      <Base.ItemIndicator className="absolute left-inset-xs flex size-icon-sm items-center justify-center">
-        <CheckIcon />
+    <Base.Item className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, 'data-selected:font-medium', className)} {...props}>
+      <Base.ItemIndicator className={POPUP_ITEM_MARKER}>
+        <Check aria-hidden />
       </Base.ItemIndicator>
       <Base.ItemText className="truncate">{children}</Base.ItemText>
     </Base.Item>

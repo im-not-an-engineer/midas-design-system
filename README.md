@@ -40,6 +40,8 @@ export default function App() {
 | ④ 패턴 | 조립된 화면 부품, 레이아웃 blueprint | 아직 없음 — 다음 단계 |
 | ⑤ 에이전트 컨텍스트 | 컴포넌트 메타데이터, AGENTS.md, MCP | 씨앗만 (`AGENTS.md`) |
 
+**아이콘도 ① 처럼 빌린다** — 세트는 lucide(`lucide-react`)이고, 컴포넌트는 `packages/react/src/lib/icons.ts` 를 거쳐서만 쓴다. 세트를 갈아끼울 일이 생기면 그 파일만 고친다.
+
 완제품 디자인시스템(Material, Ant 등)을 통째로 가져와 색만 바꾸는 방식은 쓰지 않는다.
 색을 바꿔도 그 시스템처럼 보이고, 오버라이드가 쌓이고, LLM이 학습 데이터에서 본
 그 시스템의 기본 관례로 계속 회귀하기 때문이다.

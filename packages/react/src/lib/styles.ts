@@ -26,12 +26,20 @@ export const SELECTION_BOX_SIZE = {
   lg: 'size-icon-lg',
 } as const;
 
-/** 박스 옆 레이블. 비활성이면 글자도 흐려진다. */
+/** 박스 옆 레이블. 비활성이면 글자도 흐려진다. 글자 크기는 SELECTION_LABEL_SIZE 가 정한다. */
 export const SELECTION_LABEL = [
-  'inline-flex items-center gap-inline-sm',
-  'font-sans text-body leading-ui text-fg-default select-none cursor-pointer',
+  // 박스와 글자 사이는 inline-md(6px). sm(4px)은 붙어 보이고 lg(8px)은 벌어져 보인다.
+  'inline-flex items-center gap-inline-md',
+  'font-sans leading-ui text-fg-default select-none cursor-pointer',
   'has-data-disabled:text-fg-disabled has-data-disabled:cursor-not-allowed',
 ].join(' ');
+
+/** 레이블 글자도 크기를 따라간다 — 박스만 커지고 글자가 그대로면 균형이 어긋난다. */
+export const SELECTION_LABEL_SIZE = {
+  sm: 'text-caption',
+  md: 'text-body',
+  lg: 'text-body-lg',
+} as const;
 
 /** 항목 묶음(CheckboxGroup, RadioGroup)의 컨테이너. */
 export const SELECTION_GROUP = {
@@ -78,12 +86,29 @@ export const POPUP_SURFACE = [
 /** 팝업 항목. 높이가 control.sm이라 아키타입과 함께 조여진다. */
 export const POPUP_ITEM = [
   'relative flex items-center gap-inline-sm',
-  'h-control-sm px-inset-sm rounded-control',
+  'h-control-md px-inset-sm rounded-control',
   'leading-ui outline-none select-none cursor-pointer',
-  'data-highlighted:bg-surface-hover',
+  // 선택된 항목은 호버해도 그대로 둔다 — 이미 골라둔 것이라 더 강조할 이유가 없다.
+  // 호버 표시는 아직 고르지 않은 항목에만 준다.
+  'data-selected:bg-surface-selected data-checked:bg-surface-selected',
+  'data-highlighted:not-data-selected:not-data-checked:bg-surface-accent-hover',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');
+
+/** 항목 왼쪽의 선택 표시자(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
+export const POPUP_ITEM_MARKER =
+  'absolute left-inset-xs flex size-icon-sm items-center justify-center text-fg-link';
+
+/**
+ * 왼쪽에 표시자(체크·점)가 붙는 팝업 항목의 들여쓰기.
+ * 표시자 위치(inset-xs) + 표시자 크기(icon-sm) + 표시자와 글자 사이(inline-md).
+ *
+ * 값을 박으면 아이콘 척도를 바꿨을 때 글자가 표시자를 덮는다 — pl-inset-lg(16px)가
+ * 12px 아이콘 기준이었는데 아이콘이 14px 이 되면서 실제로 2px 겹쳤다.
+ */
+export const POPUP_ITEM_INDENT =
+  'pl-[calc(var(--spacing-inset-xs)+var(--spacing-icon-sm)+var(--spacing-inline-md))]';
 
 export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-medium text-fg-muted';
 export const POPUP_SEPARATOR = '-mx-inset-xs my-inset-xs h-px bg-border-subtle';

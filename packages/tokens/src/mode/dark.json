@@ -24,10 +24,13 @@
         "$value": "{ramp.neutral.800}"
       },
       "selected": {
-        "$value": "{ramp.accent.950}"
+        "$value": "{ramp.accent.900}"
       },
       "inverse": {
         "$value": "{ramp.neutral.100}"
+      },
+      "accentHover": {
+        "$value": "{ramp.accent.950}"
       }
     },
     "fg": {

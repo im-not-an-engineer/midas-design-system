@@ -12,6 +12,10 @@
     },
     "size": {
       "$type": "dimension",
+      "footnote": {
+        "$value": "{scale.fontSize.11}",
+        "$description": "caption 아래 한 단계. 입력칸 아래 설명·에러처럼 레이블보다 낮은 글자."
+      },
       "caption": {
         "$value": "{scale.fontSize.12}",
         "$description": "보조 설명, 헬프 텍스트"
@@ -46,6 +50,10 @@
       },
       "semibold": {
         "$value": "{scale.fontWeight.semibold}"
+      },
+      "bold": {
+        "$value": "{scale.fontWeight.bold}",
+        "$description": "버튼처럼 눌러야 하는 것의 글자. semibold(제목)보다 한 단계 위다."
       }
     },
     "lineHeight": {

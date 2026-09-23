@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from './button';
 import type { Intent, Size } from '../lib/types';
+import { Ellipsis } from '../lib/icons';
 
 const INTENTS: Intent[] = ['primary', 'secondary', 'ghost', 'destructive'];
 const SIZES: Size[] = ['sm', 'md', 'lg'];
@@ -28,7 +29,7 @@ export const 전체: Story = {
           <span className="w-[96px] text-caption text-fg-muted">{intent}</span>
           {SIZES.map((size) => <Button key={size} intent={intent} size={size}>저장</Button>)}
           <Button intent={intent} disabled>비활성</Button>
-          <Button intent={intent} iconOnly aria-label="더보기"><span aria-hidden>⋯</span></Button>
+          <Button intent={intent} iconOnly aria-label="더보기"><Ellipsis aria-hidden /></Button>
         </div>
       ))}
     </div>

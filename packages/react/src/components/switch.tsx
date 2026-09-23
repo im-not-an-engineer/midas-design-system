@@ -2,25 +2,32 @@ import * as React from 'react';
 import { Switch as Base } from '@base-ui/react/switch';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { SELECTION_LABEL, GROUP_DESCRIPTION } from '../lib/styles';
+import { SELECTION_LABEL, SELECTION_LABEL_SIZE, GROUP_DESCRIPTION } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Switch. 즉시 적용되는 켬/끔. 저장 버튼이 따로 있으면 Checkbox를 쓴다.
  *
  * 크기는 새 토큰 없이 아이콘 급에서 나온다:
- *   트랙 높이 = --spacing-icon-{size+1},  썸 = --spacing-icon-{size}  → 위아래 여백이 아키타입마다 자연히 맞는다
- *   트랙 너비 = 높이 × 1.75
+ *   트랙 높이 = --spacing-icon-{size},  너비 = 높이 × 1.8
+ *   썸        = 트랙 높이 - 틈×2,  틈 = inset-xs × 0.75  → 사방 3px
+ *
+ * 예전에는 트랙이 한 단계 위(icon-{size+1})였는데, 아이콘 사다리 간격이 고르지 않아
+ * (14/16/20) 크기마다 틈이 1px~2px 로 들쭉날쭉했고 md 트랙이 레이블 글자보다 커졌다.
+ * 틈을 여백 토큰에서 가져오면 세 크기가 같은 비율로 맞고 sm 도 표현된다.
  */
 
 const TRACK: Record<Size, string> = {
-  sm: 'h-icon-md w-[calc(var(--spacing-icon-md)*1.75)]',
-  md: 'h-icon-lg w-[calc(var(--spacing-icon-lg)*1.75)]',
-  lg: 'h-[calc(var(--spacing-icon-lg)*1.25)] w-[calc(var(--spacing-icon-lg)*1.25*1.75)]',
+  sm: 'h-icon-sm w-[calc(var(--spacing-icon-sm)*1.8)]',
+  md: 'h-icon-md w-[calc(var(--spacing-icon-md)*1.8)]',
+  lg: 'h-icon-lg w-[calc(var(--spacing-icon-lg)*1.8)]',
 };
+// 틈을 inset-xs 그대로 쓰면 14~20px 트랙에서 썸이 점처럼 작아진다. 4분의 3만 쓴다.
+// translate 는 테두리 안쪽(content box) 기준이라 테두리 두께만큼 빼야 바깥에서 본 틈이 맞는다.
+// 안 빼면 꺼짐 4px / 켜짐 2px 로 좌우가 어긋난다.
 const THUMB: Record<Size, string> = {
-  sm: 'size-icon-sm translate-x-[calc((var(--spacing-icon-md)-var(--spacing-icon-sm))/2)] data-checked:translate-x-[calc(var(--spacing-icon-md)*1.75-var(--spacing-icon-sm)-(var(--spacing-icon-md)-var(--spacing-icon-sm))/2)]',
-  md: 'size-icon-md translate-x-[calc((var(--spacing-icon-lg)-var(--spacing-icon-md))/2)] data-checked:translate-x-[calc(var(--spacing-icon-lg)*1.75-var(--spacing-icon-md)-(var(--spacing-icon-lg)-var(--spacing-icon-md))/2)]',
-  lg: 'size-icon-lg translate-x-[calc(var(--spacing-icon-lg)*0.125)] data-checked:translate-x-[calc(var(--spacing-icon-lg)*1.25*1.75-var(--spacing-icon-lg)*1.125)]',
+  sm: 'size-[calc(var(--spacing-icon-sm)-var(--spacing-inset-xs)*1.5)] translate-x-[calc(var(--spacing-inset-xs)*0.75-var(--border-width-default))] data-checked:translate-x-[calc(var(--spacing-icon-sm)*0.8+var(--spacing-inset-xs)*0.75-var(--border-width-default))]',
+  md: 'size-[calc(var(--spacing-icon-md)-var(--spacing-inset-xs)*1.5)] translate-x-[calc(var(--spacing-inset-xs)*0.75-var(--border-width-default))] data-checked:translate-x-[calc(var(--spacing-icon-md)*0.8+var(--spacing-inset-xs)*0.75-var(--border-width-default))]',
+  lg: 'size-[calc(var(--spacing-icon-lg)-var(--spacing-inset-xs)*1.5)] translate-x-[calc(var(--spacing-inset-xs)*0.75-var(--border-width-default))] data-checked:translate-x-[calc(var(--spacing-icon-lg)*0.8+var(--spacing-inset-xs)*0.75-var(--border-width-default))]',
 };
 
 export interface SwitchProps extends React.ComponentProps<typeof Base.Root> {
@@ -51,7 +58,7 @@ export function Switch({ size = 'md', label, description, className, ...props }:
   );
   if (label == null) return track;
   return (
-    <label className={cn(SELECTION_LABEL, description != null && 'items-start')}>
+    <label className={cn(SELECTION_LABEL, SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
       {track}
       {description == null ? (
         label

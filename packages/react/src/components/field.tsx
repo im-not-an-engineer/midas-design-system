@@ -39,7 +39,7 @@ export function Field({ size = 'md', required = false, className, ...props }: Fi
   const value = React.useMemo(() => ({ size, required }), [size, required]);
   return (
     <FieldCtx.Provider value={value}>
-      <Base.Root data-size={size} className={cn('flex flex-col gap-stack-xs', className)} {...props} />
+      <Base.Root data-size={size} className={cn('flex flex-col gap-inline-md', className)} {...props} />
     </FieldCtx.Provider>
   );
 }
@@ -49,17 +49,19 @@ export function FieldLabel({ className, children, ...props }: React.ComponentPro
   return (
     <Base.Label
       className={cn(
-        'font-sans text-caption font-medium leading-ui text-fg-default',
+        // 레이블은 아래 글자(설명·에러, caption)보다 한 단계 크다.
+        'font-sans text-body font-medium leading-ui text-fg-default',
+        // 아래쪽(설명·에러)과는 6px. 레이블만 margin 2px 을 더해 입력칸과 8px 이 된다.
+        'mb-stack-xs',
         'data-disabled:text-fg-disabled',
         className,
       )}
       {...props}
     >
       {children}
+      {/* 별표 대신 점 — 별표는 글자라 폰트마다 크기·높이가 달라지고 글줄 위로 뜬다. */}
       {required && (
-        <span aria-hidden className="ml-inline-xs text-status-danger-fg">
-          *
-        </span>
+        <span aria-hidden className="ml-inline-xs inline-block size-inset-xs rounded-pill bg-fg-link align-middle" />
       )}
     </Base.Label>
   );
@@ -67,7 +69,7 @@ export function FieldLabel({ className, children, ...props }: React.ComponentPro
 
 /** 보조 설명. 항상 보인다. */
 export function FieldDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
-  return <Base.Description className={cn('font-sans text-caption leading-normal text-fg-muted', className)} {...props} />;
+  return <Base.Description className={cn('font-sans text-footnote leading-normal text-fg-muted', className)} {...props} />;
 }
 
 /**
@@ -75,7 +77,7 @@ export function FieldDescription({ className, ...props }: React.ComponentProps<t
  * `match`로 특정 실패 사유에만 띄울 수 있다 (`match="valueMissing"` 등).
  */
 export function FieldError({ className, ...props }: React.ComponentProps<typeof Base.Error>) {
-  return <Base.Error className={cn('font-sans text-caption leading-normal text-status-danger-fg', className)} {...props} />;
+  return <Base.Error className={cn('font-sans text-footnote leading-normal text-status-danger-fg', className)} {...props} />;
 }
 
 

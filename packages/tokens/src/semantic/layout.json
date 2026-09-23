@@ -137,6 +137,10 @@
       },
       "strong": {
         "$value": "2px"
+      },
+      "heavy": {
+        "$value": "2.5px",
+        "$description": "테두리가 곧 형태인 곳(슬라이더 썸). default 1 · strong 2 다음 단계."
       }
     }
   },
@@ -148,7 +152,8 @@
     },
     "offset": {
       "$type": "dimension",
-      "$value": "2px"
+      "$value": "1px",
+      "$description": "상자에서 띄우는 거리. scale.space 에 1px 단계가 없어 굵기(2px)와 같이 리터럴로 쓴다. 브라우저는 오프셋만큼 링 반지름도 키우므로(radius+offset) 값이 클수록 링이 상자보다 둥글어 보인다."
     }
   },
   "elevation": {

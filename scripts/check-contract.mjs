@@ -32,7 +32,7 @@ const SCAN_DIRS = [path.join(root, 'packages/react/src'), path.join(root, 'apps/
  * 클래스가 항상 문자열 리터럴 안에 있으므로 이 쪽이 훨씬 정확하다.
  * (대신 규약이 하나 생긴다 — 클래스는 문자열 리터럴로 쓴다.)
  */
-function extractCandidates(src) {
+export function extractCandidates(src) {
   // 주석과 import/export 구문 제거 — 둘 다 클래스가 아닌 문자열이 많다.
   const cleaned = src
     .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
@@ -127,7 +127,7 @@ function extractCandidates(src) {
 }
 
 /** 유효하지 않은 후보 중, 애초에 클래스가 아니었던 것들. */
-const NOT_A_CLASS = [
+export const NOT_A_CLASS = [
   /^[A-Z]/,                       // 컴포넌트 이름
   /^(https?|data|node|file):/,    // URL·스킴
   /\.(ts|tsx|css|js|mjs|json)$/,  // 파일명
@@ -145,7 +145,7 @@ const NOT_A_CLASS = [
   /-$/,                              // 하이픈으로 끝남 = 접두사 조각
 ];
 
-async function* walk(dir) {
+export async function* walk(dir) {
   for (const e of await readdir(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
     if (e.isDirectory()) yield* walk(p);
@@ -163,12 +163,19 @@ async function loadStylesheet(id, base) {
   return { base: path.dirname(p), content: await readFile(p, 'utf8') };
 }
 
-async function main() {
-  const design = await __unstable__loadDesignSystem(await readFile(stylesEntry, 'utf8'), {
+/** 계약 린트와 토큰 사용처 색인이 같은 Tailwind 인스턴스 설정을 쓰도록 꺼내 둔다. */
+export async function loadDesign() {
+  return __unstable__loadDesignSystem(await readFile(stylesEntry, 'utf8'), {
     base: path.dirname(stylesEntry),
     loadStylesheet,
     loadModule: async () => { throw new Error('플러그인은 쓰지 않습니다'); },
   });
+}
+
+export { root, SCAN_DIRS };
+
+async function main() {
+  const design = await loadDesign();
 
   const failures = [];
   let files = 0;
@@ -208,4 +215,6 @@ async function main() {
   console.log(`✓ 계약 린트 통과 — 파일 ${files}개, 후보 ${checked}개, 위반 0`);
 }
 
-main().catch((e) => { console.error(`\n✗ 린트 실행 실패: ${e.message}\n`); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((e) => { console.error(`\n✗ 린트 실행 실패: ${e.message}\n`); process.exit(1); });
+}

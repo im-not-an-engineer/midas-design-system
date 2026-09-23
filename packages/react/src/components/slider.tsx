@@ -19,13 +19,15 @@ export interface SliderProps extends React.ComponentProps<typeof Base.Root> {
 export function Slider({ showValue, className, ...props }: SliderProps) {
   return (
     <Base.Root className={cn('flex w-full items-center gap-inline-md', className)} {...props}>
-      <Base.Control className="relative flex h-control-sm w-full touch-none select-none items-center">
+      {/* Base UI 는 썸을 inset-inline-start:X% + translate:-50% 로 놓아 양 끝에서 절반이 밖으로 나간다.
+          컨트롤에 썸 절반만큼 좌우 여백을 주면 0·100 에서도 썸이 안쪽에 들어온다. */}
+      <Base.Control className="relative flex h-control-sm w-full touch-none select-none items-center px-[calc(var(--spacing-icon-lg)/2)]">
         <Base.Track className="relative h-[calc(var(--spacing-icon-sm)/3)] w-full rounded-pill bg-border-strong data-disabled:bg-field-border-disabled">
           <Base.Indicator className="rounded-pill bg-action-primary-bg-default data-disabled:bg-action-primary-bg-disabled" />
           <Base.Thumb
             className={cn(
               'size-icon-lg rounded-pill bg-fg-on-accent shadow-raised',
-              'border-2 border-solid border-action-primary-bg-default',
+              'border-width-heavy border-solid border-action-primary-bg-default',
               'transition-[box-shadow] duration-fast ease-standard',
               'data-dragging:shadow-overlay',
               'data-focused:outline-2 data-focused:outline-solid data-focused:outline-focus-ring data-focused:outline-offset-2',

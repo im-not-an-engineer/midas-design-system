@@ -66,6 +66,7 @@
 /* --border-width-* 도 Tailwind 네임스페이스가 없다. 계약에 있는 토큰이니 쓸 수 있게 한다. */
 @utility border-width-default { border-width: var(--border-width-default); }
 @utility border-width-strong  { border-width: var(--border-width-strong); }
+@utility border-width-heavy   { border-width: var(--border-width-heavy); }
 
 /*
  * 그림자 유틸리티. Tailwind의 shadow-* 는 테마 값을 빌드 시점에 인라인해버려

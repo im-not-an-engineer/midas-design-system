@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Toast as Base } from '@base-ui/react/toast';
 import { cn } from '../lib/cn';
+import { X } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
 
 /**
@@ -49,7 +50,7 @@ function ToastList() {
           aria-label="닫기"
           className="flex size-icon-lg shrink-0 items-center justify-center rounded-control text-fg-muted ax-focus-ring hover:bg-surface-hover hover:text-fg-default [&_svg]:size-icon-sm"
         >
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden><path d="M4 4l8 8M12 4l-8 8" /></svg>
+          <X aria-hidden />
         </Base.Close>
       </Base.Content>
     </Base.Root>
