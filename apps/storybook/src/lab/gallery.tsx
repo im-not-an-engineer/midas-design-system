@@ -187,7 +187,7 @@ export function Gallery() {
           </div>
           <div className="flex flex-wrap gap-inline-sm">
             {Object.entries(BADGE).map(([s, cls]) => (
-              <span key={s} className={`inline-flex items-center justify-center min-w-[calc(var(--spacing-control-sm)*2)] rounded-pill border border-solid px-inset-sm py-inset-xs text-caption font-medium ${cls}`}>{s}</span>
+              <span key={s} className={`inline-flex items-center justify-center min-w-[calc(var(--spacing-control-md)*2)] rounded-pill border border-solid px-inset-sm py-inset-xs text-caption font-medium ${cls}`}>{s}</span>
             ))}
           </div>
         </Section>
