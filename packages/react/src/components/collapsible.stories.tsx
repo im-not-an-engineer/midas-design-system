@@ -12,7 +12,7 @@ export const 고급옵션: Story = {
     <Collapsible>
       <CollapsibleTrigger render={<Button intent="ghost" size="sm" />}>고급 옵션</CollapsibleTrigger>
       <CollapsiblePanel>
-        <div className="flex flex-col gap-stack-sm rounded-surface border border-solid border-border-default bg-surface-subtle p-inset-md">
+        <div className="flex flex-col gap-stack-lg rounded-surface border border-solid border-border-default bg-surface-subtle p-inset-md">
           <Checkbox label="변경 이력 남기기" defaultChecked />
           <Checkbox label="하위 이슈에도 적용" />
         </div>

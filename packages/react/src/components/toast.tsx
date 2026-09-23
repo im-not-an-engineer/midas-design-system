@@ -39,7 +39,7 @@ function ToastList() {
         'data-starting-style:opacity-0 data-starting-style:translate-y-[8px] data-ending-style:opacity-0 data-ending-style:translate-y-[8px]',
       )}
     >
-      <Base.Content className="flex items-start gap-inline-md p-inset-md">
+      <Base.Content className="flex items-start gap-inline-md p-inset-lg">
         <div className={cn("flex min-w-0 flex-1 flex-col", TITLE_DESC_GAP)}>
           <div className="flex items-center gap-inline-md">
             <span aria-hidden className={cn('size-[calc(var(--spacing-inset-xs)*1.5)] shrink-0 rounded-pill', DOT[(toast.type as ToastType) ?? 'info'] ?? DOT.info)} />

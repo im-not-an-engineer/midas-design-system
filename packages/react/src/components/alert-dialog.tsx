@@ -29,7 +29,7 @@ export function AlertDialogContent({ width = 'sm', className, children, ...props
           MODAL_SURFACE,
           'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100vw-2rem)]',
           DIALOG_WIDTH[width],
-          'flex flex-col gap-stack-md rounded-overlay p-inset-lg',
+          'flex flex-col gap-stack-lg rounded-overlay p-inset-xl',
           'transition-[opacity,scale] duration-fast ease-standard',
           'data-starting-style:opacity-0 data-starting-style:scale-[0.97] data-ending-style:opacity-0 data-ending-style:scale-[0.97]',
           className,
