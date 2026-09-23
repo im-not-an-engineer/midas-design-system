@@ -24,7 +24,7 @@ export {
 export { Popover, PopoverTrigger, PopoverClose, PopoverContent, PopoverTitle, PopoverDescription, type PopoverContentProps } from './components/popover';
 export { Tooltip, TooltipProvider, type TooltipProps } from './components/tooltip';
 export { PreviewCard, PreviewCardTrigger, PreviewCardContent, type PreviewCardContentProps } from './components/preview-card';
-export { Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerTitle, DrawerDescription, DrawerFooter, DrawerCloseButton, type DrawerProps } from './components/drawer';
+export { Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerCloseButton, type DrawerProps } from './components/drawer';
 export {
   ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuGroup, ContextMenuSeparator,
   ContextMenuCheckboxItem, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSub, ContextMenuSubTrigger, ContextMenuSubContent,

@@ -60,15 +60,45 @@ export function DrawerContent({ className, children, ...props }: React.Component
   );
 }
 
+/**
+ * 제목 + 설명 묶음. 아래 내용과는 구분선으로 나눈다 — Drawer 는 Dialog 와 달리
+ * 본문이 길어서 머리말이 어디까지인지 선이 없으면 읽히지 않는다.
+ *
+ * 구분선은 패널 끝까지 긋는다(-mx-inset-lg). 안쪽 여백만큼 물러나 있으면
+ * 영역이 나뉜 게 아니라 장식처럼 보인다.
+ */
+export function DrawerHeader({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      className={cn(
+        'flex flex-col gap-stack-xs',
+        '-mx-inset-lg px-inset-lg pb-inset-sm border-b border-solid border-border-subtle',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+/** Dialog 보다 한 단계 큰 제목 — 패널이 넓고 오래 머무는 화면이라 머리말이 더 서야 한다. */
 export function DrawerTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {
-  return <Base.Title className={cn(DIALOG_TITLE, className)} {...props} />;
+  return <Base.Title className={cn(DIALOG_TITLE, 'text-heading-md', className)} {...props} />;
 }
 export function DrawerDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
   return <Base.Description className={cn(DIALOG_DESCRIPTION, className)} {...props} />;
 }
 /** 하단 버튼 줄. 내용이 스크롤돼도 항상 보이도록 Content 바깥에 두는 게 아니라 안에서 mt-auto로 붙인다. */
 export function DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('mt-auto flex items-center justify-end gap-inline-md pt-inset-sm', className)} {...props} />;
+  return (
+    <div
+      className={cn(
+        'mt-auto flex items-center justify-end gap-inline-md',
+        '-mx-inset-lg px-inset-lg pt-inset-sm border-t border-solid border-border-subtle',
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 export function DrawerCloseButton() {
   return <Base.Close render={<Button intent="ghost" iconOnly aria-label="닫기" />}><X aria-hidden /></Base.Close>;
