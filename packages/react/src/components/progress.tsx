@@ -15,7 +15,7 @@ import type { Status } from '../lib/types';
 
 const TRACK = 'relative h-[calc(var(--spacing-icon-sm)/3)] w-full overflow-hidden rounded-pill bg-surface-sunken';
 const LABEL = 'font-sans text-caption font-medium leading-ui text-fg-default';
-const VALUE = 'font-sans text-caption leading-ui tabular-nums text-fg-muted';
+const VALUE = 'font-sans text-caption font-semibold leading-ui tabular-nums text-fg-muted';
 
 export interface ProgressProps extends React.ComponentProps<typeof Base.Root> {
   label?: React.ReactNode;
@@ -24,7 +24,7 @@ export interface ProgressProps extends React.ComponentProps<typeof Base.Root> {
 
 export function Progress({ label, showValue, className, ...props }: ProgressProps) {
   return (
-    <Base.Root className={cn('flex w-full flex-col gap-stack-xs', className)} {...props}>
+    <Base.Root className={cn('flex w-full flex-col gap-stack-md', className)} {...props}>
       {(label != null || showValue) && (
         <div className="flex items-center justify-between gap-inline-md">
           {label != null ? <Base.Label className={LABEL}>{label}</Base.Label> : <span />}
@@ -60,7 +60,7 @@ export interface MeterProps extends React.ComponentProps<typeof BaseMeter.Root> 
 
 export function Meter({ label, showValue, status, className, ...props }: MeterProps) {
   return (
-    <BaseMeter.Root className={cn('flex w-full flex-col gap-stack-xs', className)} {...props}>
+    <BaseMeter.Root className={cn('flex w-full flex-col gap-stack-md', className)} {...props}>
       {(label != null || showValue) && (
         <div className="flex items-center justify-between gap-inline-md">
           {label != null ? <BaseMeter.Label className={LABEL}>{label}</BaseMeter.Label> : <span />}

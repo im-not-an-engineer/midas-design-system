@@ -178,7 +178,7 @@ export function Gallery() {
             {(['xs', 'sm', 'md', 'lg'] as const).map((s) => <Avatar key={s} size={s} name="양희윤" />)}
             <AvatarGroup><Avatar size="sm" name="김민준" /><Avatar size="sm" name="이서연" /><Avatar size="sm">+4</Avatar></AvatarGroup>
           </div>
-          <div className="flex w-[260px] flex-col gap-stack-md">
+          <div className="flex w-[260px] flex-col gap-stack-xl">
             <Progress value={62} label="내보내기" showValue />
             <Meter value={32} label="저장 공간" showValue />
             <Meter value={78} label="경고 임계" showValue status="warning" />
