@@ -33,7 +33,7 @@ Tailwind 기본 테마를 비웠기 때문이다. 쓸 수 있는 건 계약 토�
 | 아이콘 크기 | `size-icon-sm/md/lg` |
 | 겹침 순서 | `z-sticky` `z-overlay` `z-modal` `z-popover` `z-toast` |
 
-전체 목록: `packages/tokens/dist/contract.json` (145개)
+전체 목록: `packages/tokens/dist/contract.json` (154개)
 
 **계약에 없는 값이 정말 필요하면 클래스를 지어내지 말고 멈춰서 물어본다.**
 토큰을 추가하는 건 사람의 결정이다. `npm run lint:contract`가 어차피 빌드를 막는다.
@@ -168,6 +168,9 @@ import { ChevronDown } from '../lib/icons';   // ○
 - **장식색은 번호로** 부른다(`color.decorative.1` ○ / `decorative.purple` ✗). 뜻이 없는 색에
   색 이름을 붙이면 브랜드가 배정을 바꾼 순간 이름이 거짓말이 된다.
 - 재질을 새로 만들기 전에 `npm run ramp -- '#헥스'` 의 중복 경고를 본다.
+- **치수 사다리는 커지는 순서를 지킨다** (`sm < md < lg`, `xs < … < xl`). 같아도 빌드가 막는다(규칙 8).
+  아키타입에서 한 단계만 바꿀 때 이웃 단계와 같아지지 않는지 본다. `font.size`는 본문과 제목이
+  다른 사다리라 `bodyLg`와 `headingSm`은 같아도 된다.
 - 토큰 JSON을 손으로 고쳤으면 `npm run format:tokens` (규칙 7).
 
 ## 작업 끝에 반드시

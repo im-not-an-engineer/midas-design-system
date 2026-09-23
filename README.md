@@ -59,7 +59,7 @@ export default function App() {
 ```
 
 **2층이 계약이다.** 키 집합이 모든 테마에서 같고, 테마는 그중 일부만 덮어쓴다.
-현재 계약 토큰 150개 — 전체 목록은 `packages/tokens/dist/contract.json`.
+현재 계약 토큰 154개 — 전체 목록은 `packages/tokens/dist/contract.json`.
 
 **램프가 있는 이유.** 시맨틱이 `palette.slate.900`을 직접 가리키면, 그레이를 웜그레이로
 바꾸려는 브랜드는 slate를 참조하는 80여 개 키를 전부 다시 적어야 한다 — 그건 테마가
@@ -359,12 +359,13 @@ npm run ramp -- '#1b62d4' orange   # 기준 램프를 지정
 전혀 다른 색이므로 겹쳤다고 보지 않는다). 겹치지 않을 때는 색상환 어디에 앉는지도 알려준다.
 
 ```
-$ npm run ramp -- '#2f8ede'
+$ npm run ramp -- '#2f62e8'
 기존 재질과의 거리 (각 재질의 채도가 가장 높은 단계 기준):
-  azure     색상각   0°  채도비 0.98  ← 겹칩니다
-  blue      색상각  16°  채도비 0.68  ← 겹칩니다
+  blue      색상각   0°  채도비 0.97  ← 겹칩니다
+  slate     색상각   7°  채도비 5.17  (회색 계열 — 색상각 비교 안 함)
+  purple    색상각  29°  채도비 0.84
 
-⚠ azure, blue 와 색상각·채도가 모두 가깝습니다.
+⚠ blue 와 색상각·채도가 모두 가깝습니다.
   새 재질을 만들기 전에, 기존 재질을 ramp에 배정하는 것으로 끝나지 않는지 확인하세요.
 ```
 
@@ -372,7 +373,7 @@ $ npm run ramp -- '#2f8ede'
 것이 palette가 커질 때의 유일한 실질 비용이다(CSS로 나가지 않으므로 제품 쪽 비용은 0이다).
 
 나중에 실제 값이 정해지면 바꿀 곳은 두 군데뿐이다:
-`primitive/color.json` 의 `palette.azure`(생성기가 씀)와
+`primitive/color.json` 의 `palette.blue`(생성기가 씀)와
 `brand/default.json` 의 `ramp.accent` 한 줄.
 
 **저장은 규칙 1~6을 모두 통과해야 한다.** 하나라도 어기면 아무 파일도 쓰지 않고 위반
