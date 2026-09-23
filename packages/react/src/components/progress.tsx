@@ -13,7 +13,7 @@ import type { Status } from '../lib/types';
  * 트랙 두께는 Slider와 같은 식(icon.sm/3)에서 나와 아키타입을 따른다.
  */
 
-const TRACK = 'relative h-[calc(var(--spacing-icon-sm)/3)] w-full overflow-hidden rounded-pill bg-surface-sunken';
+const TRACK = 'relative h-[calc(var(--spacing-icon-sm)/3)] w-full overflow-hidden rounded-pill bg-surface-track';
 const LABEL = 'font-sans text-caption font-medium leading-ui text-fg-default';
 const VALUE = 'font-sans text-caption font-semibold leading-ui tabular-nums text-fg-muted';
 

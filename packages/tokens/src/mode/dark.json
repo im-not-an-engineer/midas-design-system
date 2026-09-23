@@ -11,6 +11,9 @@
       "sunken": {
         "$value": "{ramp.neutral.1000}"
       },
+      "track": {
+        "$value": "{ramp.neutral.800}"
+      },
       "raised": {
         "$value": "{ramp.neutral.900}"
       },
