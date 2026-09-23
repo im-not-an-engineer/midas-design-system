@@ -104,7 +104,7 @@ export const FIELD_CONTROL_SIZE = {
 export const POPUP_SURFACE = [
   'min-w-[180px] origin-(--transform-origin) overflow-hidden outline-none',
   'bg-surface-overlay text-fg-default',
-  'border border-solid border-border-default rounded-surface shadow-overlay',
+  'border-width-default border-solid border-border-default rounded-surface shadow-overlay',
   'p-inset-xs font-sans text-body',
   'transition-[opacity,scale] duration-fast ease-standard',
   'data-starting-style:opacity-0 data-starting-style:scale-[0.97]',
@@ -164,7 +164,7 @@ export const MODAL_BACKDROP = [
 export const MODAL_SURFACE = [
   'z-modal outline-none',
   'bg-surface-overlay text-fg-default',
-  'border border-solid border-border-default shadow-modal',
+  'border-width-default border-solid border-border-default shadow-modal',
   'font-sans text-body',
 ].join(' ');
 

@@ -42,7 +42,7 @@ export function Switch({ size = 'md', label, description, className, ...props }:
       data-size={size}
       className={cn(
         'relative inline-flex shrink-0 items-center rounded-pill',
-        'border border-solid border-border-strong bg-border-strong',
+        'border-width-default border-solid border-border-strong bg-border-strong',
         'transition-colors duration-fast ease-standard cursor-pointer ax-focus-ring',
         'data-checked:bg-action-primary-bg-default data-checked:border-action-primary-bg-default',
         'data-invalid:border-field-border-invalid',

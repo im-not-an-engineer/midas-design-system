@@ -14,6 +14,9 @@
       "track": {
         "$value": "{ramp.neutral.800}"
       },
+      "handle": {
+        "$value": "{ramp.neutral.600}"
+      },
       "raised": {
         "$value": "{ramp.neutral.900}"
       },

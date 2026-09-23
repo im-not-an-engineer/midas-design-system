@@ -12,7 +12,7 @@ export function Toolbar({ className, ...props }: React.ComponentProps<typeof Bas
   return (
     <Base.Root
       className={cn(
-        'inline-flex w-fit items-center gap-inline-xs rounded-surface border border-solid border-border-default bg-surface-raised p-inset-xs',
+        'inline-flex w-fit items-center gap-inline-xs rounded-surface border-width-default border-solid border-border-default bg-surface-raised p-inset-xs',
         'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',
         className,
       )}

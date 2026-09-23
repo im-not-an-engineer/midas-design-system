@@ -37,7 +37,7 @@ export function Toggle({ size = 'md', className, ...props }: ToggleProps) {
           ? // 세그먼트: 안 눌린 건 투명, 눌린 건 떠 있는 면
             'text-fg-muted hover:not-data-disabled:not-data-pressed:text-fg-default data-pressed:bg-surface-raised data-pressed:text-fg-default data-pressed:shadow-raised'
           : // 단독: 테두리 있는 버튼, 눌리면 selected 면
-            'border border-solid border-border-default bg-surface-base text-fg-muted hover:not-data-disabled:bg-surface-accent-subtle hover:not-data-disabled:text-fg-default data-pressed:bg-surface-accent-subtle data-pressed:not-data-disabled:border-action-primary-bg-default data-pressed:not-data-disabled:text-fg-link data-pressed:data-disabled:border-action-primary-bg-disabled',
+            'border-width-default border-solid border-border-default bg-surface-base text-fg-muted hover:not-data-disabled:bg-surface-accent-subtle hover:not-data-disabled:text-fg-default data-pressed:bg-surface-accent-subtle data-pressed:not-data-disabled:border-action-primary-bg-default data-pressed:not-data-disabled:text-fg-link data-pressed:data-disabled:border-action-primary-bg-disabled',
         SIZE[size],
         className,
       )}
@@ -53,7 +53,7 @@ export function ToggleGroup({ className, children, ...props }: ToggleGroupProps)
     <InGroup.Provider value>
       <BaseGroup
         className={cn(
-          'inline-flex w-fit items-center gap-inline-xs rounded-control border border-solid border-border-default bg-surface-sunken p-inset-xs',
+          'inline-flex w-fit items-center gap-inline-xs rounded-control border-width-default border-solid border-border-default bg-surface-sunken p-inset-xs',
           'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',
           className,
         )}
