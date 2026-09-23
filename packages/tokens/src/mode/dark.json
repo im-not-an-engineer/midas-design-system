@@ -11,6 +11,9 @@
       "sunken": {
         "$value": "{ramp.neutral.1000}"
       },
+      "track": {
+        "$value": "{ramp.neutral.800}"
+      },
       "raised": {
         "$value": "{ramp.neutral.900}"
       },
@@ -23,14 +26,14 @@
       "hover": {
         "$value": "{ramp.neutral.800}"
       },
+      "accentSubtle": {
+        "$value": "{ramp.accent.950}"
+      },
       "selected": {
         "$value": "{ramp.accent.900}"
       },
       "inverse": {
         "$value": "{ramp.neutral.100}"
-      },
-      "accentHover": {
-        "$value": "{ramp.accent.950}"
       }
     },
     "fg": {

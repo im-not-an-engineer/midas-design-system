@@ -4,7 +4,7 @@ import { CheckboxGroup as BaseGroup } from '@base-ui/react/checkbox-group';
 import { cn } from '../lib/cn';
 import { Check, Minus } from '../lib/icons';
 import type { Size } from '../lib/types';
-import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION } from '../lib/styles';
+import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Checkbox.
@@ -35,7 +35,7 @@ export function Checkbox({ size = 'md', label, description, className, ...props 
       <Base.Indicator
         className="flex items-center justify-center text-fg-on-accent"
         render={(indicatorProps, state) => (
-          <span {...indicatorProps}>{state.indeterminate ? <Minus className="size-[70%]" aria-hidden /> : <Check className="size-[70%]" aria-hidden />}</span>
+          <span {...indicatorProps}>{state.indeterminate ? <Minus className="size-full" aria-hidden /> : <Check className="size-full" aria-hidden />}</span>
         )}
       />
     </Base.Root>
@@ -43,13 +43,15 @@ export function Checkbox({ size = 'md', label, description, className, ...props 
   if (label == null) return box;
   return (
     <label className={cn(SELECTION_LABEL, SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
-      {box}
+      {/* 설명이 있으면 items-start 라 박스가 글자 첫 줄보다 위로 뜬다.
+          박스를 '글자 한 줄 높이(1lh)' 상자에 넣어 첫 줄과 중심을 맞춘다. */}
+      {description == null ? box : <span className="flex h-[1lh] shrink-0 items-center">{box}</span>}
       {description == null ? (
         label
       ) : (
-        <span className="flex flex-col gap-stack-xs">
-          <span>{label}</span>
-          <span className={GROUP_DESCRIPTION}>{description}</span>
+        <span className={cn("flex flex-col", SELECTION_DESC_GAP)}>
+          <span className={TITLE_IN_PAIR}>{label}</span>
+          <span data-slot="description" className={GROUP_DESCRIPTION}>{description}</span>
         </span>
       )}
     </label>

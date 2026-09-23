@@ -26,7 +26,7 @@ export function Fieldset({ legend, description, className, children, ...props }:
           {legend}
         </Base.Legend>
       )}
-      {description != null && <p className="-mt-stack-xs font-sans text-caption leading-normal text-fg-muted">{description}</p>}
+      {description != null && <p className="mt-stack-sm font-sans text-caption leading-normal text-fg-muted">{description}</p>}
       {children}
     </Base.Root>
   );

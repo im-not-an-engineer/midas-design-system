@@ -16,6 +16,10 @@
         "$value": "{ramp.neutral.100}",
         "$description": "가장 안쪽 (코드 블록, 트랙)"
       },
+      "track": {
+        "$value": "{ramp.neutral.200}",
+        "$description": "게이지의 빈 칸 (Progress·Meter 트랙). sunken(100)은 흰 바탕에서 거의 안 보였고, sunken 은 아바타·토글이 함께 써서 같이 올릴 수 없었다."
+      },
       "raised": {
         "$value": "{ramp.neutral.0}",
         "$description": "떠 있는 면 (카드, 패널)"
@@ -32,17 +36,17 @@
         "$value": "{ramp.neutral.100}",
         "$description": "행·항목 호버"
       },
+      "accentSubtle": {
+        "$value": "{ramp.accent.50}",
+        "$description": "옅은 키 컬러 면. 목록 호버, 토글 눌림처럼 강조하되 주인공은 아닌 자리."
+      },
       "selected": {
-        "$value": "{ramp.accent.100}",
-        "$description": "선택된 행·항목. accentHover(50)보다 한 단계 진해야 호버와 구분된다."
+        "$value": "{ramp.accent.50}",
+        "$description": "선택된 행·항목. 호버는 중립 회색(surface.hover)이라 이 색과 겹치지 않는다. accent 램프의 제일 옅은 단계라 더 내려갈 곳이 없고, 그래서 accentSubtle 과 값이 같다."
       },
       "inverse": {
         "$value": "{ramp.neutral.900}",
         "$description": "밝은 화면 위의 어두운 면 (툴팁). 다크에서는 반대로 밝아진다."
-      },
-      "accentHover": {
-        "$value": "{ramp.accent.50}",
-        "$description": "키 컬러 맥락에서의 호버 면. 목록·메뉴처럼 선택이 있는 곳은 회색 대신 이걸 쓴다."
       }
     },
     "fg": {

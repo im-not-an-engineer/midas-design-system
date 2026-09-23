@@ -4,11 +4,12 @@ import {
   Checkbox, CheckboxGroup, Radio, RadioGroup, Switch, Select, Combobox, Autocomplete, NumberField, Slider, OTPField, Fieldset,
   Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogConfirmFooter,
   AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogConfirmFooter,
-  Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose,
+  Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose,
   ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuSeparator,
   Popover, PopoverTrigger, PopoverContent, PopoverTitle, PopoverDescription,
   Tooltip, TooltipProvider, PreviewCard, PreviewCardTrigger, PreviewCardContent,
   Menu, MenuTrigger, MenuContent, MenuGroup, MenuItem, MenuSeparator,
+  AxTheme,
   Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
   ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter,
@@ -109,8 +110,10 @@ export function Gallery() {
           <Drawer side="right">
             <DrawerTrigger render={<Button />}>드로어</DrawerTrigger>
             <DrawerContent>
-              <DrawerTitle>ISSUE-241</DrawerTitle>
-              <DrawerDescription>토큰 계약 위반 린트 추가</DrawerDescription>
+              <DrawerHeader>
+                <DrawerTitle>ISSUE-241</DrawerTitle>
+                <DrawerDescription>토큰 계약 위반 린트 추가</DrawerDescription>
+              </DrawerHeader>
               <Field><FieldLabel>담당자</FieldLabel><Input defaultValue="양희윤" /></Field>
               <DrawerFooter><DrawerClose render={<Button intent="secondary" />}>닫기</DrawerClose><Button intent="primary">저장</Button></DrawerFooter>
             </DrawerContent>
@@ -126,7 +129,13 @@ export function Gallery() {
         <Section title="오버레이 — 열어둔 채로 보는 것">
           {/* 팝업이 트리거 아래로 뜨므로 각자 자리를 확보해 서로 가리지 않게 한다.
               Menu는 modal 기본값이 true라 열어두면 바깥(편집 패널 포함)의 포인터 입력이
-              전부 막힌다 — 여기서는 '보기용'으로 열어두는 것이므로 반드시 꺼야 한다. */}
+              전부 막힌다 — 여기서는 '보기용'으로 열어두는 것이므로 반드시 꺼야 한다.
+
+              중첩 AxTheme: 이 데모들은 항상 열려 있어 z-popover(400)로 떠 있고, 그대로 두면
+              다이얼로그(z-modal 300)를 덮는다. AxTheme 은 자기 자신이 포털 컨테이너이므로
+              한 겹 감싸면 팝업이 이 구역 안으로 들어오고, 구역을 z-sticky(100) 쌓기 맥락에
+              두면 400 이 그 안에 갇혀 다이얼로그가 위로 올라온다. */}
+          <AxTheme className="isolate z-sticky flex flex-wrap items-start gap-inline-lg gap-y-stack-md">
           <div className="flex h-[160px] w-[200px] flex-col">
             <Menu open modal={false}><MenuTrigger render={<Button />}>메뉴</MenuTrigger>
               <MenuContent align="start"><MenuGroup label="이슈"><MenuItem>이름 바꾸기</MenuItem><MenuItem disabled>보관</MenuItem></MenuGroup><MenuSeparator /><MenuItem destructive>삭제</MenuItem></MenuContent>
@@ -145,6 +154,7 @@ export function Gallery() {
               <PreviewCardContent><div className="flex items-center gap-inline-sm"><Avatar size="sm" name="양희윤" /><span className="text-body">양희윤 · 디자이너</span></div></PreviewCardContent>
             </PreviewCard>
           </div>
+          </AxTheme>
         </Section>
 
         <Section title="내비 · 레이아웃">
@@ -159,8 +169,8 @@ export function Gallery() {
           <Collapsible defaultOpen><CollapsibleTrigger render={<Button intent="ghost" size="sm" />}>고급 옵션</CollapsibleTrigger><CollapsiblePanel><p className="text-body text-fg-muted">열린 패널</p></CollapsiblePanel></Collapsible>
           <Menubar><Menu><MenubarTrigger>파일</MenubarTrigger><MenuContent align="start"><MenuItem>새로</MenuItem></MenuContent></Menu><Menu><MenubarTrigger>편집</MenubarTrigger><MenuContent align="start"><MenuItem>실행 취소</MenuItem></MenuContent></Menu></Menubar>
           <Toolbar aria-label="도구"><ToolbarGroup><ToolbarButton><b>B</b></ToolbarButton><ToolbarButton><i>I</i></ToolbarButton></ToolbarGroup><ToolbarSeparator /><ToolbarButton>정렬</ToolbarButton></Toolbar>
-          <ScrollArea className="h-[110px] w-[220px] rounded-surface border border-solid border-border-default">
-            <ul className="flex flex-col p-inset-sm">{Array.from({ length: 10 }, (_, i) => <li key={i} className="flex h-row-sm items-center px-inset-sm text-body">ISSUE-{240 - i}</li>)}</ul>
+          <ScrollArea className="h-[calc(var(--spacing-inset-sm)+var(--spacing-row-md)*3.5+var(--border-width-default)*2)] w-[220px] rounded-surface border border-solid border-border-default">
+            <ul className="flex flex-col p-inset-sm">{Array.from({ length: 10 }, (_, i) => <li key={i} className="flex h-row-md items-center px-inset-sm text-body">ISSUE-{240 - i}</li>)}</ul>
           </ScrollArea>
           <div className="flex w-[220px] flex-col gap-stack-sm text-body"><span>위</span><Separator label="또는" /><span>아래</span></div>
         </Section>
@@ -170,7 +180,7 @@ export function Gallery() {
             {(['xs', 'sm', 'md', 'lg'] as const).map((s) => <Avatar key={s} size={s} name="양희윤" />)}
             <AvatarGroup><Avatar size="sm" name="김민준" /><Avatar size="sm" name="이서연" /><Avatar size="sm">+4</Avatar></AvatarGroup>
           </div>
-          <div className="flex w-[260px] flex-col gap-stack-md">
+          <div className="flex w-[260px] flex-col gap-stack-xl">
             <Progress value={62} label="내보내기" showValue />
             <Meter value={32} label="저장 공간" showValue />
             <Meter value={78} label="경고 임계" showValue status="warning" />
@@ -179,7 +189,7 @@ export function Gallery() {
           </div>
           <div className="flex flex-wrap gap-inline-sm">
             {Object.entries(BADGE).map(([s, cls]) => (
-              <span key={s} className={`inline-flex items-center rounded-pill border border-solid px-inset-sm py-inset-xs text-caption font-medium ${cls}`}>{s}</span>
+              <span key={s} className={`inline-flex items-center justify-center min-w-[calc(var(--spacing-control-md)*2)] rounded-pill border border-solid px-inset-sm py-inset-xs text-caption font-medium ${cls}`}>{s}</span>
             ))}
           </div>
         </Section>

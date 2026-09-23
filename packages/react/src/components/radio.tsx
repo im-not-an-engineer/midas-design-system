@@ -3,7 +3,7 @@ import { Radio as Base } from '@base-ui/react/radio';
 import { RadioGroup as BaseGroup } from '@base-ui/react/radio-group';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION } from '../lib/styles';
+import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Radio. Checkbox와 같은 박스 스타일에 모서리만 원형.
@@ -25,13 +25,15 @@ export function Radio({ size = 'md', label, description, className, ...props }: 
   if (label == null) return dot;
   return (
     <label className={cn(SELECTION_LABEL, SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
-      {dot}
+      {/* 설명이 있으면 items-start 라 컨트롤이 글자 첫 줄보다 위로 뜬다.
+          '글자 한 줄 높이(1lh)' 상자에 넣어 첫 줄과 중심을 맞춘다. */}
+      {description == null ? dot : <span className="flex h-[1lh] shrink-0 items-center">{dot}</span>}
       {description == null ? (
         label
       ) : (
-        <span className="flex flex-col gap-stack-xs">
-          <span>{label}</span>
-          <span className={GROUP_DESCRIPTION}>{description}</span>
+        <span className={cn("flex flex-col", SELECTION_DESC_GAP)}>
+          <span className={TITLE_IN_PAIR}>{label}</span>
+          <span data-slot="description" className={GROUP_DESCRIPTION}>{description}</span>
         </span>
       )}
     </label>

@@ -37,7 +37,7 @@ export function Toggle({ size = 'md', className, ...props }: ToggleProps) {
           ? // 세그먼트: 안 눌린 건 투명, 눌린 건 떠 있는 면
             'text-fg-muted hover:not-data-disabled:not-data-pressed:text-fg-default data-pressed:bg-surface-raised data-pressed:text-fg-default data-pressed:shadow-raised'
           : // 단독: 테두리 있는 버튼, 눌리면 selected 면
-            'border border-solid border-border-default bg-surface-base text-fg-muted hover:not-data-disabled:bg-surface-hover hover:not-data-disabled:text-fg-default data-pressed:bg-surface-selected data-pressed:border-action-primary-bg-default data-pressed:text-fg-default',
+            'border border-solid border-border-default bg-surface-base text-fg-muted hover:not-data-disabled:bg-surface-accent-subtle hover:not-data-disabled:text-fg-default data-pressed:bg-surface-accent-subtle data-pressed:not-data-disabled:border-action-primary-bg-default data-pressed:not-data-disabled:text-fg-link data-pressed:data-disabled:border-action-primary-bg-disabled',
         SIZE[size],
         className,
       )}

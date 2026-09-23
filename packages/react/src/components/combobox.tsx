@@ -4,7 +4,7 @@ import { cn } from '../lib/cn';
 import { Check, ChevronDown, X } from '../lib/icons';
 import type { Size } from '../lib/types';
 import { usePortalContainer } from '../lib/theme';
-import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_EMPTY } from '../lib/styles';
+import { FIELD_CONTROL, FIELD_CONTROL_SIZE, POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_EMPTY } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Combobox. 긴 목록에서 타이핑으로 걸러 하나를 고른다.
@@ -21,7 +21,8 @@ export interface ComboboxItem {
 
 /** 입력 오른쪽에 붙는 지우기·열기 버튼. 컨트롤 높이 안에 들어가는 아이콘 급 크기. */
 const INLINE_BUTTON = [
-  'inline-flex shrink-0 items-center justify-center size-icon-lg rounded-control',
+    // 20px 정사각에 control 모서리(6px)는 과하다 — 체크박스와 같이 절반을 쓴다.
+  'inline-flex shrink-0 items-center justify-center size-icon-lg rounded-[calc(var(--radius-control)/2)]',
   'text-fg-muted cursor-pointer transition-colors duration-fast ease-standard',
   'hover:bg-surface-hover hover:text-fg-default',
   'data-disabled:pointer-events-none data-disabled:text-fg-disabled',
@@ -63,7 +64,7 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
             <Base.Empty className={POPUP_EMPTY}>{emptyText}</Base.Empty>
             <Base.List>
               {(item: ComboboxItem) => (
-                <Base.Item key={item.value} value={item} disabled={item.disabled} className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, 'data-selected:font-medium')}>
+                <Base.Item key={item.value} value={item} disabled={item.disabled} className={cn(POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, 'data-selected:font-medium')}>
                   <Base.ItemIndicator className={POPUP_ITEM_MARKER}>
                     <Check aria-hidden />
                   </Base.ItemIndicator>

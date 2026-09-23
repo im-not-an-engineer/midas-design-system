@@ -14,10 +14,11 @@ export const 필터: Story = {
       <PopoverContent align="start">
         <PopoverTitle>표시할 상태</PopoverTitle>
         <PopoverDescription>고른 상태의 이슈만 목록에 보입니다.</PopoverDescription>
-        <div className="mt-stack-md flex flex-col gap-stack-sm">
-          <Checkbox label="대기" defaultChecked />
-          <Checkbox label="진행" defaultChecked />
-          <Checkbox label="완료" />
+        {/* 고르는 줄이라 셀 높이를 맞춘다 — 척도에 24px 단계가 없어 가장 가까운 row-sm(28px). */}
+        <div className="mt-stack-md flex flex-col">
+          {['대기', '진행', '완료'].map((s, i) => (
+            <div key={s} className="flex h-row-sm items-center"><Checkbox label={s} defaultChecked={i < 2} /></div>
+          ))}
         </div>
       </PopoverContent>
     </Popover>

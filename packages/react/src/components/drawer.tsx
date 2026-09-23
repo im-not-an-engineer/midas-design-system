@@ -3,8 +3,9 @@ import { Drawer as Base } from '@base-ui/react/drawer';
 import { cn } from '../lib/cn';
 import { X } from '../lib/icons';
 import { Button } from './button';
+import { Separator } from './separator';
 import { usePortalContainer } from '../lib/theme';
-import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_TITLE, DIALOG_DESCRIPTION } from '../lib/styles';
+import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_TITLE, DIALOG_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
 
 /**
  * 오버레이 가족 — Drawer. 화면 가장자리에서 밀려 나오는 패널. 스와이프로 닫힌다(Base UI).
@@ -60,15 +61,42 @@ export function DrawerContent({ className, children, ...props }: React.Component
   );
 }
 
+/**
+ * 제목 + 설명 묶음. 아래 내용과는 구분선으로 나눈다 — Drawer 는 Dialog 와 달리
+ * 본문이 길어서 머리말이 어디까지인지 선이 없으면 읽히지 않는다.
+ *
+ * 구분선은 패널 끝까지 긋는다(-mx-inset-lg). 안쪽 여백만큼 물러나 있으면
+ * 영역이 나뉜 게 아니라 장식처럼 보인다.
+ */
+export function DrawerHeader({ className, children, ...props }: React.ComponentProps<'div'>) {
+  return (
+    // 구분선 위 inset-md, 아래 stack-md + Content 의 flex gap(stack-md).
+    // 위쪽만 키우면 선이 본문에 붙어 구역이 나뉜 느낌이 안 난다 — 여백을 양쪽에 나눈다.
+    <div className="mb-stack-md flex flex-col">
+      <div className={cn('flex flex-col pb-inset-md', TITLE_DESC_GAP, className)} {...props}>{children}</div>
+      <Separator className="-mx-inset-lg w-auto" />
+    </div>
+  );
+}
+
+/** Dialog 보다 한 단계 큰 제목 — 패널이 넓고 오래 머무는 화면이라 머리말이 더 서야 한다. */
 export function DrawerTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {
-  return <Base.Title className={cn(DIALOG_TITLE, className)} {...props} />;
+  return <Base.Title className={cn(DIALOG_TITLE, 'text-heading-md', className)} {...props} />;
 }
 export function DrawerDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
   return <Base.Description className={cn(DIALOG_DESCRIPTION, className)} {...props} />;
 }
 /** 하단 버튼 줄. 내용이 스크롤돼도 항상 보이도록 Content 바깥에 두는 게 아니라 안에서 mt-auto로 붙인다. */
-export function DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('mt-auto flex items-center justify-end gap-inline-md pt-inset-sm', className)} {...props} />;
+export function DrawerFooter({ className, children, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div className="mt-auto flex flex-col">
+      <Separator className="-mx-inset-lg w-auto" />
+      {/* 선 위는 Content 의 flex gap(stack-md) 하나뿐이라, 아래를 머리말의 pb+mb 와 같게 준다.
+          inset-xl = inset-md + stack-md 가 workbench·consumer 양쪽에서 성립해,
+          '머리말↔본문' 과 '본문↔버튼줄' 두 간격이 어느 아키타입에서도 같다. */}
+      <div className={cn('flex items-center justify-end gap-inline-md pt-inset-xl', className)} {...props}>{children}</div>
+    </div>
+  );
 }
 export function DrawerCloseButton() {
   return <Base.Close render={<Button intent="ghost" iconOnly aria-label="닫기" />}><X aria-hidden /></Base.Close>;

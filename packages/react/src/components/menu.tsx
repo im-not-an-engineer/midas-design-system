@@ -3,7 +3,7 @@ import { Menu as Base } from '@base-ui/react/menu';
 import { cn } from '../lib/cn';
 import { Check, ChevronRight, CircleSmall } from '../lib/icons';
 import { usePortalContainer } from '../lib/theme';
-import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
+import { POPUP_SURFACE, POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, POPUP_ITEM_MARKER, POPUP_GROUP_LABEL, POPUP_SEPARATOR } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #4 — 팝오버 계열의 대표.
@@ -57,7 +57,7 @@ export function MenuItem({ className, destructive, ...props }: MenuItemProps) {
 
 export function MenuCheckboxItem({ className, children, ...props }: React.ComponentProps<typeof Base.CheckboxItem>) {
   return (
-    <Base.CheckboxItem className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, className)} {...props}>
+    <Base.CheckboxItem className={cn(POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, className)} {...props}>
       <span className={POPUP_ITEM_MARKER}>
         <Base.CheckboxItemIndicator aria-hidden><Check /></Base.CheckboxItemIndicator>
       </span>
@@ -68,9 +68,10 @@ export function MenuCheckboxItem({ className, children, ...props }: React.Compon
 
 export function MenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof Base.RadioItem>) {
   return (
-    <Base.RadioItem className={cn(POPUP_ITEM, POPUP_ITEM_INDENT, className)} {...props}>
+    <Base.RadioItem className={cn(POPUP_ITEM, POPUP_ITEM_PICK, POPUP_ITEM_INDENT, className)} {...props}>
       <span className={POPUP_ITEM_MARKER}>
-        <Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" /></Base.RadioItemIndicator>
+        {/* 점은 아이콘 칸(icon-sm)을 다 채우면 체크와 무게가 안 맞는다 — 3/4로 줄인다. */}
+        <Base.RadioItemIndicator aria-hidden><CircleSmall fill="currentColor" className="size-[calc(var(--spacing-icon-sm)*0.75)]" /></Base.RadioItemIndicator>
       </span>
       {children}
     </Base.RadioItem>

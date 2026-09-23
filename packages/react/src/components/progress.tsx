@@ -10,12 +10,12 @@ import type { Status } from '../lib/types';
  * Meter: 정적인 측정값(저장 공간 80% 사용). 임계에 따라 status 색.
  * 둘은 모양이 같고 의미가 다르다 — 스크린리더가 다르게 읽는다.
  *
- * 트랙 두께는 Slider와 같은 식(icon.sm/3)에서 나와 아키타입을 따른다.
+ * 트랙 두께는 Slider와 같은 식(icon.sm/2.5)에서 나와 아키타입을 따른다 — 둘은 항상 같은 굵기다.
  */
 
-const TRACK = 'relative h-[calc(var(--spacing-icon-sm)/3)] w-full overflow-hidden rounded-pill bg-surface-sunken';
+const TRACK = 'relative h-[calc(var(--spacing-icon-sm)/2.5)] w-full overflow-hidden rounded-pill bg-surface-track';
 const LABEL = 'font-sans text-caption font-medium leading-ui text-fg-default';
-const VALUE = 'font-sans text-caption leading-ui tabular-nums text-fg-muted';
+const VALUE = 'font-sans text-caption font-semibold leading-ui tabular-nums text-fg-muted';
 
 export interface ProgressProps extends React.ComponentProps<typeof Base.Root> {
   label?: React.ReactNode;
@@ -24,7 +24,7 @@ export interface ProgressProps extends React.ComponentProps<typeof Base.Root> {
 
 export function Progress({ label, showValue, className, ...props }: ProgressProps) {
   return (
-    <Base.Root className={cn('flex w-full flex-col gap-stack-xs', className)} {...props}>
+    <Base.Root className={cn('flex w-full flex-col gap-stack-md', className)} {...props}>
       {(label != null || showValue) && (
         <div className="flex items-center justify-between gap-inline-md">
           {label != null ? <Base.Label className={LABEL}>{label}</Base.Label> : <span />}
@@ -60,7 +60,7 @@ export interface MeterProps extends React.ComponentProps<typeof BaseMeter.Root> 
 
 export function Meter({ label, showValue, status, className, ...props }: MeterProps) {
   return (
-    <BaseMeter.Root className={cn('flex w-full flex-col gap-stack-xs', className)} {...props}>
+    <BaseMeter.Root className={cn('flex w-full flex-col gap-stack-md', className)} {...props}>
       {(label != null || showValue) && (
         <div className="flex items-center justify-between gap-inline-md">
           {label != null ? <BaseMeter.Label className={LABEL}>{label}</BaseMeter.Label> : <span />}

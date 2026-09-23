@@ -33,4 +33,8 @@ const SCROLLBAR = [
   'data-hovering:opacity-100 data-scrolling:opacity-100',
   'data-[orientation=vertical]:justify-center data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:justify-center',
 ].join(' ');
+// 손잡이는 선도 면도 아니라 border-* 를 배경으로 쓰는 게 역할상 맞지 않는다. 다만 계약에
+// 대신할 이름이 없다 — fg 는 subtle(slate400)이 제일 옅어 손잡이로는 너무 진하고, surface 는
+// track(slate200)이 제일 진해 너무 옅다. slate300 자리를 가진 건 border.strong 뿐이다.
+// 손잡이용 이름이 생기면 여기만 바꾸면 된다.
 const THUMB = 'flex-1 rounded-pill bg-border-strong hover:bg-fg-subtle';

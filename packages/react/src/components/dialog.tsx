@@ -3,7 +3,7 @@ import { Dialog as Base } from '@base-ui/react/dialog';
 import { cn } from '../lib/cn';
 import { Button } from './button';
 import { usePortalContainer } from '../lib/theme';
-import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, DIALOG_TITLE, DIALOG_DESCRIPTION } from '../lib/styles';
+import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, DIALOG_TITLE, DIALOG_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #3 — 오버레이.
@@ -41,6 +41,9 @@ export function DialogContent({ width = 'md', className, children, ...props }: D
           'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
           'w-[calc(100vw-2rem)]',
           DIALOG_WIDTH[width],
+          // 세로 제한선. 없으면 긴 폼이 화면 밖으로 넘쳐 아래 버튼을 누를 수 없다.
+          // 가로(100vw-2rem)와 같은 여백을 위아래로 남긴다. dvh 라 모바일 주소창에도 맞는다.
+          'max-h-[calc(100dvh-2rem)] overflow-y-auto',
           'flex flex-col gap-stack-md rounded-overlay p-inset-lg',
           'transition-[opacity,scale] duration-fast ease-standard',
           'data-starting-style:opacity-0 data-starting-style:scale-[0.97]',
@@ -59,7 +62,7 @@ export function DialogContent({ width = 'md', className, children, ...props }: D
 }
 
 export function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('flex flex-col gap-stack-xs', className)} {...props} />;
+  return <div className={cn('flex flex-col', TITLE_DESC_GAP, className)} {...props} />;
 }
 
 export function DialogTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {

@@ -72,12 +72,16 @@ function Lab({ archetype, brand, mode }: { archetype: string; brand: string; mod
   return (
     <div className="flex h-screen w-full overflow-hidden font-sans">
       {/* 미리보기는 이 컨테이너 안에서만 적용된다. 인라인 스타일이라 어떤 규칙보다 우선한다. */}
+      {/* AxTheme 이 곧 포털 컨테이너다. 여기에 overflow 를 걸면 스크롤 상자가 되어
+          팝업(메뉴·셀렉트·다이얼로그)이 경계에서 잘린다. 스크롤은 안쪽 div 가 맡는다. */}
       <AxTheme
         archetype={archetype as never} brand={brand as never} mode={mode as never}
         style={vars as React.CSSProperties}
-        className="min-h-0 flex-1 overflow-y-auto bg-surface-base p-inset-xl text-body text-fg-default"
+        className="relative isolate z-overlay min-h-0 flex-1 bg-surface-base text-body text-fg-default"
       >
-        <Gallery />
+        <div className="h-full overflow-y-auto p-inset-xl">
+          <Gallery />
+        </div>
       </AxTheme>
       {sources && (
         <Panel

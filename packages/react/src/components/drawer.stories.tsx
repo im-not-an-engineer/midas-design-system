@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose, DrawerCloseButton } from './drawer';
+import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose, DrawerCloseButton } from './drawer';
 import { Button } from './button';
 import { Field, FieldLabel, Input, Textarea } from './field';
 
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 const Body = () => (
   <>
     <div className="flex items-start justify-between gap-inline-md">
-      <div className="flex flex-col gap-stack-xs"><DrawerTitle>ISSUE-241</DrawerTitle><DrawerDescription>토큰 계약 위반 린트 추가</DrawerDescription></div>
+      <DrawerHeader><DrawerTitle>ISSUE-241</DrawerTitle><DrawerDescription>토큰 계약 위반 린트 추가</DrawerDescription></DrawerHeader>
       <DrawerCloseButton />
     </div>
     <Field><FieldLabel>담당자</FieldLabel><Input defaultValue="양희윤" /></Field>

@@ -26,6 +26,28 @@ export const SELECTION_BOX_SIZE = {
   lg: 'size-icon-lg',
 } as const;
 
+/**
+ * 제목과 그 아래 설명 사이. Dialog·Drawer·Popover·Toast·체크박스 설명까지 전부 같은 값이라
+ * 한 곳에 둔다. stack-xs(workbench 2px)일 때는 두 줄이 한 덩어리로 뭉쳐 읽혔다.
+ * 척도에 10px 단계가 없어 그 위인 stack-lg(12px)로 맞춘다.
+ */
+export const TITLE_DESC_GAP = 'gap-stack-lg';
+/**
+ * 위와 같은 자리지만 flex gap 이 아니라 margin 으로 줘야 하는 곳(Popover 처럼 부모가 flex 가 아닐 때).
+ * 값은 한 단계 아래(stack-md 8px)다 — 팝오버는 상자가 작아 12px 이면 제목이 떠 보인다.
+ * 그래서 이 한 자리만 "최소 10px" 밖에 있다.
+ */
+export const TITLE_DESC_MARGIN = 'mt-stack-md';
+
+/**
+ * 선택 컨트롤(체크박스·라디오·스위치)의 레이블↔설명. 본문보다 작은 글자가 두 줄 붙는 자리라
+ * TITLE_DESC_GAP(12px)은 두 줄이 갈라져 보인다. 두 단계 아래인 stack-sm(4px).
+ */
+export const SELECTION_DESC_GAP = 'gap-stack-sm';
+
+/** 제목 줄. 아래 설명(GROUP_DESCRIPTION)과 같은 굵기면 어느 쪽이 제목인지 안 보인다. */
+export const TITLE_IN_PAIR = 'font-medium text-fg-default';
+
 /** 박스 옆 레이블. 비활성이면 글자도 흐려진다. 글자 크기는 SELECTION_LABEL_SIZE 가 정한다. */
 export const SELECTION_LABEL = [
   // 박스와 글자 사이는 inline-md(6px). sm(4px)은 붙어 보이고 lg(8px)은 벌어져 보인다.
@@ -41,9 +63,15 @@ export const SELECTION_LABEL_SIZE = {
   lg: 'text-body-lg',
 } as const;
 
-/** 항목 묶음(CheckboxGroup, RadioGroup)의 컨테이너. */
+/**
+ * 항목 묶음(CheckboxGroup, RadioGroup)의 컨테이너.
+ *
+ * 설명이 붙으면 항목 하나가 두 줄이 되고, 그 안쪽 간격이 TITLE_DESC_GAP(12px)이다.
+ * 항목 사이가 그대로 4px 이면 설명이 아래 항목에 붙어 읽힌다 — 안쪽보다 바깥이 넓어야
+ * 묶음이 제대로 나뉜다. 설명이 하나라도 있을 때만 벌리므로, 한 줄짜리 목록은 촘촘하게 남는다.
+ */
 export const SELECTION_GROUP = {
-  vertical: 'flex flex-col gap-stack-sm',
+  vertical: 'flex flex-col gap-stack-sm has-[[data-slot=description]]:gap-stack-lg',
   horizontal: 'flex flex-wrap items-center gap-inline-lg',
 } as const;
 
@@ -84,17 +112,28 @@ export const POPUP_SURFACE = [
 ].join(' ');
 
 /** 팝업 항목. 높이가 control.sm이라 아키타입과 함께 조여진다. */
+/**
+ * 팝업 항목의 공통 뼈대.
+ *
+ * 호버는 중립 회색이다. 커서가 지나가는 것은 뜻이 없는 일시적 표시라, 키 컬러를
+ * 여기까지 쓰면 "선택됨"과 구분이 흐려진다. 키 컬러는 선택에만 쓴다(POPUP_ITEM_PICK).
+ * Ant Design·Material·Primer 가 쓰는 방식이다.
+ */
 export const POPUP_ITEM = [
   'relative flex items-center gap-inline-sm',
   'h-control-md px-inset-sm rounded-control',
   'leading-ui outline-none select-none cursor-pointer',
-  // 선택된 항목은 호버해도 그대로 둔다 — 이미 골라둔 것이라 더 강조할 이유가 없다.
-  // 호버 표시는 아직 고르지 않은 항목에만 준다.
-  'data-selected:bg-surface-selected data-checked:bg-surface-selected',
-  'data-highlighted:not-data-selected:not-data-checked:bg-surface-accent-hover',
+  // 선택된 항목은 호버해도 그대로 둔다 — 이미 골라둔 것이라 회색으로 덮을 이유가 없다.
+  'data-highlighted:not-data-selected:not-data-checked:bg-surface-hover',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
 ].join(' ');
+
+/**
+ * 고르는 목록(Select·Combobox·체크 메뉴)의 항목. 선택이라는 남아 있는 상태가
+ * 있는 쪽에만 붙인다. 실행 메뉴(이름 바꾸기·삭제)에는 선택이 없어 붙이지 않는다.
+ */
+export const POPUP_ITEM_PICK = 'data-selected:bg-surface-selected data-checked:bg-surface-selected';
 
 /** 항목 왼쪽의 선택 표시자(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
 export const POPUP_ITEM_MARKER =

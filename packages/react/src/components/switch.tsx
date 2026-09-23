@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch as Base } from '@base-ui/react/switch';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { SELECTION_LABEL, SELECTION_LABEL_SIZE, GROUP_DESCRIPTION } from '../lib/styles';
+import { SELECTION_LABEL, SELECTION_LABEL_SIZE, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Switch. 즉시 적용되는 켬/끔. 저장 버튼이 따로 있으면 Checkbox를 쓴다.
@@ -59,13 +59,15 @@ export function Switch({ size = 'md', label, description, className, ...props }:
   if (label == null) return track;
   return (
     <label className={cn(SELECTION_LABEL, SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
-      {track}
+      {/* 설명이 있으면 items-start 라 컨트롤이 글자 첫 줄보다 위로 뜬다.
+          '글자 한 줄 높이(1lh)' 상자에 넣어 첫 줄과 중심을 맞춘다. */}
+      {description == null ? track : <span className="flex h-[1lh] shrink-0 items-center">{track}</span>}
       {description == null ? (
         label
       ) : (
-        <span className="flex flex-col gap-stack-xs">
-          <span>{label}</span>
-          <span className={GROUP_DESCRIPTION}>{description}</span>
+        <span className={cn("flex flex-col", SELECTION_DESC_GAP)}>
+          <span className={TITLE_IN_PAIR}>{label}</span>
+          <span data-slot="description" className={GROUP_DESCRIPTION}>{description}</span>
         </span>
       )}
     </label>
