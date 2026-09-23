@@ -37,8 +37,8 @@
         "$description": "옅은 키 컬러 면. 목록 호버, 토글 눌림처럼 강조하되 주인공은 아닌 자리."
       },
       "selected": {
-        "$value": "{ramp.accent.100}",
-        "$description": "선택된 행·항목. accentHover(50)보다 한 단계 진해야 호버와 구분된다."
+        "$value": "{ramp.accent.50}",
+        "$description": "선택된 행·항목. 호버는 중립 회색(surface.hover)이라 이 색과 겹치지 않는다. accent 램프의 제일 옅은 단계라 더 내려갈 곳이 없고, 그래서 accentSubtle 과 값이 같다."
       },
       "inverse": {
         "$value": "{ramp.neutral.900}",
