@@ -10,10 +10,10 @@ import type { Status } from '../lib/types';
  * Meter: 정적인 측정값(저장 공간 80% 사용). 임계에 따라 status 색.
  * 둘은 모양이 같고 의미가 다르다 — 스크린리더가 다르게 읽는다.
  *
- * 트랙 두께는 Slider와 같은 식(icon.sm/3)에서 나와 아키타입을 따른다.
+ * 트랙 두께는 Slider와 같은 식(icon.sm/2.5)에서 나와 아키타입을 따른다 — 둘은 항상 같은 굵기다.
  */
 
-const TRACK = 'relative h-[calc(var(--spacing-icon-sm)/3)] w-full overflow-hidden rounded-pill bg-surface-track';
+const TRACK = 'relative h-[calc(var(--spacing-icon-sm)/2.5)] w-full overflow-hidden rounded-pill bg-surface-track';
 const LABEL = 'font-sans text-caption font-medium leading-ui text-fg-default';
 const VALUE = 'font-sans text-caption font-semibold leading-ui tabular-nums text-fg-muted';
 
