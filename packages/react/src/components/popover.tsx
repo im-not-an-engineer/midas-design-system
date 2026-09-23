@@ -35,5 +35,5 @@ export function PopoverTitle({ className, ...props }: React.ComponentProps<typeo
   return <Base.Title className={cn('text-body font-semibold leading-ui text-fg-default', className)} {...props} />;
 }
 export function PopoverDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
-  return <Base.Description className={cn(TITLE_DESC_MARGIN, 'text-caption leading-normal text-fg-muted', className)} {...props} />;
+  return <Base.Description className={cn(TITLE_DESC_MARGIN, 'text-footnote leading-normal text-fg-muted', className)} {...props} />;
 }

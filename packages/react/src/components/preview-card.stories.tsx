@@ -7,7 +7,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const Card = () => (
-  <div className="flex flex-col gap-stack-sm">
+  <div className="flex flex-col gap-stack-lg">
     {/* 가로 간격 척도(inline)는 lg=8px 가 끝이라, 한 단계 더는 inset-md(12px)를 빌려 쓴다. */}
     <div className="flex items-center gap-inset-md">
       <Avatar size="md" name="양희윤" />

@@ -77,7 +77,7 @@ export function NavigationMenuLink({ className, ...props }: React.ComponentProps
 export function NavigationMenuLinkCard({ title, description, className, ...props }: React.ComponentProps<typeof Base.Link> & { title: React.ReactNode; description?: React.ReactNode }) {
   return (
     <Base.Link
-      className={cn('flex flex-col rounded-control p-inset-lg', TITLE_DESC_GAP, ' no-underline ax-focus-ring hover:bg-surface-hover', className)}
+      className={cn('flex flex-col rounded-control p-inset-sm', TITLE_DESC_GAP, ' no-underline ax-focus-ring hover:bg-surface-hover', className)}
       {...props}
     >
       <span className="font-sans text-body font-medium leading-ui text-fg-default">{title}</span>

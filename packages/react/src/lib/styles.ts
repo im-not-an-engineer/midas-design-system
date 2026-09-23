@@ -29,9 +29,9 @@ export const SELECTION_BOX_SIZE = {
 /**
  * 제목과 그 아래 설명 사이. Dialog·Drawer·Popover·Toast·체크박스 설명까지 전부 같은 값이라
  * 한 곳에 둔다. stack-xs(workbench 2px)일 때는 두 줄이 한 덩어리로 뭉쳐 읽혔다.
- * 척도에 10px 단계가 없어 그 위인 stack-lg(12px)로 맞춘다.
+ * 처음엔 stack-lg(12px)였는데 눈으로 보니 제목이 떠 보여 한 단계 내렸다.
  */
-export const TITLE_DESC_GAP = 'gap-stack-lg';
+export const TITLE_DESC_GAP = 'gap-stack-md';
 /**
  * 위와 같은 자리지만 flex gap 이 아니라 margin 으로 줘야 하는 곳(Popover 처럼 부모가 flex 가 아닐 때).
  * 값은 두 단계 아래(stack-sm 4px)다 — 팝오버는 상자가 작아 12px 이면 제목이 떠 보인다.
