@@ -224,7 +224,7 @@ export const POPUP_ITEM = [
  */
 export const POPUP_ITEM_PICK = 'data-selected:bg-surface-selected data-checked:bg-surface-selected';
 
-/** 항목 왼쪽의 선택 인디케이터(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
+/** 항목 왼쪽의 선택 표시자(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
 /** 라디오 항목의 점. CircleSmall 은 상자의 절반만 실제 원이라 크기가 애매해진다 — 직접 그린다.
  *  6px = inset-xs 의 1.5배. 토스트 제목 옆 점과 같은 값·같은 식이다. */
 export const POPUP_RADIO_DOT = 'block size-[calc(var(--spacing-inset-xs)*1.5)] rounded-pill bg-current';
@@ -233,10 +233,10 @@ export const POPUP_ITEM_MARKER =
   'absolute left-inset-xs flex size-icon-sm items-center justify-center text-fg-link';
 
 /**
- * 왼쪽에 인디케이터(체크·점)가 붙는 팝업 항목의 들여쓰기.
- * 인디케이터 위치(inset-xs) + 인디케이터 크기(icon-sm) + 인디케이터와 글자 사이(inline-md).
+ * 왼쪽에 표시자(체크·점)가 붙는 팝업 항목의 들여쓰기.
+ * 표시자 위치(inset-xs) + 표시자 크기(icon-sm) + 표시자와 글자 사이(inline-md).
  *
- * 값을 박으면 아이콘 척도를 바꿨을 때 글자가 인디케이터를 덮는다 — pl-inset-lg(16px)가
+ * 값을 박으면 아이콘 척도를 바꿨을 때 글자가 표시자를 덮는다 — pl-inset-lg(16px)가
  * 12px 아이콘 기준이었는데 아이콘이 14px 이 되면서 실제로 2px 겹쳤다.
  */
 export const POPUP_ITEM_INDENT =
