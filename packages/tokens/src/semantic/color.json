@@ -20,6 +20,10 @@
         "$value": "{ramp.neutral.200}",
         "$description": "게이지의 빈 칸 (Progress·Meter 트랙). sunken(100)은 흰 바탕에서 거의 안 보였고, sunken 은 아바타·토글이 함께 써서 같이 올릴 수 없었다."
       },
+      "chip": {
+        "$value": "{ramp.neutral.200}",
+        "$description": "글자를 얹는 작은 채워진 면 (아바타 이니셜, 중립 배지·태그). track·handle 과 같은 부위 이름이지 컴포넌트 이름이 아니다. sunken(움푹 들어간 면)과 구분한다 — 칩은 들어간 게 아니라 얹힌 것이라, 다크에서 바탕보다 밝아야 한다."
+      },
       "handle": {
         "$value": "{ramp.neutral.300}",
         "$description": "잡아서 끄는 것 (스크롤바 손잡이, 패널 크기 조절 바). 면도 선도 아니라 track(200)보다 진하고 inverse(900)보다 한참 옅은 자리가 필요하다."

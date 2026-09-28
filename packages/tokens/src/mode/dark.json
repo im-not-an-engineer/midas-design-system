@@ -9,9 +9,12 @@
         "$value": "{ramp.neutral.900}"
       },
       "sunken": {
-        "$value": "{ramp.neutral.800}"
+        "$value": "{ramp.neutral.1000}"
       },
       "track": {
+        "$value": "{ramp.neutral.800}"
+      },
+      "chip": {
         "$value": "{ramp.neutral.800}"
       },
       "handle": {

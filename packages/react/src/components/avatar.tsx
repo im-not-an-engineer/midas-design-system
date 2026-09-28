@@ -31,7 +31,7 @@ export function Avatar({ src, alt, name, size = 'md', className, children, ...pr
       data-size={size}
       className={cn(
         'relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-pill select-none',
-        'bg-surface-sunken font-sans font-medium leading-ui text-fg-default',
+        'bg-surface-chip font-sans font-medium leading-ui text-fg-default',
         SIZE[size],
         className,
       )}
