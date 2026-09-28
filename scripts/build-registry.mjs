@@ -80,6 +80,23 @@ function npmDeps(code) {
   return [...out].sort();
 }
 
+/**
+ * 이름만 내보내면 제품은 **설치하는 그 시점의 최신판**을 받는다. 우리가 보고 만든
+ * 판이 아니다. 라이브러리가 큰자리를 올리면(1.x → 2.0) 사용법이 바뀌므로,
+ * 우리가 복사해준 파일이 그 제품에서만 조용히 깨진다.
+ *
+ * 그래서 `^` 로 천장을 씌운다 — "1.8.0 이상, 단 2.0 은 우리가 확인 안 했으니 말고".
+ * 금지가 아니라 결정권을 우리 쪽으로 가져오는 것이다. base-ui 2.0 이 나오면
+ * 우리 저장소에서 올려보고 고친 뒤 package.json 을 갱신하면, 여기도 따라 올라간다.
+ *
+ * 범위는 packages/react/package.json 에서 읽는다 — 버전을 두 군데 적으면 갈라진다.
+ */
+function withRange(pkg) {
+  const v = REACT_PKG.dependencies?.[pkg] ?? REACT_PKG.peerDependencies?.[pkg];
+  if (!v) return pkg;                                  // assertDeclared 가 먼저 막는다
+  return /^\d/.test(v) ? `${pkg}@^${v}` : `${pkg}@${v}`; // 이미 범위면 그대로 넘긴다
+}
+
 function assertDeclared(where, deps) {
   const undeclared = deps.filter((d) => !DECLARED.has(d));
   if (undeclared.length) throw new Error(
@@ -234,7 +251,7 @@ async function main() {
       description: cfg.description,
       // lib 파일이 실제로 요구하는 것 + @base-ui/react. 뒤엣것은 lib 이 직접 import 하지는
       // 않지만, 컴포넌트를 하나라도 붙이면 반드시 필요해서 프리셋에 같이 실어 보낸다.
-      dependencies: [...new Set([...libDeps, '@base-ui/react'])].sort(),
+      dependencies: [...new Set([...libDeps, '@base-ui/react'])].sort().map(withRange),
       files: [...libSources, contractFile(name, light)],
       cssVars: { theme: themeVars },
       css,
@@ -248,7 +265,7 @@ async function main() {
       $schema: 'https://ui.shadcn.com/schema/registry-item.json',
       name: c.name,
       type: 'registry:ui',
-      dependencies: c.npm,
+      dependencies: c.npm.map(withRange),
       registryDependencies: c.local.map(itemUrl),
       files: [{ path: `components/ui/${c.name}.tsx`, content: rewriteImports(c.code), type: 'registry:ui', target: TARGET.component(c.name) }],
     }, null, 2) + '\n');
