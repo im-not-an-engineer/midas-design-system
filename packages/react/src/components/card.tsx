@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRender } from '@base-ui/react/use-render';
 import { cn } from '../lib/cn';
-import { SURFACE_TITLE, SURFACE_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
+import { SURFACE_TITLE, TITLE_DESC_GAP } from '../lib/styles';
 
 /**
  * 표시 가족 — Card. 내용을 담는 상자. 바닥에서 한 겹 올라온 면이다.
@@ -75,7 +75,12 @@ export function CardHeader({ className, children, action, ...props }: CardHeader
   return (
     <div className="flex items-start justify-between gap-inline-md">
       <div className={cn('flex min-w-0 flex-col', TITLE_DESC_GAP, className)} {...props}>{children}</div>
-      {action}
+      {action != null && (
+        // 제목 '줄' 과 같은 높이의 상자를 만들어 그 안에서 가운데를 맞춘다. 그냥 items-start
+        // 로 두면 배지가 제목보다 키가 커서 중심이 3~5px 아래로 내려간다.
+        // 1lh 는 이 span 의 글자 크기·줄간격에서 나오므로 제목과 같은 값을 준다.
+        <span className={cn('flex h-[1lh] shrink-0 items-center', SURFACE_TITLE)}>{action}</span>
+      )}
     </div>
   );
 }
@@ -90,8 +95,12 @@ export function CardTitle({ className, render, ref, ...props }: useRender.Compon
   });
 }
 
+/**
+ * 다이얼로그·드로어의 설명(`SURFACE_DESCRIPTION`, 본문 크기)보다 한 단계 작다.
+ * 카드는 여러 장이 나란히 서는 자리라 설명까지 본문 크기면 제목이 안 도드라진다.
+ */
 export function CardDescription({ className, ...props }: React.ComponentProps<'p'>) {
-  return <p className={cn(SURFACE_DESCRIPTION, className)} {...props} />;
+  return <p className={cn('text-caption leading-normal text-fg-muted', className)} {...props} />;
 }
 
 /** 본문. min-w-0 이 없으면 안에 든 긴 글자나 표가 카드를 밀어 넓힌다. */

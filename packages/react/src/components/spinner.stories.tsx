@@ -22,15 +22,16 @@ export const 크기: Story = {
   ),
 };
 
-/** 도는 쪽은 currentColor 라 놓인 자리의 글자 색을 그대로 따른다. */
-export const 글자색을_따른다: Story = {
+/**
+ * 기본은 키컬러다. 진한 면 위에 얹을 때만 `border-t-current` 로 그 자리 글자 색을
+ * 따르게 바꾼다 — 파란 버튼 위에 파란 고리를 두면 보이지 않는다.
+ */
+export const 색: Story = {
   render: () => (
     <div className="flex items-center gap-inline-lg">
-      <span className="text-fg-default"><Spinner label="기본" /></span>
-      <span className="text-fg-muted"><Spinner label="흐린 글자" /></span>
-      <span className="text-status-danger-fg"><Spinner label="위험" /></span>
+      <Spinner label="기본" />
       <span className="inline-flex items-center gap-inline-md rounded-control bg-action-primary-bg-default px-inset-md py-inset-sm text-fg-on-accent">
-        저장 중<Spinner size="sm" className="border-transparent" />
+        저장 중<Spinner size="sm" className="border-transparent border-t-current" />
       </span>
     </div>
   ),
@@ -47,7 +48,7 @@ export const 글자색을_따른다: Story = {
 export const 버튼_안: Story = {
   render: () => (
     <div className="flex items-center gap-inline-md">
-      <Button intent="primary" disabled className="gap-inline-md">저장 중<Spinner size="sm" className="border-transparent" /></Button>
+      <Button intent="primary" disabled className="gap-inline-md">저장 중<Spinner size="sm" className="border-transparent border-t-current" /></Button>
       <Button intent="secondary" disabled className="gap-inline-md">불러오는 중<Spinner size="sm" /></Button>
     </div>
   ),

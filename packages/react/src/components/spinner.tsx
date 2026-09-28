@@ -15,7 +15,8 @@ import type { Size } from '../lib/types';
  * 토큰 매핑:
  *   지름   → --spacing-icon-{sm|md|lg}
  *   궤도   → --color-surface-track
- *   도는 쪽 → currentColor (놓인 자리의 글자 색을 그대로 따른다)
+ *   도는 쪽 → --color-action-primary-bg-default (키컬러). 진한 면 위에 얹을 때만
+ *             `className="border-t-current"` 로 그 자리 글자 색을 따르게 바꾼다.
  */
 
 /**
@@ -49,7 +50,9 @@ export function Spinner({ size = 'md', label, className, ...props }: SpinnerProp
       aria-hidden={label ? undefined : true}
       className={cn(
         'inline-block shrink-0 rounded-pill border-solid',
-        'border-surface-track border-t-current',
+        // 기본은 키컬러다. 예전에는 currentColor 였는데, 그러면 놓는 자리마다 색이
+        // 달라져(빨강·회색…) 같은 '기다림'이 화면마다 다른 뜻처럼 보였다.
+        'border-surface-track border-t-action-primary-bg-default',
         // 움직임을 줄이도록 설정한 사용자에게는 돌리지 않는다. 고리는 그대로 보인다.
         'animate-spin motion-reduce:animate-none',
         SIZE[size],

@@ -49,7 +49,10 @@ const LABEL_MIN = 'min-w-[calc(var(--spacing-control-sm)*2)]';
  * 가로 여백 6px 은 척도에 없어 inset-xs 의 1.5 배로 만든다 — 4px 은 글자가 붙고 8px 은 뜬다.
  */
 const SIZE: Record<Size, string> = {
-  sm: 'px-[calc(var(--spacing-inset-xs)*1.5)] py-inset-xs text-footnote [&_svg]:size-icon-sm',
+  // 세로·가로를 모두 icon-lg 로 묶어 한 자리 숫자가 동그라미가 되게 한다.
+  // 높이를 안 정하면 글자 줄높이 + 위아래 여백이 쌓여 21×27 짜리 세로 타원이 된다.
+  // 두 자리 이상은 min-w 를 넘겨 알약으로 늘어난다.
+  sm: 'h-icon-lg min-w-icon-lg px-[calc(var(--spacing-inset-xs)*1.5)] text-footnote [&_svg]:size-icon-sm',
   md: `px-inset-sm py-inset-xs text-caption [&_svg]:size-icon-sm ${LABEL_MIN}`,
   lg: `px-inset-md py-inset-xs text-body [&_svg]:size-icon-md ${LABEL_MIN}`,
 };
