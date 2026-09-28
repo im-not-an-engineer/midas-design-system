@@ -32,6 +32,7 @@ function Lab({ archetype, brand, mode }: { archetype: string; brand: string; mod
   const [baseVars, setBaseVars] = React.useState<Record<string, string> | null>(null);
   const [usage, setUsage] = React.useState<Usage | null>(null);
   const [error, setError] = React.useState<string | null>(null);
+  const [panelOpen, setPanelOpen] = React.useState(true);
   const readOnly = !!error;
 
   React.useEffect(() => { api.sources().then(setSources).catch((e) => setError(String(e.message ?? e))); }, []);
@@ -70,7 +71,17 @@ function Lab({ archetype, brand, mode }: { archetype: string; brand: string; mod
   }
 
   return (
-    <div className="flex h-screen w-full overflow-hidden font-sans">
+    <div className="relative flex h-screen w-full overflow-hidden font-sans">
+      {/* 편집 패널 접기. 색을 맞출 때는 패널이 필요하지만, 여백·정렬을 볼 때는
+          화면이 넓을수록 좋다. 스토리북 툴바와 겹치지 않게 오른쪽 위 안쪽에 둔다. */}
+      <button
+        type="button"
+        onClick={() => setPanelOpen((v) => !v)}
+        aria-expanded={panelOpen}
+        className="absolute right-inset-sm top-inset-sm z-toast rounded-control border border-solid border-border-default bg-surface-overlay px-inset-sm py-inset-xs text-caption text-fg-muted shadow-overlay hover:text-fg-default"
+      >
+        {panelOpen ? '패널 접기 ›' : '‹ 패널 펼치기'}
+      </button>
       {/* 미리보기는 이 컨테이너 안에서만 적용된다. 인라인 스타일이라 어떤 규칙보다 우선한다. */}
       {/* AxTheme 이 곧 포털 컨테이너다. 여기에 overflow 를 걸면 스크롤 상자가 되어
           팝업(메뉴·셀렉트·다이얼로그)이 경계에서 잘린다. 스크롤은 안쪽 div 가 맡는다. */}
@@ -83,7 +94,7 @@ function Lab({ archetype, brand, mode }: { archetype: string; brand: string; mod
           <Gallery />
         </div>
       </AxTheme>
-      {sources && (
+      {panelOpen && sources && (
         <Panel
           sources={sources} overlay={overlay} setOverlay={setOverlay}
           axes={{ brand, archetype, mode }} readOnly={readOnly}
