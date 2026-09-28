@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Spinner } from './spinner';
 import { Button } from './button';
+import { Plus } from '../lib/icons';
 
 const meta = {
   title: '컴포넌트/표시/Spinner',
@@ -30,7 +31,7 @@ export const 색: Story = {
   render: () => (
     <div className="flex items-center gap-inline-lg">
       <Spinner label="기본" />
-      <span className="inline-flex items-center gap-inline-md rounded-control bg-action-primary-bg-default px-inset-md py-inset-sm text-fg-on-accent">
+      <span className="inline-flex items-center gap-inline-sm rounded-control bg-action-primary-bg-default px-inset-md py-inset-sm text-fg-on-accent">
         저장 중<Spinner size="sm" className="border-transparent border-t-current" />
       </span>
     </div>
@@ -38,8 +39,12 @@ export const 색: Story = {
 };
 
 /**
- * 글자 옆에 세울 때. 고리는 **글자 오른쪽**에 두고 간격은 6px(`gap-inline-md`)로 벌린다 —
- * Button 의 기본 간격 4px 은 아이콘용이라 도는 고리에는 좁다.
+ * 글자 옆에 세울 때. 고리는 **글자 오른쪽**에 둔다.
+ *
+ * 간격은 **덮어쓰지 않는다.** Button 이 아이콘에 쓰는 값(md 4px · sm 2px)을 그대로
+ * 따라가야 한 줄에 아이콘 버튼과 섞여 있어도 어긋나 보이지 않는다. 한때 6px 로
+ * 벌려봤다가, 아이콘 버튼과 한 칸 어긋나서 되돌렸다.
+ *
  * 진한 면 위에서는 궤도를 지운다(`border-transparent`) — 회색 고리가 면과 싸운다.
  *
  * 너비를 유지해야 하면 이렇게 조립하지 말고 `<Button loading>` 을 쓴다. 그쪽은 고리를
@@ -48,8 +53,9 @@ export const 색: Story = {
 export const 버튼_안: Story = {
   render: () => (
     <div className="flex items-center gap-inline-md">
-      <Button intent="primary" disabled className="gap-inline-md">저장 중<Spinner size="sm" className="border-transparent border-t-current" /></Button>
-      <Button intent="secondary" disabled className="gap-inline-md">불러오는 중<Spinner size="sm" /></Button>
+      <Button intent="primary" disabled>저장 중<Spinner size="sm" className="border-transparent border-t-current" /></Button>
+      <Button intent="secondary" disabled>불러오는 중<Spinner size="sm" /></Button>
+      <Button disabled><Plus aria-hidden />아이콘 버튼</Button>
     </div>
   ),
 };
