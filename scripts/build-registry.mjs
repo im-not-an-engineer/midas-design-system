@@ -30,6 +30,14 @@ const BASE = process.env.REGISTRY_URL ?? 'https://im-not-an-engineer.github.io/m
 const ALL_PRESETS = JSON.parse(await readFile(path.join(root, 'packages/tokens/presets.json'), 'utf8')).presets;
 const PRESETS = Object.fromEntries(Object.entries(ALL_PRESETS).filter(([, v]) => v.product));
 
+/**
+ * packages/react/package.json 이 선언한 것만 레지스트리에 실어 보낼 수 있다.
+ * 여기 없는 패키지를 import 했다면 우리 저장소에서만 우연히 도는 것이다 —
+ * 스토리북 앱이나 루트가 대신 깔아준 경우다. 바깥 제품에는 없다.
+ */
+const REACT_PKG = JSON.parse(await readFile(path.join(root, 'packages/react/package.json'), 'utf8'));
+const DECLARED = new Set([...Object.keys(REACT_PKG.dependencies ?? {}), ...Object.keys(REACT_PKG.peerDependencies ?? {})]);
+
 /** 소비 저장소에서의 위치. shadcn 규약(@/components/ui, @/lib)을 따른다. */
 const TARGET = {
   component: (name) => `components/ui/${name}.tsx`,
@@ -42,6 +50,42 @@ function rewriteImports(code) {
     .replace(/from '\.\.\/lib\/([a-z]+)'/g, "from '@/lib/ax/$1'")
     .replace(/from '\.\/([a-z-]+)'/g, "from '@/components/ui/$1'")
     .replace(/from '@ax\/tokens'/g, "from './contract'");
+}
+
+/**
+ * 파일이 설치를 요구하는 npm 패키지.
+ *
+ * 예전에는 `@base-ui/react` 하나만 찾았다. 그래서 다른 라이브러리를 쓰는 컴포넌트를
+ * 만들면 레지스트리 JSON 의 dependencies 가 비어 나가고, 바깥 제품은 `npx shadcn add`
+ * 로 **설치되지 않은 패키지를 import 하는 파일**을 받았다. 우리 빌드는 통과하고
+ * 제품이 실행할 때 터진다 — 그래서 눈에 띄지 않는다.
+ *
+ * 상대 경로가 아닌 것만 골라 패키지 이름까지 자른다(@base-ui/react/menu → @base-ui/react).
+ * 주석은 먼저 지운다 — 설명 안에 적어둔 예시 import 가 의존성으로 새지 않게.
+ */
+const BUNDLED = new Set([
+  'react', 'react-dom', // 제품이 이미 갖고 있다 (peerDependencies)
+  '@ax/tokens',         // rewriteImports 가 './contract' 로 바꾼다 — 함께 복사되는 파일이다
+]);
+
+function npmDeps(code) {
+  const src = code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  const out = new Set();
+  for (const [, spec] of src.matchAll(/\bfrom\s*'([^']+)'/g)) {
+    if (/^[./]/.test(spec) || spec.startsWith('@/')) continue; // 상대 경로 · 별칭
+    const seg = spec.split('/');
+    const pkg = spec.startsWith('@') ? seg.slice(0, 2).join('/') : seg[0];
+    if (!BUNDLED.has(pkg)) out.add(pkg);
+  }
+  return [...out].sort();
+}
+
+function assertDeclared(where, deps) {
+  const undeclared = deps.filter((d) => !DECLARED.has(d));
+  if (undeclared.length) throw new Error(
+    `${where} 가 packages/react/package.json 에 없는 패키지를 import 합니다:\n  ${undeclared.join('\n  ')}\n` +
+    `그 패키지를 packages/react 의 dependencies 에 먼저 추가하세요. 이대로 내보내면 ` +
+    `바깥 제품이 받는 파일의 import 가 어디에도 닿지 않습니다.`);
 }
 
 // ── 아주 작은 CSS 파서 ──────────────────────────────────────────────────────
@@ -116,14 +160,18 @@ async function main() {
 
   // ── lib 파일 (프리셋이 함께 설치한다) ──
   const libSources = [];
+  const libDeps = new Set();
   for (const f of (await readdir(path.join(REACT_SRC, 'lib'))).sort()) {
+    const content = await readFile(path.join(REACT_SRC, 'lib', f), 'utf8');
+    for (const d of npmDeps(content)) libDeps.add(d);
     libSources.push({
       path: `lib/ax/${f}`,
-      content: rewriteImports(await readFile(path.join(REACT_SRC, 'lib', f), 'utf8')),
+      content: rewriteImports(content),
       type: 'registry:lib',
       target: TARGET.lib(f),
     });
   }
+  assertDeclared('packages/react/src/lib', [...libDeps]);
 
   /**
    * lib/ax/contract.ts — 우리 저장소에서 cn.ts·theme.tsx 가 읽던 @ax/tokens 를 대신한다.
@@ -150,7 +198,8 @@ async function main() {
     if (!f.endsWith('.tsx') || f.includes('.stories.')) continue;
     const name = f.replace(/\.tsx$/, '');
     const code = await readFile(path.join(REACT_SRC, 'components', f), 'utf8');
-    const npm = [...new Set([...code.matchAll(/from '(@base-ui\/react)\/[a-z-]+'/g)].map((m) => m[1]))];
+    const npm = npmDeps(code);
+    assertDeclared(`components/${f}`, npm);
     const local = [...new Set([...code.matchAll(/from '\.\/([a-z-]+)'/g)].map((m) => m[1]))];
     components.push({ name, code, npm, local });
   }
@@ -183,7 +232,9 @@ async function main() {
       extends: 'none', // shadcn 기본 스타일을 물려받지 않는다 — 토큰은 우리 것이다
       title: cfg.title,
       description: cfg.description,
-      dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge', 'lucide-react'],
+      // lib 파일이 실제로 요구하는 것 + @base-ui/react. 뒤엣것은 lib 이 직접 import 하지는
+      // 않지만, 컴포넌트를 하나라도 붙이면 반드시 필요해서 프리셋에 같이 실어 보낸다.
+      dependencies: [...new Set([...libDeps, '@base-ui/react'])].sort(),
       files: [...libSources, contractFile(name, light)],
       cssVars: { theme: themeVars },
       css,
