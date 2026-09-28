@@ -56,10 +56,11 @@ const TAB: Record<TabsVariant, string> = {
   // 표시자가 먼저 깔리고 탭이 그 위에 선다. relative 가 없으면 자리를 잡은 표시자가
   // 글자를 덮어 버린다 — 표시자를 뒤로 보내는 z 값을 만들지 않고 이렇게 푼다.
   pill: 'relative rounded-control hover:not-data-disabled:not-data-active:text-fg-default data-active:not-data-disabled:text-fg-default',
-  // 아래 모서리는 각지게, 아래 테두리는 면 색으로 칠해 지운다. 그다음 테두리 두께만큼
-  // 끌어내려 목록의 밑줄을 덮으면 탭 안쪽과 내용이 이어진다.
+  // 위 모서리만 둥글게. 아래는 각져야 내용과 이어 붙은 것으로 보인다 — 네 귀가 다
+  // 둥글면 탭이 내용에서 떠서 pill 처럼 읽힌다.
+  // 아래 테두리는 면 색으로 칠해 지우고, 테두리 두께만큼 끌어내려 목록의 밑줄을 덮는다.
   folder:
-    'rounded-b-none mb-[calc(var(--border-width-default)*-1)] ' +
+    'rounded-t-control rounded-b-none mb-[calc(var(--border-width-default)*-1)] ' +
     'border-width-default border-solid border-transparent ' +
     'hover:not-data-disabled:not-data-active:text-fg-default ' +
     'data-active:not-data-disabled:border-border-default data-active:not-data-disabled:border-b-surface-base ' +
