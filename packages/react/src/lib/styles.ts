@@ -157,6 +157,32 @@ export const FIELD_CONTROL = [
   '[&:is(input,textarea):read-only]:bg-field-bg-readonly data-readonly:bg-field-bg-readonly',
 ].join(' ');
 
+/**
+ * 밑줄형 입력칸. 상자를 지우고 아래 선 하나만 남긴다. FIELD_CONTROL 뒤에 덧발라 쓴다.
+ *
+ * **네 변을 다 두되 세 변을 투명하게** 한다. 아래만 긋겠다고 두께를 한 변에만 주려면
+ * 방향별 두께 유틸이 필요한데, 그건 열지 않기로 한 것이다(메모 참고). 네 변을 남겨두면
+ * 계약 두께를 그대로 쓰면서 상자형과 높이·글자 자리도 1px 까지 같아진다 — 같은 폼에서
+ * 두 모양을 섞어도 줄이 안 어긋난다.
+ *
+ * 좌우 여백도 0 으로 만든다. 선만 남은 칸에서 글자가 들여쓰여 있으면 선의 시작과 글자의
+ * 시작이 어긋나 보인다.
+ *
+ * 포커스는 `:focus-visible` 에서만 링이 뜨므로(마우스로 누르면 안 뜬다) 아래 선 색이
+ * 눈에 보이는 유일한 표시가 된다. 그래서 `:focus` 로 건다.
+ */
+export const FIELD_UNDERLINED = [
+  'rounded-none bg-transparent shadow-none px-0',
+  'border-transparent border-b-field-border-default',
+  'hover:not-disabled:not-data-disabled:not-data-invalid:border-transparent',
+  'hover:not-disabled:not-data-disabled:not-data-invalid:border-b-field-border-hover',
+  'focus:not-data-invalid:border-b-field-border-focus',
+  'data-invalid:border-transparent data-invalid:border-b-field-border-invalid',
+  'disabled:bg-transparent disabled:border-transparent disabled:border-b-field-border-disabled',
+  'data-disabled:bg-transparent data-disabled:border-transparent data-disabled:border-b-field-border-disabled',
+  '[&:is(input,textarea):read-only]:bg-transparent data-readonly:bg-transparent',
+].join(' ');
+
 export const FIELD_CONTROL_SIZE = {
   sm: 'h-control-sm px-inset-sm',
   md: 'h-control-md px-inset-sm',

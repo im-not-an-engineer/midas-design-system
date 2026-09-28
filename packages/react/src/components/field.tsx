@@ -3,7 +3,7 @@ import { Field as Base } from '@base-ui/react/field';
 import { Input as BaseInput } from '@base-ui/react/input';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { FIELD_CONTROL, FIELD_CONTROL_SIZE } from '../lib/styles';
+import { FIELD_CONTROL, FIELD_CONTROL_SIZE, FIELD_UNDERLINED } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #2 — 입력 컨트롤과 그 주변.
@@ -84,16 +84,25 @@ export function FieldError({ className, ...props }: React.ComponentProps<typeof 
 export interface InputProps extends Omit<React.ComponentProps<typeof BaseInput>, 'size'> {
   /** 생략하면 감싸는 Field의 size를 따른다. */
   size?: Size;
+  /**
+   * 상자형(box, 기본)과 밑줄형(underlined).
+   *
+   * 밑줄형은 표 안이나 빽빽한 편집 화면처럼 **칸이 여럿 늘어서는 자리**에 쓴다.
+   * 상자가 줄줄이 있으면 테두리끼리 격자를 만들어 내용보다 눈에 띈다.
+   * 한 화면에서 두 모양을 섞지 않는다 — 섞이면 어느 쪽이 입력칸인지 흐려진다.
+   */
+  variant?: 'box' | 'underlined';
 }
 
-export function Input({ size, required, className, ...props }: InputProps) {
+export function Input({ size, variant = 'box', required, className, ...props }: InputProps) {
   const ctx = useFieldCtx();
   const s = size ?? ctx.size;
   return (
     <BaseInput
       data-size={s}
+      data-variant={variant}
       required={required ?? ctx.required}
-      className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[s], className)}
+      className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[s], variant === 'underlined' && FIELD_UNDERLINED, className)}
       {...props}
     />
   );
