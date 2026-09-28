@@ -1,109 +1,109 @@
 {
-  "$description": "런타임 모드 delta — dark. ramp 기준으로 적으므로 브랜드와 무관하다: 브랜드가 neutral을 웜그레이로 바꾸면 다크도 자동으로 웜 다크가 된다. 빌드 규칙 4에 의해 2층의 모든 색 키가 여기 적혀야 한다 — 값이 라이트와 같아도 적는다. 브랜드가 시맨틱 매핑을 바꿨다면(예: 무채색 primary) 그 키의 다크 값은 brand/<이름>.dark.json이 책임진다.",
+  "$description": "다크 모드. 2층의 모든 색 키를 명시적으로 덮는다(규칙 4) — 같은 값이어도 적는다. palette 단계를 직접 가리킨다. 브랜드가 색 키를 덮었으면 그 브랜드의 .dark.json 이 다크 값을 따로 정한다(규칙 5).",
   "color": {
     "surface": {
       "base": {
-        "$value": "{ramp.neutral.950}"
+        "$value": "{palette.slate.950}"
       },
       "subtle": {
-        "$value": "{ramp.neutral.900}"
+        "$value": "{palette.slate.900}"
       },
       "sunken": {
-        "$value": "{ramp.neutral.1000}"
+        "$value": "{palette.slate.1000}"
       },
       "track": {
-        "$value": "{ramp.neutral.800}"
+        "$value": "{palette.slate.800}"
       },
       "chip": {
-        "$value": "{ramp.neutral.800}"
+        "$value": "{palette.slate.800}"
       },
       "handle": {
-        "$value": "{ramp.neutral.600}"
+        "$value": "{palette.slate.600}"
       },
       "raised": {
-        "$value": "{ramp.neutral.900}"
+        "$value": "{palette.slate.900}"
       },
       "overlay": {
-        "$value": "{ramp.neutral.900}"
+        "$value": "{palette.slate.900}"
       },
       "scrim": {
         "$value": "rgba(2, 6, 23, 0.65)"
       },
       "hover": {
-        "$value": "{ramp.neutral.700}"
+        "$value": "{palette.slate.700}"
       },
       "accentSubtle": {
-        "$value": "{ramp.accent.950}"
+        "$value": "{palette.blue.950}"
       },
       "selected": {
-        "$value": "{ramp.accent.900}"
+        "$value": "{palette.blue.900}"
       },
       "inverse": {
-        "$value": "{ramp.neutral.200}"
+        "$value": "{palette.slate.200}"
       }
     },
     "fg": {
       "default": {
-        "$value": "{ramp.neutral.50}"
+        "$value": "{palette.slate.50}"
       },
       "muted": {
-        "$value": "{ramp.neutral.400}"
+        "$value": "{palette.slate.400}"
       },
       "subtle": {
-        "$value": "{ramp.neutral.500}"
+        "$value": "{palette.slate.500}"
       },
       "onAccent": {
-        "$value": "{ramp.neutral.0}"
+        "$value": "{palette.slate.0}"
       },
       "link": {
-        "$value": "{ramp.accent.400}"
+        "$value": "{palette.blue.400}"
       },
       "disabled": {
-        "$value": "{ramp.neutral.600}"
+        "$value": "{palette.slate.600}"
       },
       "onInverse": {
-        "$value": "{ramp.neutral.950}"
+        "$value": "{palette.slate.950}"
       }
     },
     "border": {
       "default": {
-        "$value": "{ramp.neutral.700}"
+        "$value": "{palette.slate.700}"
       },
       "subtle": {
-        "$value": "{ramp.neutral.800}"
+        "$value": "{palette.slate.800}"
       },
       "strong": {
-        "$value": "{ramp.neutral.600}"
+        "$value": "{palette.slate.600}"
       },
       "focus": {
-        "$value": "{ramp.accent.500}"
+        "$value": "{palette.blue.500}"
       }
     },
     "focusRing": {
-      "$value": "{ramp.accent.500}"
+      "$value": "{palette.blue.500}"
     },
     "action": {
       "primary": {
         "bg": {
           "default": {
-            "$value": "{ramp.accent.500}"
+            "$value": "{palette.blue.500}"
           },
           "hover": {
-            "$value": "{ramp.accent.600}"
+            "$value": "{palette.blue.600}"
           },
           "active": {
-            "$value": "{ramp.accent.700}"
+            "$value": "{palette.blue.700}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.800}"
+            "$value": "{palette.slate.800}"
           }
         },
         "fg": {
           "default": {
-            "$value": "{ramp.neutral.0}"
+            "$value": "{palette.slate.0}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.600}"
+            "$value": "{palette.slate.600}"
           }
         },
         "border": {
@@ -115,29 +115,29 @@
       "secondary": {
         "bg": {
           "default": {
-            "$value": "{ramp.neutral.900}"
+            "$value": "{palette.slate.900}"
           },
           "hover": {
-            "$value": "{ramp.neutral.800}"
+            "$value": "{palette.slate.800}"
           },
           "active": {
-            "$value": "{ramp.neutral.700}"
+            "$value": "{palette.slate.700}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.900}"
+            "$value": "{palette.slate.900}"
           }
         },
         "fg": {
           "default": {
-            "$value": "{ramp.neutral.50}"
+            "$value": "{palette.slate.50}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.600}"
+            "$value": "{palette.slate.600}"
           }
         },
         "border": {
           "default": {
-            "$value": "{ramp.neutral.700}"
+            "$value": "{palette.slate.700}"
           }
         }
       },
@@ -147,10 +147,10 @@
             "$value": "transparent"
           },
           "hover": {
-            "$value": "{ramp.neutral.800}"
+            "$value": "{palette.slate.800}"
           },
           "active": {
-            "$value": "{ramp.neutral.700}"
+            "$value": "{palette.slate.700}"
           },
           "disabled": {
             "$value": "transparent"
@@ -158,10 +158,10 @@
         },
         "fg": {
           "default": {
-            "$value": "{ramp.neutral.300}"
+            "$value": "{palette.slate.300}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.600}"
+            "$value": "{palette.slate.600}"
           }
         },
         "border": {
@@ -173,24 +173,24 @@
       "destructive": {
         "bg": {
           "default": {
-            "$value": "{ramp.danger.500}"
+            "$value": "{palette.red.500}"
           },
           "hover": {
-            "$value": "{ramp.danger.600}"
+            "$value": "{palette.red.600}"
           },
           "active": {
-            "$value": "{ramp.danger.700}"
+            "$value": "{palette.red.700}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.800}"
+            "$value": "{palette.slate.800}"
           }
         },
         "fg": {
           "default": {
-            "$value": "{ramp.neutral.0}"
+            "$value": "{palette.slate.0}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.600}"
+            "$value": "{palette.slate.600}"
           }
         },
         "border": {
@@ -203,124 +203,124 @@
     "field": {
       "bg": {
         "default": {
-          "$value": "{ramp.neutral.800}"
+          "$value": "{palette.slate.800}"
         },
         "hover": {
-          "$value": "{ramp.neutral.800}"
+          "$value": "{palette.slate.800}"
         },
         "disabled": {
-          "$value": "{ramp.neutral.950}"
+          "$value": "{palette.slate.950}"
         },
         "readonly": {
-          "$value": "{ramp.neutral.950}"
+          "$value": "{palette.slate.950}"
         }
       },
       "fg": {
         "default": {
-          "$value": "{ramp.neutral.50}"
+          "$value": "{palette.slate.50}"
         },
         "placeholder": {
-          "$value": "{ramp.neutral.500}"
+          "$value": "{palette.slate.500}"
         },
         "disabled": {
-          "$value": "{ramp.neutral.600}"
+          "$value": "{palette.slate.600}"
         }
       },
       "border": {
         "default": {
-          "$value": "{ramp.neutral.700}"
+          "$value": "{palette.slate.700}"
         },
         "hover": {
-          "$value": "{ramp.neutral.600}"
+          "$value": "{palette.slate.600}"
         },
         "focus": {
-          "$value": "{ramp.accent.500}"
+          "$value": "{palette.blue.500}"
         },
         "invalid": {
-          "$value": "{ramp.danger.400}"
+          "$value": "{palette.red.400}"
         },
         "disabled": {
-          "$value": "{ramp.neutral.800}"
+          "$value": "{palette.slate.800}"
         }
       }
     },
     "status": {
       "info": {
         "subtle": {
-          "$value": "{ramp.info.950}"
+          "$value": "{palette.blue.950}"
         },
         "fg": {
-          "$value": "{ramp.info.300}"
+          "$value": "{palette.blue.300}"
         },
         "border": {
-          "$value": "{ramp.info.900}"
+          "$value": "{palette.blue.900}"
         },
         "solid": {
-          "$value": "{ramp.info.500}"
+          "$value": "{palette.blue.500}"
         },
         "onSolid": {
-          "$value": "{ramp.neutral.0}"
+          "$value": "{palette.slate.0}"
         }
       },
       "success": {
         "subtle": {
-          "$value": "{ramp.success.950}"
+          "$value": "{palette.green.950}"
         },
         "fg": {
-          "$value": "{ramp.success.300}"
+          "$value": "{palette.green.300}"
         },
         "border": {
-          "$value": "{ramp.success.900}"
+          "$value": "{palette.green.900}"
         },
         "solid": {
-          "$value": "{ramp.success.500}"
+          "$value": "{palette.green.500}"
         },
         "onSolid": {
-          "$value": "{ramp.neutral.0}"
+          "$value": "{palette.slate.0}"
         }
       },
       "warning": {
         "subtle": {
-          "$value": "{ramp.warning.950}"
+          "$value": "{palette.amber.950}"
         },
         "fg": {
-          "$value": "{ramp.warning.300}"
+          "$value": "{palette.amber.300}"
         },
         "border": {
-          "$value": "{ramp.warning.900}"
+          "$value": "{palette.amber.900}"
         },
         "solid": {
-          "$value": "{ramp.warning.400}"
+          "$value": "{palette.amber.400}"
         },
         "onSolid": {
-          "$value": "{ramp.neutral.900}"
+          "$value": "{palette.slate.900}"
         }
       },
       "danger": {
         "subtle": {
-          "$value": "{ramp.danger.950}"
+          "$value": "{palette.red.950}"
         },
         "fg": {
-          "$value": "{ramp.danger.300}"
+          "$value": "{palette.red.300}"
         },
         "border": {
-          "$value": "{ramp.danger.900}"
+          "$value": "{palette.red.900}"
         },
         "solid": {
-          "$value": "{ramp.danger.500}"
+          "$value": "{palette.red.500}"
         },
         "onSolid": {
-          "$value": "{ramp.neutral.0}"
+          "$value": "{palette.slate.0}"
         }
       }
     },
     "decorative": {
       "1": {
         "subtle": {
-          "$value": "{ramp.decorative1.950}"
+          "$value": "{palette.purple.950}"
         },
         "fg": {
-          "$value": "{ramp.decorative1.300}"
+          "$value": "{palette.purple.300}"
         }
       }
     }

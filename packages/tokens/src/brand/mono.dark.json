@@ -1,46 +1,232 @@
 {
-  "$description": "mono 브랜드의 다크 보정. mono.json이 덮은 시맨틱 키는 전역 dark.json이 accent로 되돌려 버리므로, 여기서 다크 값을 다시 정한다. 무채색 primary는 다크에서 반전된다(밝은 버튼, 어두운 글자).",
+  "$description": "브랜드 mono 의 다크 값. brand/mono.json 이 덮은 키를 전부 덮는다(규칙 5).",
   "color": {
-    "focusRing": {
-      "$value": "{ramp.neutral.50}"
-    },
-    "border": {
-      "focus": {
-        "$value": "{ramp.neutral.50}"
+    "surface": {
+      "base": {
+        "$value": "{palette.stone.950}"
+      },
+      "subtle": {
+        "$value": "{palette.stone.900}"
+      },
+      "sunken": {
+        "$value": "{palette.stone.1000}"
+      },
+      "track": {
+        "$value": "{palette.stone.800}"
+      },
+      "chip": {
+        "$value": "{palette.stone.800}"
+      },
+      "handle": {
+        "$value": "{palette.stone.600}"
+      },
+      "raised": {
+        "$value": "{palette.stone.900}"
+      },
+      "overlay": {
+        "$value": "{palette.stone.900}"
+      },
+      "hover": {
+        "$value": "{palette.stone.700}"
+      },
+      "accentSubtle": {
+        "$value": "{palette.red.950}"
+      },
+      "selected": {
+        "$value": "{palette.red.900}"
+      },
+      "inverse": {
+        "$value": "{palette.stone.200}"
       }
     },
     "fg": {
+      "default": {
+        "$value": "{palette.stone.50}"
+      },
+      "muted": {
+        "$value": "{palette.stone.400}"
+      },
+      "subtle": {
+        "$value": "{palette.stone.500}"
+      },
+      "onAccent": {
+        "$value": "{palette.stone.0}"
+      },
       "link": {
-        "$value": "{ramp.neutral.50}"
+        "$value": "{palette.stone.50}"
+      },
+      "disabled": {
+        "$value": "{palette.stone.600}"
+      },
+      "onInverse": {
+        "$value": "{palette.stone.950}"
       }
+    },
+    "border": {
+      "default": {
+        "$value": "{palette.stone.700}"
+      },
+      "subtle": {
+        "$value": "{palette.stone.800}"
+      },
+      "strong": {
+        "$value": "{palette.stone.600}"
+      },
+      "focus": {
+        "$value": "{palette.stone.50}"
+      }
+    },
+    "focusRing": {
+      "$value": "{palette.stone.50}"
     },
     "action": {
       "primary": {
         "bg": {
           "default": {
-            "$value": "{ramp.neutral.100}"
+            "$value": "{palette.stone.100}"
           },
           "hover": {
-            "$value": "{ramp.neutral.200}"
+            "$value": "{palette.stone.200}"
           },
           "active": {
-            "$value": "{ramp.neutral.300}"
+            "$value": "{palette.stone.300}"
+          },
+          "disabled": {
+            "$value": "{palette.stone.800}"
           }
         },
         "fg": {
           "default": {
-            "$value": "{ramp.neutral.950}"
+            "$value": "{palette.stone.950}"
           },
           "disabled": {
-            "$value": "{ramp.neutral.600}"
+            "$value": "{palette.stone.600}"
+          }
+        }
+      },
+      "secondary": {
+        "bg": {
+          "default": {
+            "$value": "{palette.stone.900}"
+          },
+          "hover": {
+            "$value": "{palette.stone.800}"
+          },
+          "active": {
+            "$value": "{palette.stone.700}"
+          },
+          "disabled": {
+            "$value": "{palette.stone.900}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{palette.stone.50}"
+          },
+          "disabled": {
+            "$value": "{palette.stone.600}"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "{palette.stone.700}"
+          }
+        }
+      },
+      "ghost": {
+        "bg": {
+          "hover": {
+            "$value": "{palette.stone.800}"
+          },
+          "active": {
+            "$value": "{palette.stone.700}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{palette.stone.300}"
+          },
+          "disabled": {
+            "$value": "{palette.stone.600}"
+          }
+        }
+      },
+      "destructive": {
+        "bg": {
+          "disabled": {
+            "$value": "{palette.stone.800}"
+          }
+        },
+        "fg": {
+          "default": {
+            "$value": "{palette.stone.0}"
+          },
+          "disabled": {
+            "$value": "{palette.stone.600}"
           }
         }
       }
     },
     "field": {
+      "bg": {
+        "default": {
+          "$value": "{palette.stone.800}"
+        },
+        "hover": {
+          "$value": "{palette.stone.800}"
+        },
+        "disabled": {
+          "$value": "{palette.stone.950}"
+        },
+        "readonly": {
+          "$value": "{palette.stone.950}"
+        }
+      },
+      "fg": {
+        "default": {
+          "$value": "{palette.stone.50}"
+        },
+        "placeholder": {
+          "$value": "{palette.stone.500}"
+        },
+        "disabled": {
+          "$value": "{palette.stone.600}"
+        }
+      },
       "border": {
+        "default": {
+          "$value": "{palette.stone.700}"
+        },
+        "hover": {
+          "$value": "{palette.stone.600}"
+        },
         "focus": {
-          "$value": "{ramp.neutral.50}"
+          "$value": "{palette.stone.50}"
+        },
+        "disabled": {
+          "$value": "{palette.stone.800}"
+        }
+      }
+    },
+    "status": {
+      "info": {
+        "onSolid": {
+          "$value": "{palette.stone.0}"
+        }
+      },
+      "success": {
+        "onSolid": {
+          "$value": "{palette.stone.0}"
+        }
+      },
+      "warning": {
+        "onSolid": {
+          "$value": "{palette.stone.900}"
+        }
+      },
+      "danger": {
+        "onSolid": {
+          "$value": "{palette.stone.0}"
         }
       }
     }
