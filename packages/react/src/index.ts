@@ -10,7 +10,7 @@ export {
   Select, SelectRoot, SelectTrigger, SelectValue, SelectContent, SelectOption, SelectGroup, SelectGroupLabel, SelectSeparator,
   type SelectProps, type SelectItem,
 } from './components/select';
-export { Combobox, type ComboboxProps, type ComboboxItem } from './components/combobox';
+export { Combobox, ComboboxMultiple, type ComboboxProps, type ComboboxMultipleProps, type ComboboxItem } from './components/combobox';
 export { Autocomplete, type AutocompleteProps } from './components/autocomplete';
 export { NumberField, type NumberFieldProps } from './components/number-field';
 export { Slider, type SliderProps } from './components/slider';

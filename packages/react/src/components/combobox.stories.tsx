@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Combobox } from './combobox';
+import { Combobox, ComboboxMultiple } from './combobox';
 import { Field, FieldLabel } from './field';
 
 const PEOPLE = ['양희윤', '김민준', '이서연', '박도윤', '최지우', '정하은', '강시우', '조수아', '윤예준', '장하윤', '임지호', '한서준']
@@ -33,6 +33,21 @@ export const 크기: Story = {
   render: (args) => (
     <div className="flex flex-col gap-stack-md">
       {(['sm', 'md', 'lg'] as const).map((size) => <Combobox key={size} {...args} size={size} defaultValue={PEOPLE[size === 'sm' ? 0 : size === 'md' ? 1 : 2]} />)}
+    </div>
+  ),
+};
+
+/**
+ * 여럿 고르기. 고른 것이 알약으로 쌓이고, 알약 생김새는 Chip 과 같은 상수를 쓴다 —
+ * 같은 화면에 두 종류의 알약이 있으면 사용자는 둘을 같은 것으로 읽는다.
+ *
+ * 알약이 늘면 입력칸이 아래로 자란다. 높이를 고정하면 세 개째부터 글자가 잘린다.
+ */
+export const 여럿고르기: Story = {
+  render: () => (
+    <div className="flex w-[320px] flex-col gap-stack-lg">
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색…" defaultValue={PEOPLE.slice(0, 2)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="아직 아무도 없음" />
     </div>
   ),
 };
