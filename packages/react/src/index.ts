@@ -44,6 +44,10 @@ export { Separator, type SeparatorProps } from './components/separator';
 export { Avatar, AvatarGroup, type AvatarProps, type AvatarSize } from './components/avatar';
 export { Badge, type BadgeProps, type BadgeVariant } from './components/badge';
 export { Spinner, type SpinnerProps } from './components/spinner';
+export {
+  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
+  type CardProps, type CardHeaderProps,
+} from './components/card';
 export { Progress, Meter, type ProgressProps, type MeterProps } from './components/progress';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,

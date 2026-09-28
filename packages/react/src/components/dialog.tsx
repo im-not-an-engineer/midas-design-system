@@ -3,7 +3,7 @@ import { Dialog as Base } from '@base-ui/react/dialog';
 import { cn } from '../lib/cn';
 import { Button } from './button';
 import { usePortalContainer } from '../lib/theme';
-import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, DIALOG_TITLE, DIALOG_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
+import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, SURFACE_TITLE, SURFACE_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
 
 /**
  * 레퍼런스 구현 #3 — 오버레이.
@@ -69,14 +69,14 @@ export function DialogHeader({ className, ...props }: React.ComponentProps<'div'
 export function DialogTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {
   return (
     <Base.Title
-      className={cn(DIALOG_TITLE, className)}
+      className={cn(SURFACE_TITLE, className)}
       {...props}
     />
   );
 }
 
 export function DialogDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
-  return <Base.Description className={cn(DIALOG_DESCRIPTION, className)} {...props} />;
+  return <Base.Description className={cn(SURFACE_DESCRIPTION, className)} {...props} />;
 }
 
 /** 버튼 줄. 순서는 [보조 … 주] 고정 — 화면마다 순서가 바뀌면 사용자가 매번 다시 읽어야 한다. */

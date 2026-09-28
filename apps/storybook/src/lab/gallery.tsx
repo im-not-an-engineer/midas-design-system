@@ -13,6 +13,7 @@ import {
   Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
   ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge, Spinner,
+  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
   Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell,
 } from '@ax/react';
 
@@ -193,6 +194,25 @@ export function Gallery() {
                 <Badge size="sm" status={undefined} variant={v}>12</Badge>
               </div>
             ))}
+          </div>
+        </Section>
+
+        <Section title="카드">
+          <div className="flex flex-wrap items-start gap-inline-md">
+            <Card className="w-[240px]">
+              <CardHeader action={<Badge status="success">완료</Badge>}>
+                <CardTitle>이번 달 사용량</CardTitle>
+                <CardDescription>9월 1일부터 오늘까지</CardDescription>
+              </CardHeader>
+              <CardContent>내려받기 1,284건</CardContent>
+              <CardFooter><Button size="sm">자세히</Button></CardFooter>
+            </Card>
+            <Card interactive render={<a href="#card" />} className="w-[240px]">
+              <CardHeader action={<Badge size="sm" status="danger" variant="solid">3</Badge>}>
+                <CardTitle>ISSUE-241</CardTitle>
+                <CardDescription>커서를 올리면 면이 바뀐다</CardDescription>
+              </CardHeader>
+            </Card>
           </div>
         </Section>
 

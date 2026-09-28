@@ -213,5 +213,9 @@ export const DIALOG_WIDTH = {
   lg: 'max-w-[800px]',
 } as const;
 
-export const DIALOG_TITLE = 'text-heading-sm font-semibold leading-tight tracking-heading text-fg-default';
-export const DIALOG_DESCRIPTION = 'text-body leading-normal text-fg-muted';
+/**
+ * 면 위의 제목·설명 한 벌. Dialog · AlertDialog · Drawer · Card 가 같은 크기를 쓴다.
+ * (처음 쓴 자리가 다이얼로그라 DIALOG_ 로 불렀는데, 쓰는 데가 늘어 이름을 고쳤다.)
+ */
+export const SURFACE_TITLE = 'text-heading-sm font-semibold leading-tight tracking-heading text-fg-default';
+export const SURFACE_DESCRIPTION = 'text-body leading-normal text-fg-muted';
