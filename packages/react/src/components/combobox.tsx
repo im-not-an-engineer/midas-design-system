@@ -76,11 +76,17 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
   );
 }
 
-/** 목록 팝업. 단일·복수가 똑같이 쓴다 — 다르게 적으면 반드시 갈라진다. */
-function Popup({ container, emptyText }: { container: HTMLElement | null; emptyText: React.ReactNode }) {
+/**
+ * 목록 팝업. 단일·복수가 똑같이 쓴다 — 다르게 적으면 반드시 갈라진다.
+ *
+ * `anchor` 는 복수 선택에서만 준다. 기본 기준점은 입력칸인데, 복수에서는 입력칸이
+ * 알약 옆에 끼어 있는 좁은 칸이라 알약이 늘수록 목록이 같이 좁아진다. 상자 전체를
+ * 기준점으로 잡아야 목록 너비가 칸 너비와 같게 유지된다.
+ */
+function Popup({ container, emptyText, anchor }: { container: HTMLElement | null; emptyText: React.ReactNode; anchor?: React.RefObject<HTMLDivElement | null> }) {
   return (
     <Base.Portal container={container ?? undefined}>
-      <Base.Positioner sideOffset={4} className="z-popover">
+      <Base.Positioner anchor={anchor} sideOffset={4} className="z-popover">
         <Base.Popup className={cn(POPUP_SURFACE, 'w-(--anchor-width) max-h-[min(var(--available-height),320px)] overflow-y-auto')}>
           <Base.Empty className={POPUP_EMPTY}>{emptyText}</Base.Empty>
           <Base.List>
@@ -137,9 +143,11 @@ export function ComboboxMultiple({
   ...props
 }: ComboboxMultipleProps) {
   const container = usePortalContainer();
+  // 목록이 기준 삼을 상자. 안쪽 입력칸이 아니라 이 상자에 맞춰야 너비가 안 흔들린다.
+  const field = React.useRef<HTMLDivElement>(null);
   return (
     <Base.Root items={items} multiple {...props}>
-      <Base.Chips className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[size], CHIP_FIELD, className)}>
+      <Base.Chips ref={field} className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[size], CHIP_FIELD, className)}>
         <Base.Value>
           {(selected: ComboboxItem[]) =>
             selected.map((item) => (
@@ -159,7 +167,7 @@ export function ComboboxMultiple({
           className="min-w-[80px] flex-1 border-none bg-transparent p-0 font-sans text-body leading-ui text-field-fg-default outline-none placeholder:text-field-fg-placeholder"
         />
       </Base.Chips>
-      <Popup container={container} emptyText={emptyText} />
+      <Popup container={container} emptyText={emptyText} anchor={field} />
     </Base.Root>
   );
 }

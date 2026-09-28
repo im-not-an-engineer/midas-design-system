@@ -297,7 +297,8 @@
           "$value": "{ramp.success.200}"
         },
         "solid": {
-          "$value": "{ramp.success.600}"
+          "$value": "{ramp.success.500}",
+          "$description": "꽉 찬 성공 면. 600 은 어두워 배지가 가라앉아 보여 한 톤 올렸다(2026-09-28, 사람이 봄). 흰 글자 대비는 3.3 → 2.3:1 로 내려간다 — warning solid(2.1:1)와 같은 급이고, 작은 배지에는 선명함을 택하기로 한 이 저장소의 방침과 같다. Meter 의 성공 막대도 같이 밝아진다."
         },
         "onSolid": {
           "$value": "{ramp.neutral.0}"
