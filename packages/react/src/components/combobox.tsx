@@ -131,13 +131,17 @@ export interface ComboboxMultipleProps
   size?: Size;
   emptyText?: React.ReactNode;
   /**
-   * 알약을 몇 개까지 펼쳐 보일지. 넘는 것은 `+N` 하나로 접힌다.
+   * 한 줄에 설 수 있는 **자리 수**. 알약을 몇 개까지 펼치느냐가 아니라, 알약과 `+N` 이
+   * 함께 나눠 쓰는 칸 수다.
    *
-   * 칸은 한 줄이라 자리가 정해져 있다. 다 펼치면 알약이 서로 밀어내 이름이 한 글자씩만
-   * 남는데, 그럴 바엔 앞의 몇 개를 제대로 보이고 나머지는 개수로 말하는 편이 읽힌다.
+   *   고른 것이 자리 수 이하  →  전부 펼친다
+   *   자리 수를 넘으면        →  한 자리를 `+N` 에 내주고 나머지만 펼친다
    *
-   * 기본 2 는 **320px 칸에서 세 글자 이름 둘이 온전히 보이는 수**다(실측). 칸이 넓으면
-   * 올려도 된다 — 재서 정하는 게 아니라 쓰는 쪽이 아는 값이다.
+   * 이렇게 세는 이유: `+N` 도 자리를 차지한다. "알약 3개까지"로 세면 3개 + `+N` 이
+   * 되어 넷이 서고, 그러면 서로 밀어내 이름이 한 글자씩만 남는다.
+   *
+   * 기본 3 은 **320px 칸에서 세 글자 이름 셋이 온전히 서는 수**다(실측: 74×3 + 검색칸
+   * 64 + 간격 12 = 298, 속폭 302). 넷을 고르면 2개 + `+2` 가 되어 270 으로 여유가 생긴다.
    */
   maxVisible?: number;
   className?: string;
@@ -148,7 +152,7 @@ export function ComboboxMultiple({
   placeholder = '검색…',
   size = 'md',
   emptyText = '일치하는 항목이 없습니다',
-  maxVisible = 2,
+  maxVisible = 3,
   className,
   ...props
 }: ComboboxMultipleProps) {
@@ -159,9 +163,13 @@ export function ComboboxMultiple({
     <Base.Root items={items} multiple {...props}>
       <Base.Chips ref={field} className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[size], CHIP_FIELD, className)}>
         <Base.Value>
-          {(selected: ComboboxItem[]) => (
+          {(selected: ComboboxItem[]) => {
+            // `+N` 도 한 자리를 차지한다. 넘칠 때만 그 자리를 떼어준다.
+            const overflow = selected.length > maxVisible;
+            const shown = overflow ? selected.slice(0, maxVisible - 1) : selected;
+            return (
             <>
-              {selected.slice(0, maxVisible).map((item) => (
+              {shown.map((item) => (
                 // CHIP 은 '줄어들지 마라'(shrink-0)가 기본이다. 여기서만 뒤집는다 —
                 // 이름이 길면 알약이 줄어들어 말줄임으로 들어가야 한 줄에 남는다.
                 // min-w-0 은 그 줄어듦이 글자까지 닿게 한다(없으면 글자 너비에서 멈춘다).
@@ -174,13 +182,14 @@ export function ComboboxMultiple({
               ))}
               {/* 접힌 개수. 누르는 것이 아니라 읽는 것이라 알약 모양만 빌린다 — 지우기
                   단추도 없다. 목록을 열면 무엇이 접혔는지 체크 표시로 보인다. */}
-              {selected.length > maxVisible && (
+              {overflow && (
                 <span className={cn(CHIP, CHIP_SIZE.sm, 'cursor-default text-fg-muted')}>
-                  +{selected.length - maxVisible}
+                  +{selected.length - shown.length}
                 </span>
               )}
             </>
-          )}
+            );
+          }}
         </Base.Value>
         {/* 알약 줄에 섞여 서는 입력칸이라 테두리·면·높이를 전부 지운다 — 상자는 바깥이 갖는다.
             안내 글자는 알약이 하나라도 있으면 감춘다. Base.Value 가 자기 엘리먼트를 안 그리므로
@@ -189,7 +198,9 @@ export function ComboboxMultiple({
           placeholder={placeholder}
           data-size={size}
           className={cn(
-            'min-w-[80px] flex-1 border-none bg-transparent p-0',
+            // 64px 은 한글 네 글자쯤 보이는 폭이다. 80 이었을 때는 320px 칸에 이름 셋이
+            // 12px 모자라 잘렸다 — 검색은 보통 한두 글자 치고 고르는 동작이라 여기를 줄였다.
+            'min-w-[64px] flex-1 border-none bg-transparent p-0',
             'font-sans text-body leading-ui text-field-fg-default outline-none',
             'placeholder:text-field-fg-placeholder',
             '[&:not(:first-child)]:placeholder:text-transparent',

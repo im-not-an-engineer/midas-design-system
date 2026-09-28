@@ -56,6 +56,8 @@ export const 여럿고르기: Story = {
   render: () => (
     <div className="flex w-[320px] flex-col gap-stack-lg">
       <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 2)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 3)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 4)} />
       <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 5)} />
       <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" />
     </div>
