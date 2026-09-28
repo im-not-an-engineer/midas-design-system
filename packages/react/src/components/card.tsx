@@ -73,7 +73,7 @@ export interface CardHeaderProps extends React.ComponentProps<'div'> {
 
 export function CardHeader({ className, children, action, ...props }: CardHeaderProps) {
   return (
-    <div className="flex items-start justify-between gap-inline-md">
+    <div className="flex w-full items-start justify-between gap-inline-md">
       {/* flex-1 로 남는 가로를 글자 블록이 먹는다. justify-between 만으로도 같은 그림이
           되지만, 그건 '두 덩이 사이를 벌린다'는 간접적인 방식이라 자식이 하나 더 붙으면
           바로 흐트러진다. 여기서는 오른쪽 끝에 붙는 것이 규칙이므로 직접 적는다. */}
