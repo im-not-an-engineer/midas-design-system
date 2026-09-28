@@ -121,6 +121,9 @@
       "bodyLg": {
         "$value": "{scale.fontSize.18}"
       },
+      "headingXs": {
+        "$value": "{scale.fontSize.18}"
+      },
       "headingSm": {
         "$value": "{scale.fontSize.20}"
       },

@@ -25,7 +25,7 @@ export function AccordionItem({ title, className, children, ...props }: Accordio
         <Base.Trigger
           className={cn(
             'flex w-full items-center justify-between gap-inline-md py-inset-lg text-left',
-            'font-sans text-body font-semibold leading-ui text-fg-default cursor-pointer',
+            'font-sans text-heading-xs font-semibold leading-ui text-fg-default cursor-pointer',
             'ax-focus-ring rounded-control hover:not-data-disabled:text-fg-default',
             'data-disabled:text-fg-disabled data-disabled:cursor-not-allowed',
             '[&_svg]:size-icon-sm',
