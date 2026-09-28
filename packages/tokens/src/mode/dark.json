@@ -9,7 +9,7 @@
         "$value": "{ramp.neutral.900}"
       },
       "sunken": {
-        "$value": "{ramp.neutral.900}"
+        "$value": "{ramp.neutral.800}"
       },
       "track": {
         "$value": "{ramp.neutral.800}"

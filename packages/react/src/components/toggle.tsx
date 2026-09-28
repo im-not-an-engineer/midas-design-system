@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Toggle as Base } from '@base-ui/react/toggle';
 import { ToggleGroup as BaseGroup } from '@base-ui/react/toggle-group';
 import { cn } from '../lib/cn';
+import { SEGMENT_PRESSED } from '../lib/styles';
 import type { Size } from '../lib/types';
 
 /**
@@ -35,7 +36,7 @@ export function Toggle({ size = 'md', className, ...props }: ToggleProps) {
         'data-disabled:text-fg-disabled data-disabled:cursor-not-allowed',
         inGroup
           ? // 세그먼트: 안 눌린 건 투명, 눌린 건 떠 있는 면
-            'text-fg-muted hover:not-data-disabled:not-data-pressed:text-fg-default data-pressed:bg-surface-raised data-pressed:text-fg-default data-pressed:shadow-raised'
+            cn('text-fg-muted hover:not-data-disabled:not-data-pressed:text-fg-default', SEGMENT_PRESSED)
           : // 단독: 테두리 있는 버튼, 눌리면 selected 면
             'border-width-default border-solid border-border-default bg-surface-base text-fg-muted hover:not-data-disabled:bg-surface-accent-subtle hover:not-data-disabled:text-fg-default data-pressed:bg-surface-accent-subtle data-pressed:not-data-disabled:border-action-primary-bg-default data-pressed:not-data-disabled:text-fg-link data-pressed:data-disabled:border-action-primary-bg-disabled',
         SIZE[size],

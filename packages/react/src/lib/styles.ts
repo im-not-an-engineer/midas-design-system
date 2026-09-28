@@ -81,6 +81,16 @@ export const SELECTION_GROUP_WRAP = 'flex flex-col gap-stack-md';
 /** 묶음 제목과 그 설명 사이. 팝오버 제목↔설명과 같은 값이다. */
 export const SELECTION_GROUP_HEADER = 'flex flex-col gap-stack-sm';
 
+/**
+ * 세그먼트 눌림 — 떠 있는 칩. 묶음 안의 Toggle 과 ToolbarButton 이 같이 쓴다.
+ * 둘이 따로 칠하면 <ToolbarButton render={<Toggle/>}> 에서 서로 싸워 세 번째 색이 나온다.
+ */
+export const SEGMENT_PRESSED = [
+  'data-pressed:bg-surface-raised data-pressed:shadow-raised',
+  // 비활성이 이긴다(규칙 6-4) — 못 누르는 것이 눌린 글자색을 쓰면 거짓말이 된다.
+  'data-pressed:not-disabled:not-data-disabled:text-fg-default',
+].join(' ');
+
 export const GROUP_LABEL = 'font-sans text-caption font-medium leading-ui text-fg-default';
 export const GROUP_DESCRIPTION = 'font-sans text-caption leading-normal text-fg-muted';
 

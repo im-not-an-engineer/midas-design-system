@@ -40,9 +40,8 @@ const VIEWPORT: Record<Side, string> = {
 const POPUP: Record<Side, string> = {
   right: 'h-full w-[min(100vw,420px)] rounded-l-overlay border-r-0 data-starting-style:translate-x-full data-ending-style:translate-x-full',
   left: 'h-full w-[min(100vw,420px)] rounded-r-overlay border-l-0 data-starting-style:-translate-x-full data-ending-style:-translate-x-full',
-  // 바닥에 붙는 시트라 아래 여백을 두 배로 준다 — 화면 끝과 버튼이 너무 가깝다.
-  // 32px 은 안쪽 여백 척도(최대 20)에 없어 inset-lg 의 2배로 파생한다.
-  bottom: 'w-full max-h-[85dvh] rounded-t-overlay border-b-0 [&>*]:pb-[calc(var(--spacing-inset-lg)*2)] data-starting-style:translate-y-full data-ending-style:translate-y-full',
+  // 바닥에 붙는 시트라 아래 여백을 한 단계 더 준다 — 화면 끝과 버튼이 너무 가깝다.
+  bottom: 'w-full max-h-[85dvh] rounded-t-overlay border-b-0 [&>*]:pb-inset-xl data-starting-style:translate-y-full data-ending-style:translate-y-full',
 };
 
 export function DrawerContent({ className, children, ...props }: React.ComponentProps<typeof Base.Popup>) {

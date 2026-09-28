@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Toolbar as Base } from '@base-ui/react/toolbar';
 import { cn } from '../lib/cn';
-import { FIELD_CONTROL } from '../lib/styles';
+import { FIELD_CONTROL, SEGMENT_PRESSED } from '../lib/styles';
 
 /**
  * 내비 가족 — Toolbar. 한 줄에 놓인 컨트롤 묶음(서식 도구, 목록 상단 액션). 방향키로 항목 사이를 이동한다.
@@ -34,9 +34,10 @@ export function ToolbarButton({ className, ...props }: React.ComponentProps<type
         'font-sans text-body leading-ui text-fg-default select-none cursor-pointer',
         'transition-colors duration-fast ease-standard ax-focus-ring',
         'hover:not-disabled:bg-surface-hover',
-        // 눌림 표시는 여기서 하지 않는다. 이 자리는 보통 <ToolbarButton render={<Toggle/>}>
-        // 로 쓰이는데, 둘 다 data-pressed 를 칠하면 세그먼트와 툴바가 서로 다른 색이 된다.
-        // 눌림은 Toggle 이 소유한다.
+        // 눌림은 Toggle 의 세그먼트와 같은 상수를 쓴다. 이 자리는 보통
+        // <ToolbarButton render={<Toggle/>}> 로 쓰이는데, 서로 다른 값을 칠하면
+        // 둘이 싸워 세 번째 색이 나온다.
+        SEGMENT_PRESSED,
         'disabled:text-fg-disabled disabled:cursor-not-allowed data-disabled:text-fg-disabled',
         '[&_svg]:size-icon-sm',
         className,
