@@ -36,7 +36,6 @@ export function Progress({ label, showValue, className, ...props }: ProgressProp
           className={cn(
             'h-full rounded-pill bg-action-primary-bg-default transition-[width] duration-normal ease-standard',
             'data-indeterminate:w-2/5 data-indeterminate:animate-indeterminate',
-            'data-complete:bg-status-success-solid',
           )}
         />
       </Base.Track>

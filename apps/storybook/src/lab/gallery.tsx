@@ -196,11 +196,11 @@ export function Gallery() {
 
         <Section title="데이터 테이블 — 밀도의 얼굴">
           <Table className="w-[560px]">
-            <TableHead><TableRow><TableHeaderCell>ID</TableHeaderCell><TableHeaderCell>제목</TableHeaderCell><TableHeaderCell>담당</TableHeaderCell><TableHeaderCell numeric>댓글</TableHeaderCell></TableRow></TableHead>
+            <TableHead><TableRow><TableHeaderCell>ID</TableHeaderCell><TableHeaderCell>제목</TableHeaderCell><TableHeaderCell>담당</TableHeaderCell><TableHeaderCell>댓글</TableHeaderCell></TableRow></TableHead>
             <TableBody>
-              <TableRow interactive><TableCell className="text-fg-muted">ISSUE-241</TableCell><TableCell>토큰 계약 위반 린트</TableCell><TableCell>양희윤</TableCell><TableCell numeric>12</TableCell></TableRow>
-              <TableRow interactive selected><TableCell className="text-fg-muted">ISSUE-238</TableCell><TableCell>선택된 행</TableCell><TableCell>미정</TableCell><TableCell numeric>3</TableCell></TableRow>
-              <TableRow interactive><TableCell className="text-fg-muted">ISSUE-233</TableCell><TableCell>행 높이 검토</TableCell><TableCell>양희윤</TableCell><TableCell numeric>48</TableCell></TableRow>
+              <TableRow interactive><TableCell className="font-semibold">ISSUE-241</TableCell><TableCell>토큰 계약 위반 린트</TableCell><TableCell>양희윤</TableCell><TableCell>12</TableCell></TableRow>
+              <TableRow interactive selected><TableCell className="font-semibold">ISSUE-238</TableCell><TableCell>선택된 행</TableCell><TableCell>미정</TableCell><TableCell>3</TableCell></TableRow>
+              <TableRow interactive><TableCell className="font-semibold">ISSUE-233</TableCell><TableCell>행 높이 검토</TableCell><TableCell>양희윤</TableCell><TableCell>48</TableCell></TableRow>
             </TableBody>
           </Table>
           <Fieldset legend="폼 섹션" description="Fieldset + Field로 짓는 골격">

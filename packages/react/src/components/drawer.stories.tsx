@@ -14,10 +14,10 @@ type Story = StoryObj<typeof meta>;
 
 const Body = () => (
   <>
-    <div className="flex items-start justify-between gap-inline-md">
-      <DrawerHeader><DrawerTitle>ISSUE-241</DrawerTitle><DrawerDescription>토큰 계약 위반 린트 추가</DrawerDescription></DrawerHeader>
-      <DrawerCloseButton />
-    </div>
+    <DrawerHeader action={<DrawerCloseButton />}>
+      <DrawerTitle>ISSUE-241</DrawerTitle>
+      <DrawerDescription>토큰 계약 위반 린트 추가</DrawerDescription>
+    </DrawerHeader>
     <Field><FieldLabel>담당자</FieldLabel><Input defaultValue="양희윤" /></Field>
     <Field><FieldLabel>메모</FieldLabel><Textarea rows={6} placeholder="진행 상황" /></Field>
     <DrawerFooter>

@@ -5,7 +5,7 @@ import { Button } from './button';
 const meta = {
   title: '컴포넌트/Dialog',
   component: DialogContent,
-  args: { width: 'md' },
+  args: { width: 'sm' },
   argTypes: { width: { control: 'radio', options: ['sm', 'md', 'lg'] } },
 } satisfies Meta<typeof DialogContent>;
 export default meta;

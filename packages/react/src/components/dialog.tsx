@@ -27,10 +27,11 @@ export const DialogClose = Base.Close;
 export const DialogTrigger = Base.Trigger;
 
 export interface DialogContentProps extends React.ComponentProps<typeof Base.Popup> {
+  /** 기본 sm(380px) — 확인창 기준이다. 긴 폼은 md(560), 표·두 칸 레이아웃은 lg(800). */
   width?: keyof typeof DIALOG_WIDTH;
 }
 
-export function DialogContent({ width = 'md', className, children, ...props }: DialogContentProps) {
+export function DialogContent({ width = 'sm', className, children, ...props }: DialogContentProps) {
   const container = usePortalContainer();
   return (
     <Base.Portal container={container ?? undefined}>

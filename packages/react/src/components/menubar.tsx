@@ -11,7 +11,7 @@ import { cn } from '../lib/cn';
  *   </Menubar>
  */
 export function Menubar({ className, ...props }: React.ComponentProps<typeof Base>) {
-  return <Base className={cn('inline-flex w-fit items-center gap-inline-xs rounded-surface border border-solid border-border-default bg-surface-raised p-inset-xs', className)} {...props} />;
+  return <Base className={cn('inline-flex w-fit items-center gap-inline-xs rounded-surface border-width-default border-solid border-border-default bg-surface-raised p-inset-xs', className)} {...props} />;
 }
 
 /** 메뉴바 안의 트리거. 일반 Button 대신 이걸 쓴다 — 열림 상태(data-popup-open)가 배경으로 표시된다. */

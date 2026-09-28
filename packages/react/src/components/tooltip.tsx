@@ -35,7 +35,7 @@ export function Tooltip({ content, children, side = 'top', align = 'center', sid
         <Base.Positioner side={side} align={align} sideOffset={sideOffset} className="z-popover">
           <Base.Popup
             className={cn(
-              'max-w-[280px] rounded-control px-inset-sm py-inset-xs',
+              'max-w-[280px] rounded-control px-inset-md py-inset-sm',
               'bg-surface-inverse text-fg-on-inverse font-sans text-caption leading-normal shadow-overlay',
               'origin-(--transform-origin) transition-[opacity,scale] duration-fast ease-standard',
               'data-starting-style:opacity-0 data-starting-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:scale-[0.96]',

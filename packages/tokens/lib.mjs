@@ -174,7 +174,7 @@ const LADDERS = [
   ['space.inline',  ['xs', 'sm', 'md', 'lg']],
   ['space.section', ['sm', 'md', 'lg']],
   ['font.size',     ['caption', 'body', 'bodyLg'],                          '본문'],
-  ['font.size',     ['headingSm', 'headingMd', 'headingLg', 'display'],    '제목'],
+  ['font.size',     ['headingXs', 'headingSm', 'headingMd', 'headingLg', 'display'], '제목'],
 ];
 
 /** 해석된 값 맵({cssVar: value})에서 사다리를 검사한다. 뒤집힌 곳을 문장으로 돌려준다. */

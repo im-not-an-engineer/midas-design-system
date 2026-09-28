@@ -24,8 +24,8 @@ export function AccordionItem({ title, className, children, ...props }: Accordio
       <Base.Header className="m-0">
         <Base.Trigger
           className={cn(
-            'flex w-full items-center justify-between gap-inline-md py-inset-md text-left',
-            'font-sans text-body font-medium leading-ui text-fg-default cursor-pointer',
+            'flex w-full items-center justify-between gap-inline-md py-inset-lg text-left',
+            'font-sans text-heading-xs font-semibold leading-ui text-fg-default cursor-pointer',
             'ax-focus-ring rounded-control hover:not-data-disabled:text-fg-default',
             'data-disabled:text-fg-disabled data-disabled:cursor-not-allowed',
             '[&_svg]:size-icon-sm',
@@ -41,7 +41,7 @@ export function AccordionItem({ title, className, children, ...props }: Accordio
           'transition-[height] duration-normal ease-standard data-starting-style:h-0 data-ending-style:h-0',
         )}
       >
-        <div className="pb-inset-md font-sans text-body leading-normal text-fg-muted">{children}</div>
+        <div className="pb-inset-lg font-sans text-body leading-normal text-fg-muted">{children}</div>
       </Base.Panel>
     </Base.Item>
   );

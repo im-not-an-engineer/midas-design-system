@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Toolbar as Base } from '@base-ui/react/toolbar';
 import { cn } from '../lib/cn';
-import { FIELD_CONTROL } from '../lib/styles';
+import { FIELD_CONTROL, SEGMENT_PRESSED } from '../lib/styles';
 
 /**
  * 내비 가족 — Toolbar. 한 줄에 놓인 컨트롤 묶음(서식 도구, 목록 상단 액션). 방향키로 항목 사이를 이동한다.
@@ -12,7 +12,7 @@ export function Toolbar({ className, ...props }: React.ComponentProps<typeof Bas
   return (
     <Base.Root
       className={cn(
-        'inline-flex w-fit items-center gap-inline-xs rounded-surface border border-solid border-border-default bg-surface-raised p-inset-xs',
+        'inline-flex w-fit items-center gap-inline-xs rounded-surface border-width-default border-solid border-border-default bg-surface-raised p-inset-xs',
         'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',
         className,
       )}
@@ -33,10 +33,11 @@ export function ToolbarButton({ className, ...props }: React.ComponentProps<type
         'inline-flex h-control-sm min-w-control-sm items-center justify-center gap-inline-xs px-inset-sm rounded-control',
         'font-sans text-body leading-ui text-fg-default select-none cursor-pointer',
         'transition-colors duration-fast ease-standard ax-focus-ring',
-        'hover:not-disabled:bg-surface-hover data-pressed:bg-surface-selected',
-        // 비활성이면 눌림 글자색을 죽인다 — 안 그러면 Tailwind 순서상 data-pressed 가 이겨
-        // 못 누르는 버튼이 눌린 것처럼 진하게 보인다.
-        'data-pressed:not-disabled:not-data-disabled:text-fg-default',
+        'hover:not-disabled:bg-surface-hover',
+        // 눌림은 Toggle 의 세그먼트와 같은 상수를 쓴다. 이 자리는 보통
+        // <ToolbarButton render={<Toggle/>}> 로 쓰이는데, 서로 다른 값을 칠하면
+        // 둘이 싸워 세 번째 색이 나온다.
+        SEGMENT_PRESSED,
         'disabled:text-fg-disabled disabled:cursor-not-allowed data-disabled:text-fg-disabled',
         '[&_svg]:size-icon-sm',
         className,
@@ -47,7 +48,7 @@ export function ToolbarButton({ className, ...props }: React.ComponentProps<type
 }
 
 export const ToolbarLink = ({ className, ...props }: React.ComponentProps<typeof Base.Link>) => (
-  <Base.Link className={cn('inline-flex h-control-sm items-center px-inset-sm rounded-control font-sans text-body text-fg-link no-underline ax-focus-ring hover:underline', className)} {...props} />
+  <Base.Link className={cn('inline-flex h-control-sm items-center px-inset-sm rounded-control font-sans text-caption text-fg-link no-underline ax-focus-ring hover:underline', className)} {...props} />
 );
 
 export const ToolbarInput = ({ className, ...props }: React.ComponentProps<typeof Base.Input>) => (

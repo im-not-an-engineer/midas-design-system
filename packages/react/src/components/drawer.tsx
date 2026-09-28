@@ -40,7 +40,8 @@ const VIEWPORT: Record<Side, string> = {
 const POPUP: Record<Side, string> = {
   right: 'h-full w-[min(100vw,420px)] rounded-l-overlay border-r-0 data-starting-style:translate-x-full data-ending-style:translate-x-full',
   left: 'h-full w-[min(100vw,420px)] rounded-r-overlay border-l-0 data-starting-style:-translate-x-full data-ending-style:-translate-x-full',
-  bottom: 'w-full max-h-[85dvh] rounded-t-overlay border-b-0 data-starting-style:translate-y-full data-ending-style:translate-y-full',
+  // 바닥에 붙는 시트라 아래 여백을 한 단계 더 준다 — 화면 끝과 버튼이 너무 가깝다.
+  bottom: 'w-full max-h-[85dvh] rounded-t-overlay border-b-0 [&>*]:pb-inset-xl data-starting-style:translate-y-full data-ending-style:translate-y-full',
 };
 
 export function DrawerContent({ className, children, ...props }: React.ComponentProps<typeof Base.Popup>) {
@@ -68,12 +69,24 @@ export function DrawerContent({ className, children, ...props }: React.Component
  * 구분선은 패널 끝까지 긋는다(-mx-inset-lg). 안쪽 여백만큼 물러나 있으면
  * 영역이 나뉜 게 아니라 장식처럼 보인다.
  */
-export function DrawerHeader({ className, children, ...props }: React.ComponentProps<'div'>) {
+export interface DrawerHeaderProps extends React.ComponentProps<'div'> {
+  /**
+   * 오른쪽 끝에 붙는 것 — 보통 `<DrawerCloseButton />`.
+   * **반드시 여기로 넣는다.** 밖에서 헤더를 가로 flex 로 감싸면 헤더가 제목 너비만큼만
+   * 차지해서 구분선이 패널 중간에서 끊긴다.
+   */
+  action?: React.ReactNode;
+}
+
+export function DrawerHeader({ className, children, action, ...props }: DrawerHeaderProps) {
   return (
     // 구분선 위 inset-md, 아래 stack-md + Content 의 flex gap(stack-md).
     // 위쪽만 키우면 선이 본문에 붙어 구역이 나뉜 느낌이 안 난다 — 여백을 양쪽에 나눈다.
     <div className="mb-stack-md flex flex-col">
-      <div className={cn('flex flex-col pb-inset-md', TITLE_DESC_GAP, className)} {...props}>{children}</div>
+      <div className="flex items-start justify-between gap-inline-md pb-inset-md">
+        <div className={cn('flex min-w-0 flex-col', TITLE_DESC_GAP, className)} {...props}>{children}</div>
+        {action}
+      </div>
       <Separator className="-mx-inset-lg w-auto" />
     </div>
   );
@@ -94,7 +107,7 @@ export function DrawerFooter({ className, children, ...props }: React.ComponentP
       {/* 선 위는 Content 의 flex gap(stack-md) 하나뿐이라, 아래를 머리말의 pb+mb 와 같게 준다.
           inset-xl = inset-md + stack-md 가 workbench·consumer 양쪽에서 성립해,
           '머리말↔본문' 과 '본문↔버튼줄' 두 간격이 어느 아키타입에서도 같다. */}
-      <div className={cn('flex items-center justify-end gap-inline-md pt-inset-xl', className)} {...props}>{children}</div>
+      <div className={cn('flex items-center justify-end gap-inline-md pt-inset-lg', className)} {...props}>{children}</div>
     </div>
   );
 }

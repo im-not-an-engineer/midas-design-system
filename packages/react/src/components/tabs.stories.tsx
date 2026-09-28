@@ -10,7 +10,7 @@ export const 기본: Story = {
     <Tabs defaultValue="overview">
       <TabsList>
         <Tab value="overview">개요</Tab>
-        <Tab value="issues">이슈 <span className="rounded-pill bg-surface-sunken px-inset-xs text-caption text-fg-muted">12</span></Tab>
+        <Tab value="issues">이슈 <span className="inline-flex items-center rounded-pill bg-surface-inverse px-[calc(var(--spacing-inset-xs)*1.5)] py-inset-xs text-footnote text-fg-on-inverse">12</span></Tab>
         <Tab value="settings">설정</Tab>
         <Tab value="billing" disabled>결제</Tab>
       </TabsList>
@@ -27,9 +27,9 @@ export const 세로: Story = {
       <TabsList>
         <Tab value="a">일반</Tab><Tab value="b">알림</Tab><Tab value="c">보안</Tab>
       </TabsList>
-      <TabsPanel value="a" className="pt-0">일반 설정</TabsPanel>
-      <TabsPanel value="b" className="pt-0">알림 설정</TabsPanel>
-      <TabsPanel value="c" className="pt-0">보안 설정</TabsPanel>
+      <TabsPanel value="a" className="pt-[calc(var(--spacing-inset-sm)-var(--spacing-inline-xs))]">일반 설정</TabsPanel>
+      <TabsPanel value="b" className="pt-[calc(var(--spacing-inset-sm)-var(--spacing-inline-xs))]">알림 설정</TabsPanel>
+      <TabsPanel value="c" className="pt-[calc(var(--spacing-inset-sm)-var(--spacing-inline-xs))]">보안 설정</TabsPanel>
     </Tabs>
   ),
 };

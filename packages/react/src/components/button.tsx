@@ -18,8 +18,8 @@ import type { Intent, Size } from '../lib/types';
 
 const BASE = [
   'inline-flex shrink-0 items-center justify-center',
-  // 아이콘과 글자 사이. inline-sm(4px)은 아이콘이 글자에 붙어 한 덩어리로 보였다.
-  'gap-inline-md',
+  // 아이콘과 글자 사이. sm 은 상자가 작아 한 단계 더 좁힌다(SIZE 에서 덮는다).
+  'gap-inline-sm',
   'font-sans text-body font-semibold leading-ui whitespace-nowrap',
   // 두께도 계약에서 온다 — 'border'(1px 고정)를 쓰면 테마가 두께를 바꿀 수 없다.
   'rounded-control border-width-default border-solid',
@@ -54,7 +54,7 @@ const INTENT: Record<Intent, string> = {
 const SIZE: Record<Size, string> = {
   // sm 만 굵기를 한 단계 낮춘다 — 28px 상자에서 semibold 는 글자가 뭉쳐 보인다.
   // 모서리는 세 크기가 같다(rounded-control).
-  sm: 'h-control-sm px-inset-sm [&_svg]:size-icon-sm font-medium',
+  sm: 'h-control-sm px-inset-sm [&_svg]:size-icon-sm font-medium gap-inline-xs',
   md: 'h-control-md px-inset-md [&_svg]:size-icon-md',
   lg: 'h-control-lg px-inset-lg [&_svg]:size-icon-lg',
 };
@@ -71,13 +71,6 @@ const ICON_EDGE: Record<Size, string> = {
   sm: 'has-[>svg:first-child:not(:only-child)]:pl-inset-xs has-[>svg:last-child:not(:only-child)]:pr-inset-xs',
   md: 'has-[>svg:first-child:not(:only-child)]:pl-inset-sm has-[>svg:last-child:not(:only-child)]:pr-inset-sm',
   lg: 'has-[>svg:first-child:not(:only-child)]:pl-inset-md has-[>svg:last-child:not(:only-child)]:pr-inset-md',
-};
-
-/** 박스가 없는 ghost 는 테두리·배경이 없어 같은 여백도 더 벌어 보인다. 한 단계씩 더 좁힌다. */
-const GHOST_PAD: Record<Size, string> = {
-  sm: 'px-inset-xs has-[>svg:first-child:not(:only-child)]:pl-0 has-[>svg:last-child:not(:only-child)]:pr-0',
-  md: 'px-inset-sm has-[>svg:first-child:not(:only-child)]:pl-inset-xs has-[>svg:last-child:not(:only-child)]:pr-inset-xs',
-  lg: 'px-inset-md has-[>svg:first-child:not(:only-child)]:pl-inset-sm has-[>svg:last-child:not(:only-child)]:pr-inset-sm',
 };
 
 /**
@@ -145,7 +138,6 @@ export function Button({
       children: wrapText(children),
       className: cn(
         BASE, INTENT[intent], SIZE[size], ICON_EDGE[size],
-        intent === 'ghost' && GHOST_PAD[size],
         iconOnly && ICON_ONLY[size],
         fullWidth && 'w-full',
         className,

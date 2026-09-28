@@ -33,18 +33,20 @@ function ToastList() {
       key={toast.id}
       toast={toast}
       className={cn(
-        'relative w-full rounded-surface border border-solid border-border-default bg-surface-overlay shadow-modal',
+        'relative w-full rounded-surface border-width-default border-solid border-border-default bg-surface-overlay shadow-modal',
         'font-sans text-body text-fg-default',
         'transition-[opacity,transform] duration-normal ease-standard',
         'data-starting-style:opacity-0 data-starting-style:translate-y-[8px] data-ending-style:opacity-0 data-ending-style:translate-y-[8px]',
       )}
     >
-      <Base.Content className="flex items-start gap-inline-md p-inset-md">
+      <Base.Content className="flex items-start gap-inline-md p-inset-lg">
+        {/* 점은 글 묶음 밖에 둔다. 제목 줄 안에 넣으면 제목만 점 너비만큼 밀려
+            아래 설명과 왼쪽이 어긋난다. 글자 한 줄 높이(1lh) 상자로 첫 줄에 맞춘다. */}
+        <span className="flex h-[1lh] shrink-0 items-center leading-ui">
+          <span aria-hidden className={cn('size-[calc(var(--spacing-inset-xs)*1.5)] rounded-pill', DOT[(toast.type as ToastType) ?? 'info'] ?? DOT.info)} />
+        </span>
         <div className={cn("flex min-w-0 flex-1 flex-col", TITLE_DESC_GAP)}>
-          <div className="flex items-center gap-inline-md">
-            <span aria-hidden className={cn('size-inset-xs shrink-0 rounded-pill', DOT[(toast.type as ToastType) ?? 'info'] ?? DOT.info)} />
-            <Base.Title className="text-body font-semibold leading-ui" />
-          </div>
+          <Base.Title className="text-body font-semibold leading-ui" />
           <Base.Description className="text-caption leading-normal text-fg-muted" />
           {toast.actionProps && (
             <Base.Action className="mt-stack-xs self-start text-caption font-medium text-fg-link ax-focus-ring rounded-control hover:underline" />

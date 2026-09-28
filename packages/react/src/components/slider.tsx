@@ -36,14 +36,20 @@ export function Slider({ showValue, className, ...props }: SliderProps) {
                 'border-width-heavy border-solid border-action-primary-bg-default',
                 'transition-[box-shadow] duration-fast ease-standard',
                 'data-dragging:shadow-overlay',
-                'data-focused:outline-2 data-focused:outline-solid data-focused:outline-focus-ring data-focused:outline-offset-2',
+                // Base UI 는 썸에 data-focused 를 붙이지 않는다 — 포커스를 받는 건 썸 안에 숨어
+                // 있는 range 입력이다. 그래서 has-[:focus-visible] 로 잡는다.
+                // (전에는 data-focused:* 라 한 번도 걸리지 않았고, 슬라이더에 키보드 포커스 표시가 없었다.)
+                'has-[:focus-visible]:outline-[var(--focus-ring-width)] has-[:focus-visible]:outline-solid',
+                // 간격은 0 이다(계약값 1px 을 쓰지 않는다). 썸은 이미 테두리가 곧 형태라,
+                // 틈을 두면 동심원 두 겹으로 보인다. 붙이면 같은 색이라 한 겹이 두꺼워진 것으로 읽힌다.
+                'has-[:focus-visible]:outline-focus-ring has-[:focus-visible]:outline-offset-0',
                 'data-disabled:border-action-primary-bg-disabled data-disabled:cursor-not-allowed',
               )}
             />
           ))}
         </Base.Track>
       </Base.Control>
-      {showValue && <Base.Value className="shrink-0 min-w-[3ch] text-right font-sans text-caption tabular-nums text-fg-muted" />}
+      {showValue && <Base.Value className="shrink-0 min-w-[3ch] text-right font-sans text-caption font-semibold tabular-nums text-fg-muted" />}
     </Base.Root>
   );
 }

@@ -37,10 +37,10 @@ export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> 
   divided?: boolean;
 }
 
-export function Table({ size = 'md', divided = true, className, ...props }: TableProps) {
+export function Table({ size = 'lg', divided = true, className, ...props }: TableProps) {
   return (
     <SizeCtx.Provider value={size}>
-      <div className="w-full overflow-x-auto rounded-surface border border-solid border-border-default">
+      <div className="w-full overflow-x-auto rounded-surface border-width-default border-solid border-border-default">
         <table
           data-size={size}
           className={cn('w-full border-collapse font-sans text-body leading-ui text-fg-default', divided && '[&_tbody_tr]:border-b [&_tbody_tr]:border-border-subtle', className)}

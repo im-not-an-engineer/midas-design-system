@@ -3,7 +3,7 @@ import { Radio as Base } from '@base-ui/react/radio';
 import { RadioGroup as BaseGroup } from '@base-ui/react/radio-group';
 import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
-import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, GROUP_LABEL, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
+import { SELECTION_BOX, SELECTION_BOX_SIZE, SELECTION_LABEL, SELECTION_LABEL_SIZE, SELECTION_GROUP, SELECTION_GROUP_WRAP, SELECTION_GROUP_HEADER, GROUP_LABEL, GROUP_DESCRIPTION, SELECTION_DESC_GAP, TITLE_IN_PAIR } from '../lib/styles';
 
 /**
  * 폼 컨트롤 가족 — Radio. Checkbox와 같은 박스 스타일에 모서리만 원형.
@@ -49,9 +49,13 @@ export interface RadioGroupProps extends React.ComponentProps<typeof BaseGroup> 
 export function RadioGroup({ label, description, orientation = 'vertical', className, children, ...props }: RadioGroupProps) {
   const id = React.useId();
   return (
-    <div className="flex flex-col gap-stack-sm">
-      {label != null && <span id={`${id}-label`} className={GROUP_LABEL}>{label}</span>}
-      {description != null && <span id={`${id}-desc`} className={GROUP_DESCRIPTION}>{description}</span>}
+    <div className={SELECTION_GROUP_WRAP}>
+      {(label != null || description != null) && (
+        <div className={SELECTION_GROUP_HEADER}>
+          {label != null && <span id={`${id}-label`} className={GROUP_LABEL}>{label}</span>}
+          {description != null && <span id={`${id}-desc`} className={GROUP_DESCRIPTION}>{description}</span>}
+        </div>
+      )}
       <BaseGroup
         aria-labelledby={label != null ? `${id}-label` : undefined}
         aria-describedby={description != null ? `${id}-desc` : undefined}
