@@ -56,15 +56,23 @@ const TAB: Record<TabsVariant, string> = {
   // 인디케이터가 먼저 깔리고 탭이 그 위에 선다. relative 가 없으면 자리를 잡은 인디케이터가
   // 글자를 덮어 버린다 — 인디케이터를 뒤로 보내는 z 값을 만들지 않고 이렇게 푼다.
   pill: 'relative rounded-control hover:not-data-disabled:not-data-active:text-fg-default data-active:not-data-disabled:text-fg-default',
-  // 위 모서리만 둥글게. 아래는 각져야 내용과 이어 붙은 것으로 보인다 — 네 귀가 다
-  // 둥글면 탭이 내용에서 떠서 pill 처럼 읽힌다.
-  // 아래 테두리는 면 색으로 칠해 지우고, 테두리 두께만큼 끌어내려 목록의 밑줄을 덮는다.
+  // 목록 쪽 모서리만 둥글게. 맞닿는 쪽이 각져야 내용과 이어 붙은 것으로 보인다 —
+  // 네 귀가 다 둥글면 탭이 내용에서 떠서 pill 처럼 읽힌다.
+  //
+  // 맞닿는 변은 면 색으로 칠해 지우고, 테두리 두께만큼 그쪽으로 당겨 목록의 줄을 덮는다.
+  // **방향을 타는 자리다.** 가로는 아래 변, 세로는 오른 변이 목록 줄과 맞닿는다 —
+  // 한쪽만 적어두면 다른 방향에서 상자가 줄에 안 붙고 혼자 떠 있게 된다.
   folder:
-    'rounded-t-control rounded-b-none mb-[calc(var(--border-width-default)*-1)] ' +
     'border-width-default border-solid border-transparent ' +
     'hover:not-data-disabled:not-data-active:text-fg-default ' +
-    'data-active:not-data-disabled:border-border-default data-active:not-data-disabled:border-b-surface-base ' +
-    'data-active:not-data-disabled:bg-surface-base data-active:not-data-disabled:text-fg-default',
+    'data-active:not-data-disabled:border-border-default ' +
+    'data-active:not-data-disabled:bg-surface-base data-active:not-data-disabled:text-fg-default ' +
+    'data-[orientation=horizontal]:rounded-t-control data-[orientation=horizontal]:rounded-b-none ' +
+    'data-[orientation=horizontal]:mb-[calc(var(--border-width-default)*-1)] ' +
+    'data-[orientation=horizontal]:data-active:not-data-disabled:border-b-surface-base ' +
+    'data-[orientation=vertical]:rounded-l-control data-[orientation=vertical]:rounded-r-none ' +
+    'data-[orientation=vertical]:mr-[calc(var(--border-width-default)*-1)] ' +
+    'data-[orientation=vertical]:data-active:not-data-disabled:border-r-surface-base',
 };
 
 export interface TabsListProps extends React.ComponentProps<typeof Base.List> {

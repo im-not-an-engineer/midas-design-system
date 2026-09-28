@@ -68,6 +68,24 @@ export const 변형: Story = {
   ),
 };
 
+/** 세로에서도 셋 다 선다. pill 의 인디케이터는 네 변 값을 다 써서 방향을 안 탄다. */
+export const 세로_변형: Story = {
+  render: () => (
+    <div className="flex gap-section-sm">
+      {(['line', 'pill', 'folder'] as const).map((v) => (
+        <Tabs key={v} defaultValue="a" orientation="vertical" className="flex gap-inline-lg">
+          <TabsList variant={v}>
+            <Tab value="a">일반</Tab><Tab value="b">알림</Tab><Tab value="c">보안</Tab>
+          </TabsList>
+          <TabsPanel value="a" className="pt-0">{v}</TabsPanel>
+          <TabsPanel value="b" className="pt-0">알림</TabsPanel>
+          <TabsPanel value="c" className="pt-0">보안</TabsPanel>
+        </Tabs>
+      ))}
+    </div>
+  ),
+};
+
 /** 배지는 Tab 안에 그냥 넣는다. 숫자는 sm, 글자는 md 가 어울린다. */
 export const 배지: Story = {
   render: () => (
