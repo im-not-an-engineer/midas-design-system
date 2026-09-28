@@ -37,7 +37,7 @@ export const 기본: Story = {
       <TableBody>
         {ROWS.map((r, i) => (
           <TableRow key={r.id} interactive selected={i === 1}>
-            <TableCell className="text-fg-muted">{r.id}</TableCell>
+            <TableCell>{r.id}</TableCell>
             <TableCell>{r.title}</TableCell>
             <TableCell>{r.owner}</TableCell>
             <TableCell>{r.status}</TableCell>

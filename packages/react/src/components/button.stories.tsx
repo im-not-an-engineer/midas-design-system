@@ -40,7 +40,7 @@ export const 전체너비: Story = { args: { fullWidth: true, intent: 'primary' 
 
 /** render 합성 — <a>가 버튼처럼 보인다. */
 export const 링크로: Story = {
-  render: () => <Button render={<a href="#docs" />} intent="ghost">문서 보기 →</Button>,
+  render: () => <Button render={<a href="#docs" />} intent="ghost">문서 보기<ChevronRight aria-hidden /></Button>,
 };
 
 /**

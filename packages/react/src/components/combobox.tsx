@@ -39,6 +39,17 @@ export interface ComboboxProps
   className?: string;
 }
 
+/**
+ * 오른쪽 버튼 묶음이 앉는 자리와, 글자가 거기 닿지 않게 비워 둘 폭.
+ * 컨트롤의 좌우 여백(FIELD_CONTROL_SIZE)과 눈으로 맞춘다 — lg 만 여백이 12px 인데
+ * 버튼을 4px 에 붙이면 왼쪽 12 / 오른쪽 7 로 한쪽으로 쏠려 보인다.
+ */
+const TRAILING: Record<Size, { pos: string; pad: string }> = {
+  sm: { pos: 'right-inset-xs', pad: 'pr-[calc(var(--spacing-icon-lg)*2+var(--spacing-inset-sm))]' },
+  md: { pos: 'right-inset-xs', pad: 'pr-[calc(var(--spacing-icon-lg)*2+var(--spacing-inset-sm))]' },
+  lg: { pos: 'right-inset-sm', pad: 'pr-[calc(var(--spacing-icon-lg)*2+var(--spacing-inset-lg))]' },
+};
+
 export function Combobox({ items, placeholder = '검색…', size = 'md', emptyText = '일치하는 항목이 없습니다', className, ...props }: ComboboxProps) {
   const container = usePortalContainer();
   return (
@@ -47,9 +58,9 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
         <Base.Input
           placeholder={placeholder}
           data-size={size}
-          className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[size], 'pr-[calc(var(--spacing-icon-lg)*2+var(--spacing-inset-sm))]')}
+          className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[size], TRAILING[size].pad)}
         />
-        <div className="absolute right-inset-xs flex items-center">
+        <div className={cn('absolute flex items-center', TRAILING[size].pos)}>
           <Base.Clear aria-label="선택 지우기" className={INLINE_BUTTON}>
             <X aria-hidden />
           </Base.Clear>

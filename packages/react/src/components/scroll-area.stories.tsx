@@ -21,7 +21,7 @@ export const 양방향: Story = {
   render: () => (
     <ScrollArea horizontal className="h-[200px] w-[400px] rounded-surface border border-solid border-border-default">
       <div className="w-[900px] p-inset-md text-body text-fg-muted">
-        {Array.from({ length: 12 }, (_, i) => <p key={i} className="whitespace-nowrap py-inset-xs">{i + 1}. 가로로도 세로로도 넘치는 넓은 내용 — 표나 코드 블록처럼 줄바꿈이 없는 내용을 감쌀 때 씁니다.</p>)}
+        {Array.from({ length: 12 }, (_, i) => <p key={i} className="flex h-row-md items-center whitespace-nowrap">{i + 1}. 가로로도 세로로도 넘치는 넓은 내용 — 표나 코드 블록처럼 줄바꿈이 없는 내용을 감쌀 때 씁니다.</p>)}
       </div>
     </ScrollArea>
   ),

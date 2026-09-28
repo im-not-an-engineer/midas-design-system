@@ -49,7 +49,7 @@ export function Slider({ showValue, className, ...props }: SliderProps) {
           ))}
         </Base.Track>
       </Base.Control>
-      {showValue && <Base.Value className="shrink-0 min-w-[3ch] text-right font-sans text-caption tabular-nums text-fg-muted" />}
+      {showValue && <Base.Value className="shrink-0 min-w-[3ch] text-right font-sans text-caption font-semibold tabular-nums text-fg-muted" />}
     </Base.Root>
   );
 }
