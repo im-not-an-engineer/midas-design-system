@@ -94,7 +94,9 @@ px를 박으면 `workbench`로 바꿨을 때 그 부분만 안 따라와서 화�
 - **에러 상태** — 폼 필드는 `Field`의 `invalid` + `FieldError`. 레이블·설명 연결은
   `Field`가 대신 해주므로 `aria-describedby`를 직접 쓰지 않는다.
 - **로딩 상태** — `Spinner`. 끝을 모르는 대기에 쓴다. 진행률을 알면 `Progress`다.
-  진한 면 위(primary 버튼 등)에 얹을 때는 `className="border-transparent"` 로 궤도를 지운다.
+  버튼이면 `<Button loading>` 이 먼저다 — 너비가 안 변한다.
+  진한 면 위에서는 `className="border-t-current"` 로 도는 쪽만 글자 색에 맞춘다.
+  **회색 궤도는 지우지 않는다** — 지우면 조각만 남아 간격이 들쭉날쭉해 보인다.
 - **비활성 이유** — 버튼을 `disabled`로 두면 왜 못 누르는지 옆에 적는다.
 
 ## 6. 오버레이는 우리 컴포넌트를 쓴다

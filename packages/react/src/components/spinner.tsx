@@ -17,6 +17,11 @@ import type { Size } from '../lib/types';
  *   궤도   → --color-surface-track
  *   도는 쪽 → --color-action-primary-bg-default (키컬러). 진한 면 위에 얹을 때만
  *             `className="border-t-current"` 로 그 자리 글자 색을 따르게 바꾼다.
+ *
+ * **궤도는 지우지 않는다.** 한때 진한 면 위에서 `border-transparent` 로 궤도를 없앴는데,
+ * 그러면 14px 상자 안에 4분의 1 조각만 남아 글자에서 7px 쯤 떨어져 보이고(실제 간격은
+ * 4px 이다) 조각이 돌면서 그 거리가 계속 바뀐다. 궤도가 있어야 동그라미 전체가 보이고
+ * 간격이 눈에 맞는다.
  */
 
 /**
