@@ -14,8 +14,10 @@ export function TabsList({ className, children, ...props }: React.ComponentProps
     <Base.List
       className={cn(
         'relative flex gap-inline-xs',
-        'data-[orientation=horizontal]:border-b data-[orientation=horizontal]:border-solid data-[orientation=horizontal]:border-border-default',
-        'data-[orientation=vertical]:flex-col data-[orientation=vertical]:border-r data-[orientation=vertical]:border-solid data-[orientation=vertical]:border-border-default',
+        // 탭 상자를 선에서 4px 띄운다 — 호버 배경이 선에 닿으면 붙어 보인다.
+        // 표시자는 absolute 라 padding box 기준이고, 여백을 줘도 선 위에 그대로 남는다.
+        'data-[orientation=horizontal]:border-b data-[orientation=horizontal]:border-solid data-[orientation=horizontal]:border-border-default data-[orientation=horizontal]:pb-inset-xs',
+        'data-[orientation=vertical]:flex-col data-[orientation=vertical]:border-r data-[orientation=vertical]:border-solid data-[orientation=vertical]:border-border-default data-[orientation=vertical]:pr-inset-xs',
         className,
       )}
       {...props}
