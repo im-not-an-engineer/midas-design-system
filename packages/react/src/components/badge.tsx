@@ -29,7 +29,8 @@ import type { Size, Status } from '../lib/types';
 export type BadgeVariant = 'subtle' | 'solid' | 'outline' | 'ghost';
 
 const BASE = [
-  'inline-flex shrink-0 items-center justify-center gap-inline-xs',
+  // 아이콘과 글자 사이 4px. 2px(inline-xs)은 붙어 보였다.
+  'inline-flex shrink-0 items-center justify-center gap-inline-sm',
   'font-sans font-medium leading-ui whitespace-nowrap',
   'rounded-pill border-width-default border-solid',
   '[&_svg]:pointer-events-none [&_svg]:shrink-0',

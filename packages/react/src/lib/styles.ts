@@ -5,6 +5,7 @@
  * 같은 field.* 토큰에서 받고, 팝업(Menu, Select, Combobox…)은 한 가족이라 같은 surface·item
  * 스타일을 쓴다. 여기서 한 번 정의하고 가져다 쓴다 — 컴포넌트마다 다시 적으면 어긋난다.
  */
+import type { Size } from './types';
 
 /** 체크박스·라디오의 '박스'. 크기는 아이콘과 같은 급(size.icon.*)이라 아이콘 옆에 놓아도 줄이 맞는다. */
 export const SELECTION_BOX = [
@@ -77,6 +78,45 @@ export const SELECTION_GROUP = {
 } as const;
 
 /** 묶음 전체 — 제목 묶음과 항목들 사이. 제목 안쪽(아래)보다 넓어야 두 덩어리로 읽힌다. */
+/**
+ * 고를 수 있는 알약. 폼용(ChipCheckbox, `data-checked`)과 즉시반영용(Chip, `data-pressed`)이
+ * 같은 생김새를 써야 해서 여기 한 번만 적는다 — 두 벌로 나뉘면 반드시 갈라진다.
+ *
+ * Badge 와 모양은 닮았지만 다른 물건이다. Badge 는 못 누르는 라벨이고 이건 누르는 것이라
+ * 커서·포커스 링·호버·눌림·비활성이 전부 필요하다.
+ *
+ * 규칙 6-4: 고른 표시와 호버가 같은 속성을 다투므로, 지는 쪽(호버)의 조건에서 이기는
+ * 쪽(고름·비활성)을 빼낸다.
+ */
+export const CHIP = [
+  'inline-flex shrink-0 items-center justify-center gap-inline-sm',
+  'rounded-pill border-width-default border-solid',
+  'font-sans text-body font-medium leading-ui whitespace-nowrap',
+  'select-none cursor-pointer transition-colors duration-fast ease-standard ax-focus-ring',
+  // 안 고른 상태
+  'border-border-default bg-surface-base text-fg-muted',
+  'hover:not-data-disabled:not-data-pressed:not-data-checked:bg-surface-hover',
+  'hover:not-data-disabled:not-data-pressed:not-data-checked:text-fg-default',
+  // 고른 상태 — Toggle 은 data-pressed, Checkbox 는 data-checked 를 붙인다
+  'data-pressed:not-data-disabled:border-action-primary-bg-default',
+  'data-pressed:not-data-disabled:bg-surface-accent-subtle data-pressed:not-data-disabled:text-fg-link',
+  'data-checked:not-data-disabled:border-action-primary-bg-default',
+  'data-checked:not-data-disabled:bg-surface-accent-subtle data-checked:not-data-disabled:text-fg-link',
+  // 비활성은 언제나 이긴다
+  'data-disabled:cursor-not-allowed data-disabled:text-fg-disabled data-disabled:bg-surface-subtle',
+  '[&_svg]:pointer-events-none [&_svg]:shrink-0',
+].join(' ');
+
+/** 알약은 네모 버튼보다 좌우가 넉넉해야 알약으로 보인다 — 같은 높이에서 한 단계 넓은 여백. */
+export const CHIP_SIZE: Record<Size, string> = {
+  sm: 'h-control-sm px-inset-md [&_svg]:size-icon-sm',
+  md: 'h-control-md px-inset-lg [&_svg]:size-icon-md',
+  lg: 'h-control-lg px-inset-xl [&_svg]:size-icon-lg',
+};
+
+/** 알약 줄. 가로로 흐르다 넘치면 다음 줄로 내려간다 — 필터 줄은 개수를 미리 알 수 없다. */
+export const CHIP_GROUP = 'flex flex-wrap items-center gap-inline-sm';
+
 export const SELECTION_GROUP_WRAP = 'flex flex-col gap-stack-md';
 /** 묶음 제목과 그 설명 사이. 팝오버 제목↔설명과 같은 값이다. */
 export const SELECTION_GROUP_HEADER = 'flex flex-col gap-stack-sm';

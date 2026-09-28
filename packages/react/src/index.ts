@@ -38,6 +38,10 @@ export { NavigationMenu, NavigationMenuItem, NavigationMenuTrigger, NavigationMe
 export { Menubar, MenubarTrigger } from './components/menubar';
 export { Toolbar, ToolbarGroup, ToolbarButton, ToolbarLink, ToolbarInput, ToolbarSeparator } from './components/toolbar';
 export { Toggle, ToggleGroup, type ToggleProps, type ToggleGroupProps } from './components/toggle';
+export {
+  Chip, ChipGroup, ChipCheckbox, ChipCheckboxGroup,
+  type ChipProps, type ChipGroupProps, type ChipCheckboxProps, type ChipCheckboxGroupProps,
+} from './components/chip';
 export { ScrollArea, type ScrollAreaProps } from './components/scroll-area';
 export { Separator, type SeparatorProps } from './components/separator';
 

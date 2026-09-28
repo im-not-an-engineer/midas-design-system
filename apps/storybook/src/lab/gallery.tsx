@@ -12,6 +12,7 @@ import {
   AxTheme,
   Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
+  Chip, ChipGroup,
   ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge, Spinner,
   Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
   Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell,
@@ -185,6 +186,11 @@ export function Gallery() {
             <Meter value={96} label="위험 임계" showValue status="danger" />
             <Meter value={40} label="정상" showValue status="success" />
           </div>
+          <ChipGroup defaultValue={['doing']}>
+            <Chip value="open">열림</Chip>
+            <Chip value="doing">진행 중</Chip>
+            <Chip value="done" disabled>완료</Chip>
+          </ChipGroup>
           <div className="flex flex-col gap-stack-sm">
             {FILLS.map((v) => (
               <div key={v} className="flex flex-wrap items-center gap-inline-sm">
