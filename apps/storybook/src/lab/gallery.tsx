@@ -12,7 +12,7 @@ import {
   AxTheme,
   Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
-  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge,
+  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge, Spinner,
   Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell,
 } from '@ax/react';
 
@@ -173,6 +173,7 @@ export function Gallery() {
 
         <Section title="표시 · 상태">
           <div className="flex items-center gap-inline-md">
+            {(['sm', 'md', 'lg'] as const).map((s) => <Spinner key={s} size={s} label="불러오는 중" />)}
             {(['xs', 'sm', 'md', 'lg'] as const).map((s) => <Avatar key={s} size={s} name="양희윤" />)}
             <AvatarGroup><Avatar size="sm" name="김민준" /><Avatar size="sm" name="이서연" /><Avatar size="sm">+4</Avatar></AvatarGroup>
           </div>
