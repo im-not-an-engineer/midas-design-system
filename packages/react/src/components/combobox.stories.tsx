@@ -45,6 +45,8 @@ export const 크기: Story = {
  * 폼 전체가 들썩인다.
  *
  * 그래서 펼쳐 보이는 개수를 정해두고(`maxVisible`, 기본 2) 나머지는 `+N` 하나로 접는다.
+ * 칸이 넓으면 올린다 — 560px 이면 4 가 들어간다. 재서 자동으로 정하지 않는 이유는
+ * 화면 폭을 쓰는 쪽이 알기 때문이다.
  * 다 펼치면 알약이 서로 밀어내 이름이 한 글자씩만 남는다 — 실측으로 320px 칸에 세 개를
  * 펼치니 '양.' '김.' '이.' 가 됐다.
  *
@@ -52,19 +54,10 @@ export const 크기: Story = {
  */
 export const 여럿고르기: Story = {
   render: () => (
-    <div className="flex flex-col gap-section-sm">
-      <div className="flex w-[320px] flex-col gap-stack-lg">
-        <span className="text-caption text-fg-muted">320px · maxVisible 기본 2</span>
-        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 2)} />
-        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 5)} />
-        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" />
-      </div>
-      {/* 칸이 넓으면 더 펼친다. 재서 자동으로 정하지 않는다 — 화면 폭은 쓰는 쪽이 안다. */}
-      <div className="flex w-[560px] flex-col gap-stack-lg">
-        <span className="text-caption text-fg-muted">560px · maxVisible 4</span>
-        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" maxVisible={4} defaultValue={PEOPLE.slice(0, 5)} />
-        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" maxVisible={4} defaultValue={PEOPLE.slice(0, 8)} />
-      </div>
+    <div className="flex w-[320px] flex-col gap-stack-lg">
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 2)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 5)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" />
     </div>
   ),
 };
