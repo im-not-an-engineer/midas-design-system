@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { cn } from '../lib/cn';
 import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from '../lib/icons';
-import { TITLE_DESC_GAP } from '../lib/styles';
 import type { Status } from '../lib/types';
 
 /**
@@ -104,7 +103,10 @@ export function Alert({
         // 여러 줄일 때 그림만 위로 붙어 보인다.
         <span className={cn('flex h-[1lh] shrink-0 items-center [&_svg]:size-icon-md', ICON_TONE[status])}>{mark}</span>
       )}
-      <div className={cn('flex min-w-0 flex-1 flex-col', TITLE_DESC_GAP)}>
+      {/* 제목↔설명은 stack-sm(4px). 다른 자리(Dialog·Drawer·Toast)는 stack-md(8px)인데,
+          알림 띠는 제목이 14px 로 작고 두 줄이 한 덩어리로 읽혀야 해서 한 단계 좁힌다.
+          Popover·선택 컨트롤과 같은 급이다. */}
+      <div className="flex min-w-0 flex-1 flex-col gap-stack-sm">
         {/* 본문(13px)보다 한 칸 위. 제목 사다리의 맨 아래로, 줄 안에 서는 제목 자리다. */}
         {title != null && <p className="text-heading-xs font-semibold text-fg-default">{title}</p>}
         {children != null && <div className={cn('min-w-0', title != null && 'text-fg-muted')}>{children}</div>}
