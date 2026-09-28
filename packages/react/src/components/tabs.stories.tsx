@@ -34,3 +34,56 @@ export const 세로: Story = {
     </Tabs>
   ),
 };
+
+const 항목 = [
+  { value: 'list', label: '목록' },
+  { value: 'board', label: '보드' },
+  { value: 'calendar', label: '달력' },
+];
+
+/**
+ * 생김새 셋. 동작은 셋 다 같고 클래스만 다르다.
+ *
+ * line 은 페이지 안의 주 구획, pill 은 같은 자료를 다른 방식으로 볼 때,
+ * folder 는 탭이 곧 문서철일 때 쓴다.
+ */
+export const 변형: Story = {
+  render: () => (
+    <div className="flex flex-col gap-section-sm">
+      {(['line', 'pill', 'folder'] as const).map((v) => (
+        <div key={v} className="flex flex-col gap-stack-sm">
+          <span className="text-caption text-fg-muted">{v}</span>
+          <Tabs defaultValue="list">
+            <TabsList variant={v}>
+              {항목.map((t) => <Tab key={t.value} value={t.value}>{t.label}</Tab>)}
+              <Tab value="off" disabled>비활성</Tab>
+            </TabsList>
+            <TabsPanel value="list">목록 화면</TabsPanel>
+            <TabsPanel value="board">보드 화면</TabsPanel>
+            <TabsPanel value="calendar">달력 화면</TabsPanel>
+          </Tabs>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+/** 배지는 Tab 안에 그냥 넣는다. 숫자는 sm, 글자는 md 가 어울린다. */
+export const 배지: Story = {
+  render: () => (
+    <div className="flex flex-col gap-section-sm">
+      {(['line', 'pill'] as const).map((v) => (
+        <Tabs key={v} defaultValue="issues">
+          <TabsList variant={v}>
+            <Tab value="issues">이슈 <Badge size="sm" variant="solid">12</Badge></Tab>
+            <Tab value="prs">PR <Badge size="sm" variant="solid">3</Badge></Tab>
+            <Tab value="done">완료 <Badge size="sm" status="success" variant="solid">99+</Badge></Tab>
+          </TabsList>
+          <TabsPanel value="issues">이슈 목록</TabsPanel>
+          <TabsPanel value="prs">PR 목록</TabsPanel>
+          <TabsPanel value="done">완료 목록</TabsPanel>
+        </Tabs>
+      ))}
+    </div>
+  ),
+};
