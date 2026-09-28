@@ -43,7 +43,7 @@ export const 크기: Story = {
       <div className="flex items-center gap-inline-md">
         <Badge size="sm" variant="solid">12</Badge>
         <Badge size="sm" variant="solid">3</Badge>
-        <Badge size="sm" status="danger" variant="solid">99+</Badge>
+        <Badge size="sm" variant="solid">99+</Badge>
         <span className="text-caption text-fg-muted">sm — 숫자 배지</span>
       </div>
       <div className="flex flex-col items-start gap-stack-sm">

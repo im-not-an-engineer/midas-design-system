@@ -208,7 +208,7 @@ export function Gallery() {
               <CardFooter><Button size="sm">자세히</Button></CardFooter>
             </Card>
             <Card interactive render={<a href="#card" />} className="w-[240px]">
-              <CardHeader action={<Badge size="sm" status="danger" variant="solid">3</Badge>}>
+              <CardHeader action={<Badge size="sm" variant="solid">3</Badge>}>
                 <CardTitle>ISSUE-241</CardTitle>
                 <CardDescription>커서를 올리면 면이 바뀐다</CardDescription>
               </CardHeader>

@@ -49,7 +49,7 @@ export const 누르는_카드: Story = {
   render: () => (
     <div className="flex flex-col gap-stack-md">
       <Card interactive render={<a href="#issue-241" />}>
-        <CardHeader action={<Badge size="sm" status="danger" variant="solid">3</Badge>}>
+        <CardHeader action={<Badge size="sm" variant="solid">3</Badge>}>
           <CardTitle>ISSUE-241</CardTitle>
           <CardDescription>토큰 계약 위반 린트</CardDescription>
         </CardHeader>
