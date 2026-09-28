@@ -35,8 +35,8 @@ const BASE = [
 /**
  * `disabled:not-data-loading:` 인 이유(규칙 6-4). 기다리는 버튼도 못 누르므로 disabled 인데,
  * 비활성 색까지 덮으면 저장·취소·삭제가 전부 같은 회색이 되어 **어느 버튼을 눌렀는지 알 수
- * 없고, 고리도 흐린 회색이라 도는 게 안 보인다.** 그래서 기다리는 동안만 비활성 색을 뺀다 —
- * 누를 수 없다는 건 고리가 말한다.
+ * 없고, 스피너도 흐린 회색이라 도는 게 안 보인다.** 그래서 기다리는 동안만 비활성 색을 뺀다 —
+ * 누를 수 없다는 건 스피너가 말한다.
  */
 const INTENT: Record<Intent, string> = {
   primary:
@@ -92,11 +92,11 @@ function wrapText(children: React.ReactNode): React.ReactNode {
 
 /**
  * 기다리는 동안. **버튼 너비가 1px 도 변하면 안 된다** — 표 안의 버튼들이 들썩인다.
- * 그래서 글자를 지우지 않고 투명하게만 만들고(자리는 그대로), 그 위에 고리를 얹는다.
+ * 그래서 글자를 지우지 않고 투명하게만 만들고(자리는 그대로), 그 위에 스피너를 얹는다.
  * `invisible` 이 아니라 `opacity-0` 인 이유: visibility:hidden 은 접근성 트리에서도
  * 빠져서 버튼 이름이 사라진다.
  *
- * 고리를 DOM 자식으로 넣지 않고 before 로 그린다. 자식을 하나 더 넣으면 위
+ * 스피너를 DOM 자식으로 넣지 않고 before 로 그린다. 자식을 하나 더 넣으면 위
  * ICON_EDGE 의 `:first-child` / `:last-child` 가 어긋나 **아이콘 쪽 여백이 바뀌고,
  * 그게 곧 너비 변화다.** 가상 요소는 자식으로 세지 않는다.
  *
@@ -124,7 +124,7 @@ export interface ButtonProps extends useRender.ComponentProps<'button'> {
   /** 아이콘 하나만 들어갈 때. 반드시 aria-label을 함께 준다. */
   iconOnly?: boolean;
   /**
-   * 기다리는 중. 글자 자리에 고리가 돌고 버튼이 안 눌린다 — **너비는 그대로**다.
+   * 기다리는 중. 글자 자리에 스피너가 돌고 버튼이 안 눌린다 — **너비는 그대로**다.
    * 글자는 바꾸지 않는다. 바꾸고 싶으면 children 을 쓰는 쪽에서 바꾼다.
    */
   loading?: boolean;

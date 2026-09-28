@@ -38,7 +38,7 @@ const BASE = [
 
 /**
  * 바닥만 받친다. 너비를 통째로 묶지는 않는다 — 글자가 길면 그만큼 늘어난다.
- * 짧은 라벨이 표 안에서 알약이 아니라 점처럼 보이는 것만 막는 장치다.
+ * 짧은 라벨이 표 안에서 칩이 아니라 점처럼 보이는 것만 막는 장치다.
  * 56px 은 control-sm(28px)의 두 배라 아키타입이 밀도를 바꾸면 같이 움직인다.
  * 숫자 배지(sm)에는 주지 않는다 — '12' 가 56px 이 되면 안 된다.
  */
@@ -52,7 +52,7 @@ const LABEL_MIN = 'min-w-[calc(var(--spacing-control-sm)*2)]';
 const SIZE: Record<Size, string> = {
   // 세로·가로를 모두 icon-lg 로 묶어 한 자리 숫자가 동그라미가 되게 한다.
   // 높이를 안 정하면 글자 줄높이 + 위아래 여백이 쌓여 21×27 짜리 세로 타원이 된다.
-  // 두 자리 이상은 min-w 를 넘겨 알약으로 늘어난다.
+  // 두 자리 이상은 min-w 를 넘겨 알약 모양으로 늘어난다.
   sm: 'h-icon-lg min-w-icon-lg px-[calc(var(--spacing-inset-xs)*1.5)] text-footnote [&_svg]:size-icon-sm',
   md: `px-inset-sm py-inset-xs text-caption [&_svg]:size-icon-sm ${LABEL_MIN}`,
   lg: `px-inset-md py-inset-xs text-body [&_svg]:size-icon-md ${LABEL_MIN}`,

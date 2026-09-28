@@ -80,7 +80,7 @@ export function Combobox({ items, placeholder = '검색…', size = 'md', emptyT
  * 목록 팝업. 단일·복수가 똑같이 쓴다 — 다르게 적으면 반드시 갈라진다.
  *
  * `anchor` 는 복수 선택에서만 준다. 기본 기준점은 입력칸인데, 복수에서는 입력칸이
- * 알약 옆에 끼어 있는 좁은 칸이라 알약이 늘수록 목록이 같이 좁아진다. 상자 전체를
+ * 칩 옆에 끼어 있는 좁은 칸이라 칩이 늘수록 목록이 같이 좁아진다. 상자 전체를
  * 기준점으로 잡아야 목록 너비가 칸 너비와 같게 유지된다.
  */
 function Popup({ container, emptyText, anchor }: { container: HTMLElement | null; emptyText: React.ReactNode; anchor?: React.RefObject<HTMLDivElement | null> }) {
@@ -106,16 +106,16 @@ function Popup({ container, emptyText, anchor }: { container: HTMLElement | null
 }
 
 /**
- * 고른 것이 알약으로 쌓이는 입력칸. 알약 생김새는 Chip 과 같은 `CHIP` 을 쓴다 —
- * 같은 화면에 두 종류의 알약이 있으면 사용자는 둘을 같은 것으로 읽는다.
+ * 고른 것이 칩으로 쌓이는 입력칸. 칩 생김새는 Chip 과 같은 `CHIP` 을 쓴다 —
+ * 같은 화면에 두 종류의 칩이 있으면 사용자는 둘을 같은 것으로 읽는다.
  *
- * **한 줄로 고정한다.** 알약이 늘 때 칸이 아래로 자라면 그 아래 있던 것들이 밀려
+ * **한 줄로 고정한다.** 칩이 늘 때 칸이 아래로 자라면 그 아래 있던 것들이 밀려
  * 내려가 폼 전체가 들썩인다. 넘치는 것은 `+N` 하나로 접고(`maxVisible`), 이름이 길면
- * 남은 알약 안에서 말줄임으로 줄어든다.
+ * 남은 칩 안에서 말줄임으로 줄어든다.
  */
 const CHIP_FIELD = 'flex w-full flex-nowrap items-center gap-inline-sm overflow-hidden';
 
-/** 알약 안의 지우기 단추. 알약 높이 안에 들어가야 해서 아이콘 급으로 작다. */
+/** 칩 안의 지우기 단추. 칩 높이 안에 들어가야 해서 아이콘 급으로 작다. */
 const CHIP_REMOVE = [
   'inline-flex shrink-0 items-center justify-center size-icon-sm rounded-pill',
   '-mr-inset-xs cursor-pointer text-fg-muted',
@@ -131,13 +131,13 @@ export interface ComboboxMultipleProps
   size?: Size;
   emptyText?: React.ReactNode;
   /**
-   * 한 줄에 설 수 있는 **자리 수**. 알약을 몇 개까지 펼치느냐가 아니라, 알약과 `+N` 이
+   * 한 줄에 설 수 있는 **자리 수**. 칩을 몇 개까지 펼치느냐가 아니라, 칩과 `+N` 이
    * 함께 나눠 쓰는 칸 수다.
    *
    *   고른 것이 자리 수 이하  →  전부 펼친다
    *   자리 수를 넘으면        →  한 자리를 `+N` 에 내주고 나머지만 펼친다
    *
-   * 이렇게 세는 이유: `+N` 도 자리를 차지한다. "알약 3개까지"로 세면 3개 + `+N` 이
+   * 이렇게 세는 이유: `+N` 도 자리를 차지한다. "칩 3개까지"로 세면 3개 + `+N` 이
    * 되어 넷이 서고, 그러면 서로 밀어내 이름이 한 글자씩만 남는다.
    *
    * 기본 3 은 **320px 칸에서 세 글자 이름 셋이 온전히 서는 수**다(실측: 74×3 + 검색칸
@@ -171,7 +171,7 @@ export function ComboboxMultiple({
             <>
               {shown.map((item) => (
                 // CHIP 은 '줄어들지 마라'(shrink-0)가 기본이다. 여기서만 뒤집는다 —
-                // 이름이 길면 알약이 줄어들어 말줄임으로 들어가야 한 줄에 남는다.
+                // 이름이 길면 칩이 줄어들어 말줄임으로 들어가야 한 줄에 남는다.
                 // min-w-0 은 그 줄어듦이 글자까지 닿게 한다(없으면 글자 너비에서 멈춘다).
                 <Base.Chip key={item.value} className={cn(CHIP, CHIP_SIZE.sm, 'shrink min-w-0 cursor-default data-highlighted:border-border-focus')}>
                   <span className="truncate">{item.label}</span>
@@ -180,7 +180,7 @@ export function ComboboxMultiple({
                   </Base.ChipRemove>
                 </Base.Chip>
               ))}
-              {/* 접힌 개수. 누르는 것이 아니라 읽는 것이라 알약 모양만 빌린다 — 지우기
+              {/* 접힌 개수. 누르는 것이 아니라 읽는 것이라 칩 모양만 빌린다 — 지우기
                   단추도 없다. 목록을 열면 무엇이 접혔는지 체크 표시로 보인다. */}
               {overflow && (
                 <span className={cn(CHIP, CHIP_SIZE.sm, 'cursor-default text-fg-muted')}>
@@ -191,9 +191,9 @@ export function ComboboxMultiple({
             );
           }}
         </Base.Value>
-        {/* 알약 줄에 섞여 서는 입력칸이라 테두리·면·높이를 전부 지운다 — 상자는 바깥이 갖는다.
-            안내 글자는 알약이 하나라도 있으면 감춘다. Base.Value 가 자기 엘리먼트를 안 그리므로
-            알약이 없을 때만 이 입력칸이 첫 자식이 된다 — 그걸 조건으로 쓴다. */}
+        {/* 칩 줄에 섞여 서는 입력칸이라 테두리·면·높이를 전부 지운다 — 상자는 바깥이 갖는다.
+            안내 글자는 칩이 하나라도 있으면 감춘다. Base.Value 가 자기 엘리먼트를 안 그리므로
+            칩이 없을 때만 이 입력칸이 첫 자식이 된다 — 그걸 조건으로 쓴다. */}
         <Base.Input
           placeholder={placeholder}
           data-size={size}

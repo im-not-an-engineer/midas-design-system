@@ -8,11 +8,11 @@ import { cn } from '../lib/cn';
  * 생김새 세 가지. 동작은 Base UI 가 다 하고, 셋의 차이는 전부 우리 클래스다.
  *
  *   line   (기본) 밑줄이 미끄러진다. 페이지 안의 주 구획을 가를 때.
- *   pill   눌린 조각이 떠 보인다. 같은 자료를 다른 방식으로 볼 때(목록/보드/달력).
+ *   pill   눌린 세그먼트가 떠 보인다. 같은 자료를 다른 방식으로 볼 때(목록/보드/달력).
  *   folder 선택된 탭이 아래 줄을 끊고 내용과 이어진다. 탭이 곧 문서철일 때.
  *
- * line·pill 의 표시자는 Base UI 가 주는 --active-tab-* 변수로 움직인다 — 탭 개수·너비를
- * 몰라도 되고, 위치가 바뀌면 미끄러진다. folder 는 표시자가 없다(탭 자체가 면을 갖는다).
+ * line·pill 의 인디케이터는 Base UI 가 주는 --active-tab-* 변수로 움직인다 — 탭 개수·너비를
+ * 몰라도 되고, 위치가 바뀌면 미끄러진다. folder 는 인디케이터가 없다(탭 자체가 면을 갖는다).
  */
 
 export type TabsVariant = 'line' | 'pill' | 'folder';
@@ -44,7 +44,7 @@ const INDICATOR: Record<TabsVariant, string | null> = {
     'absolute bg-action-primary-bg-default transition-[left,width,top,height] duration-normal ease-standard ' +
     'data-[orientation=horizontal]:bottom-[-1px] data-[orientation=horizontal]:h-[2px] data-[orientation=horizontal]:left-(--active-tab-left) data-[orientation=horizontal]:w-(--active-tab-width) ' +
     'data-[orientation=vertical]:right-[-1px] data-[orientation=vertical]:w-[2px] data-[orientation=vertical]:top-(--active-tab-top) data-[orientation=vertical]:h-(--active-tab-height)',
-  // 네 변을 다 쓴다 — 조각이 통째로 뜨는 모양이라 가로·세로 둘 다 자리를 잡아야 한다.
+  // 네 변을 다 쓴다 — 세그먼트가 통째로 뜨는 모양이라 가로·세로 둘 다 자리를 잡아야 한다.
   pill:
     'absolute rounded-control bg-surface-raised shadow-raised transition-[left,width,top,height] duration-normal ease-standard ' +
     'left-(--active-tab-left) w-(--active-tab-width) top-(--active-tab-top) h-(--active-tab-height)',
@@ -53,8 +53,8 @@ const INDICATOR: Record<TabsVariant, string | null> = {
 
 const TAB: Record<TabsVariant, string> = {
   line: 'rounded-control hover:not-data-disabled:text-fg-default data-active:not-data-disabled:text-fg-default',
-  // 표시자가 먼저 깔리고 탭이 그 위에 선다. relative 가 없으면 자리를 잡은 표시자가
-  // 글자를 덮어 버린다 — 표시자를 뒤로 보내는 z 값을 만들지 않고 이렇게 푼다.
+  // 인디케이터가 먼저 깔리고 탭이 그 위에 선다. relative 가 없으면 자리를 잡은 인디케이터가
+  // 글자를 덮어 버린다 — 인디케이터를 뒤로 보내는 z 값을 만들지 않고 이렇게 푼다.
   pill: 'relative rounded-control hover:not-data-disabled:not-data-active:text-fg-default data-active:not-data-disabled:text-fg-default',
   // 위 모서리만 둥글게. 아래는 각져야 내용과 이어 붙은 것으로 보인다 — 네 귀가 다
   // 둥글면 탭이 내용에서 떠서 pill 처럼 읽힌다.
@@ -77,8 +77,8 @@ export function TabsList({ variant = 'line', className, children, ...props }: Ta
   return (
     <VariantCtx.Provider value={variant}>
       <Base.List data-variant={variant} className={cn('relative flex', LIST[variant], className)} {...props}>
-        {/* 표시자를 children 보다 먼저 둔다. 둘 다 자리를 잡은 요소라 나중에 온 쪽이
-            위에 그려지는데, pill 은 표시자가 글자 뒤에 있어야 한다. */}
+        {/* 인디케이터를 children 보다 먼저 둔다. 둘 다 자리를 잡은 요소라 나중에 온 쪽이
+            위에 그려지는데, pill 은 인디케이터가 글자 뒤에 있어야 한다. */}
         {indicator != null && <Base.Indicator className={indicator} />}
         {children}
       </Base.List>

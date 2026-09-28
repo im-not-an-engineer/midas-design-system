@@ -4,7 +4,7 @@ import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from '../lib/icons';
 import type { Status } from '../lib/types';
 
 /**
- * 표시 가족 — Alert. 화면 안에 자리를 차지하고 머무는 알림 띠다.
+ * 표시 가족 — Alert. 화면 안에 자리를 차지하고 머무는 Alert다.
  *
  * 떠올랐다 사라지는 건 Toast, 멈춰 세우고 답을 받는 건 AlertDialog 다. 이건 셋 중
  * 가장 조용한 쪽 — 페이지를 열면 이미 거기 있고, 읽든 말든 흐름을 막지 않는다.
@@ -104,7 +104,7 @@ export function Alert({
         <span className={cn('flex h-[1lh] shrink-0 items-center [&_svg]:size-icon-md', ICON_TONE[status])}>{mark}</span>
       )}
       {/* 제목↔설명은 stack-sm(4px). 다른 자리(Dialog·Drawer·Toast)는 stack-md(8px)인데,
-          알림 띠는 제목이 14px 로 작고 두 줄이 한 덩어리로 읽혀야 해서 한 단계 좁힌다.
+          Alert는 제목이 14px 로 작고 두 줄이 한 덩어리로 읽혀야 해서 한 단계 좁힌다.
           Popover·선택 컨트롤과 같은 급이다. */}
       <div className="flex min-w-0 flex-1 flex-col gap-stack-sm">
         {/* 본문(13px)보다 한 칸 위. 제목 사다리의 맨 아래로, 줄 안에 서는 제목 자리다. */}

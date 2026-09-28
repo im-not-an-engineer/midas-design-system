@@ -3,7 +3,7 @@ import { cn } from '../lib/cn';
 import type { Size } from '../lib/types';
 
 /**
- * 표시 가족 — Spinner. 얼마나 걸릴지 모를 때 도는 고리.
+ * 표시 가족 — Spinner. 얼마나 걸릴지 모를 때 도는 스피너.
  *
  * 진행률을 아는 작업에는 쓰지 않는다 — 그건 Progress 다. 여기는 "받는 중"처럼
  * 끝을 모르는 자리다.
@@ -19,8 +19,8 @@ import type { Size } from '../lib/types';
  *             `className="border-t-current"` 로 그 자리 글자 색을 따르게 바꾼다.
  *
  * **궤도는 지우지 않는다.** 한때 진한 면 위에서 `border-transparent` 로 궤도를 없앴는데,
- * 그러면 14px 상자 안에 4분의 1 조각만 남아 글자에서 7px 쯤 떨어져 보이고(실제 간격은
- * 4px 이다) 조각이 돌면서 그 거리가 계속 바뀐다. 궤도가 있어야 동그라미 전체가 보이고
+ * 그러면 14px 상자 안에 4분의 1 호만 남아 글자에서 7px 쯤 떨어져 보이고(실제 간격은
+ * 4px 이다) 호가 돌면서 그 거리가 계속 바뀐다. 궤도가 있어야 동그라미 전체가 보이고
  * 간격이 눈에 맞는다.
  *
  * 글자 옆에 세울 때는 **간격을 8px(`gap-inline-lg`)로** 벌린다. 아이콘은 잉크가 상자를
@@ -59,13 +59,13 @@ export function Spinner({ size = 'md', label, className, ...props }: SpinnerProp
       className={cn(
         'inline-block shrink-0 rounded-pill border-solid',
         // 궤도는 '그 자리 글자 색의 옅은 판'이다. 회색 토큰(surface.track)으로 고정했더니
-        // 파란 버튼 위에서 궤도(#e2e8f0)와 흰 조각이 거의 같은 색이 되어 도는 게 안 보였다.
-        // currentColor 를 옅게 깔면 어느 바탕에서도 조각과 궤도가 갈린다.
+        // 파란 버튼 위에서 궤도(#e2e8f0)와 흰 호가 거의 같은 색이 되어 도는 게 안 보였다.
+        // currentColor 를 옅게 깔면 어느 바탕에서도 호와 궤도가 갈린다.
         'border-current/25',
         // 도는 쪽은 키컬러다. 예전에는 currentColor 였는데, 그러면 놓는 자리마다 색이
         // 달라져(빨강·회색…) 같은 '기다림'이 화면마다 다른 뜻처럼 보였다.
         'border-t-action-primary-bg-default',
-        // 움직임을 줄이도록 설정한 사용자에게는 돌리지 않는다. 고리는 그대로 보인다.
+        // 움직임을 줄이도록 설정한 사용자에게는 돌리지 않는다. 스피너는 그대로 보인다.
         'animate-spin motion-reduce:animate-none',
         SIZE[size],
         className,

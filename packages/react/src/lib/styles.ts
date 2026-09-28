@@ -44,7 +44,7 @@ export const TITLE_DESC_MARGIN = 'mt-stack-sm';
  * 선택 컨트롤(체크박스·라디오·스위치)의 레이블↔설명. 본문보다 작은 글자가 두 줄 붙는 자리라
  * TITLE_DESC_GAP(8px)은 두 줄이 갈라져 보인다. 한 단계 아래인 stack-sm(4px).
  * Alert 의 제목↔설명도 같은 값을 쓴다(그쪽은 상수를 안 거치고 직접 적었다 — 이름이
- * '선택 컨트롤'이라 알림 띠가 가져다 쓰면 읽는 사람이 헷갈린다).
+ * '선택 컨트롤'이라 Alert가 가져다 쓰면 읽는 사람이 헷갈린다).
  */
 export const SELECTION_DESC_GAP = 'gap-stack-sm';
 
@@ -81,7 +81,7 @@ export const SELECTION_GROUP = {
 
 /** 묶음 전체 — 제목 묶음과 항목들 사이. 제목 안쪽(아래)보다 넓어야 두 덩어리로 읽힌다. */
 /**
- * 고를 수 있는 알약. 폼용(ChipCheckbox, `data-checked`)과 즉시반영용(Chip, `data-pressed`)이
+ * 고를 수 있는 칩. 폼용(ChipCheckbox, `data-checked`)과 즉시반영용(Chip, `data-pressed`)이
  * 같은 생김새를 써야 해서 여기 한 번만 적는다 — 두 벌로 나뉘면 반드시 갈라진다.
  *
  * Badge 와 모양은 닮았지만 다른 물건이다. Badge 는 못 누르는 라벨이고 이건 누르는 것이라
@@ -110,7 +110,7 @@ export const CHIP = [
 ].join(' ');
 
 /**
- * 알약은 네모 버튼보다 좌우가 넉넉해야 알약으로 보인다 — 같은 높이에서 한 단계 넓은 여백.
+ * 칩은 네모 버튼보다 좌우가 넉넉해야 알약 모양(pill)으로 보인다 — 같은 높이에서 한 단계 넓은 여백.
  * 높이는 버튼·입력칸과 같은 사다리(28·32·36)를 쓴다. 같은 줄에 섞였을 때 아래 선이 맞아야 한다.
  */
 export const CHIP_SIZE: Record<Size, string> = {
@@ -119,7 +119,7 @@ export const CHIP_SIZE: Record<Size, string> = {
   lg: 'h-control-lg px-inset-xl [&_svg]:size-icon-lg',
 };
 
-/** 알약 줄. 가로로 흐르다 넘치면 다음 줄로 내려간다 — 필터 줄은 개수를 미리 알 수 없다. */
+/** 칩 줄. 가로로 흐르다 넘치면 다음 줄로 내려간다 — 필터 줄은 개수를 미리 알 수 없다. */
 export const CHIP_GROUP = 'flex flex-wrap items-center gap-inline-sm';
 
 export const SELECTION_GROUP_WRAP = 'flex flex-col gap-stack-md';
@@ -224,7 +224,7 @@ export const POPUP_ITEM = [
  */
 export const POPUP_ITEM_PICK = 'data-selected:bg-surface-selected data-checked:bg-surface-selected';
 
-/** 항목 왼쪽의 선택 표시자(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
+/** 항목 왼쪽의 선택 인디케이터(체크·점). 키 컬러로 칠한다 — 글자와 같은 색이면 눈에 안 띈다. */
 /** 라디오 항목의 점. CircleSmall 은 상자의 절반만 실제 원이라 크기가 애매해진다 — 직접 그린다.
  *  6px = inset-xs 의 1.5배. 토스트 제목 옆 점과 같은 값·같은 식이다. */
 export const POPUP_RADIO_DOT = 'block size-[calc(var(--spacing-inset-xs)*1.5)] rounded-pill bg-current';
@@ -233,10 +233,10 @@ export const POPUP_ITEM_MARKER =
   'absolute left-inset-xs flex size-icon-sm items-center justify-center text-fg-link';
 
 /**
- * 왼쪽에 표시자(체크·점)가 붙는 팝업 항목의 들여쓰기.
- * 표시자 위치(inset-xs) + 표시자 크기(icon-sm) + 표시자와 글자 사이(inline-md).
+ * 왼쪽에 인디케이터(체크·점)가 붙는 팝업 항목의 들여쓰기.
+ * 인디케이터 위치(inset-xs) + 인디케이터 크기(icon-sm) + 인디케이터와 글자 사이(inline-md).
  *
- * 값을 박으면 아이콘 척도를 바꿨을 때 글자가 표시자를 덮는다 — pl-inset-lg(16px)가
+ * 값을 박으면 아이콘 척도를 바꿨을 때 글자가 인디케이터를 덮는다 — pl-inset-lg(16px)가
  * 12px 아이콘 기준이었는데 아이콘이 14px 이 되면서 실제로 2px 겹쳤다.
  */
 export const POPUP_ITEM_INDENT =

@@ -15,7 +15,7 @@ const 상태 = [
   { value: 'done', label: '완료' },
 ];
 
-/** 누르는 즉시 반영된다. 화살표로 알약 사이를 옮긴다. */
+/** 누르는 즉시 반영된다. 화살표로 칩 사이를 옮긴다. */
 export const 거르기: Story = {
   render: function 거르기() {
     const [고른것, 고르기] = React.useState<string[]>(['doing']);
@@ -53,7 +53,7 @@ export const 폼: Story = {
           보내기([...new FormData(e.currentTarget).getAll('tags')].join(', ') || '없음');
         }}
       >
-        {/* name 은 묶음이 아니라 알약마다 준다 — 같은 name 으로 여러 값이 함께 제출된다. */}
+        {/* name 은 묶음이 아니라 칩마다 준다 — 같은 name 으로 여러 값이 함께 제출된다. */}
         <ChipCheckboxGroup label="태그" description="저장을 눌러야 반영됩니다" defaultValue={['ui']}>
           <ChipCheckbox name="tags" value="ui">UI</ChipCheckbox>
           <ChipCheckbox name="tags" value="tokens">토큰</ChipCheckbox>
