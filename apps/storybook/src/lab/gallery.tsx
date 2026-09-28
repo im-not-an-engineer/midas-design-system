@@ -12,7 +12,7 @@ import {
   AxTheme,
   Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
-  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter,
+  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge,
   Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell,
 } from '@ax/react';
 
@@ -39,13 +39,9 @@ const STATUS = [
 ];
 const PEOPLE = ['양희윤', '김민준', '이서연', '박도윤'].map((n, i) => ({ value: `u${i}`, label: n }));
 
-/** 클래스를 보간으로 만들면 Tailwind가 생성하지 못한다 — 이 저장소의 규약대로 룩업 맵으로 적는다. */
-const BADGE = {
-  info: 'bg-status-info-subtle text-status-info-fg border-status-info-border',
-  success: 'bg-status-success-subtle text-status-success-fg border-status-success-border',
-  warning: 'bg-status-warning-subtle text-status-warning-fg border-status-warning-border',
-  danger: 'bg-status-danger-subtle text-status-danger-fg border-status-danger-border',
-};
+/** 색 5(회색 포함) × 채움 4. 랩에서 status 램프를 한 번에 볼 수 있어야 한다. */
+const TONES = [undefined, 'info', 'success', 'warning', 'danger'] as const;
+const FILLS = ['subtle', 'solid', 'outline', 'ghost'] as const;
 
 export function Gallery() {
   return (
@@ -187,9 +183,14 @@ export function Gallery() {
             <Meter value={96} label="위험 임계" showValue status="danger" />
             <Meter value={40} label="정상" showValue status="success" />
           </div>
-          <div className="flex flex-wrap gap-inline-sm">
-            {Object.entries(BADGE).map(([s, cls]) => (
-              <span key={s} className={`inline-flex items-center justify-center min-w-[calc(var(--spacing-control-md)*2)] rounded-pill border border-solid px-inset-sm py-inset-xs text-caption font-medium ${cls}`}>{s}</span>
+          <div className="flex flex-col gap-stack-sm">
+            {FILLS.map((v) => (
+              <div key={v} className="flex flex-wrap items-center gap-inline-sm">
+                {TONES.map((t) => (
+                  <Badge key={t ?? 'neutral'} status={t} variant={v}>{t ?? 'neutral'}</Badge>
+                ))}
+                <Badge size="sm" status={undefined} variant={v}>12</Badge>
+              </div>
             ))}
           </div>
         </Section>
