@@ -5,7 +5,7 @@ import { X } from '../lib/icons';
 import { Button } from './button';
 import { Separator } from './separator';
 import { usePortalContainer } from '../lib/theme';
-import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_TITLE, DIALOG_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
+import { MODAL_BACKDROP, MODAL_SURFACE, SURFACE_TITLE, SURFACE_DESCRIPTION, TITLE_DESC_GAP } from '../lib/styles';
 
 /**
  * 오버레이 가족 — Drawer. 화면 가장자리에서 밀려 나오는 패널. 스와이프로 닫힌다(Base UI).
@@ -94,10 +94,10 @@ export function DrawerHeader({ className, children, action, ...props }: DrawerHe
 
 /** Dialog 보다 한 단계 큰 제목 — 패널이 넓고 오래 머무는 화면이라 머리말이 더 서야 한다. */
 export function DrawerTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {
-  return <Base.Title className={cn(DIALOG_TITLE, 'text-heading-md', className)} {...props} />;
+  return <Base.Title className={cn(SURFACE_TITLE, 'text-heading-md', className)} {...props} />;
 }
 export function DrawerDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
-  return <Base.Description className={cn(DIALOG_DESCRIPTION, className)} {...props} />;
+  return <Base.Description className={cn(SURFACE_DESCRIPTION, className)} {...props} />;
 }
 /** 하단 버튼 줄. 내용이 스크롤돼도 항상 보이도록 Content 바깥에 두는 게 아니라 안에서 mt-auto로 붙인다. */
 export function DrawerFooter({ className, children, ...props }: React.ComponentProps<'div'>) {

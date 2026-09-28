@@ -12,7 +12,9 @@ import {
   AxTheme,
   Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
-  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter,
+  Chip, ChipGroup,
+  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge, Spinner,
+  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Alert,
   Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell,
 } from '@ax/react';
 
@@ -39,13 +41,9 @@ const STATUS = [
 ];
 const PEOPLE = ['양희윤', '김민준', '이서연', '박도윤'].map((n, i) => ({ value: `u${i}`, label: n }));
 
-/** 클래스를 보간으로 만들면 Tailwind가 생성하지 못한다 — 이 저장소의 규약대로 룩업 맵으로 적는다. */
-const BADGE = {
-  info: 'bg-status-info-subtle text-status-info-fg border-status-info-border',
-  success: 'bg-status-success-subtle text-status-success-fg border-status-success-border',
-  warning: 'bg-status-warning-subtle text-status-warning-fg border-status-warning-border',
-  danger: 'bg-status-danger-subtle text-status-danger-fg border-status-danger-border',
-};
+/** 색 5(회색 포함) × 채움 4. 랩에서 status 램프를 한 번에 볼 수 있어야 한다. */
+const TONES = [undefined, 'info', 'success', 'warning', 'danger'] as const;
+const FILLS = ['subtle', 'solid', 'outline', 'ghost'] as const;
 
 export function Gallery() {
   return (
@@ -177,6 +175,7 @@ export function Gallery() {
 
         <Section title="표시 · 상태">
           <div className="flex items-center gap-inline-md">
+            {(['sm', 'md', 'lg'] as const).map((s) => <Spinner key={s} size={s} label="불러오는 중" />)}
             {(['xs', 'sm', 'md', 'lg'] as const).map((s) => <Avatar key={s} size={s} name="양희윤" />)}
             <AvatarGroup><Avatar size="sm" name="김민준" /><Avatar size="sm" name="이서연" /><Avatar size="sm">+4</Avatar></AvatarGroup>
           </div>
@@ -187,10 +186,43 @@ export function Gallery() {
             <Meter value={96} label="위험 임계" showValue status="danger" />
             <Meter value={40} label="정상" showValue status="success" />
           </div>
-          <div className="flex flex-wrap gap-inline-sm">
-            {Object.entries(BADGE).map(([s, cls]) => (
-              <span key={s} className={`inline-flex items-center justify-center min-w-[calc(var(--spacing-control-md)*2)] rounded-pill border border-solid px-inset-sm py-inset-xs text-caption font-medium ${cls}`}>{s}</span>
+          <div className="flex w-[360px] flex-col gap-stack-sm">
+            <Alert status="warning" title="저장 공간이 얼마 남지 않았습니다">96% 를 썼습니다.</Alert>
+            <Alert status="success">저장했습니다.</Alert>
+          </div>
+          <ChipGroup defaultValue={['doing']}>
+            <Chip value="open">열림</Chip>
+            <Chip value="doing">진행 중</Chip>
+            <Chip value="done" disabled>완료</Chip>
+          </ChipGroup>
+          <div className="flex flex-col gap-stack-sm">
+            {FILLS.map((v) => (
+              <div key={v} className="flex flex-wrap items-center gap-inline-sm">
+                {TONES.map((t) => (
+                  <Badge key={t ?? 'neutral'} status={t} variant={v}>{t ?? 'neutral'}</Badge>
+                ))}
+                <Badge size="sm" status={undefined} variant={v}>12</Badge>
+              </div>
             ))}
+          </div>
+        </Section>
+
+        <Section title="카드">
+          <div className="flex flex-wrap items-start gap-inline-md">
+            <Card className="w-[240px]">
+              <CardHeader action={<Badge status="success">완료</Badge>}>
+                <CardTitle>이번 달 사용량</CardTitle>
+                <CardDescription>9월 1일부터 오늘까지</CardDescription>
+              </CardHeader>
+              <CardContent>내려받기 1,284건</CardContent>
+              <CardFooter><Button size="sm">자세히</Button></CardFooter>
+            </Card>
+            <Card interactive render={<a href="#card" />} className="w-[240px]">
+              <CardHeader action={<Badge size="sm" variant="solid">3</Badge>}>
+                <CardTitle>ISSUE-241</CardTitle>
+                <CardDescription>커서를 올리면 면이 바뀐다</CardDescription>
+              </CardHeader>
+            </Card>
           </div>
         </Section>
 

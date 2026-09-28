@@ -10,7 +10,7 @@ export {
   Select, SelectRoot, SelectTrigger, SelectValue, SelectContent, SelectOption, SelectGroup, SelectGroupLabel, SelectSeparator,
   type SelectProps, type SelectItem,
 } from './components/select';
-export { Combobox, type ComboboxProps, type ComboboxItem } from './components/combobox';
+export { Combobox, ComboboxMultiple, type ComboboxProps, type ComboboxMultipleProps, type ComboboxItem } from './components/combobox';
 export { Autocomplete, type AutocompleteProps } from './components/autocomplete';
 export { NumberField, type NumberFieldProps } from './components/number-field';
 export { Slider, type SliderProps } from './components/slider';
@@ -38,10 +38,21 @@ export { NavigationMenu, NavigationMenuItem, NavigationMenuTrigger, NavigationMe
 export { Menubar, MenubarTrigger } from './components/menubar';
 export { Toolbar, ToolbarGroup, ToolbarButton, ToolbarLink, ToolbarInput, ToolbarSeparator } from './components/toolbar';
 export { Toggle, ToggleGroup, type ToggleProps, type ToggleGroupProps } from './components/toggle';
+export {
+  Chip, ChipGroup, ChipCheckbox, ChipCheckboxGroup,
+  type ChipProps, type ChipGroupProps, type ChipCheckboxProps, type ChipCheckboxGroupProps,
+} from './components/chip';
 export { ScrollArea, type ScrollAreaProps } from './components/scroll-area';
 export { Separator, type SeparatorProps } from './components/separator';
 
 export { Avatar, AvatarGroup, type AvatarProps, type AvatarSize } from './components/avatar';
+export { Badge, type BadgeProps, type BadgeVariant } from './components/badge';
+export { Alert, type AlertProps } from './components/alert';
+export { Spinner, type SpinnerProps } from './components/spinner';
+export {
+  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
+  type CardProps, type CardHeaderProps,
+} from './components/card';
 export { Progress, Meter, type ProgressProps, type MeterProps } from './components/progress';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,

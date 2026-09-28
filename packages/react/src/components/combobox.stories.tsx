@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Combobox } from './combobox';
+import { Combobox, ComboboxMultiple } from './combobox';
 import { Field, FieldLabel } from './field';
 
 const PEOPLE = ['양희윤', '김민준', '이서연', '박도윤', '최지우', '정하은', '강시우', '조수아', '윤예준', '장하윤', '임지호', '한서준']
@@ -33,6 +33,33 @@ export const 크기: Story = {
   render: (args) => (
     <div className="flex flex-col gap-stack-md">
       {(['sm', 'md', 'lg'] as const).map((size) => <Combobox key={size} {...args} size={size} defaultValue={PEOPLE[size === 'sm' ? 0 : size === 'md' ? 1 : 2]} />)}
+    </div>
+  ),
+};
+
+/**
+ * 여럿 고르기. 고른 것이 칩으로 쌓이고, 칩 생김새는 Chip 과 같은 상수를 쓴다 —
+ * 같은 화면에 두 종류의 칩이 있으면 사용자는 둘을 같은 것으로 읽는다.
+ *
+ * 칸은 **한 줄로 고정**이다. 칩이 늘 때 아래로 자라면 그 아래 것들이 밀려 내려가
+ * 폼 전체가 들썩인다.
+ *
+ * 그래서 펼쳐 보이는 개수를 정해두고(`maxVisible`, 기본 2) 나머지는 `+N` 하나로 접는다.
+ * 칸이 넓으면 올린다 — 560px 이면 4 가 들어간다. 재서 자동으로 정하지 않는 이유는
+ * 화면 폭을 쓰는 쪽이 알기 때문이다.
+ * 다 펼치면 칩이 서로 밀어내 이름이 한 글자씩만 남는다 — 실측으로 320px 칸에 세 개를
+ * 펼치니 '양.' '김.' '이.' 가 됐다.
+ *
+ * 안내 글자는 하나라도 고르면 사라진다.
+ */
+export const 여럿고르기: Story = {
+  render: () => (
+    <div className="flex w-[320px] flex-col gap-stack-lg">
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 2)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 3)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 4)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 5)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" />
     </div>
   ),
 };

@@ -3,7 +3,7 @@ import { AlertDialog as Base } from '@base-ui/react/alert-dialog';
 import { cn } from '../lib/cn';
 import { Button } from './button';
 import { usePortalContainer } from '../lib/theme';
-import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, DIALOG_TITLE, DIALOG_DESCRIPTION } from '../lib/styles';
+import { MODAL_BACKDROP, MODAL_SURFACE, DIALOG_WIDTH, SURFACE_TITLE, SURFACE_DESCRIPTION } from '../lib/styles';
 
 /**
  * 오버레이 가족 — AlertDialog. 되돌릴 수 없는 결정을 확인받는다.
@@ -43,10 +43,10 @@ export function AlertDialogContent({ width = 'sm', className, children, ...props
 }
 
 export function AlertDialogTitle({ className, ...props }: React.ComponentProps<typeof Base.Title>) {
-  return <Base.Title className={cn(DIALOG_TITLE, className)} {...props} />;
+  return <Base.Title className={cn(SURFACE_TITLE, className)} {...props} />;
 }
 export function AlertDialogDescription({ className, ...props }: React.ComponentProps<typeof Base.Description>) {
-  return <Base.Description className={cn(DIALOG_DESCRIPTION, className)} {...props} />;
+  return <Base.Description className={cn(SURFACE_DESCRIPTION, className)} {...props} />;
 }
 
 /** [취소] [확인] 고정 순서. 기본 intent가 destructive인 이유: AlertDialog는 거의 항상 파괴적 동작이다. */

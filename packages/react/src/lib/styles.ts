@@ -5,6 +5,7 @@
  * 같은 field.* 토큰에서 받고, 팝업(Menu, Select, Combobox…)은 한 가족이라 같은 surface·item
  * 스타일을 쓴다. 여기서 한 번 정의하고 가져다 쓴다 — 컴포넌트마다 다시 적으면 어긋난다.
  */
+import type { Size } from './types';
 
 /** 체크박스·라디오의 '박스'. 크기는 아이콘과 같은 급(size.icon.*)이라 아이콘 옆에 놓아도 줄이 맞는다. */
 export const SELECTION_BOX = [
@@ -34,14 +35,16 @@ export const SELECTION_BOX_SIZE = {
 export const TITLE_DESC_GAP = 'gap-stack-md';
 /**
  * 위와 같은 자리지만 flex gap 이 아니라 margin 으로 줘야 하는 곳(Popover 처럼 부모가 flex 가 아닐 때).
- * 값은 두 단계 아래(stack-sm 4px)다 — 팝오버는 상자가 작아 12px 이면 제목이 떠 보인다.
+ * 값은 한 단계 아래(stack-sm 4px)다 — 팝오버는 상자가 작아 8px 이면 제목이 떠 보인다.
  * 그래서 이 한 자리만 "최소 10px" 밖에 있다.
  */
 export const TITLE_DESC_MARGIN = 'mt-stack-sm';
 
 /**
  * 선택 컨트롤(체크박스·라디오·스위치)의 레이블↔설명. 본문보다 작은 글자가 두 줄 붙는 자리라
- * TITLE_DESC_GAP(12px)은 두 줄이 갈라져 보인다. 두 단계 아래인 stack-sm(4px).
+ * TITLE_DESC_GAP(8px)은 두 줄이 갈라져 보인다. 한 단계 아래인 stack-sm(4px).
+ * Alert 의 제목↔설명도 같은 값을 쓴다(그쪽은 상수를 안 거치고 직접 적었다 — 이름이
+ * '선택 컨트롤'이라 Alert가 가져다 쓰면 읽는 사람이 헷갈린다).
  */
 export const SELECTION_DESC_GAP = 'gap-stack-sm';
 
@@ -77,6 +80,48 @@ export const SELECTION_GROUP = {
 } as const;
 
 /** 묶음 전체 — 제목 묶음과 항목들 사이. 제목 안쪽(아래)보다 넓어야 두 덩어리로 읽힌다. */
+/**
+ * 고를 수 있는 칩. 폼용(ChipCheckbox, `data-checked`)과 즉시반영용(Chip, `data-pressed`)이
+ * 같은 생김새를 써야 해서 여기 한 번만 적는다 — 두 벌로 나뉘면 반드시 갈라진다.
+ *
+ * Badge 와 모양은 닮았지만 다른 물건이다. Badge 는 못 누르는 라벨이고 이건 누르는 것이라
+ * 커서·포커스 링·호버·눌림·비활성이 전부 필요하다.
+ *
+ * 규칙 6-4: 고른 표시와 호버가 같은 속성을 다투므로, 지는 쪽(호버)의 조건에서 이기는
+ * 쪽(고름·비활성)을 빼낸다.
+ */
+export const CHIP = [
+  'inline-flex shrink-0 items-center justify-center gap-inline-sm',
+  'rounded-pill border-width-default border-solid',
+  'font-sans text-body font-medium leading-ui whitespace-nowrap',
+  'select-none cursor-pointer transition-colors duration-fast ease-standard ax-focus-ring',
+  // 안 고른 상태
+  'border-border-default bg-surface-base text-fg-muted',
+  'hover:not-data-disabled:not-data-pressed:not-data-checked:bg-surface-hover',
+  'hover:not-data-disabled:not-data-pressed:not-data-checked:text-fg-default',
+  // 고른 상태 — Toggle 은 data-pressed, Checkbox 는 data-checked 를 붙인다
+  'data-pressed:not-data-disabled:border-action-primary-bg-default',
+  'data-pressed:not-data-disabled:bg-surface-accent-subtle data-pressed:not-data-disabled:text-fg-link',
+  'data-checked:not-data-disabled:border-action-primary-bg-default',
+  'data-checked:not-data-disabled:bg-surface-accent-subtle data-checked:not-data-disabled:text-fg-link',
+  // 비활성은 언제나 이긴다
+  'data-disabled:cursor-not-allowed data-disabled:text-fg-disabled data-disabled:bg-surface-subtle',
+  '[&_svg]:pointer-events-none [&_svg]:shrink-0',
+].join(' ');
+
+/**
+ * 칩은 네모 버튼보다 좌우가 넉넉해야 알약 모양(pill)으로 보인다 — 같은 높이에서 한 단계 넓은 여백.
+ * 높이는 버튼·입력칸과 같은 사다리(28·32·36)를 쓴다. 같은 줄에 섞였을 때 아래 선이 맞아야 한다.
+ */
+export const CHIP_SIZE: Record<Size, string> = {
+  sm: 'h-control-sm px-inset-md [&_svg]:size-icon-sm',
+  md: 'h-control-md px-inset-lg [&_svg]:size-icon-md',
+  lg: 'h-control-lg px-inset-xl [&_svg]:size-icon-lg',
+};
+
+/** 칩 줄. 가로로 흐르다 넘치면 다음 줄로 내려간다 — 필터 줄은 개수를 미리 알 수 없다. */
+export const CHIP_GROUP = 'flex flex-wrap items-center gap-inline-sm';
+
 export const SELECTION_GROUP_WRAP = 'flex flex-col gap-stack-md';
 /** 묶음 제목과 그 설명 사이. 팝오버 제목↔설명과 같은 값이다. */
 export const SELECTION_GROUP_HEADER = 'flex flex-col gap-stack-sm';
@@ -110,6 +155,32 @@ export const FIELD_CONTROL = [
   // :read-only 는 '편집 가능하지 않은 모든 요소'에 매치된다 — button·div 까지.
   // 좁히지 않으면 Select 트리거(button)가 읽기전용 배경을 쓴다.
   '[&:is(input,textarea):read-only]:bg-field-bg-readonly data-readonly:bg-field-bg-readonly',
+].join(' ');
+
+/**
+ * 밑줄형 입력칸. 상자를 지우고 아래 선 하나만 남긴다. FIELD_CONTROL 뒤에 덧발라 쓴다.
+ *
+ * **네 변을 다 두되 세 변을 투명하게** 한다. 아래만 긋겠다고 두께를 한 변에만 주려면
+ * 방향별 두께 유틸이 필요한데, 그건 열지 않기로 한 것이다(메모 참고). 네 변을 남겨두면
+ * 계약 두께를 그대로 쓰면서 상자형과 높이·글자 자리도 1px 까지 같아진다 — 같은 폼에서
+ * 두 모양을 섞어도 줄이 안 어긋난다.
+ *
+ * 좌우 여백도 0 으로 만든다. 선만 남은 칸에서 글자가 들여쓰여 있으면 선의 시작과 글자의
+ * 시작이 어긋나 보인다.
+ *
+ * 포커스는 `:focus-visible` 에서만 링이 뜨므로(마우스로 누르면 안 뜬다) 아래 선 색이
+ * 눈에 보이는 유일한 표시가 된다. 그래서 `:focus` 로 건다.
+ */
+export const FIELD_UNDERLINED = [
+  'rounded-none bg-transparent shadow-none px-0',
+  'border-transparent border-b-field-border-default',
+  'hover:not-disabled:not-data-disabled:not-data-invalid:border-transparent',
+  'hover:not-disabled:not-data-disabled:not-data-invalid:border-b-field-border-hover',
+  'focus:not-data-invalid:border-b-field-border-focus',
+  'data-invalid:border-transparent data-invalid:border-b-field-border-invalid',
+  'disabled:bg-transparent disabled:border-transparent disabled:border-b-field-border-disabled',
+  'data-disabled:bg-transparent data-disabled:border-transparent data-disabled:border-b-field-border-disabled',
+  '[&:is(input,textarea):read-only]:bg-transparent data-readonly:bg-transparent',
 ].join(' ');
 
 export const FIELD_CONTROL_SIZE = {
@@ -213,5 +284,9 @@ export const DIALOG_WIDTH = {
   lg: 'max-w-[800px]',
 } as const;
 
-export const DIALOG_TITLE = 'text-heading-sm font-semibold leading-tight tracking-heading text-fg-default';
-export const DIALOG_DESCRIPTION = 'text-body leading-normal text-fg-muted';
+/**
+ * 면 위의 제목·설명 한 벌. Dialog · AlertDialog · Drawer · Card 가 같은 크기를 쓴다.
+ * (처음 쓴 자리가 다이얼로그라 DIALOG_ 로 불렀는데, 쓰는 데가 늘어 이름을 고쳤다.)
+ */
+export const SURFACE_TITLE = 'text-heading-sm font-semibold leading-tight tracking-heading text-fg-default';
+export const SURFACE_DESCRIPTION = 'text-body leading-normal text-fg-muted';

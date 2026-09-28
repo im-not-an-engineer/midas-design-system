@@ -297,7 +297,8 @@
           "$value": "{ramp.success.200}"
         },
         "solid": {
-          "$value": "{ramp.success.600}"
+          "$value": "{ramp.success.500}",
+          "$description": "꽉 찬 성공 면. 600 은 어두워 배지가 가라앉아 보여 한 톤 올렸다(2026-09-28, 사람이 봄). 흰 글자 대비는 3.3 → 2.3:1 로 내려간다 — warning solid(2.1:1)와 같은 급이고, 작은 배지에는 선명함을 택하기로 한 이 저장소의 방침과 같다. Meter 의 성공 막대도 같이 밝아진다."
         },
         "onSolid": {
           "$value": "{ramp.neutral.0}"
@@ -308,7 +309,8 @@
           "$value": "{ramp.warning.50}"
         },
         "fg": {
-          "$value": "{ramp.warning.800}"
+          "$value": "{ramp.warning.700}",
+          "$description": "연한 면·선·글자만 있는 배지에 얹는 글자. 800 은 갈색에 가까워 한 단계 올렸다 (연한 면 위 4.8:1 로 기준은 유지)."
         },
         "border": {
           "$value": "{ramp.warning.200}"
@@ -317,7 +319,8 @@
           "$value": "{ramp.warning.500}"
         },
         "onSolid": {
-          "$value": "{ramp.neutral.900}"
+          "$value": "{ramp.neutral.0}",
+          "$description": "꽉 찬 경고 면 위의 글자. 나머지 셋과 같은 흰색이다 — 사람이 보고 정했다(2026-09-28). 대비는 2.1:1 로 기준(4.5:1)에 크게 못 미친다. 검정이면 8.5:1 이지만 배지 넷 중 하나만 검정이라 줄이 어긋나 보였다. 다크는 더 나빠서(1.7:1) 검정을 그대로 둔다."
         }
       },
       "danger": {

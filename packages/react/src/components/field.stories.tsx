@@ -66,3 +66,30 @@ export const 여러줄: Story = {
     </Field>
   ),
 };
+
+/**
+ * 밑줄형. 상자가 줄줄이 늘어서면 테두리끼리 격자를 만들어 내용보다 눈에 띈다 —
+ * 표 안이나 빽빽한 편집 화면에서 쓴다. 한 화면에서 두 모양을 섞지 않는다.
+ *
+ * 네 변을 다 두고 세 변만 투명하게 만들었기 때문에 상자형과 **높이·글자 자리가 같다.**
+ */
+export const 밑줄형: Story = {
+  render: () => (
+    <div className="flex w-[520px] gap-inline-lg">
+      <div className="flex flex-1 flex-col gap-stack-lg">
+        <span className="text-caption text-fg-muted">상자형</span>
+        <Field><FieldLabel>제목</FieldLabel><Input defaultValue="토큰 계약 린트" /></Field>
+        <Field><FieldLabel>담당</FieldLabel><Input placeholder="이름을 입력하세요" /></Field>
+        <Field invalid><FieldLabel>기한</FieldLabel><Input defaultValue="어제" /><FieldError match="customError">지난 날짜입니다</FieldError></Field>
+        <Field disabled><FieldLabel>비활성</FieldLabel><Input defaultValue="수정 불가" /></Field>
+      </div>
+      <div className="flex flex-1 flex-col gap-stack-lg">
+        <span className="text-caption text-fg-muted">밑줄형</span>
+        <Field><FieldLabel>제목</FieldLabel><Input variant="underlined" defaultValue="토큰 계약 린트" /></Field>
+        <Field><FieldLabel>담당</FieldLabel><Input variant="underlined" placeholder="이름을 입력하세요" /></Field>
+        <Field invalid><FieldLabel>기한</FieldLabel><Input variant="underlined" defaultValue="어제" /><FieldError match="customError">지난 날짜입니다</FieldError></Field>
+        <Field disabled><FieldLabel>비활성</FieldLabel><Input variant="underlined" defaultValue="수정 불가" /></Field>
+      </div>
+    </div>
+  ),
+};

@@ -79,12 +79,26 @@ px를 박으면 `workbench`로 바꿨을 때 그 부분만 안 따라와서 화�
 |---|---|---|
 | `size` | `sm` `md` `lg` | 크기가 있는 모든 것 |
 | `intent` | `primary` `secondary` `ghost` `destructive` | 누를 수 있는 것 |
+| `status` | `info` `success` `warning` `danger` | 상태를 나르는 것 (Badge · Alert · Meter) |
+| `variant` | 컴포넌트마다 다름 | **생김새**만 다른 갈래 |
 | `disabled` | boolean | |
 | `invalid` | boolean | 입력 컨트롤 |
 | `required` | boolean | 입력 컨트롤 |
+| `interactive` | boolean | 눌러서 어디론가 가는 것 (Card · TableRow) |
 
-`small`, `compact`, `dense`, `variant="danger"` 같은 다른 이름은 없다.
-새 컴포넌트를 만들 때도 이 어휘를 쓴다.
+`small`, `compact`, `dense` 같은 다른 이름은 없다. 새 컴포넌트를 만들 때도 이 어휘를 쓴다.
+
+**`intent` 와 `variant` 를 섞지 않는다.** `intent` 는 *얼마나 강하게 말하는가*(primary·
+destructive…)이고 네 값이 전부다. `variant` 는 *어떻게 생겼는가*라서 값이 컴포넌트마다 다르다.
+
+```
+Badge     variant  subtle · solid · outline · ghost
+Input     variant  box · underlined
+TabsList  variant  line · pill · folder
+```
+
+값이 제각각인 게 맞다 — 같은 뜻을 담는 축이 아니기 때문이다. 대신 **prop 이름은 하나로
+고정**해서, 생김새를 바꾸고 싶을 때 뭘 찾아야 하는지 매번 배우지 않게 한다.
 
 ## 5. 빠뜨리기 쉬운 상태를 먼저 처리한다
 
@@ -93,7 +107,10 @@ px를 박으면 `workbench`로 바꿨을 때 그 부분만 안 따라와서 화�
 - **빈 상태** — 목록·테이블에는 항상. `TableEmpty`가 있다. 다음 행동(버튼)을 함께 준다.
 - **에러 상태** — 폼 필드는 `Field`의 `invalid` + `FieldError`. 레이블·설명 연결은
   `Field`가 대신 해주므로 `aria-describedby`를 직접 쓰지 않는다.
-- **로딩 상태** — 아직 전용 컴포넌트가 없다. 필요하면 만들기 전에 물어본다.
+- **로딩 상태** — `Spinner`. 끝을 모르는 대기에 쓴다. 진행률을 알면 `Progress`다.
+  버튼이면 `<Button loading>` 이 먼저다 — 너비가 안 변한다.
+  진한 면 위에서는 `className="border-t-current"` 로 도는 쪽만 글자 색에 맞춘다.
+  **회색 궤도는 지우지 않는다** — 지우면 조각만 남아 간격이 들쭉날쭉해 보인다.
 - **비활성 이유** — 버튼을 `disabled`로 두면 왜 못 누르는지 옆에 적는다.
 
 ## 6. 오버레이는 우리 컴포넌트를 쓴다

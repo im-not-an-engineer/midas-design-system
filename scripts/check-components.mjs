@@ -43,7 +43,7 @@ const PLANNED = [
   { name: 'chip', needs: ['badge'], why: '고를 수 있는 태그. 알약 모양을 Badge 와 공유한다' },
   { name: 'alert', needs: ['badge'], why: '인라인 상태 배너. Badge 와 같은 status-* 를 쓴다' },
   { name: 'card', why: 'surface-raised · radius-surface 의 소비처. 지금은 갤러리가 직접 그린다' },
-  { name: 'calendar', why: 'Base UI 에 없다 — 먼저 build-registry 의 의존성 추출기를 고쳐야 한다' },
+  { name: 'calendar', why: 'Base UI 에 없다. @rehookify/datepicker + @internationalized/date 로 정해짐' },
   { name: 'date-picker', needs: ['calendar'], why: '날짜 + 시간. Calendar + Popover + Select 조합' },
 ];
 

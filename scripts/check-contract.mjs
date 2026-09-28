@@ -137,6 +137,8 @@ export const NOT_A_CLASS = [
   /^ax-/,                            // 우리가 손으로 쓴 CSS 클래스 (.ax-* 규약)
   /^[^[]*[A-Z]/,                  // 대괄호 앞에 대문자 = camelCase 식별자
   /^[a-z]+$/,                        // 하이픈 없는 소문자 단어 = prop 값 등
+  /^h[1-6]$/,                        // 제목 태그 이름. useRender 의 defaultTagName: 'h3' 이
+                                     // 위 규칙(숫자가 있어 [a-z]+ 에 안 걸린다)을 빠져나온다
   /^\.{0,2}\//,                      // 상대 경로 (./components/dialog)
   /^(data|aria)-[a-z-]+$/,           // 어트리뷰트 이름. data-[state=open]: 같은 변형은 통과시킨다
   /^[^a-z[-]/i,                      // 영문자·대괄호·음수부호로 시작하지 않으면 클래스가 아님 (—, ×, + …)
