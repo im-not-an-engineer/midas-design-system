@@ -17,6 +17,10 @@ import type { Status } from '../lib/types';
  *   모서리     → --radius-surface
  *   안여백     → --spacing-inset-lg
  *
+ * 그림은 icon-lg(20px)다. 한 단계 아래(16px)로 두면 lucide 의 선이 화면에서 1.33px 이
+ * 되어 14px 굵은 제목 옆에서 흐리게 보인다. 20px 이면 1.67px 이다 — 선 굵기를 손대는
+ * 대신 크기로 맞췄다(굵기는 lib/icons 의 약속대로 lucide 기본값 2를 그대로 둔다).
+ *
  * 글자를 상태색으로 칠하지 않는 이유: 띠 전체가 이미 그 색으로 물들어 있어서,
  * 글자까지 같은 계열이면 대비가 떨어지고 긴 문장이 읽기 힘들어진다. 색은 아이콘과
  * 면이 맡고 글자는 평소 색을 쓴다.
@@ -98,10 +102,11 @@ export function Alert({
       {mark != null && (
         // 그림을 '글자 한 줄 높이' 상자에 넣어 첫 줄과 중심을 맞춘다. 그냥 두면 글이
         // 여러 줄일 때 그림만 위로 붙어 보인다.
-        <span className={cn('flex h-[1lh] shrink-0 items-center [&_svg]:size-icon-md', ICON_TONE[status])}>{mark}</span>
+        <span className={cn('flex h-[1lh] shrink-0 items-center [&_svg]:size-icon-lg', ICON_TONE[status])}>{mark}</span>
       )}
       <div className={cn('flex min-w-0 flex-1 flex-col', TITLE_DESC_GAP)}>
-        {title != null && <p className="font-semibold text-fg-default">{title}</p>}
+        {/* 본문(13px)보다 한 칸 위. 제목 사다리의 맨 아래로, 줄 안에 서는 제목 자리다. */}
+        {title != null && <p className="text-heading-xs font-semibold text-fg-default">{title}</p>}
         {children != null && <div className={cn('min-w-0', title != null && 'text-fg-muted')}>{children}</div>}
         {action != null && <div className="flex items-center gap-inline-lg pt-inset-xs">{action}</div>}
       </div>
