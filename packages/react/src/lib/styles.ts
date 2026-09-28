@@ -185,7 +185,16 @@ export const MODAL_SURFACE = [
   'font-sans text-body',
 ].join(' ');
 
-/** 중앙 다이얼로그의 너비 단계. 밀도가 아니라 가독성 문제라 아키타입과 무관한 px다. */
+/**
+ * 중앙 다이얼로그의 너비 단계. 밀도가 아니라 가독성 문제라 아키타입과 무관한 px다.
+ *
+ * 세 값 모두 업계 중앙값 안에 있다 — Carbon 480/600/840 · Atlassian 400/600/800 ·
+ * Polaris 380/620/980 · Fluent 340/480/640 · Material 560(max) · Ant 520 · shadcn 512.
+ *
+ * 기본은 sm 이다. 다이얼로그는 대부분 짧은 확인창인데 w-[calc(100vw-2rem)] 때문에
+ * 내용이 두 줄이어도 최대 너비까지 벌어진다 — 기본을 md(560)로 두면 "삭제할까요?" 가
+ * 560px 짜리 상자로 뜬다. 긴 폼일 때만 width="md" 를 준다.
+ */
 export const DIALOG_WIDTH = {
   sm: 'max-w-[380px]',
   md: 'max-w-[560px]',

@@ -10,7 +10,7 @@ export const 세로: Story = {
     <ScrollArea className="h-[240px] w-[320px] rounded-surface border border-solid border-border-default">
       <ul className="flex flex-col p-inset-sm">
         {Array.from({ length: 30 }, (_, i) => (
-          <li key={i} className="flex h-row-sm items-center border-b border-solid border-border-subtle px-inset-sm text-body last:border-b-0">ISSUE-{240 - i}</li>
+          <li key={i} className="flex h-row-md items-center border-b border-solid border-border-subtle px-inset-sm text-body last:border-b-0">ISSUE-{240 - i}</li>
         ))}
       </ul>
     </ScrollArea>
