@@ -308,7 +308,8 @@
           "$value": "{ramp.warning.50}"
         },
         "fg": {
-          "$value": "{ramp.warning.800}"
+          "$value": "{ramp.warning.700}",
+          "$description": "연한 면·선·글자만 있는 배지에 얹는 글자. 800 은 갈색에 가까워 한 단계 올렸다 (연한 면 위 4.8:1 로 기준은 유지)."
         },
         "border": {
           "$value": "{ramp.warning.200}"
@@ -317,7 +318,8 @@
           "$value": "{ramp.warning.500}"
         },
         "onSolid": {
-          "$value": "{ramp.neutral.900}"
+          "$value": "{ramp.neutral.0}",
+          "$description": "꽉 찬 경고 면 위의 글자. 나머지 셋과 같은 흰색이다 — 사람이 보고 정했다(2026-09-28). 대비는 2.1:1 로 기준(4.5:1)에 크게 못 미친다. 검정이면 8.5:1 이지만 배지 넷 중 하나만 검정이라 줄이 어긋나 보였다. 다크는 더 나빠서(1.7:1) 검정을 그대로 둔다."
         }
       },
       "danger": {
