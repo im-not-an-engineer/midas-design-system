@@ -60,7 +60,7 @@ export function Switch({ size = 'md', label, description, className, ...props }:
   return (
     // 트랙은 알약이라 오른쪽 끝이 곡선이다 — 각진 체크박스와 같은 6px 을 줘도 더 좁아 보인다.
     // 눈으로 맞추려고 한 단계(inline-lg 8px) 넓힌다.
-    <label className={cn(SELECTION_LABEL, 'gap-inline-lg', SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
+    <label className={cn(SELECTION_LABEL, 'gap-inset-md', SELECTION_LABEL_SIZE[size], description != null && 'items-start')}>
       {/* 설명이 있으면 items-start 라 컨트롤이 글자 첫 줄보다 위로 뜬다.
           '글자 한 줄 높이(1lh)' 상자에 넣어 첫 줄과 중심을 맞춘다. */}
       {description == null ? track : <span className="flex h-[1lh] shrink-0 items-center">{track}</span>}

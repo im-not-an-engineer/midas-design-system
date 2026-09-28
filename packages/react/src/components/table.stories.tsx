@@ -11,7 +11,7 @@ const ROWS = [
 const meta = {
   title: '컴포넌트/Table',
   component: Table,
-  args: { size: 'md', divided: true },
+  args: { size: 'lg', divided: true },
   argTypes: { size: { control: 'radio', options: ['sm', 'md', 'lg'] } },
 } satisfies Meta<typeof Table>;
 export default meta;
@@ -24,7 +24,7 @@ const Head = () => (
       <TableHeaderCell>제목</TableHeaderCell>
       <TableHeaderCell>담당</TableHeaderCell>
       <TableHeaderCell>상태</TableHeaderCell>
-      <TableHeaderCell numeric>댓글</TableHeaderCell>
+      <TableHeaderCell>댓글</TableHeaderCell>
     </TableRow>
   </TableHead>
 );
@@ -37,11 +37,11 @@ export const 기본: Story = {
       <TableBody>
         {ROWS.map((r, i) => (
           <TableRow key={r.id} interactive selected={i === 1}>
-            <TableCell>{r.id}</TableCell>
+            <TableCell className="font-semibold">{r.id}</TableCell>
             <TableCell>{r.title}</TableCell>
             <TableCell>{r.owner}</TableCell>
             <TableCell>{r.status}</TableCell>
-            <TableCell numeric>{r.n}</TableCell>
+            <TableCell>{r.n}</TableCell>
           </TableRow>
         ))}
       </TableBody>

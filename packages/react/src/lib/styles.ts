@@ -50,8 +50,8 @@ export const TITLE_IN_PAIR = 'font-medium text-fg-default';
 
 /** 박스 옆 레이블. 비활성이면 글자도 흐려진다. 글자 크기는 SELECTION_LABEL_SIZE 가 정한다. */
 export const SELECTION_LABEL = [
-  // 박스와 글자 사이는 inline-md(6px). sm(4px)은 붙어 보이고 lg(8px)은 벌어져 보인다.
-  'inline-flex items-center gap-inline-md',
+  // 박스와 글자 사이 10px. 가로 간격 척도는 lg=8 이 끝이라 xs(2)를 더해 만든다.
+  'inline-flex items-center gap-[calc(var(--spacing-inline-lg)+var(--spacing-inline-xs))]',
   'font-sans leading-ui text-fg-default select-none cursor-pointer',
   'has-data-disabled:text-fg-disabled has-data-disabled:cursor-not-allowed',
 ].join(' ');
@@ -97,7 +97,9 @@ export const FIELD_CONTROL = [
   'data-invalid:border-field-border-invalid',
   'disabled:bg-field-bg-disabled disabled:text-field-fg-disabled disabled:border-field-border-disabled disabled:cursor-not-allowed',
   'data-disabled:bg-field-bg-disabled data-disabled:text-field-fg-disabled data-disabled:border-field-border-disabled data-disabled:cursor-not-allowed',
-  'read-only:bg-field-bg-readonly data-readonly:bg-field-bg-readonly',
+  // :read-only 는 '편집 가능하지 않은 모든 요소'에 매치된다 — button·div 까지.
+  // 좁히지 않으면 Select 트리거(button)가 읽기전용 배경을 쓴다.
+  '[&:is(input,textarea):read-only]:bg-field-bg-readonly data-readonly:bg-field-bg-readonly',
 ].join(' ');
 
 export const FIELD_CONTROL_SIZE = {
@@ -157,7 +159,7 @@ export const POPUP_ITEM_MARKER =
  * 12px 아이콘 기준이었는데 아이콘이 14px 이 되면서 실제로 2px 겹쳤다.
  */
 export const POPUP_ITEM_INDENT =
-  'pl-[calc(var(--spacing-inset-xs)+var(--spacing-icon-sm)+var(--spacing-inline-md))]';
+  'pl-[calc(var(--spacing-inset-xs)+var(--spacing-icon-sm)+var(--spacing-inline-lg)+var(--spacing-inline-xs))]';
 
 export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-medium text-fg-muted';
 export const POPUP_SEPARATOR = '-mx-inset-xs my-inset-xs h-px bg-border-subtle';

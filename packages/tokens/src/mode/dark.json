@@ -9,7 +9,7 @@
         "$value": "{ramp.neutral.900}"
       },
       "sunken": {
-        "$value": "{ramp.neutral.1000}"
+        "$value": "{ramp.neutral.900}"
       },
       "track": {
         "$value": "{ramp.neutral.800}"
@@ -21,13 +21,13 @@
         "$value": "{ramp.neutral.900}"
       },
       "overlay": {
-        "$value": "{ramp.neutral.800}"
+        "$value": "{ramp.neutral.900}"
       },
       "scrim": {
         "$value": "rgba(2, 6, 23, 0.65)"
       },
       "hover": {
-        "$value": "{ramp.neutral.800}"
+        "$value": "{ramp.neutral.700}"
       },
       "accentSubtle": {
         "$value": "{ramp.accent.950}"
@@ -36,7 +36,7 @@
         "$value": "{ramp.accent.900}"
       },
       "inverse": {
-        "$value": "{ramp.neutral.100}"
+        "$value": "{ramp.neutral.200}"
       }
     },
     "fg": {
@@ -64,13 +64,13 @@
     },
     "border": {
       "default": {
-        "$value": "{ramp.neutral.800}"
+        "$value": "{ramp.neutral.700}"
       },
       "subtle": {
-        "$value": "{ramp.neutral.900}"
+        "$value": "{ramp.neutral.800}"
       },
       "strong": {
-        "$value": "{ramp.neutral.700}"
+        "$value": "{ramp.neutral.600}"
       },
       "focus": {
         "$value": "{ramp.accent.500}"
@@ -200,10 +200,10 @@
     "field": {
       "bg": {
         "default": {
-          "$value": "{ramp.neutral.900}"
+          "$value": "{ramp.neutral.800}"
         },
         "hover": {
-          "$value": "{ramp.neutral.900}"
+          "$value": "{ramp.neutral.800}"
         },
         "disabled": {
           "$value": "{ramp.neutral.950}"

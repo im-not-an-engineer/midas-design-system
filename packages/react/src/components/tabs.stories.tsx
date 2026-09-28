@@ -27,9 +27,9 @@ export const 세로: Story = {
       <TabsList>
         <Tab value="a">일반</Tab><Tab value="b">알림</Tab><Tab value="c">보안</Tab>
       </TabsList>
-      <TabsPanel value="a" className="pt-inset-sm">일반 설정</TabsPanel>
-      <TabsPanel value="b" className="pt-inset-sm">알림 설정</TabsPanel>
-      <TabsPanel value="c" className="pt-inset-sm">보안 설정</TabsPanel>
+      <TabsPanel value="a" className="pt-[calc(var(--spacing-inset-sm)-var(--spacing-inline-xs))]">일반 설정</TabsPanel>
+      <TabsPanel value="b" className="pt-[calc(var(--spacing-inset-sm)-var(--spacing-inline-xs))]">알림 설정</TabsPanel>
+      <TabsPanel value="c" className="pt-[calc(var(--spacing-inset-sm)-var(--spacing-inline-xs))]">보안 설정</TabsPanel>
     </Tabs>
   ),
 };
