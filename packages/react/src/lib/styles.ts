@@ -107,7 +107,10 @@ export const CHIP = [
   '[&_svg]:pointer-events-none [&_svg]:shrink-0',
 ].join(' ');
 
-/** 알약은 네모 버튼보다 좌우가 넉넉해야 알약으로 보인다 — 같은 높이에서 한 단계 넓은 여백. */
+/**
+ * 알약은 네모 버튼보다 좌우가 넉넉해야 알약으로 보인다 — 같은 높이에서 한 단계 넓은 여백.
+ * 높이는 버튼·입력칸과 같은 사다리(28·32·36)를 쓴다. 같은 줄에 섞였을 때 아래 선이 맞아야 한다.
+ */
 export const CHIP_SIZE: Record<Size, string> = {
   sm: 'h-control-sm px-inset-md [&_svg]:size-icon-sm',
   md: 'h-control-md px-inset-lg [&_svg]:size-icon-md',

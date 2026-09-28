@@ -26,11 +26,16 @@ import type { Size } from '../lib/types';
  */
 
 export interface ChipProps extends React.ComponentProps<typeof BaseToggle> {
+  /**
+   * 기본은 sm(28px)이다. 버튼·입력칸과 같은 높이 사다리를 쓰되 한 칸 아래를 기본으로
+   * 둔다 — 알약은 보통 여러 개가 한 줄에 늘어서고, 워크벤치는 밀도가 높은 화면이다.
+   * 알약만 있는 줄이 아니라 검색창·버튼과 같은 줄에 선다면 md 로 올려 줄을 맞춘다.
+   */
   size?: Size;
 }
 
 /** 즉시 반영되는 알약. ChipGroup 안에 넣고 value 를 준다. */
-export function Chip({ size = 'md', className, ...props }: ChipProps) {
+export function Chip({ size = 'sm', className, ...props }: ChipProps) {
   return <BaseToggle data-size={size} className={cn(CHIP, CHIP_SIZE[size], className)} {...props} />;
 }
 
@@ -74,7 +79,7 @@ export interface ChipCheckboxProps extends React.ComponentProps<typeof BaseCheck
  * 폼에 실리는 알약. 체크박스라서 화면 읽기 프로그램도 "선택됨/해제됨"으로 읽는다.
  * 네모 상자는 그리지 않는다 — 알약 자체가 켜짐/꺼짐을 말한다.
  */
-export function ChipCheckbox({ size = 'md', className, ...props }: ChipCheckboxProps) {
+export function ChipCheckbox({ size = 'sm', className, ...props }: ChipCheckboxProps) {
   return <BaseCheckbox.Root data-size={size} className={cn(CHIP, CHIP_SIZE[size], className)} {...props} />;
 }
 
