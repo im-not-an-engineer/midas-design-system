@@ -109,12 +109,11 @@ function Popup({ container, emptyText, anchor }: { container: HTMLElement | null
  * 고른 것이 알약으로 쌓이는 입력칸. 알약 생김새는 Chip 과 같은 `CHIP` 을 쓴다 —
  * 같은 화면에 두 종류의 알약이 있으면 사용자는 둘을 같은 것으로 읽는다.
  *
- * 알약이 늘면 입력칸이 아래로 자란다. 높이를 고정하면 세 개째부터 글자가 잘린다.
+ * **한 줄로 고정한다.** 알약이 늘 때 칸이 아래로 자라면 그 아래 있던 것들이 밀려
+ * 내려가 폼 전체가 들썩인다. 넘치는 것은 `+N` 하나로 접고(`maxVisible`), 이름이 길면
+ * 남은 알약 안에서 말줄임으로 줄어든다.
  */
-const CHIP_FIELD = [
-  'flex w-full flex-wrap items-center gap-inline-sm',
-  'min-h-control-md h-auto py-inset-xs',
-].join(' ');
+const CHIP_FIELD = 'flex w-full flex-nowrap items-center gap-inline-sm overflow-hidden';
 
 /** 알약 안의 지우기 단추. 알약 높이 안에 들어가야 해서 아이콘 급으로 작다. */
 const CHIP_REMOVE = [
@@ -131,6 +130,16 @@ export interface ComboboxMultipleProps
   placeholder?: string;
   size?: Size;
   emptyText?: React.ReactNode;
+  /**
+   * 알약을 몇 개까지 펼쳐 보일지. 넘는 것은 `+N` 하나로 접힌다.
+   *
+   * 칸은 한 줄이라 자리가 정해져 있다. 다 펼치면 알약이 서로 밀어내 이름이 한 글자씩만
+   * 남는데, 그럴 바엔 앞의 몇 개를 제대로 보이고 나머지는 개수로 말하는 편이 읽힌다.
+   *
+   * 기본 2 는 **320px 칸에서 세 글자 이름 둘이 온전히 보이는 수**다(실측). 칸이 넓으면
+   * 올려도 된다 — 재서 정하는 게 아니라 쓰는 쪽이 아는 값이다.
+   */
+  maxVisible?: number;
   className?: string;
 }
 
@@ -139,6 +148,7 @@ export function ComboboxMultiple({
   placeholder = '검색…',
   size = 'md',
   emptyText = '일치하는 항목이 없습니다',
+  maxVisible = 2,
   className,
   ...props
 }: ComboboxMultipleProps) {
@@ -149,22 +159,41 @@ export function ComboboxMultiple({
     <Base.Root items={items} multiple {...props}>
       <Base.Chips ref={field} className={cn(FIELD_CONTROL, FIELD_CONTROL_SIZE[size], CHIP_FIELD, className)}>
         <Base.Value>
-          {(selected: ComboboxItem[]) =>
-            selected.map((item) => (
-              <Base.Chip key={item.value} className={cn(CHIP, CHIP_SIZE.sm, 'cursor-default data-highlighted:border-border-focus')}>
-                {item.label}
-                <Base.ChipRemove aria-label={`${item.label} 지우기`} className={CHIP_REMOVE}>
-                  <X aria-hidden />
-                </Base.ChipRemove>
-              </Base.Chip>
-            ))
-          }
+          {(selected: ComboboxItem[]) => (
+            <>
+              {selected.slice(0, maxVisible).map((item) => (
+                // CHIP 은 '줄어들지 마라'(shrink-0)가 기본이다. 여기서만 뒤집는다 —
+                // 이름이 길면 알약이 줄어들어 말줄임으로 들어가야 한 줄에 남는다.
+                // min-w-0 은 그 줄어듦이 글자까지 닿게 한다(없으면 글자 너비에서 멈춘다).
+                <Base.Chip key={item.value} className={cn(CHIP, CHIP_SIZE.sm, 'shrink min-w-0 cursor-default data-highlighted:border-border-focus')}>
+                  <span className="truncate">{item.label}</span>
+                  <Base.ChipRemove aria-label={`${item.label} 지우기`} className={CHIP_REMOVE}>
+                    <X aria-hidden />
+                  </Base.ChipRemove>
+                </Base.Chip>
+              ))}
+              {/* 접힌 개수. 누르는 것이 아니라 읽는 것이라 알약 모양만 빌린다 — 지우기
+                  단추도 없다. 목록을 열면 무엇이 접혔는지 체크 표시로 보인다. */}
+              {selected.length > maxVisible && (
+                <span className={cn(CHIP, CHIP_SIZE.sm, 'cursor-default text-fg-muted')}>
+                  +{selected.length - maxVisible}
+                </span>
+              )}
+            </>
+          )}
         </Base.Value>
-        {/* 알약 줄에 섞여 서는 입력칸이라 테두리·면·높이를 전부 지운다 — 상자는 바깥이 갖는다. */}
+        {/* 알약 줄에 섞여 서는 입력칸이라 테두리·면·높이를 전부 지운다 — 상자는 바깥이 갖는다.
+            안내 글자는 알약이 하나라도 있으면 감춘다. Base.Value 가 자기 엘리먼트를 안 그리므로
+            알약이 없을 때만 이 입력칸이 첫 자식이 된다 — 그걸 조건으로 쓴다. */}
         <Base.Input
           placeholder={placeholder}
           data-size={size}
-          className="min-w-[80px] flex-1 border-none bg-transparent p-0 font-sans text-body leading-ui text-field-fg-default outline-none placeholder:text-field-fg-placeholder"
+          className={cn(
+            'min-w-[80px] flex-1 border-none bg-transparent p-0',
+            'font-sans text-body leading-ui text-field-fg-default outline-none',
+            'placeholder:text-field-fg-placeholder',
+            '[&:not(:first-child)]:placeholder:text-transparent',
+          )}
         />
       </Base.Chips>
       <Popup container={container} emptyText={emptyText} anchor={field} />

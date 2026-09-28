@@ -41,13 +41,21 @@ export const 크기: Story = {
  * 여럿 고르기. 고른 것이 알약으로 쌓이고, 알약 생김새는 Chip 과 같은 상수를 쓴다 —
  * 같은 화면에 두 종류의 알약이 있으면 사용자는 둘을 같은 것으로 읽는다.
  *
- * 알약이 늘면 입력칸이 아래로 자란다. 높이를 고정하면 세 개째부터 글자가 잘린다.
+ * 칸은 **한 줄로 고정**이다. 알약이 늘 때 아래로 자라면 그 아래 것들이 밀려 내려가
+ * 폼 전체가 들썩인다.
+ *
+ * 그래서 펼쳐 보이는 개수를 정해두고(`maxVisible`, 기본 2) 나머지는 `+N` 하나로 접는다.
+ * 다 펼치면 알약이 서로 밀어내 이름이 한 글자씩만 남는다 — 실측으로 320px 칸에 세 개를
+ * 펼치니 '양.' '김.' '이.' 가 됐다.
+ *
+ * 안내 글자는 하나라도 고르면 사라진다.
  */
 export const 여럿고르기: Story = {
   render: () => (
     <div className="flex w-[320px] flex-col gap-stack-lg">
-      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색…" defaultValue={PEOPLE.slice(0, 2)} />
-      <ComboboxMultiple items={PEOPLE} placeholder="아직 아무도 없음" />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 2)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 5)} />
+      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" />
     </div>
   ),
 };
