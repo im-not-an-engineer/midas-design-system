@@ -47,6 +47,7 @@ export { Separator, type SeparatorProps } from './components/separator';
 
 export { Avatar, AvatarGroup, type AvatarProps, type AvatarSize } from './components/avatar';
 export { Badge, type BadgeProps, type BadgeVariant } from './components/badge';
+export { Alert, type AlertProps } from './components/alert';
 export { Spinner, type SpinnerProps } from './components/spinner';
 export {
   Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,

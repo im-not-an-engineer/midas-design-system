@@ -14,7 +14,7 @@ import {
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
   Chip, ChipGroup,
   ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge, Spinner,
-  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
+  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Alert,
   Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell,
 } from '@ax/react';
 
@@ -185,6 +185,10 @@ export function Gallery() {
             <Meter value={78} label="경고 임계" showValue status="warning" />
             <Meter value={96} label="위험 임계" showValue status="danger" />
             <Meter value={40} label="정상" showValue status="success" />
+          </div>
+          <div className="flex w-[360px] flex-col gap-stack-sm">
+            <Alert status="warning" title="저장 공간이 얼마 남지 않았습니다">96% 를 썼습니다.</Alert>
+            <Alert status="success">저장했습니다.</Alert>
           </div>
           <ChipGroup defaultValue={['doing']}>
             <Chip value="open">열림</Chip>
