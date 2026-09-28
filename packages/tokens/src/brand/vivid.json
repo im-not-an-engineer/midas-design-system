@@ -1,8 +1,48 @@
 {
-  "$description": "브랜드 — vivid (주황). 포인트 컬러만 다른 브랜드는 이 한 줄이 전부다. 나머지 램프와 시맨틱 매핑은 default를 그대로 물려받는다.",
-  "ramp": {
-    "accent": {
-      "$ramp": "{palette.orange}"
+  "$description": "브랜드 — vivid. 강조 계열 키를 blue 대신 orange 로 재배정한 검증용 브랜드.",
+  "color": {
+    "surface": {
+      "accentSubtle": {
+        "$value": "{palette.orange.50}"
+      },
+      "selected": {
+        "$value": "{palette.orange.50}"
+      }
+    },
+    "fg": {
+      "link": {
+        "$value": "{palette.orange.700}"
+      }
+    },
+    "border": {
+      "focus": {
+        "$value": "{palette.orange.700}"
+      }
+    },
+    "focusRing": {
+      "$value": "{palette.orange.700}"
+    },
+    "action": {
+      "primary": {
+        "bg": {
+          "default": {
+            "$value": "{palette.orange.700}"
+          },
+          "hover": {
+            "$value": "{palette.orange.800}"
+          },
+          "active": {
+            "$value": "{palette.orange.900}"
+          }
+        }
+      }
+    },
+    "field": {
+      "border": {
+        "focus": {
+          "$value": "{palette.orange.700}"
+        }
+      }
     }
   }
 }

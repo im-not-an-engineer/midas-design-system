@@ -1,0 +1,48 @@
+{
+  "$description": "브랜드 vivid 의 다크 값. brand/vivid.json 이 덮은 키를 전부 덮는다(규칙 5).",
+  "color": {
+    "surface": {
+      "accentSubtle": {
+        "$value": "{palette.orange.950}"
+      },
+      "selected": {
+        "$value": "{palette.orange.900}"
+      }
+    },
+    "fg": {
+      "link": {
+        "$value": "{palette.orange.400}"
+      }
+    },
+    "border": {
+      "focus": {
+        "$value": "{palette.orange.500}"
+      }
+    },
+    "focusRing": {
+      "$value": "{palette.orange.500}"
+    },
+    "action": {
+      "primary": {
+        "bg": {
+          "default": {
+            "$value": "{palette.orange.500}"
+          },
+          "hover": {
+            "$value": "{palette.orange.600}"
+          },
+          "active": {
+            "$value": "{palette.orange.700}"
+          }
+        }
+      }
+    },
+    "field": {
+      "border": {
+        "focus": {
+          "$value": "{palette.orange.500}"
+        }
+      }
+    }
+  }
+}

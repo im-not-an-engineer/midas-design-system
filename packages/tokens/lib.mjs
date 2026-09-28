@@ -5,15 +5,17 @@
  * 랩의 미리보기가 실제 빌드 결과와 어긋날 수 없게 하기 위해서다 — 미리보기를
  * 클라이언트에서 따로 흉내 내면 규칙과 조용히 멀어진다.
  *
- * 구조:  palette(재질) ← ramp(역할, 브랜드가 정함) ← semantic(계약) ← 컴포넌트
+ * 구조:  palette(재질) ← semantic(계약) ← 컴포넌트
+ *        브랜드는 semantic 의 일부 키를 다른 재질·단계로 덮는다(brand/<이름>.json).
+ *        예전엔 가운데 ramp(역할 램프) 층이 있었다 — 걷어낸 이유는 README 「토큰 구조」.
  *
  * 강제하는 규칙:
- *   1. palette와 ramp는 CSS로 나가지 않는다.
+ *   1. palette는 CSS로 나가지 않는다.
  *   2. delta는 2층 계약에 이미 있는 키만 덮을 수 있다.
  *   3. 브랜드와 아키타입은 같은 키를 건드릴 수 없다 (브랜드=색, 아키타입=치수).
  *   4. dark.json은 2층의 모든 색 키를 명시적으로 덮어야 한다.
  *   5. 브랜드가 시맨틱 색 키를 덮었으면 brand/<이름>.dark.json이 그 키들을 전부 덮어야 한다.
- *   6. 램프는 $ramp 축약으로 통째로만 바꾼다.
+ *   6. (폐지 — ramp 층을 걷어내면서 없앴다. 번호는 다른 규칙이 가리키고 있어 비워 둔다)
  *   8. 같은 치수 사다리 안의 단계는 반드시 커져야 한다 (sm < md < lg). 같아도 실패.
  *      (7은 소스 포맷 규칙으로 build.mjs에 있다 — 랩은 항상 정규화해 쓰므로 여기서 볼 게 없다.)
  */
@@ -21,7 +23,7 @@ import StyleDictionary from 'style-dictionary';
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
-/** 2층 계약의 최상위 이름. 여기 없는 최상위(palette, ramp)는 CSS로 나가지 않는다. — 규칙 1 */
+/** 2층 계약의 최상위 이름. 여기 없는 최상위(palette)는 CSS로 나가지 않는다. — 규칙 1 */
 export const CONTRACT_ROOTS = new Set(['color', 'size', 'space', 'radius', 'border', 'focusRing', 'elevation', 'motion', 'opacity', 'z', 'font']);
 
 /** 토큰 경로 → CSS 변수 이름. Tailwind v4 네임스페이스에 그대로 얹는다. */
@@ -57,7 +59,7 @@ const isObj = (v) => v && typeof v === 'object' && !Array.isArray(v);
 /** 깊은 병합. b가 이긴다. 토큰 노드({$value…})는 통째로 교체한다. */
 function deepMerge(a, b) {
   if (!isObj(a) || !isObj(b)) return b;
-  if ('$value' in b || '$ramp' in b) return b;
+  if ('$value' in b) return b;
   const out = { ...a };
   for (const [k, v] of Object.entries(b)) out[k] = k in a ? deepMerge(a[k], v) : v;
   return out;
@@ -79,24 +81,6 @@ async function loadTokens(src, files, overlay = {}) {
   return merged;
 }
 
-/** $ramp 축약 펼치기 — 규칙 6. "neutral": { "$ramp": "{palette.stone}" } → 모든 단계로. */
-function expandRamps(tokens) {
-  const ramp = tokens.ramp;
-  if (!ramp) throw new Error('brand/default.json 에 ramp 정의가 없습니다.');
-  for (const [name, group] of Object.entries(ramp)) {
-    if (name.startsWith('$')) continue;
-    const short = group.$ramp;
-    if (!short) throw new Error(`ramp.${name} 은 $ramp 축약으로만 정의할 수 있습니다 (단계 일부만 바꾸는 것은 금지). — 규칙 6`);
-    const m = /^\{palette\.([a-zA-Z0-9]+)\}$/.exec(short);
-    if (!m) throw new Error(`ramp.${name}.$ramp 값은 "{palette.<재질>}" 형식이어야 합니다: ${short}`);
-    const material = tokens.palette?.[m[1]];
-    if (!material) throw new Error(`ramp.${name} 이 가리키는 palette.${m[1]} 이 없습니다.`);
-    const steps = Object.keys(material).filter((k) => !k.startsWith('$'));
-    ramp[name] = Object.fromEntries(steps.map((s) => [s, { $type: 'color', $value: `{palette.${m[1]}.${s}}` }]));
-  }
-  return tokens;
-}
-
 /** 합쳐진 토큰 객체를 해석해 { cssVar: {value, path, type, description} } 평면 맵으로. */
 async function flattenTokens(tokens) {
   const captured = {};
@@ -104,9 +88,7 @@ async function flattenTokens(tokens) {
     tokens: structuredClone(tokens),
     usesDtcg: true,
     log: { warnings: 'disabled', verbosity: 'silent', errors: { brokenReferences: 'throw' } },
-    preprocessors: ['ax-ramp'],
     hooks: {
-      preprocessors: { 'ax-ramp': (t) => expandRamps(t) },
       formats: {
         capture: ({ dictionary }) => {
           for (const t of dictionary.allTokens) {
@@ -130,18 +112,15 @@ async function flattenTokens(tokens) {
   return captured;
 }
 
-/** JSON 객체에 '적힌' 토큰 경로. $ramp는 ramp.<이름> 하나로 친다. ramp 아래 직접 $value는 규칙 6 위반. */
+/** JSON 객체에 '적힌' 토큰 경로. */
 function writtenPathsOf(json, label = '') {
   const out = [];
   const walk = (node, trail) => {
     for (const [k, v] of Object.entries(node)) {
       if (k.startsWith('$')) continue;
       const here = [...trail, k];
-      if (isObj(v) && '$ramp' in v) out.push(here.join('.'));
-      else if (isObj(v) && '$value' in v) {
-        if (here[0] === 'ramp') throw new Error(`${label}: ramp.${here.slice(1).join('.')} 에 단계 값을 직접 적었습니다. 램프는 $ramp 로 통째로만 바꿉니다. — 규칙 6`);
-        out.push(here.join('.'));
-      } else if (isObj(v)) walk(v, here);
+      if (isObj(v) && '$value' in v) out.push(here.join('.'));
+      else if (isObj(v)) walk(v, here);
     }
   };
   walk(json, []);
@@ -220,7 +199,7 @@ export async function listLayers(src) {
  */
 export async function resolveOne(src, { overlay = {}, brand = 'default', archetype = 'base', mode = 'light' } = {}) {
   const L = await listLayers(src);
-  const files = [...L.primitive, ...L.semantic, 'brand/default.json'];
+  const files = [...L.primitive, ...L.semantic];
   if (brand !== 'default') files.push(`brand/${brand}.json`);
   if (archetype !== 'base') files.push(`archetype/${archetype}.json`);
   if (mode === 'dark') {
@@ -234,7 +213,7 @@ export async function resolveOne(src, { overlay = {}, brand = 'default', archety
 /** 전체 빌드. 규칙 1~6·8을 전부 검사하고 CSS·계약을 돌려준다. 파일은 쓰지 않는다. */
 export async function buildAll(src, { overlay = {} } = {}) {
   const L = await listLayers(src);
-  const BASE_FILES = [...L.primitive, ...L.semantic, 'brand/default.json'];
+  const BASE_FILES = [...L.primitive, ...L.semantic];
   const load = (extra) => loadTokens(src, [...BASE_FILES, ...extra], overlay);
   const written = async (rel) => writtenPathsOf(deepMerge(await readJson(path.join(src, rel)), overlay[rel] ?? {}), path.basename(rel));
 
@@ -266,7 +245,7 @@ export async function buildAll(src, { overlay = {} } = {}) {
     const missing = contractColorPaths.filter((p) => !covered.has(p));
     if (missing.length) throw new Error(
       `dark 모드가 덮지 않은 색 키 ${missing.length}개:\n  ${missing.join('\n  ')}\n` +
-      `라이트 값이 그대로 다크 화면에 뜹니다. src/mode/dark.json 에 ramp 기준으로 값을 적으세요 — 같은 값이어도 적어야 합니다. — 규칙 4`);
+      `라이트 값이 그대로 다크 화면에 뜹니다. src/mode/dark.json 에 palette 단계로 값을 적으세요 — 같은 값이어도 적어야 합니다. — 규칙 4`);
   }
 
   const brands = {};
@@ -303,17 +282,15 @@ export async function buildAll(src, { overlay = {} } = {}) {
       `브랜드와 아키타입이 같은 키를 건드립니다 — 축이 섞였습니다:\n  ${collision.join('\n  ')}\n브랜드는 색, 아키타입은 치수입니다. — 규칙 3`);
   }
 
-  const defaultRamp = deepMerge(await readJson(path.join(src, 'brand/default.json')), overlay['brand/default.json'] ?? {}).ramp;
   const contract = {
     $schema: 'https://ax.design/contract/v1',
     version: 2,
     description: '2층 계약. 이 목록에 없는 CSS 변수/유틸리티는 사용 금지이며 린트가 막습니다.',
     axes: {
       archetype: { values: ['base', ...L.archetypes], owns: '치수(크기·간격·모서리·글자크기)', decidedAt: '제품 결정 시점' },
-      brand: { values: ['default', ...L.brands], owns: '역할 램프(어느 재질이 neutral/accent인가) + 선택적으로 시맨틱 매핑', decidedAt: '제품 결정 시점' },
+      brand: { values: ['default', ...L.brands], owns: '색 이름표 일부를 다른 재질·단계로 덮기 (default 는 semantic 그대로)', decidedAt: '제품 결정 시점' },
       mode: { values: ['light', 'dark'], owns: '색', decidedAt: '런타임' },
     },
-    ramps: Object.fromEntries(Object.entries(defaultRamp).filter(([k]) => !k.startsWith('$')).map(([k, v]) => [k, { default: v.$ramp }])),
     tokens: Object.fromEntries(Object.entries(base).map(([k, t]) => [k, { path: t.path, type: t.type, default: t.value, description: t.description }])),
   };
 
@@ -329,7 +306,7 @@ function emitCss({ base, archetypes, brands, dark }) {
   const baseColors = Object.fromEntries(Object.entries(base).filter(([k]) => k.startsWith('--color-')).map(([k, t]) => [k, t.value]));
   return [
     `/* @ax/tokens — 자동 생성. 직접 수정하지 마세요. src/ 를 고치고 \`npm run build -w @ax/tokens\` 하세요. */`,
-    `/* palette(1층)와 ramp(역할 램프)는 의도적으로 내보내지 않습니다. 컴포넌트는 2층 이름만 씁니다. */`,
+    `/* palette(1층)는 의도적으로 내보내지 않습니다. 컴포넌트는 2층 이름만 씁니다. */`,
     ``,
     `@theme {`,
     `  /* Tailwind 기본 테마를 비웁니다 — 계약에 없는 값은 유틸리티 자체가 존재하지 않게. */`,

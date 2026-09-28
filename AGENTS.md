@@ -62,7 +62,7 @@ px를 박으면 `workbench`로 바꿨을 때 그 부분만 안 따라와서 화�
 
 ## 3. 색은 역할로 고른다
 
-`palette.*`(재질)와 `ramp.*`(램프)는 CSS에 존재하지 않는다 — `bg-slate-900`, `bg-ramp-neutral-900` 같은
+`palette.*`(재질)는 CSS에 존재하지 않는다 — `bg-slate-900`, `bg-palette-slate-900` 같은
 클래스는 없다. 컴포넌트는 항상 2층 이름(`bg-surface-*`, `text-fg-*`)만 쓴다. 어느 브랜드에서
 그 이름이 무슨 색이 되는지는 컴포넌트가 알 필요가 없고, 알려고 해서도 안 된다.
 

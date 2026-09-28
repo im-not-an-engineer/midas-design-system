@@ -29,7 +29,7 @@ const isObj = (v: any) => v && typeof v === 'object' && !Array.isArray(v);
 /** lib.mjs와 같은 규칙: 토큰 노드는 통째로 교체. */
 export function deepMerge(a: Json, b: Json): Json {
   if (!isObj(a) || !isObj(b)) return b;
-  if ('$value' in b || '$ramp' in b) return b;
+  if ('$value' in b) return b;
   const out = { ...a };
   for (const [k, v] of Object.entries(b)) out[k] = k in a ? deepMerge(a[k], v) : v;
   return out;
@@ -67,13 +67,11 @@ export function withoutEdit(overlay: Overlay, file: string, path: string[]): Ove
 /**
  * 편집이 기록될 파일을 정한다. 이게 곧 층 모델이다:
  *   재질(팔레트 헥스) → 모든 테마가 공유하는 창고
- *   램프(어느 재질이 neutral인가) → 브랜드
- *   시맨틱 매핑 → 기본 브랜드면 계약 자체, 파생 브랜드면 그 브랜드
+ *   시맨틱 매핑(어느 재질의 몇 단계인가) → 기본 브랜드면 계약 자체, 파생 브랜드면 그 브랜드
  *   치수 → 기본이면 계약, 아키타입을 골랐으면 그 아키타입
  */
 export const targetFile = {
   palette: () => 'primitive/color.json',
-  ramp: (brand: string) => `brand/${brand}.json`,
   semanticColor: (brand: string) => (brand === 'default' ? 'semantic/color.json' : `brand/${brand}.json`),
   dimension: (archetype: string, file: 'layout' | 'typography') =>
     archetype === 'base' ? `semantic/${file}.json` : `archetype/${archetype}.json`,
@@ -117,7 +115,7 @@ export interface Usage {
 
 /**
  * 편집이 실제로 바꾸는 계약 키를 고른다 — 편집 전후의 해석 결과를 비교하는 방식이다.
- * 편집한 경로(palette·ramp·semantic·archetype)가 제각각이라 경로에서 키 이름을
+ * 편집한 경로(palette·semantic·archetype)가 제각각이라 경로에서 키 이름을
  * 계산하려 들면 층마다 규칙이 달라 어긋난다. 값이 달라진 것이 곧 영향받은 키다.
  */
 export function changedVars(before: Record<string, string> | null, after: Record<string, string> | null): string[] {
@@ -182,11 +180,3 @@ export function palettes(sources: Record<string, Json>, overlay: Overlay = {}): 
   return out;
 }
 
-/** 현재 브랜드에서 유효한 램프 배정 (브랜드가 덮었으면 그 값, 아니면 default). */
-export function effectiveRamps(sources: Record<string, Json>, overlay: Overlay, brand: string): Record<string, string> {
-  const read = (rel: string) => deepMerge(sources[rel] ?? {}, overlay[rel] ?? {}).ramp ?? {};
-  const merged = { ...read('brand/default.json'), ...(brand === 'default' ? {} : read(`brand/${brand}.json`)) };
-  return Object.fromEntries(
-    Object.entries<Json>(merged).filter(([k]) => !k.startsWith('$')).map(([k, v]) => [k, String(v.$ramp ?? '')]),
-  );
-}
