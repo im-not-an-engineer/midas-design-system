@@ -52,10 +52,19 @@ export const 크기: Story = {
  */
 export const 여럿고르기: Story = {
   render: () => (
-    <div className="flex w-[320px] flex-col gap-stack-lg">
-      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 2)} />
-      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 5)} />
-      <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" />
+    <div className="flex flex-col gap-section-sm">
+      <div className="flex w-[320px] flex-col gap-stack-lg">
+        <span className="text-caption text-fg-muted">320px · maxVisible 기본 2</span>
+        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 2)} />
+        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" defaultValue={PEOPLE.slice(0, 5)} />
+        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" />
+      </div>
+      {/* 칸이 넓으면 더 펼친다. 재서 자동으로 정하지 않는다 — 화면 폭은 쓰는 쪽이 안다. */}
+      <div className="flex w-[560px] flex-col gap-stack-lg">
+        <span className="text-caption text-fg-muted">560px · maxVisible 4</span>
+        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" maxVisible={4} defaultValue={PEOPLE.slice(0, 5)} />
+        <ComboboxMultiple items={PEOPLE} placeholder="담당자 검색" maxVisible={4} defaultValue={PEOPLE.slice(0, 8)} />
+      </div>
     </div>
   ),
 };
