@@ -105,9 +105,9 @@ function wrapText(children: React.ReactNode): React.ReactNode {
  * spinner.tsx 를 고치면 여기도 같이 본다.
  */
 const LOADING: Record<Size, string> = {
-  sm: 'relative [&>*]:opacity-0 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:size-icon-sm before:rounded-pill before:border-[length:calc(var(--spacing-icon-sm)/7)] before:border-solid before:border-surface-track before:border-t-current before:animate-spin motion-reduce:before:animate-none',
-  md: 'relative [&>*]:opacity-0 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:size-icon-md before:rounded-pill before:border-[length:calc(var(--spacing-icon-md)/7)] before:border-solid before:border-surface-track before:border-t-current before:animate-spin motion-reduce:before:animate-none',
-  lg: 'relative [&>*]:opacity-0 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:size-icon-lg before:rounded-pill before:border-[length:calc(var(--spacing-icon-lg)/7)] before:border-solid before:border-surface-track before:border-t-current before:animate-spin motion-reduce:before:animate-none',
+  sm: 'relative [&>*]:opacity-0 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:size-icon-sm before:rounded-pill before:border-[length:calc(var(--spacing-icon-sm)/7)] before:border-solid before:border-current/25 before:border-t-current before:animate-spin motion-reduce:before:animate-none',
+  md: 'relative [&>*]:opacity-0 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:size-icon-md before:rounded-pill before:border-[length:calc(var(--spacing-icon-md)/7)] before:border-solid before:border-current/25 before:border-t-current before:animate-spin motion-reduce:before:animate-none',
+  lg: 'relative [&>*]:opacity-0 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:size-icon-lg before:rounded-pill before:border-[length:calc(var(--spacing-icon-lg)/7)] before:border-solid before:border-current/25 before:border-t-current before:animate-spin motion-reduce:before:animate-none',
 };
 
 /** 아이콘만 있는 버튼은 가로 여백을 빼고 정사각으로 만든다. */
