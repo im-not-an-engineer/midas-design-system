@@ -67,3 +67,31 @@ export const 아이콘: Story = {
     </div>
   ),
 };
+
+/**
+ * 기다리는 중. 위·아래 줄이 **같은 너비**여야 한다 — 글자를 지우지 않고 투명하게만
+ * 만든 뒤 그 위에 고리를 얹기 때문이다. 아이콘이 붙은 버튼도 여백이 그대로 남는다.
+ */
+export const 기다리는중: Story = {
+  render: () => (
+    <div className="flex flex-col gap-stack-md">
+      {[false, true].map((loading) => (
+        <div key={String(loading)} className="flex flex-wrap items-center gap-inline-md">
+          <span className="w-[56px] text-caption text-fg-muted">{loading ? '기다림' : '평소'}</span>
+          <Button intent="primary" loading={loading}>저장</Button>
+          <Button loading={loading}>취소</Button>
+          <Button intent="primary" loading={loading}><Plus aria-hidden />추가</Button>
+          <Button loading={loading}>다음<ChevronRight aria-hidden /></Button>
+          <Button intent="destructive" loading={loading}>삭제</Button>
+          <Button iconOnly aria-label="더보기" loading={loading}><Ellipsis aria-hidden /></Button>
+        </div>
+      ))}
+      {SIZES.map((size) => (
+        <div key={size} className="flex items-center gap-inline-md">
+          <span className="w-[56px] text-caption text-fg-muted">{size}</span>
+          <Button size={size} intent="primary" loading>저장</Button>
+        </div>
+      ))}
+    </div>
+  ),
+};
