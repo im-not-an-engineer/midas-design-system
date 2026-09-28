@@ -29,19 +29,26 @@ export const 글자색을_따른다: Story = {
       <span className="text-fg-default"><Spinner label="기본" /></span>
       <span className="text-fg-muted"><Spinner label="흐린 글자" /></span>
       <span className="text-status-danger-fg"><Spinner label="위험" /></span>
-      <span className="inline-flex items-center gap-inline-sm rounded-control bg-action-primary-bg-default px-inset-md py-inset-sm text-fg-on-accent">
-        <Spinner size="sm" className="border-transparent" />저장 중
+      <span className="inline-flex items-center gap-inline-md rounded-control bg-action-primary-bg-default px-inset-md py-inset-sm text-fg-on-accent">
+        저장 중<Spinner size="sm" className="border-transparent" />
       </span>
     </div>
   ),
 };
 
-/** 진한 면 위에서는 궤도를 지운다 — 회색 고리가 면과 싸운다. */
+/**
+ * 글자 옆에 세울 때. 고리는 **글자 오른쪽**에 두고 간격은 6px(`gap-inline-md`)로 벌린다 —
+ * Button 의 기본 간격 4px 은 아이콘용이라 도는 고리에는 좁다.
+ * 진한 면 위에서는 궤도를 지운다(`border-transparent`) — 회색 고리가 면과 싸운다.
+ *
+ * 너비를 유지해야 하면 이렇게 조립하지 말고 `<Button loading>` 을 쓴다. 그쪽은 고리를
+ * 글자 자리에 겹쳐 띄워서 버튼이 넓어지지 않는다.
+ */
 export const 버튼_안: Story = {
   render: () => (
     <div className="flex items-center gap-inline-md">
-      <Button intent="primary" disabled><Spinner size="sm" className="border-transparent" />저장 중</Button>
-      <Button intent="secondary" disabled><Spinner size="sm" />불러오는 중</Button>
+      <Button intent="primary" disabled className="gap-inline-md">저장 중<Spinner size="sm" className="border-transparent" /></Button>
+      <Button intent="secondary" disabled className="gap-inline-md">불러오는 중<Spinner size="sm" /></Button>
     </div>
   ),
 };
