@@ -1,5 +1,5 @@
 {
-  "$description": "1층 Primitive — 재료 창고. 여기 이름은 '재질'(slate, stone, blue…)이고 '역할'(neutral, accent…)이 아니다. 역할은 브랜드 파일의 ramp가 정한다. 컴포넌트도 시맨틱도 이 이름을 직접 참조하지 않는다. 그레이 램프(slate, stone)는 단계 집합(0~1000)이 서로 같아야 한다 — 브랜드가 통째로 갈아끼우기 때문이다.",
+  "$description": "1층 Primitive — 재료 창고. 여기 이름은 '재질'(slate, stone, blue…)이고 '역할'(neutral, accent…)이 아니다. 역할은 브랜드 파일의 이름표가 정한다. 컴포넌트도 시맨틱도 이 이름을 직접 참조하지 않는다. 그레이 램프(slate, gray, stone)는 단계 집합(0~1000)이 서로 같아야 한다 — 브랜드가 통째로 갈아끼우기 때문이다.",
   "palette": {
     "$type": "color",
     "slate": {
@@ -83,7 +83,7 @@
       "1000": {
         "$value": "#000000"
       },
-      "$description": "채도 0 의 회색(Tailwind neutral 과 같은 값). 이름을 neutral 로 짓지 않은 건 ramp.neutral(역할)과 헷갈리지 않게 — 재질 이름은 색으로만 짓는다."
+      "$description": "채도 0 의 회색(Tailwind neutral 과 같은 값). 기본 테마의 회색 자리가 이 재질을 쓴다(2026-09-29, 사람의 결정). 이름을 neutral 로 짓지 않은 건 재질 이름은 색으로만 짓기 때문이다 — neutral 은 역할 이름이다."
     },
     "stone": {
       "0": {
@@ -335,7 +335,7 @@
       "950": {
         "$value": "#2d1b55"
       },
-      "$description": "보라. 상태색이 아니다 — 장식 슬롯(ramp.decorative*)에만 배정한다. #7c3aed 를 600에 앵커해 생성. 색을 바꾸려면: npm run ramp -- '#새hex'"
+      "$description": "보라. 상태색이 아니다 — 장식 이름표(color.decorative.*)에만 쓴다. #7c3aed 를 600에 앵커해 생성. 색을 바꾸려면: npm run ramp -- '#새hex'"
     }
   }
 }

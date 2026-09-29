@@ -166,7 +166,7 @@ async function main() {
     if (cfg.archetype !== 'base' && !layers.archetypes.includes(cfg.archetype))
       missing.push(`packages/tokens/src/archetype/${cfg.archetype}.json  (치수 delta — 기존 파일을 복사해 시작하세요)`);
     if (cfg.brand !== 'default' && !layers.brands.includes(cfg.brand))
-      missing.push(`packages/tokens/src/brand/${cfg.brand}.json  (램프 배정)`);
+      missing.push(`packages/tokens/src/brand/${cfg.brand}.json  (색 재배정)`);
     if (missing.length) throw new Error(
       `프리셋 "${name}" 이 없는 파일을 가리킵니다:\n  ${missing.join('\n  ')}\n` +
       `presets.json 에 프리셋을 추가할 때는 그 축 파일도 함께 만들어야 합니다.`);

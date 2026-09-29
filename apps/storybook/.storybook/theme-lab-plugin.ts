@@ -50,7 +50,7 @@ export function themeLab(): Plugin {
             const files = [
               ...L.primitive, ...L.semantic,
               ...L.archetypes.map((n: string) => `archetype/${n}.json`),
-              'brand/default.json', ...L.brands.map((n: string) => `brand/${n}.json`),
+              ...L.brands.map((n: string) => `brand/${n}.json`),
               ...[...L.brandDarks].map((n: string) => `brand/${n}.dark.json`),
               'mode/dark.json',
             ];
@@ -114,7 +114,7 @@ const isObj = (v: any) => v && typeof v === 'object' && !Array.isArray(v);
 /** lib.mjs의 병합과 같은 규칙: 토큰 노드는 통째로 교체. */
 function deepMerge(a: any, b: any): any {
   if (!isObj(a) || !isObj(b)) return b;
-  if ('$value' in b || '$ramp' in b) return b;
+  if ('$value' in b) return b;
   const out = { ...a };
   for (const [k, v] of Object.entries(b)) out[k] = k in a ? deepMerge(a[k], v) : v;
   return out;

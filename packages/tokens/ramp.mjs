@@ -184,7 +184,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   if (n) console.error(`색상환에서의 자리: ${n.prev.name}(${Math.round(n.prev.h)}°) — [새 색 ${Math.round(n.h)}°] — ${n.next.name}(${Math.round(n.next.h)}°)`);
   if (hit.length) {
     console.error(`\n⚠ ${hit.map((r) => r.name).join(', ')} 와 색상각·채도가 모두 가깝습니다.`);
-    console.error('  새 재질을 만들기 전에, 기존 재질을 ramp에 배정하는 것으로 끝나지 않는지 확인하세요.');
+    console.error('  새 재질을 만들기 전에, 이름표에 기존 재질을 쓰는 것으로 끝나지 않는지 확인하세요.');
     console.error('  재질이 늘수록 "비슷한 게 이미 있나"를 알기 어려워집니다.\n');
   }
 

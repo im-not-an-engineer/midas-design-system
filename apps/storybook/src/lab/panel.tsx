@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from '@ax/react';
 import {
   type Overlay, type Sources, type Json, api, withEdit, withoutEdit, targetFile,
-  scaleOptions, leavesReferencing, palettes, effectiveRamps, deepMerge, getIn,
+  scaleOptions, leavesReferencing, palettes, deepMerge, getIn,
 } from './api';
 
 /* 패널은 미리보기 컨테이너 **밖**에 있어 항상 기본 테마로 그려진다.
@@ -70,16 +70,15 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected =
     try {
       const { files } = await api.save(overlay);
       setOverlay({});
-      setResult({ ok: true, text: `저장했습니다 — ${files.join(', ')}\n토큰을 다시 빌드했고 규칙 1~6을 통과했습니다.` });
+      setResult({ ok: true, text: `저장했습니다 — ${files.join(', ')}\n토큰을 다시 빌드했고 빌드 규칙을 모두 통과했습니다.` });
     } catch (e: any) {
       setResult({ ok: false, text: String(e?.message ?? e) });
     } finally { setSaving(false); }
   }
 
   const pal = palettes(sources.sources, overlay);
-  const ramps = effectiveRamps(sources.sources, overlay, axes.brand);
   const scales = scaleOptions(sources.sources);
-  const semanticColors = leavesReferencing(merged('semantic/color.json').color ?? {}, 'ramp');
+  const semanticColors = leavesReferencing(merged('semantic/color.json').color ?? {}, 'palette');
 
   return (
     <aside className="flex h-full w-[340px] shrink-0 flex-col border-l border-solid border-border-default bg-surface-base">
@@ -117,7 +116,7 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected =
               <div key={`${file}/${path.join('.')}`} className="flex items-center justify-between gap-inline-sm">
                 <span className="flex min-w-0 flex-col gap-stack-xs">
                   <span className="truncate font-mono text-caption text-fg-default">{path.join('.')}</span>
-                  <span className={`truncate ${HINT}`}>{file} · {String(leaf.$value ?? leaf.$ramp)}</span>
+                  <span className={`truncate ${HINT}`}>{file} · {String(leaf.$value)}</span>
                 </span>
                 <Button size="sm" intent="ghost" onClick={() => revert(file, path)}>되돌리기</Button>
               </div>
@@ -153,17 +152,6 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected =
           })}
         </Group>
 
-        <Group title="역할 — 램프" hint={`어느 재질이 neutral/accent인가 · ${targetFile.ramp(axes.brand)}`}>
-          <p className={HINT}>램프를 바꾸면 그 역할을 쓰는 모든 키가 한 번에 바뀝니다. 브랜드가 소유하는 결정입니다.</p>
-          {Object.entries(ramps).map(([role, ref]) => (
-            <Row key={role} label={role} hint={ref.replace(/[{}]|palette\./g, '')}>
-              <select className={SELECT} disabled={readOnly} value={ref}
-                onChange={(e) => edit(targetFile.ramp(axes.brand), ['ramp', role], { $ramp: e.target.value })}>
-                {Object.keys(pal).map((p) => <option key={p} value={`{palette.${p}}`}>{p}</option>)}
-              </select>
-            </Row>
-          ))}
-        </Group>
 
         {(['layout', 'typography'] as const).map((file) => {
           const leaves = leavesReferencing(merged(`semantic/${file}.json`), 'scale');
@@ -201,19 +189,20 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected =
             </p>
           ) : (
             <>
-              <p className={HINT}>"primary 버튼은 브랜드색이 아니라 무채색" 같은 결정. 역할 램프와 단계를 고릅니다.</p>
+              <p className={HINT}>"primary 버튼은 브랜드색이 아니라 무채색" 같은 결정. 재질과 단계를 고릅니다.</p>
               {semanticColors.map(({ path, ref, description }) => {
-                const m = /^\{ramp\.([a-z]+)\.([a-z0-9]+)\}$/i.exec(ref);
-                const steps = Object.keys(pal[rampMaterial(ramps, m?.[1] ?? 'neutral')] ?? {});
+                const m = /^\{palette\.([a-z0-9]+)\.([a-z0-9]+)\}$/i.exec(ref);
+                const mat = m?.[1] ?? 'slate';
+                const steps = Object.keys(pal[mat] ?? {});
                 return (
                   <Row key={path.join('.')} label={path.join('.')} hint={description}>
                     <span className="flex gap-inline-xs">
-                      <select className={SELECT} disabled={readOnly} value={m?.[1] ?? ''}
-                        onChange={(e) => edit(targetFile.semanticColor(axes.brand), ['color', ...path], { $value: `{ramp.${e.target.value}.${m?.[2] ?? '600'}}` })}>
-                        {Object.keys(ramps).map((r) => <option key={r} value={r}>{r}</option>)}
+                      <select className={SELECT} disabled={readOnly} value={mat}
+                        onChange={(e) => edit(targetFile.semanticColor(axes.brand), ['color', ...path], { $value: `{palette.${e.target.value}.${m?.[2] ?? '600'}}` })}>
+                        {Object.keys(pal).map((p) => <option key={p} value={p}>{p}</option>)}
                       </select>
                       <select className={SELECT} disabled={readOnly} value={m?.[2] ?? ''}
-                        onChange={(e) => edit(targetFile.semanticColor(axes.brand), ['color', ...path], { $value: `{ramp.${m?.[1] ?? 'neutral'}.${e.target.value}}` })}>
+                        onChange={(e) => edit(targetFile.semanticColor(axes.brand), ['color', ...path], { $value: `{palette.${mat}.${e.target.value}}` })}>
                         {steps.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </span>
@@ -247,7 +236,6 @@ function BrandRamp({ palettes: pal, overlay, setOverlay, brand, readOnly, onEdit
   const [hex, setHex] = React.useState('#1b62d4');
   const [name, setName] = React.useState('');
   const [reference, setReference] = React.useState('blue');
-  const [assign, setAssign] = React.useState(true);
   const [busy, setBusy] = React.useState(false);
   const [note, setNote] = React.useState<string | null>(null);
   const badName = NOT_A_COLOR.has(name);
@@ -259,16 +247,14 @@ function BrandRamp({ palettes: pal, overlay, setOverlay, brand, readOnly, onEdit
       const { ramp, anchorStep } = await api.ramp(hex.trim(), reference);
       let next = withEdit(overlay, targetFile.palette(), ['palette', name],
         Object.fromEntries(Object.entries(ramp).map(([k, v]) => [k, { $value: v }])));
-      if (assign) next = withEdit(next, targetFile.ramp(brand), ['ramp', 'accent'], { $ramp: `{palette.${name}}` });
       setOverlay(next);
-      setNote(`palette.${name} 을 만들었습니다 — 브랜드 색은 ${anchorStep} 단계에 그대로 들어갔습니다.` +
-        (assign ? ` accent를 여기에 배정했습니다.` : ' 아래 "역할 — 램프"에서 accent에 배정하세요.'));
+      setNote(`palette.${name} 을 만들었습니다 — 브랜드 색은 ${anchorStep} 단계에 그대로 들어갔습니다. 아래 "매핑 — 시맨틱 색"에서 쓰려는 키에 이 재질을 고르세요.`);
     } catch (e: any) { setNote(`실패: ${String(e?.message ?? e)}`); } finally { setBusy(false); }
   }
 
   return (
-    <Group title="브랜드 색에서 램프 만들기" hint="헥스 한 개 → 11단계" defaultOpen>
-      <p className={HINT}>브랜드 가이드의 색 하나를 넣으면 기준 램프의 명도 곡선을 빌려 11단계를 만듭니다.</p>
+    <Group title="브랜드 색에서 재질 만들기" hint="헥스 한 개 → 11단계" defaultOpen>
+      <p className={HINT}>브랜드 가이드의 색 하나를 넣으면 기준 재질의 명도 곡선을 빌려 11단계 재질(palette)을 만듭니다.</p>
       <Row label="브랜드 색">
         <span className="flex items-center gap-inline-xs">
           <label className="relative size-control-sm shrink-0 cursor-pointer rounded-control border border-solid border-border-default" style={{ background: valid ? hex : 'transparent' }}>
@@ -279,33 +265,28 @@ function BrandRamp({ palettes: pal, overlay, setOverlay, brand, readOnly, onEdit
             className="h-control-sm w-full min-w-0 rounded-control border border-solid border-field-border-default bg-field-bg-default px-inset-sm font-mono text-body text-field-fg-default ax-focus-ring" />
         </span>
       </Row>
-      <Row label="램프 이름" hint="palette.<이름> · 색 이름으로">
+      <Row label="재질 이름" hint="palette.<이름> · 색 이름으로">
         <input value={name} placeholder="cobalt" disabled={readOnly} onChange={(e) => setName(e.target.value)} spellCheck={false}
           className="h-control-sm w-full rounded-control border border-solid border-field-border-default bg-field-bg-default px-inset-sm font-mono text-body text-field-fg-default ax-focus-ring" />
       </Row>
-      <Row label="기준 램프" hint="명도 곡선을 빌려올 곳">
+      <Row label="기준 재질" hint="명도 곡선을 빌려올 곳">
         <select className={SELECT} disabled={readOnly} value={reference} onChange={(e) => setReference(e.target.value)}>
           {Object.keys(pal).map((p) => <option key={p} value={p}>{p}</option>)}
         </select>
       </Row>
-      <label className="flex items-center gap-inline-sm text-caption text-fg-default">
-        <input type="checkbox" checked={assign} disabled={readOnly} onChange={(e) => setAssign(e.target.checked)} />
-        만들면서 accent에 바로 배정 ({targetFile.ramp(brand)})
-      </label>
       {badName && (
         <p className={HINT}>
           재질 이름은 색으로 짓습니다. 역할이나 소유자를 이름에 넣으면 배정이 바뀌는 순간 이름이 거짓말이 됩니다 — azure 는 되고 brand 는 안 됩니다.
         </p>
       )}
       <Button size="sm" intent="secondary" disabled={readOnly || !valid || busy} onClick={generate}>
-        {busy ? '만드는 중…' : '램프 만들기'}
+        {busy ? '만드는 중…' : '재질 만들기'}
       </Button>
       {note && <p className={HINT}>{note}</p>}
     </Group>
   );
 }
 
-const rampMaterial = (ramps: Record<string, string>, role: string) => (ramps[role] ?? '').replace(/[{}]|palette\./g, '');
 
 /** #rgb·색이름도 <input type="color">가 받는 #rrggbb 로. 실패하면 검정. */
 function toHex(v: string) {
@@ -325,7 +306,7 @@ function flattenOverlay(overlay: Overlay): FlatEdit[] {
   const walk = (file: string, node: Json, trail: string[]) => {
     for (const [k, v] of Object.entries<Json>(node ?? {})) {
       const here = [...trail, k];
-      if (v && typeof v === 'object' && ('$value' in v || '$ramp' in v)) out.push({ file, path: here, leaf: v });
+      if (v && typeof v === 'object' && '$value' in v) out.push({ file, path: here, leaf: v });
       else if (v && typeof v === 'object') walk(file, v, here);
     }
   };
