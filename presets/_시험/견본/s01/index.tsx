@@ -14,6 +14,7 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, Dr
 import { useToastManager } from '@/components/ui/toast';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/spinner';
+import { Pagination } from '@/components/ui/pagination';
 import { Ellipsis } from '@/lib/ax/icons';
 import { SEED, DEPTS, PAGE_SIZE, wait, type Account } from './data';
 
@@ -164,11 +165,7 @@ export default function Screen() {
         footer={
           <>
             <span className="text-caption text-fg-muted">{from}–{to} / {matched.length}</span>
-            <nav aria-label="쪽" className="flex items-center gap-inline-sm">
-              <Button size="sm" intent="ghost" disabled={cur === 1} onClick={() => setPage(cur - 1)}>이전</Button>
-              <span className="text-caption text-fg-muted">{cur} / {pages}</span>
-              <Button size="sm" intent="ghost" disabled={cur === pages} onClick={() => setPage(cur + 1)}>다음</Button>
-            </nav>
+            <Pagination page={cur} pageCount={pages} onPageChange={setPage} />
           </>
         }
         empty={<div className="flex flex-col items-center gap-stack-lg py-section-sm"><span className="text-body text-fg-muted">등록된 계정이 없습니다</span>{inviteButton}</div>}

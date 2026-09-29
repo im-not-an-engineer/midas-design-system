@@ -30,7 +30,7 @@ export default function KitApp() {
     { label: '시험 화면', items: list.map((s) => ({ label: s.id, href: `#/${s.id}`, current: s === current })) },
   ];
   return (
-    <AxTheme archetype="saas" brand="default" mode="light">
+    <AxTheme brand="default" mode="light">
       <ToastProvider position="bottom-right">
         <AppFrame product="시험 제품" user={{ name: '김디자' }} nav={nav}>
           {current ? <current.Screen key={current.id} /> : <p className="text-body text-fg-muted">src/screens 에 화면이 없습니다.</p>}
