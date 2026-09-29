@@ -1,0 +1,318 @@
+{
+  "$설명": "정답 — 에이전트가 보지 않는다(설치기가 샌드박스로 복사하지 않는다). 셸: 정답, 허용: 함께 인정하는 셸, 핵심: 심은 조건 때문에 반드시 골라야 하는 유형, 금지: 고르면 틀린 유형, 유형: 시나리오를 돌릴 정답 유형 전부. 맞는 셸이 없는 문장의 정답은 free(자유 화면)로 짓고 가장 가까운 셸·부족한 점을 적는 것이다(멈추면 옛 규칙). 확장: 반드시 채워야 하는 확장 자리.",
+  "r01": {
+    "셸": "list",
+    "핵심": [
+      "select-bulk-bar",
+      "delete-confirm"
+    ],
+    "금지": [
+      "delete-undo",
+      "delete-strong"
+    ],
+    "유형": [
+      "select-bulk-bar",
+      "delete-confirm",
+      "feedback-toast"
+    ]
+  },
+  "r02": {
+    "셸": "review-queue",
+    "핵심": [
+      "delete-undo"
+    ],
+    "금지": [
+      "delete-confirm",
+      "delete-strong"
+    ],
+    "유형": [
+      "delete-undo",
+      "feedback-toast"
+    ]
+  },
+  "r03": {
+    "셸": "list",
+    "핵심": [
+      "select-bulk-bar",
+      "delete-strong"
+    ],
+    "금지": [
+      "delete-confirm",
+      "delete-undo",
+      "filter-apply"
+    ],
+    "유형": [
+      "filter-instant",
+      "paging-pages",
+      "select-bulk-bar",
+      "delete-strong",
+      "row-menu",
+      "feedback-toast"
+    ],
+    "심은 조건": {
+      "delete-strong": "삭제하면 계약과 메모도 모두 같이 지워져",
+      "paging-pages": "800곳"
+    }
+  },
+  "r04": {
+    "셸": "list-detail",
+    "핵심": [
+      "open-side"
+    ],
+    "금지": [
+      "open-page",
+      "open-drawer"
+    ],
+    "유형": [
+      "open-side",
+      "feedback-toast"
+    ],
+    "심은 조건": {
+      "list-detail": "왼쪽 목록 · 오른쪽에서 읽으며 · 계속 넘겨 가며"
+    }
+  },
+  "r05": {
+    "셸": "detail",
+    "핵심": [
+      "status-meter"
+    ],
+    "금지": [],
+    "유형": [
+      "status-meter"
+    ],
+    "심은 조건": {
+      "status-meter": "얼마나 썼는지 비율로"
+    }
+  },
+  "r06": {
+    "셸": "board",
+    "핵심": [],
+    "금지": [],
+    "유형": [
+      "feedback-toast"
+    ],
+    "심은 조건": {
+      "board": "단계별로 몇 명이 어디 · 끌기 없음"
+    }
+  },
+  "r07": {
+    "셸": "form",
+    "핵심": [
+      "save-button",
+      "validate-blur"
+    ],
+    "금지": [
+      "save-instant",
+      "create-dialog"
+    ],
+    "유형": [
+      "save-button",
+      "validate-blur",
+      "leave-guard"
+    ],
+    "심은 조건": {
+      "validate-blur": "사업자번호·이메일·전화번호 형식"
+    }
+  },
+  "r08": {
+    "셸": "settings",
+    "핵심": [
+      "save-instant"
+    ],
+    "금지": [
+      "save-button",
+      "leave-guard"
+    ],
+    "유형": [
+      "save-instant"
+    ],
+    "심은 조건": {
+      "save-instant": "누르는 즉시 적용"
+    }
+  },
+  "r09": {
+    "셸": "permission-matrix",
+    "핵심": [
+      "save-button"
+    ],
+    "금지": [
+      "save-instant"
+    ],
+    "유형": [
+      "save-button",
+      "leave-guard"
+    ],
+    "심은 조건": {
+      "save-button": "한 번에 저장하는 방식"
+    }
+  },
+  "r10": {
+    "셸": "dashboard",
+    "핵심": [
+      "status-meter"
+    ],
+    "금지": [],
+    "유형": [
+      "status-meter"
+    ],
+    "심은 조건": {
+      "status-meter": "목표 달성률"
+    }
+  },
+  "r11": {
+    "셸": "import",
+    "핵심": [
+      "wait-progress"
+    ],
+    "금지": [
+      "wait-button"
+    ],
+    "유형": [
+      "wait-progress",
+      "feedback-toast"
+    ],
+    "심은 조건": {
+      "wait-progress": "수백 명이라 시간이 꽤 걸려"
+    }
+  },
+  "r12": {
+    "셸": "review-queue",
+    "핵심": [],
+    "금지": [],
+    "유형": [
+      "feedback-toast"
+    ],
+    "심은 조건": {
+      "review-queue": "한 건씩 · 다음 건으로 바로"
+    }
+  },
+  "r13": {
+    "셸": "review-queue",
+    "허용": [
+      "list-detail"
+    ],
+    "핵심": [],
+    "금지": [],
+    "유형": [
+      "feedback-toast"
+    ],
+    "심은 조건": {
+      "경계": "순서대로(대기열) vs 골라서 먼저(목록+상세) — 확인 필요에 남겼는지 본다"
+    }
+  },
+  "r14": {
+    "셸": "report",
+    "허용": [],
+    "핵심": [
+      "filter-apply"
+    ],
+    "금지": [
+      "filter-instant"
+    ],
+    "유형": [
+      "filter-apply"
+    ],
+    "심은 조건": {
+      "경계": "요약 수치가 있어 대시보드와 헷갈림 — 기간을 정해 조회·내려받기면 보고서",
+      "filter-apply": "기간과 부서를 정해서 조회"
+    }
+  },
+  "r15": {
+    "셸": "tree-list",
+    "허용": [],
+    "핵심": [
+      "delete-undo"
+    ],
+    "금지": [
+      "delete-confirm",
+      "delete-strong"
+    ],
+    "유형": [
+      "delete-undo"
+    ],
+    "심은 조건": {
+      "경계": "왼쪽이 폴더 계층 — 목록+상세와 헷갈림",
+      "delete-undo": "14일 안에는 되살릴 수 있어"
+    }
+  },
+  "r16": {
+    "셸": "free",
+    "가까운": [
+      "board"
+    ],
+    "핵심": [],
+    "금지": [],
+    "유형": [],
+    "심은 조건": {
+      "없음": "요일×시간 격자 캘린더 — 셸도 부품도 없다"
+    }
+  },
+  "r17": {
+    "셸": "free",
+    "가까운": [
+      "dashboard",
+      "report"
+    ],
+    "핵심": [],
+    "금지": [],
+    "유형": [],
+    "심은 조건": {
+      "없음": "선 그래프 — 차트 부품이 없다"
+    }
+  },
+  "r18": {
+    "셸": "list",
+    "확장": [
+      "lead",
+      "side"
+    ],
+    "핵심": [],
+    "금지": [],
+    "유형": [
+      "filter-instant"
+    ],
+    "심은 조건": {
+      "lead": "표 위에 카드",
+      "side": "오른쪽에 최근 변경 기록"
+    }
+  },
+  "r19": {
+    "셸": "detail",
+    "확장": [
+      "summary"
+    ],
+    "핵심": [
+      "status-meter"
+    ],
+    "금지": [],
+    "유형": [
+      "status-meter"
+    ],
+    "심은 조건": {
+      "lead": "탭 위에 막대",
+      "status-meter": "사용률·이수율",
+      "summary": "탭 위에 막대 — 상세 셸의 핵심 수치 줄"
+    }
+  },
+  "r20": {
+    "셸": "report",
+    "허용": [],
+    "확장": [
+      "summary"
+    ],
+    "핵심": [
+      "filter-apply"
+    ],
+    "금지": [
+      "filter-instant"
+    ],
+    "유형": [
+      "filter-apply"
+    ],
+    "심은 조건": {
+      "lead": "표 위에 막대 그래프 — 차트 부품이 없어 부품·토큰으로 조립해야 한다",
+      "filter-apply": "정해 조회하면",
+      "summary": "표 위에 막대 그래프 — 보고서 셸의 요약 줄"
+    }
+  }
+}
