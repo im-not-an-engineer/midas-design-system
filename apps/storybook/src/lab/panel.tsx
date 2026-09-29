@@ -50,7 +50,7 @@ export interface PanelProps {
   sources: Sources;
   overlay: Overlay;
   setOverlay: (next: Overlay) => void;
-  axes: { brand: string; archetype: string; mode: string };
+  axes: { brand: string; mode: string };
   readOnly: boolean;
   /** 지금 편집이 실제로 닿는 컴포넌트 이름들. 값 하나를 바꿨을 때 어디까지 번지는지 보여준다. */
   affected?: string[];
@@ -85,7 +85,7 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected =
       <header className="flex flex-col gap-stack-sm border-b border-solid border-border-default px-inset-md py-inset-md">
         <div className="flex items-center justify-between gap-inline-sm">
           <h2 className="text-heading-sm font-semibold tracking-heading text-fg-default">테마 랩</h2>
-          <span className={HINT}>{axes.brand} · {axes.archetype} · {axes.mode}</span>
+          <span className={HINT}>{axes.brand} · {axes.mode}</span>
         </div>
         {readOnly ? (
           <p className={HINT}>읽기 전용입니다. 편집하려면 <code className="font-mono">npm run storybook</code> 으로 실행하세요.</p>
@@ -155,14 +155,10 @@ export function Panel({ sources, overlay, setOverlay, axes, readOnly, affected =
 
         {(['layout', 'typography'] as const).map((file) => {
           const leaves = leavesReferencing(merged(`semantic/${file}.json`), 'scale');
-          const target = targetFile.dimension(axes.archetype, file);
+          const target = targetFile.dimension(file);
           return (
             <Group key={file} title={file === 'layout' ? '치수 — 크기 · 간격 · 모서리' : '치수 — 글자'} hint={target}>
-              <p className={HINT}>
-                {axes.archetype === 'base'
-                  ? '기본 아키타입을 고쳤습니다 — 모든 아키타입의 출발점이 바뀝니다.'
-                  : `툴바에서 ${axes.archetype}을 골랐으므로 그 아키타입의 delta에 기록됩니다.`}
-              </p>
+              <p className={HINT}>치수는 한 벌뿐입니다 — 모든 브랜드·프리셋이 같이 바뀝니다.</p>
               {leaves.map(({ path, ref, description }) => {
                 const groups = allowedGroups(path);
                 const opts = scales.filter((o) => groups.includes(o.group));

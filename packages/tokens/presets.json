@@ -1,31 +1,24 @@
 {
-  "$description": "바깥에 보이는 이름 ↔ 내부 축. 제품팀에게는 이 이름만 보여주고, 아키타입·브랜드라는 말은 꺼내지 않는다. (원래 설계의 '프로필은 공개 인터페이스, 축은 내부 조립 방식') product:false 는 축이 실제로 도는지 보여주는 검증용이라 레지스트리로 배포하지 않는다.",
+  "$description": "바깥에 보이는 이름 ↔ 내부 축(브랜드). 제품팀에게는 이 이름만 보여주고, 브랜드라는 말은 꺼내지 않는다. 치수는 축이 아니다 — semantic/ 한 벌이 곧 이 저장소의 치수이고, 다른 치수가 필요한 제품은 저장소를 포크해 semantic/ 을 직접 고친다(견본: packages/tokens/templates/). product:false 는 브랜드 축이 실제로 도는지 보여주는 검증용이라 레지스트리로 배포하지 않는다.",
   "presets": {
     "saas": {
       "product": true,
-      "archetype": "workbench", "brand": "default",
+      "brand": "default",
       "label": "SaaS",
       "title": "AX 디자인시스템 — SaaS",
       "description": "고밀도 업무 도구용. 컨트롤 28px, 촘촘한 간격, 각진 모서리."
     },
-    "landing": {
-      "product": true,
-      "archetype": "consumer", "brand": "default",
-      "label": "랜딩",
-      "title": "AX 디자인시스템 — 랜딩",
-      "description": "마케팅·랜딩 페이지용. 컨트롤 44px, 넉넉한 간격, 둥근 모서리, 옅은 그림자."
-    },
     "_mono": {
       "product": false,
-      "archetype": "workbench", "brand": "mono",
+      "brand": "mono",
       "label": "검증 · 무채색 primary",
       "description": "브랜드가 시맨틱 매핑까지 바꿀 수 있는지 보여주는 예. 웜그레이 + 무채색 primary."
     },
     "_vivid": {
       "product": false,
-      "archetype": "consumer", "brand": "vivid",
+      "brand": "vivid",
       "label": "검증 · 다른 색군",
-      "description": "램프 교체만으로 색군 전체가 바뀌는지 보여주는 예."
+      "description": "이름표 재배정만으로 색군 전체가 바뀌는지 보여주는 예."
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "$description": "아키타입 delta — workbench (고밀도 업무 도구). 2층 계약에 이미 있는 키만 덮어쓴다. 새 키를 만들면 빌드가 실패한다.",
+  "$description": "치수 견본 — workbench (고밀도 업무 도구). 빌드에 쓰이지 않는다. src/semantic/ 의 기본 치수가 곧 이 값이다. 포크한 제품이 치수를 정할 때 출발점으로 복사해 쓴다.",
   "size": {
     "control": {
       "sm": {

@@ -1,5 +1,5 @@
 {
-  "$description": "아키타입 delta — consumer (캐주얼 B2C 웹앱). 터치 타깃이 크고 모서리가 둥글며 숨 쉴 공간이 많다.",
+  "$description": "치수 견본 — consumer (캐주얼 B2C 웹앱). 빌드에 쓰이지 않는다. 터치 타깃이 크고 모서리가 둥글며 숨 쉴 공간이 많다. 포크한 제품이 치수를 정할 때 src/semantic/layout.json·typography.json 에 이 값을 옮겨 적는다.",
   "size": {
     "control": {
       "sm": {
