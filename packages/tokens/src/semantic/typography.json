@@ -1,5 +1,5 @@
 {
-  "$description": "2층 Semantic — 타이포 계약. 역할 이름만 있고 px는 없다. 아키타입이 body 크기를 통째로 내리면 화면 밀도가 따라 내려간다.",
+  "$description": "2층 Semantic — 타이포 계약. 역할 이름만 있고 px는 없다. body 크기를 통째로 내리면 화면 밀도가 따라 내려간다.",
   "font": {
     "family": {
       "$type": "fontFamily",
@@ -21,15 +21,15 @@
         "$description": "보조 설명, 헬프 텍스트"
       },
       "body": {
-        "$value": "{scale.fontSize.14}",
-        "$description": "기본 본문. 밀도의 기준점."
+        "$value": "{scale.fontSize.13}",
+        "$description": "기본 본문. 밀도의 기준점. 업무 도구라 한 단계 조인 13 — caption(12)·bodyLg(16) 사이."
       },
       "bodyLg": {
         "$value": "{scale.fontSize.16}"
       },
       "headingXs": {
         "$value": "{scale.fontSize.14}",
-        "$description": "제목 사다리의 최하단. 본문보다 한 톤 크지만 제목 대접은 덜 받는 자리 — 탭 이름, 아코디언 질문처럼 줄 안에 서는 제목이다. 본문 사다리(caption·body·bodyLg) 사이에는 끼울 수 없었다: 기본 계약은 14<?<16, consumer 는 16<?<18 이라 척도에 들어갈 값이 없다."
+        "$description": "제목 사다리의 최하단. 본문보다 한 톤 크지만 제목 대접은 덜 받는 자리 — 탭 이름, 아코디언 질문처럼 줄 안에 서는 제목이다. 본문 사다리(caption·body·bodyLg) 사이에는 끼울 수 없었다: 13<?<16 이라 척도에 들어갈 값이 없다."
       },
       "headingSm": {
         "$value": "{scale.fontSize.16}"
@@ -67,11 +67,11 @@
         "$description": "제목"
       },
       "normal": {
-        "$value": "{scale.lineHeight.normal}",
+        "$value": "{scale.lineHeight.snug}",
         "$description": "본문"
       },
       "ui": {
-        "$value": "{scale.lineHeight.snug}",
+        "$value": "{scale.lineHeight.tight}",
         "$description": "컨트롤 안 한 줄 텍스트"
       }
     },

@@ -1,17 +1,17 @@
 {
-  "$description": "2층 Semantic — 치수 계약. 아키타입(밀도)이 주로 덮어쓰는 구역이다. 컴포넌트는 px를 직접 쓰지 않고 반드시 이 이름을 쓴다.",
+  "$description": "2층 Semantic — 치수 계약. 이 저장소의 치수는 이 한 벌뿐이다(고밀도 업무 도구 기준). 다른 치수가 필요한 제품은 저장소를 포크해 이 파일을 고친다 — 견본은 packages/tokens/templates/. 컴포넌트는 px를 직접 쓰지 않고 반드시 이 이름을 쓴다.",
   "size": {
     "$type": "dimension",
     "control": {
       "$description": "누르거나 입력하는 것의 높이. 버튼·인풋·셀렉트·아이콘버튼이 전부 이걸 공유해야 한 줄에 놨을 때 높이가 맞는다.",
       "sm": {
-        "$value": "{scale.control.32}"
+        "$value": "{scale.control.28}"
       },
       "md": {
-        "$value": "{scale.control.36}"
+        "$value": "{scale.control.32}"
       },
       "lg": {
-        "$value": "{scale.control.44}"
+        "$value": "{scale.control.36}"
       }
     },
     "icon": {
@@ -28,20 +28,20 @@
     "row": {
       "$description": "데이터 테이블 행 높이. 밀도의 얼굴.",
       "sm": {
-        "$value": "{scale.control.32}"
+        "$value": "{scale.control.28}"
       },
       "md": {
-        "$value": "{scale.control.40}"
+        "$value": "{scale.control.32}"
       },
       "lg": {
-        "$value": "{scale.control.48}"
+        "$value": "{scale.control.36}"
       }
     }
   },
   "space": {
     "0": {
       "$value": "{scale.space.0}",
-      "$description": "0. 밀도 결정이 아니라 모든 아키타입 공통이므로 아키타입이 덮지 않는다."
+      "$description": "0. 밀도 결정이 아니라 공통값."
     },
     "$type": "dimension",
     "inset": {
@@ -59,52 +59,52 @@
         "$value": "{scale.space.16}"
       },
       "xl": {
-        "$value": "{scale.space.24}"
+        "$value": "{scale.space.20}"
       }
     },
     "stack": {
       "$description": "세로로 쌓을 때의 간격.",
       "xs": {
-        "$value": "{scale.space.4}"
+        "$value": "{scale.space.2}"
       },
       "sm": {
-        "$value": "{scale.space.8}"
+        "$value": "{scale.space.4}"
       },
       "md": {
-        "$value": "{scale.space.12}"
+        "$value": "{scale.space.8}"
       },
       "lg": {
-        "$value": "{scale.space.20}"
+        "$value": "{scale.space.12}"
       },
       "xl": {
-        "$value": "{scale.space.32}"
+        "$value": "{scale.space.20}"
       }
     },
     "inline": {
       "$description": "가로로 늘어놓을 때의 간격.",
       "xs": {
-        "$value": "{scale.space.4}"
+        "$value": "{scale.space.2}"
       },
       "sm": {
-        "$value": "{scale.space.6}"
+        "$value": "{scale.space.4}"
       },
       "md": {
-        "$value": "{scale.space.8}"
+        "$value": "{scale.space.6}"
       },
       "lg": {
-        "$value": "{scale.space.12}"
+        "$value": "{scale.space.8}"
       }
     },
     "section": {
       "$description": "페이지 안 큰 덩어리 사이.",
       "sm": {
-        "$value": "{scale.space.24}"
+        "$value": "{scale.space.16}"
       },
       "md": {
-        "$value": "{scale.space.32}"
+        "$value": "{scale.space.24}"
       },
       "lg": {
-        "$value": "{scale.space.48}"
+        "$value": "{scale.space.32}"
       }
     }
   },

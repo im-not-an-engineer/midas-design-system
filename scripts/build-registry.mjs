@@ -4,11 +4,12 @@
  * 배포 방식만 shadcn을 차용한다 — 제품은 `npx shadcn add <url>` 로 **소스를 자기 레포에 복사해**
  * 소유하고, 우리는 토큰 계약과 스타일 층만 중앙에서 관리한다.
  *
- * 우리 저장소에는 계약 하나 + 아키타입 파일 몇 개지만, 바깥에는 제품군별 프리셋으로 보인다.
+ * 우리 저장소에는 계약 하나 + 브랜드 파일 몇 개지만, 바깥에는 제품군별 프리셋으로 보인다.
  * (원래 설계의 "프로필은 공개 인터페이스, 축은 내부 조립 방식")
  *
- * 프리셋은 아키타입을 **굳혀서** 내보낸다 — 제품은 [data-archetype] 다축 전환이 필요 없고
- * :root + 다크만 받는다. 다축 전환은 우리 테마 랩에만 남는다.
+ * 프리셋은 브랜드를 **굳혀서** 내보낸다 — 제품은 [data-brand] 전환이 필요 없고
+ * :root + 다크만 받는다. 브랜드 전환은 우리 테마 랩에만 남는다.
+ * 치수는 축이 아니라 semantic/ 한 벌이다 — 다른 치수가 필요한 제품은 저장소를 포크한다.
  */
 import { resolveOne, listLayers } from '../packages/tokens/lib.mjs';
 import { readFile, readdir, writeFile, rm, mkdir } from 'node:fs/promises';
@@ -163,8 +164,6 @@ async function main() {
   // 무엇을 만들어야 하는지 알 수 없다.
   for (const [name, cfg] of Object.entries(ALL_PRESETS)) {
     const missing = [];
-    if (cfg.archetype !== 'base' && !layers.archetypes.includes(cfg.archetype))
-      missing.push(`packages/tokens/src/archetype/${cfg.archetype}.json  (치수 delta — 기존 파일을 복사해 시작하세요)`);
     if (cfg.brand !== 'default' && !layers.brands.includes(cfg.brand))
       missing.push(`packages/tokens/src/brand/${cfg.brand}.json  (색 재배정)`);
     if (missing.length) throw new Error(
@@ -201,10 +200,9 @@ async function main() {
     target: TARGET.lib('contract.ts'),
     content:
       `// 자동 생성 — 디자인시스템 레지스트리에서 함께 복사됩니다. 직접 수정하지 마세요.\n` +
-      `// 이 프리셋(${presetName})은 밀도·브랜드가 :root 에 굳어 있어 축을 바꿀 일이 없습니다.\n` +
+      `// 이 프리셋(${presetName})은 브랜드가 :root 에 굳어 있어 축을 바꿀 일이 없습니다.\n` +
       `// 남는 축은 라이트/다크뿐이고, AxTheme 의 mode 로 바꿉니다.\n\n` +
       `export const cssVars = ${JSON.stringify(Object.keys(tokens), null, 2)} as const;\n\n` +
-      `export type Archetype = '${presetName}';\n` +
       `export type Brand = 'default';\n` +
       `export type Mode = 'light' | 'dark';\n`,
   });
@@ -226,8 +224,8 @@ async function main() {
   // ── 프리셋 ──
   const presetNames = [];
   for (const [name, cfg] of Object.entries(PRESETS)) {
-    const light = await resolveOne(TOKENS_SRC, { brand: cfg.brand, archetype: cfg.archetype, mode: 'light' });
-    const dark = await resolveOne(TOKENS_SRC, { brand: cfg.brand, archetype: cfg.archetype, mode: 'dark' });
+    const light = await resolveOne(TOKENS_SRC, { brand: cfg.brand, mode: 'light' });
+    const dark = await resolveOne(TOKENS_SRC, { brand: cfg.brand, mode: 'dark' });
     const darkDelta = Object.fromEntries(Object.entries(dark).filter(([k, v]) => isColor(k) && light[k] !== v));
 
     // @theme 는 css 필드로 못 넣는다 — shadcn 이 그 안의 property:value 를 해석하지 못한다

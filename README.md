@@ -8,7 +8,7 @@
 packages/tokens   @ax/tokens   토큰. 프레임워크 무관(CSS 변수 + JSON).
 packages/react    @ax/react    React 컴포넌트. 헤드리스(Base UI)에 토큰을 바인딩한 스타일 층.
 apps/playground                테마 축이 실제로 도는지 확인하는 검증용 화면.
-apps/storybook                 검수 장치. 툴바에서 아키타입·브랜드·모드를 바꾸며 모든 상태를 확인한다.
+apps/storybook                 검수 장치. 툴바에서 프리셋·모드를 바꾸며 모든 상태를 확인한다.
 ```
 
 ## 제품에서 쓰는 법
@@ -19,14 +19,15 @@ import { AxTheme, Button } from '@ax/react';
 
 export default function App() {
   return (
-    <AxTheme archetype="workbench" brand="default">
+    <AxTheme brand="default">
       <Button intent="primary">저장</Button>
     </AxTheme>
   );
 }
 ```
 
-제품이 정하는 것은 두 가지뿐이다 — **아키타입 하나**와 **브랜드 하나**.
+제품이 정하는 것은 **브랜드 하나**뿐이다. 치수(크기·간격·모서리·글자 크기)는 이 저장소에
+한 벌만 있다 — 다른 치수가 필요한 제품은 이 저장소를 포크해 `semantic/` 을 직접 고친다(「치수」 절).
 
 ## 이 저장소의 구조 (왜 이렇게 나눴는가)
 
@@ -101,26 +102,36 @@ primary·포커스·링크를 무채색으로, 강조를 red 로 — 59키). 덮
 자식 div가 `--palette-slate-900`을 바꿔도, 부모에서 이미 굳은 값이 내려온다. 그래서 모든
 값을 (브랜드 × 모드) 조합별로 빌드 시점에 리터럴로 굳힌다. 조합은 브랜드 수 × 2라 비용이 없다.
 
-## 테마 축 세 개
+## 테마 축 두 개
 
-축은 서로 독립이고, 각자 자기 몫만 건드린다.
+축은 서로 독립이고, 각자 자기 몫만 건드린다. 둘 다 **색만** 바꾼다.
 
 | 축 | 언제 정해지나 | 무엇을 바꾸나 | 현재 값 |
 |---|---|---|---|
-| `archetype` | 제품이 한 번 고름 | **치수만** (크기·간격·모서리·글자 크기) | `base` `workbench` `consumer` |
-| `brand` | 제품이 한 번 고름 | **색만** — 이름표 일부를 다른 재질·단계로 덮기 | `default` `vivid` `mono` |
-| `mode` | 런타임에 바뀜 | 색 | `light` `dark` |
+| `brand` | 제품이 한 번 고름 | 이름표 일부를 다른 재질·단계로 덮기 | `default` `vivid` `mono` |
+| `mode` | 런타임에 바뀜 | 라이트/다크 | `light` `dark` |
 
 ```html
-<div data-archetype="workbench" data-brand="vivid" data-mode="dark">
+<div data-brand="vivid" data-mode="dark">
 ```
 
 테마 전환은 DOM 어트리뷰트 변경이다. 재렌더링이 없다.
 
-아키타입이 '밀도'가 아니라 '문법'인 이유: 제품 팀은 "밀도 0.8"을 고르지 않고
-"우리는 이런 종류의 제품"이라고 말한다. 그리고 실제로 함께 움직이는 건 밀도 하나가
-아니라 묶음이다 — 간격, 레이블 위치, 확인 방식, 피드백 방식. 제품 팀에게는
-아키타입 이름 하나만 노출하고, 그 안의 축은 시스템이 관리한다.
+## 치수 — 축이 아니다
+
+컨트롤 높이·여백·모서리·글자 크기는 `semantic/layout.json`·`typography.json` **한 벌**이다.
+지금 값은 고밀도 업무 도구 기준(컨트롤 28/32/36, 본문 13px)이다.
+
+**예전엔 `archetype/` 층이 있었다 — 걷어냈다.** `workbench`·`consumer` 델타가 치수 30여 개를
+덮고, 프리셋이 아키타입 × 브랜드를 조합하는 구조였다. "한 저장소가 치수 델타로 여러 제품을
+감당한다"는 전제의 산물인데, 운영 방식이 "기본 시스템 하나를 주고, 다른 시스템이 필요한
+제품은 저장소를 포크해 토큰을 다시 짠다"로 정해지면서 전제가 사라졌다. 남는 건 배울 개념
+하나와 제약(브랜드∩아키타입=∅, 두 파일 동시 수정, 제품으로 새는 `Archetype` 타입)뿐이었다.
+걷어낼 때 `saas` 프리셋이 제품에 내보내는 값이 한 글자도 바뀌지 않는 것을 확인했다.
+
+**다른 치수가 필요하면** 프리셋을 늘리지 말고 포크한 저장소의 `semantic/` 을 고친다.
+출발점 견본이 `packages/tokens/templates/` 에 있다 — `workbench.json`(지금 기본과 같은 고밀도),
+`consumer.json`(터치 타깃 36/44/48, 둥근 모서리, 본문 16px). 빌드에는 쓰이지 않는다.
 
 ## 테마가 바꿀 수 있는 것의 범위 = 계약의 어휘
 
@@ -138,8 +149,8 @@ primary·포커스·링크를 무채색으로, 강조를 red 로 — 59키). 덮
 
 **3단계 — 계약에 키 추가 (색이 아닌 속성).** 여기가 폭을 실제로 넓히는 지점이다.
 예를 들어 "어떤 테마는 컨트롤에 약한 그림자"를 하려면 `elevation.control` 이라는 키가
-있어야 하고, Button·Input이 그걸 참조해야 한다. 지금 그 키가 있고 `consumer` 아키타입만
-켜 둔다 — `base`/`workbench`는 그림자 없음.
+있어야 하고, Button·Input이 그걸 참조해야 한다. 지금 그 키가 있고 기본값은 그림자 없음이다 —
+`templates/consumer.json` 이 켜는 예다.
 
 | 무엇을 바꾸고 싶나 | 어디를 고치나 | 비용 |
 |---|---|---|
@@ -154,9 +165,8 @@ primary·포커스·링크를 무채색으로, 강조를 red 로 — 59키). 덮
 
 1. **1층은 CSS로 나가지 않는다.** `--palette-blue-600` 같은 변수는 존재하지 않는다.
 2. **테마 delta는 계약에 있는 키만 덮을 수 있다.** 새 키를 만들면 빌드 실패.
-3. **브랜드와 아키타입은 같은 키를 건드릴 수 없다.** 겹치면 빌드 실패.
-   (둘 다 제품 결정 시점의 축이라 겹치면 어느 쪽이 이기는지가 CSS 작성 순서에
-   의존하게 되고, 그게 drift의 시작이다.)
+3. **(폐지)** — "브랜드와 아키타입은 같은 키를 건드릴 수 없다"였다. 아키타입 층을 걷어내면서
+   없앴다. 번호는 다른 곳이 가리키고 있어 비워 둔다.
 4. **`mode/dark.json`은 2층의 모든 색 키를 명시적으로 덮어야 한다.** 기본 브랜드의 다크다. 색 키를 추가하고 다크를 빼먹으면 에러 없이 라이트 값이 다크 화면에
    그대로 뜬다. 값이 같아도 적는다 — "같다"도 결정이다.
 5. **브랜드가 시맨틱 색 키를 덮었으면 `brand/<이름>.dark.json`이 그 키들을 전부 덮어야 한다.**
@@ -216,23 +226,21 @@ Node 22 이상 (`.nvmrc` = 26). `npm install` 한 번이면 워크스페이스 �
 
 ## 자주 하는 작업 — 절차
 
-### 프리셋 추가 (제품군이 늘 때)
+### 프리셋 추가 (색이 다른 제품이 늘 때)
 
-1. `packages/tokens/src/archetype/<이름>.json` — 기존 파일(`workbench.json` 등)을 복사해 값만 바꾼다.
-   **치수만** 넣는다. 색을 넣으면 규칙 3이 막는다.
+1. `packages/tokens/src/brand/<이름>.json` — 덮을 색 키만 적는다. 시맨틱 매핑을 바꿨으면
+   규칙 5에 따라 `<이름>.dark.json` 도 함께.
 2. `packages/tokens/presets.json` 에 한 덩어리 추가:
    ```json
-   "console": { "product": true, "archetype": "console", "brand": "default",
+   "console": { "product": true, "brand": "console",
                 "label": "콘솔", "title": "…", "description": "…" }
    ```
-3. `npm run verify` — 축 파일을 빼먹었으면 **무엇을 만들어야 하는지 알려주며 막는다.**
+3. `npm run verify` — 브랜드 파일을 빼먹었으면 **무엇을 만들어야 하는지 알려주며 막는다.**
 
 이것만으로 스토리북 툴바와 레지스트리 배포에 동시에 나타난다(같은 파일을 읽으므로).
 
-**프리셋마다 색을 다르게 하려면 브랜드도 필요하다.** 지금 `saas`와 `landing`은
-`brand: "default"` 를 공유하므로 색이 같다. 랜딩만 다른 accent 를 쓰려면
-`brand/landing.json` 을 만들고 프리셋이 그걸 가리키게 한다 — 시맨틱 매핑까지 바꾸면
-규칙 5에 따라 `brand/landing.dark.json` 도 함께 만들어야 한다.
+**치수가 다른 제품은 프리셋이 아니다.** 그건 다른 시스템이므로 저장소를 포크해
+`semantic/layout.json`·`typography.json` 을 고친다 — 「치수」 절.
 
 ### 토큰 키 추가 (테마로 바꿀 수 있는 것을 늘릴 때)
 
@@ -255,7 +263,7 @@ Node 22 이상 (`.nvmrc` = 26). `npm install` 한 번이면 워크스페이스 �
 ### UI 폴리싱 (대부분의 작업)
 
 테마 랩에서 값을 바꾸고 저장한다. 저장 위치는 패널에 표시된다 —
-치수는 고른 프리셋의 아키타입 파일로, 색은 팔레트나 계약으로 간다.
+치수는 `semantic/` 으로, 색은 팔레트나 계약(또는 고른 브랜드 파일)으로 간다.
 
 ## 토큰 고치는 법
 
@@ -264,7 +272,7 @@ Node 22 이상 (`.nvmrc` = 26). `npm install` 한 번이면 워크스페이스 �
 | 색·간격 원재료 추가 | `packages/tokens/src/primitive/` |
 | 계약에 키 추가·삭제 | `packages/tokens/src/semantic/` |
 | 새 브랜드 | `packages/tokens/src/brand/<이름>.json` (시맨틱을 덮었으면 `<이름>.dark.json`도) |
-| 새 아키타입 | `packages/tokens/src/archetype/<이름>.json` |
+| 치수 변경 | `packages/tokens/src/semantic/layout.json` · `typography.json` (한 벌뿐 — 견본은 `templates/`) |
 | 새 재질(11단계 색) | `packages/tokens/src/primitive/color.json` — 그레이는 단계 집합(0~1000)이 slate와 같아야 한다 |
 
 고친 뒤 `npm run build:tokens`. `dist/`는 생성물이므로 직접 고치지 않는다.
@@ -284,14 +292,13 @@ npx shadcn add https://im-not-an-engineer.github.io/midas-design-system/r/button
 
 | 프리셋 | 내부 축 | 성격 |
 |---|---|---|
-| `saas` | archetype `workbench` | 고밀도 업무 도구. 컨트롤 28px, 각진 모서리 |
-| `landing` | archetype `consumer` | 마케팅 페이지. 컨트롤 44px, 둥근 모서리, 옅은 그림자 |
+| `saas` | brand `default` | 고밀도 업무 도구. 컨트롤 28px, 각진 모서리 |
 
-**프리셋은 아키타입을 굳혀서 내보낸다.** 제품은 `[data-archetype]` 다축 전환을 받지 않고
+**프리셋은 브랜드를 굳혀서 내보낸다.** 제품은 `[data-brand]` 전환을 받지 않고
 `:root` + 다크만 받는다 — 제품 코드에는 선택지 자체가 없으므로 "뭘 써야 하지"가 생기지 않는다.
 
 **제품팀에게는 프리셋 이름만 보여준다.** 스토리북 툴바도 `프리셋` 하나로 줄여 두었다 —
-아키타입·브랜드라는 내부 축은 테마 랩에서만 다룬다. 바깥 이름과 내부 축은
+브랜드라는 내부 축은 테마 랩에서만 다룬다. 바깥 이름과 내부 축은
 `packages/tokens/presets.json` 한 곳에서 이어지고, 레지스트리 생성기와 스토리북 툴바가
 같은 파일을 읽으므로 둘이 어긋날 수 없다. `product: false` 인 항목(`_mono`, `_vivid`)은
 축이 실제로 도는지 보여주는 검증용이라 **배포되지 않는다.**
@@ -316,7 +323,7 @@ npm run storybook   # 사이드바 맨 위 "테마 랩"
 | 패널 | 바꾸는 것 | 기록되는 파일 |
 |---|---|---|
 | 재질 — 팔레트 | 재질 단계의 실제 색 | `primitive/color.json` |
-| 치수 | 컨트롤 높이·여백·모서리·글자 크기 | 아키타입이 base면 `semantic/`, 아니면 `archetype/<이름>.json` |
+| 치수 | 컨트롤 높이·여백·모서리·글자 크기 | `semantic/layout.json` · `typography.json` |
 | 매핑 — 시맨틱 색 | 이름표마다 재질과 단계를 고른다 — "primary는 무채색" 같은 결정 | `semantic/color.json` (기본 브랜드에서만) |
 
 **미리보기는 흉내가 아니다.** 개발 서버가 `packages/tokens/lib.mjs`(빌드와 같은 코드)로
@@ -373,14 +380,12 @@ $ npm run ramp -- '#2f62e8'
 ## 스토리 작성 규칙
 
 - 컴포넌트 옆에 `<이름>.stories.tsx`. 계약 린트가 스토리도 검사하므로 스토리 안 레이아웃도 계약 토큰만 쓴다.
-- 컴포넌트마다 **상태 매트릭스 스토리**(intent × size × disabled/invalid…)를 하나 둔다. 아키타입을
+- 컴포넌트마다 **상태 매트릭스 스토리**(intent × size × disabled/invalid…)를 하나 둔다. 토큰을
   바꿨을 때 모든 칸이 같이 움직이는지 보는 용도다. 오버레이는 `open` 고정 스토리를 하나 더 둔다(스냅샷용).
-- 툴바 세 축은 `contract.json`의 `axes`에서 읽는다. 브랜드·아키타입을 추가하면 툴바가 따라온다.
+- 툴바의 프리셋은 `presets.json`, 모드는 `contract.json`의 `axes`에서 읽는다. 브랜드를 추가하면 툴바가 따라온다.
 
 ## 알려진 한계
 
-- **아키타입이 아직 토큰 delta뿐이다.** 문서상 아키타입은 organism 변형, 레이아웃
-  blueprint, 인터랙션 정책까지 포함해야 하는데, 그건 ④층이 생긴 뒤에 붙는다.
 - **Base UI 37개 전부를 스타일 층으로 감쌌다** (+ 우리 Table). 가족 단위로 스타일 조각을
   공유한다(`packages/react/src/lib/styles.ts`): 폼 컨트롤은 `FIELD_CONTROL`·`SELECTION_*`,
   팝업은 `POPUP_*`, 모달은 `MODAL_*`. 37개를 짓는 동안 계약에 추가한 토큰은
