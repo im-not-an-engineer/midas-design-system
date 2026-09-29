@@ -50,7 +50,7 @@ const 항목 = [
 export const 변형: Story = {
   render: () => (
     <div className="flex flex-col gap-section-sm">
-      {(['line', 'pill', 'folder'] as const).map((v) => (
+      {(['line', 'pill', 'folder', 'ghost'] as const).map((v) => (
         <div key={v} className="flex flex-col gap-stack-sm">
           <span className="text-caption text-fg-muted">{v}</span>
           <Tabs defaultValue="list">
@@ -72,7 +72,7 @@ export const 변형: Story = {
 export const 세로_변형: Story = {
   render: () => (
     <div className="flex gap-section-sm">
-      {(['line', 'pill', 'folder'] as const).map((v) => (
+      {(['line', 'pill', 'folder', 'ghost'] as const).map((v) => (
         <Tabs key={v} defaultValue="a" orientation="vertical" className="flex gap-inline-lg">
           <TabsList variant={v}>
             <Tab value="a">일반</Tab><Tab value="b">알림</Tab><Tab value="c">보안</Tab>

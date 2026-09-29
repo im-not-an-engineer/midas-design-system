@@ -49,6 +49,7 @@ export interface MenuItemProps extends React.ComponentProps<typeof Base.Item> {
 export function MenuItem({ className, destructive, ...props }: MenuItemProps) {
   return (
     <Base.Item
+      data-destructive={destructive || undefined}
       className={cn(POPUP_ITEM, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)}
       {...props}
     />

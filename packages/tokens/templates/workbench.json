@@ -28,10 +28,10 @@
         "$value": "{scale.control.28}"
       },
       "md": {
-        "$value": "{scale.control.32}"
+        "$value": "{scale.control.36}"
       },
       "lg": {
-        "$value": "{scale.control.36}"
+        "$value": "{scale.control.48}"
       }
     }
   },
@@ -82,6 +82,9 @@
       },
       "lg": {
         "$value": "{scale.space.8}"
+      },
+      "xl": {
+        "$value": "{scale.space.10}"
       }
     },
     "section": {

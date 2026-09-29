@@ -20,10 +20,10 @@ Tailwind 기본 테마를 비웠기 때문이다. 쓸 수 있는 건 계약 토�
 | 컨트롤 높이 | `h-control-sm` `h-control-md` `h-control-lg` |
 | 안쪽 여백 | `p-inset-xs` … `p-inset-xl` (`px-`, `py-` 동일) |
 | 세로 간격 | `gap-stack-xs` … `gap-stack-xl` |
-| 가로 간격 | `gap-inline-xs` … `gap-inline-lg` |
+| 가로 간격 | `gap-inline-xs` … `gap-inline-xl` |
 | 큰 덩어리 사이 | `gap-section-sm` `gap-section-md` `gap-section-lg` |
-| 모서리 | `rounded-control` `rounded-surface` `rounded-overlay` `rounded-pill` |
-| 글자 크기 | `text-caption` `text-body` `text-body-lg` `text-heading-sm/md/lg` `text-display` |
+| 모서리 | `rounded-inline` `rounded-control` `rounded-surface` `rounded-overlay` `rounded-pill` |
+| 글자 크기 | `text-caption` `text-body` `text-content` `text-body-lg` `text-heading-sm/md/lg` `text-display` |
 | 줄 간격 | `leading-tight` `leading-normal` `leading-ui` |
 | 면 | `bg-surface-base/subtle/sunken/raised/overlay/hover/selected` |
 | 글자·아이콘 색 | `text-fg-default/muted/subtle/on-accent/link/disabled` |
@@ -33,7 +33,7 @@ Tailwind 기본 테마를 비웠기 때문이다. 쓸 수 있는 건 계약 토�
 | 아이콘 크기 | `size-icon-sm/md/lg` |
 | 겹침 순서 | `z-sticky` `z-overlay` `z-modal` `z-popover` `z-toast` |
 
-전체 목록: `packages/tokens/dist/contract.json` (154개)
+전체 목록: `packages/tokens/dist/contract.json` (161개)
 
 **계약에 없는 값이 정말 필요하면 클래스를 지어내지 말고 멈춰서 물어본다.**
 토큰을 추가하는 건 사람의 결정이다. `npm run lint:contract`가 어차피 빌드를 막는다.
@@ -82,6 +82,7 @@ Tailwind는 소스를 **문자열로** 훑는다. 완성된 클래스 이름이 
 | `intent` | `primary` `secondary` `ghost` `destructive` | 누를 수 있는 것 |
 | `status` | `info` `success` `warning` `danger` | 상태를 나르는 것 (Badge · Alert · Meter) |
 | `variant` | 컴포넌트마다 다름 | **생김새**만 다른 갈래 |
+| `shape` | `pill` `rounded` | 모서리 윤곽. 채움(`variant`)과 따로 논다 (Badge) |
 | `disabled` | boolean | |
 | `invalid` | boolean | 입력 컨트롤 |
 | `required` | boolean | 입력 컨트롤 |
@@ -155,6 +156,9 @@ import { ChevronDown } from '../lib/icons';   // ○
 `lib/icons.ts`는 지금은 재export 한 줄이다. 나중에 프리셋별로 다른 세트가 필요해지면
 **이 파일이 아이콘 계약이 된다** — 컴포넌트는 한 줄도 안 바꾸고 여기서 매핑한다.
 직접 import가 하나라도 들어가면 그 날 컴포넌트 33개를 다 고쳐야 한다.
+
+**제품 화면도 마찬가지다.** `import { Icons } from '@ax/react'` 로 가져와 `<Icons.Search />` 처럼 쓴다.
+목록에 없는 아이콘이 필요하면 `lib/icons.ts` 에 먼저 잇고, 피그마 Icons 섹션에도 같은 이름(`Icon/Search`)으로 추가한다.
 
 아이콘은 `currentColor`로 그려진 것만 쓴다. 색이 박힌 SVG에는 토큰이 닿지 않는다.
 크기는 `size-icon-{sm,md,lg}` 계약으로, 컴포넌트 안에서 직접 px를 주지 않는다.

@@ -1,39 +1,39 @@
 {
-  "$description": "2층 Semantic — 계약(contract). 이 키 집합은 모든 테마에서 동일하다. 컴포넌트는 오직 이 이름만 참조한다. 값은 palette(재질)의 단계를 직접 가리킨다 — 여기 값은 기본 테마의 매핑이고, 다른 브랜드는 brand/<이름>.json 에서 필요한 키만 다른 재질·단계로 덮는다.",
+  "$description": "2층 Semantic — 계약(contract). 이 키 집합은 모든 테마에서 동일하다. 컴포넌트는 오직 이 이름만 참조한다. 값은 palette(재질)의 단계를 직접 가리킨다 — 여기 값은 기본 테마의 매핑이고, 다른 브랜드는 brand/<이름>.json 에서 필요한 키만 다른 재질·단계로 덮는다. 기본 테마의 재질: 회색은 gray(채도 0) — slate 의 파란 기운을 빼기로 했다(2026-09-29, 사람의 결정). 강조색은 blue, primary 는 700 — 폴리싱 1차(PR #1)에서 추출값(azure) 대신 확정했다. info 는 강조색과 별개로 blue 를 가리킨다 — 브랜드색이 나중에 파랑이 아니게 되어도 정보 알림은 파랑이어야 하기 때문.",
   "color": {
     "$type": "color",
     "surface": {
       "$description": "면. 무엇을 담는 배경.",
       "base": {
-        "$value": "{palette.slate.0}",
+        "$value": "{palette.gray.0}",
         "$description": "페이지 바탕"
       },
       "subtle": {
-        "$value": "{palette.slate.50}",
+        "$value": "{palette.gray.50}",
         "$description": "한 단계 눌린 영역 (테이블 헤더, 섹션 바탕)"
       },
       "sunken": {
-        "$value": "{palette.slate.100}",
+        "$value": "{palette.gray.100}",
         "$description": "가장 안쪽 (코드 블록, 트랙)"
       },
       "track": {
-        "$value": "{palette.slate.200}",
+        "$value": "{palette.gray.200}",
         "$description": "게이지의 빈 칸 (Progress·Meter 트랙). sunken(100)은 흰 바탕에서 거의 안 보였고, sunken 은 아바타·토글이 함께 써서 같이 올릴 수 없었다."
       },
       "chip": {
-        "$value": "{palette.slate.200}",
+        "$value": "{palette.gray.200}",
         "$description": "글자를 얹는 작은 채워진 면 (아바타 이니셜, 중립 배지·태그). track·handle 과 같은 부위 이름이지 컴포넌트 이름이 아니다. sunken(움푹 들어간 면)과 구분한다 — 칩은 들어간 게 아니라 얹힌 것이라, 다크에서 바탕보다 밝아야 한다."
       },
       "handle": {
-        "$value": "{palette.slate.300}",
+        "$value": "{palette.gray.300}",
         "$description": "잡아서 끄는 것 (스크롤바 손잡이, 패널 크기 조절 바). 면도 선도 아니라 track(200)보다 진하고 inverse(900)보다 한참 옅은 자리가 필요하다."
       },
       "raised": {
-        "$value": "{palette.slate.0}",
+        "$value": "{palette.gray.0}",
         "$description": "떠 있는 면 (카드, 패널)"
       },
       "overlay": {
-        "$value": "{palette.slate.0}",
+        "$value": "{palette.gray.0}",
         "$description": "가장 위 (다이얼로그, 팝오버)"
       },
       "scrim": {
@@ -41,7 +41,7 @@
         "$description": "모달 뒤 어둠막"
       },
       "hover": {
-        "$value": "{palette.slate.100}",
+        "$value": "{palette.gray.100}",
         "$description": "행·항목 호버"
       },
       "accentSubtle": {
@@ -53,47 +53,47 @@
         "$description": "선택된 행·항목. 호버는 중립 회색(surface.hover)이라 이 색과 겹치지 않는다. accent 램프의 제일 옅은 단계라 더 내려갈 곳이 없고, 그래서 accentSubtle 과 값이 같다."
       },
       "inverse": {
-        "$value": "{palette.slate.950}",
+        "$value": "{palette.gray.950}",
         "$description": "밝은 화면 위의 어두운 면 (툴팁). 다크에서는 반대로 밝아진다."
       }
     },
     "fg": {
       "$description": "전경. 글자와 아이콘.",
       "default": {
-        "$value": "{palette.slate.900}"
+        "$value": "{palette.gray.900}"
       },
       "muted": {
-        "$value": "{palette.slate.600}",
+        "$value": "{palette.gray.600}",
         "$description": "보조 설명"
       },
       "subtle": {
-        "$value": "{palette.slate.400}",
+        "$value": "{palette.gray.400}",
         "$description": "플레이스홀더, 비활성 라벨"
       },
       "onAccent": {
-        "$value": "{palette.slate.0}",
+        "$value": "{palette.gray.0}",
         "$description": "강조색 면 위의 글자"
       },
       "link": {
         "$value": "{palette.blue.700}"
       },
       "disabled": {
-        "$value": "{palette.slate.400}"
+        "$value": "{palette.gray.400}"
       },
       "onInverse": {
-        "$value": "{palette.slate.0}",
+        "$value": "{palette.gray.0}",
         "$description": "inverse 면 위의 글자"
       }
     },
     "border": {
       "default": {
-        "$value": "{palette.slate.200}"
+        "$value": "{palette.gray.200}"
       },
       "subtle": {
-        "$value": "{palette.slate.100}"
+        "$value": "{palette.gray.100}"
       },
       "strong": {
-        "$value": "{palette.slate.300}"
+        "$value": "{palette.gray.300}"
       },
       "focus": {
         "$value": "{palette.blue.700}"
@@ -117,15 +117,15 @@
             "$value": "{palette.blue.900}"
           },
           "disabled": {
-            "$value": "{palette.slate.200}"
+            "$value": "{palette.gray.200}"
           }
         },
         "fg": {
           "default": {
-            "$value": "{palette.slate.0}"
+            "$value": "{palette.gray.0}"
           },
           "disabled": {
-            "$value": "{palette.slate.400}"
+            "$value": "{palette.gray.400}"
           }
         },
         "border": {
@@ -137,29 +137,29 @@
       "secondary": {
         "bg": {
           "default": {
-            "$value": "{palette.slate.0}"
+            "$value": "{palette.gray.0}"
           },
           "hover": {
-            "$value": "{palette.slate.50}"
+            "$value": "{palette.gray.50}"
           },
           "active": {
-            "$value": "{palette.slate.100}"
+            "$value": "{palette.gray.100}"
           },
           "disabled": {
-            "$value": "{palette.slate.50}"
+            "$value": "{palette.gray.50}"
           }
         },
         "fg": {
           "default": {
-            "$value": "{palette.slate.900}"
+            "$value": "{palette.gray.900}"
           },
           "disabled": {
-            "$value": "{palette.slate.400}"
+            "$value": "{palette.gray.400}"
           }
         },
         "border": {
           "default": {
-            "$value": "{palette.slate.300}"
+            "$value": "{palette.gray.300}"
           }
         }
       },
@@ -169,10 +169,10 @@
             "$value": "transparent"
           },
           "hover": {
-            "$value": "{palette.slate.100}"
+            "$value": "{palette.gray.100}"
           },
           "active": {
-            "$value": "{palette.slate.200}"
+            "$value": "{palette.gray.200}"
           },
           "disabled": {
             "$value": "transparent"
@@ -180,10 +180,10 @@
         },
         "fg": {
           "default": {
-            "$value": "{palette.slate.700}"
+            "$value": "{palette.gray.700}"
           },
           "disabled": {
-            "$value": "{palette.slate.400}"
+            "$value": "{palette.gray.400}"
           }
         },
         "border": {
@@ -204,15 +204,15 @@
             "$value": "{palette.red.700}"
           },
           "disabled": {
-            "$value": "{palette.slate.200}"
+            "$value": "{palette.gray.200}"
           }
         },
         "fg": {
           "default": {
-            "$value": "{palette.slate.0}"
+            "$value": "{palette.gray.0}"
           },
           "disabled": {
-            "$value": "{palette.slate.400}"
+            "$value": "{palette.gray.400}"
           }
         },
         "border": {
@@ -226,35 +226,35 @@
       "$description": "입력 컨트롤. action과 분리한 이유: 입력은 invalid 상태가 있고 기본 배경이 다르다.",
       "bg": {
         "default": {
-          "$value": "{palette.slate.0}"
+          "$value": "{palette.gray.0}"
         },
         "hover": {
-          "$value": "{palette.slate.0}"
+          "$value": "{palette.gray.0}"
         },
         "disabled": {
-          "$value": "{palette.slate.50}"
+          "$value": "{palette.gray.50}"
         },
         "readonly": {
-          "$value": "{palette.slate.50}"
+          "$value": "{palette.gray.50}"
         }
       },
       "fg": {
         "default": {
-          "$value": "{palette.slate.900}"
+          "$value": "{palette.gray.900}"
         },
         "placeholder": {
-          "$value": "{palette.slate.400}"
+          "$value": "{palette.gray.400}"
         },
         "disabled": {
-          "$value": "{palette.slate.400}"
+          "$value": "{palette.gray.400}"
         }
       },
       "border": {
         "default": {
-          "$value": "{palette.slate.300}"
+          "$value": "{palette.gray.300}"
         },
         "hover": {
-          "$value": "{palette.slate.400}"
+          "$value": "{palette.gray.400}"
         },
         "focus": {
           "$value": "{palette.blue.700}"
@@ -263,7 +263,7 @@
           "$value": "{palette.red.500}"
         },
         "disabled": {
-          "$value": "{palette.slate.200}"
+          "$value": "{palette.gray.200}"
         }
       }
     },
@@ -283,7 +283,7 @@
           "$value": "{palette.blue.600}"
         },
         "onSolid": {
-          "$value": "{palette.slate.0}"
+          "$value": "{palette.gray.0}"
         }
       },
       "success": {
@@ -301,7 +301,7 @@
           "$description": "꽉 찬 성공 면. 600 은 어두워 배지가 가라앉아 보여 한 톤 올렸다(2026-09-28, 사람이 봄). 흰 글자 대비는 3.3 → 2.3:1 로 내려간다 — warning solid(2.1:1)와 같은 급이고, 작은 배지에는 선명함을 택하기로 한 이 저장소의 방침과 같다. Meter 의 성공 막대도 같이 밝아진다."
         },
         "onSolid": {
-          "$value": "{palette.slate.0}"
+          "$value": "{palette.gray.0}"
         }
       },
       "warning": {
@@ -319,7 +319,7 @@
           "$value": "{palette.amber.500}"
         },
         "onSolid": {
-          "$value": "{palette.slate.0}",
+          "$value": "{palette.gray.0}",
           "$description": "꽉 찬 경고 면 위의 글자. 나머지 셋과 같은 흰색이다 — 사람이 보고 정했다(2026-09-28). 대비는 2.1:1 로 기준(4.5:1)에 크게 못 미친다. 검정이면 8.5:1 이지만 배지 넷 중 하나만 검정이라 줄이 어긋나 보였다. 다크는 더 나빠서(1.7:1) 검정을 그대로 둔다."
         }
       },
@@ -337,7 +337,7 @@
           "$value": "{palette.red.600}"
         },
         "onSolid": {
-          "$value": "{palette.slate.0}"
+          "$value": "{palette.gray.0}"
         }
       }
     },
