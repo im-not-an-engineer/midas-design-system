@@ -19,3 +19,15 @@ export const 측정값: Story = {
     </div>
   ),
 };
+
+/** 수치를 막대 끝에. 표 칸처럼 세로 자리가 좁을 때. 수치 폭을 받쳐 두어 줄마다 막대 길이가 같다. */
+export const 막대끝수치: Story = {
+  render: () => (
+    <div className="flex w-[240px] flex-col gap-stack-md">
+      <Meter value={75} showValue valuePosition="end" />
+      <Meter value={100} showValue valuePosition="end" status="success" />
+      <Meter value={34} showValue valuePosition="end" status="warning" />
+      <Progress value={60} showValue valuePosition="end" />
+    </div>
+  ),
+};

@@ -49,7 +49,6 @@ export function themeLab(): Plugin {
             const L = await listLayers(SRC);
             const files = [
               ...L.primitive, ...L.semantic,
-              ...L.archetypes.map((n: string) => `archetype/${n}.json`),
               ...L.brands.map((n: string) => `brand/${n}.json`),
               ...[...L.brandDarks].map((n: string) => `brand/${n}.dark.json`),
               'mode/dark.json',
@@ -71,8 +70,8 @@ export function themeLab(): Plugin {
 
           // 편집 중 미리보기: 선택한 조합 하나만 해석한다(~13ms). 규칙 검사는 저장할 때.
           if (req.url === '/__ax/preview') {
-            const { overlay, brand, archetype, mode } = await readBody(req);
-            return json(res, 200, { vars: await resolveOne(SRC, { overlay, brand, archetype, mode }) });
+            const { overlay, brand, mode } = await readBody(req);
+            return json(res, 200, { vars: await resolveOne(SRC, { overlay, brand, mode }) });
           }
 
           // 브랜드 색 하나 → 램프 11단계. 기준 램프의 명도·채도 곡선을 빌려 쓴다.

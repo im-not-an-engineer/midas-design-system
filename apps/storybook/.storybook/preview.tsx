@@ -5,15 +5,15 @@ import presetsFile from '../../../packages/tokens/presets.json';
 import './storybook.css';
 
 /**
- * 툴바의 세 축은 contract.json에서 읽는다 — 브랜드·아키타입을 추가하면 툴바가 따라온다.
- * 이 스토리북의 존재 이유는 "아키타입을 바꿨을 때 모든 부품이 같이 움직이는가"를
+ * 툴바의 프리셋은 presets.json 에서, 모드는 contract.json 에서 읽는다 — 브랜드를 추가하면 툴바가 따라온다.
+ * 이 스토리북의 존재 이유는 "토큰을 바꿨을 때 모든 부품이 같이 움직이는가"를
  * 컴포넌트 하나하나, 상태 하나하나 눈으로 확인하는 것이다.
  */
-const PRESETS = presetsFile.presets as Record<string, { product: boolean; archetype: string; brand: string; label: string }>;
+const PRESETS = presetsFile.presets as Record<string, { product: boolean; brand: string; label: string }>;
 
 const preview: Preview = {
   globalTypes: {
-    // 제품팀에게는 "이 제품은 이걸 쓰세요" 하나만 보여준다. 아키타입·브랜드라는 내부 축은
+    // 제품팀에게는 "이 제품은 이걸 쓰세요" 하나만 보여준다. 브랜드라는 내부 축은
     // 테마 랩에서만 다룬다 — 선택지가 많으면 무엇을 써야 할지 알 수 없다.
     preset: {
       description: '제품군 프리셋 — 제품은 이 중 하나를 고정해서 받습니다',
@@ -38,7 +38,6 @@ const preview: Preview = {
         <Story />
       ) : (
       <AxTheme
-        archetype={PRESETS[globals.preset]?.archetype}
         brand={PRESETS[globals.preset]?.brand}
         mode={globals.mode}
         className="min-h-screen bg-surface-base p-inset-xl font-sans text-body text-fg-default"

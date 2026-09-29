@@ -53,8 +53,8 @@ export const TITLE_IN_PAIR = 'font-medium text-fg-default';
 
 /** 박스 옆 레이블. 비활성이면 글자도 흐려진다. 글자 크기는 SELECTION_LABEL_SIZE 가 정한다. */
 export const SELECTION_LABEL = [
-  // 박스와 글자 사이 10px. 가로 간격 척도는 lg=8 이 끝이라 xs(2)를 더해 만든다.
-  'inline-flex items-center gap-[calc(var(--spacing-inline-lg)+var(--spacing-inline-xs))]',
+  // 박스와 글자 사이. inline-xl 은 이 자리 때문에 연 단계다(workbench 10 · base 16 · consumer 24).
+  'inline-flex items-center gap-inline-xl',
   'font-sans leading-ui text-fg-default select-none cursor-pointer',
   'has-data-disabled:text-fg-disabled has-data-disabled:cursor-not-allowed',
 ].join(' ');
@@ -210,12 +210,16 @@ export const POPUP_SURFACE = [
  */
 export const POPUP_ITEM = [
   'relative flex items-center gap-inline-sm',
-  'h-control-md px-inset-sm rounded-control',
+  // 높이는 최솟값이다. 한 줄이면 control-md 그대로고, 설명이 붙어 두 줄이 되면 위아래 여백을 두고 자란다.
+  'min-h-control-md px-inset-sm py-inset-xs rounded-control',
   'leading-ui outline-none select-none cursor-pointer',
   // 선택된 항목은 호버해도 그대로 둔다 — 이미 골라둔 것이라 회색으로 덮을 이유가 없다.
   'data-highlighted:not-data-selected:not-data-checked:bg-surface-hover',
   'data-disabled:text-fg-disabled data-disabled:pointer-events-none',
   '[&_svg]:size-icon-sm [&_svg]:shrink-0',
+  // 항목 바로 밑의 아이콘만 옅게 — 체크·라디오 표시(span 안의 svg)는 제 색(fg-link)을 지킨다.
+  // 위험 항목(data-destructive)과 비활성 항목은 글자색을 그대로 따른다.
+  'not-data-disabled:not-data-destructive:[&>svg]:text-fg-muted',
 ].join(' ');
 
 /**
@@ -242,7 +246,8 @@ export const POPUP_ITEM_MARKER =
 export const POPUP_ITEM_INDENT =
   'pl-[calc(var(--spacing-inset-xs)+var(--spacing-icon-sm)+var(--spacing-inline-lg)+var(--spacing-inline-xs))]';
 
-export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-medium text-fg-muted';
+// semibold — 항목(regular)과 같은 회색 작은 글자라 medium 으로는 제목인지 잘 안 갈렸다(2026-09-29, 사람의 결정).
+export const POPUP_GROUP_LABEL = 'px-inset-sm py-inset-xs text-caption font-semibold text-fg-muted';
 export const POPUP_SEPARATOR = '-mx-inset-xs my-inset-xs h-px bg-border-subtle';
 /**
  * "결과 없음" 안내. 이 요소는 aria-live 알림 자리라 항목이 있어도 DOM 에 남는다 —

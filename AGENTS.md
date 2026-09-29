@@ -20,10 +20,10 @@ Tailwind 기본 테마를 비웠기 때문이다. 쓸 수 있는 건 계약 토�
 | 컨트롤 높이 | `h-control-sm` `h-control-md` `h-control-lg` |
 | 안쪽 여백 | `p-inset-xs` … `p-inset-xl` (`px-`, `py-` 동일) |
 | 세로 간격 | `gap-stack-xs` … `gap-stack-xl` |
-| 가로 간격 | `gap-inline-xs` … `gap-inline-lg` |
+| 가로 간격 | `gap-inline-xs` … `gap-inline-xl` |
 | 큰 덩어리 사이 | `gap-section-sm` `gap-section-md` `gap-section-lg` |
-| 모서리 | `rounded-control` `rounded-surface` `rounded-overlay` `rounded-pill` |
-| 글자 크기 | `text-caption` `text-body` `text-body-lg` `text-heading-sm/md/lg` `text-display` |
+| 모서리 | `rounded-inline` `rounded-control` `rounded-surface` `rounded-overlay` `rounded-pill` |
+| 글자 크기 | `text-caption` `text-body` `text-content` `text-body-lg` `text-heading-sm/md/lg` `text-display` |
 | 줄 간격 | `leading-tight` `leading-normal` `leading-ui` |
 | 면 | `bg-surface-base/subtle/sunken/raised/overlay/hover/selected` |
 | 글자·아이콘 색 | `text-fg-default/muted/subtle/on-accent/link/disabled` |
@@ -33,7 +33,7 @@ Tailwind 기본 테마를 비웠기 때문이다. 쓸 수 있는 건 계약 토�
 | 아이콘 크기 | `size-icon-sm/md/lg` |
 | 겹침 순서 | `z-sticky` `z-overlay` `z-modal` `z-popover` `z-toast` |
 
-전체 목록: `packages/tokens/dist/contract.json` (154개)
+전체 목록: `packages/tokens/dist/contract.json` (161개)
 
 **계약에 없는 값이 정말 필요하면 클래스를 지어내지 말고 멈춰서 물어본다.**
 토큰을 추가하는 건 사람의 결정이다. `npm run lint:contract`가 어차피 빌드를 막는다.
@@ -54,11 +54,12 @@ Tailwind는 소스를 **문자열로** 훑는다. 완성된 클래스 이름이 
 
 ## 2. px를 박지 않는다
 
-특히 높이·여백·글자 크기. 이것들은 아키타입이 통째로 바꾸는 값이다. 한 군데라도
-px를 박으면 `workbench`로 바꿨을 때 그 부분만 안 따라와서 화면이 어긋난다.
+특히 높이·여백·글자 크기. 이것들은 `semantic/layout.json` 한 곳이 정하는 값이고, 다른 치수가
+필요한 제품은 이 저장소를 포크해 그 파일을 고친다. 컴포넌트가 이름만 참조해야 그 한 번의 수정이
+전부에 닿는다 — 한 군데라도 px를 박으면 그 부분만 안 따라와서 화면이 어긋난다.
 
 예외는 레이아웃 폭(`max-w-[560px]` 같은 것)이다. 이건 밀도가 아니라 가독성 문제라
-아키타입과 무관하다.
+치수 토큰과 무관하다.
 
 ## 3. 색은 역할로 고른다
 
@@ -81,6 +82,7 @@ px를 박으면 `workbench`로 바꿨을 때 그 부분만 안 따라와서 화�
 | `intent` | `primary` `secondary` `ghost` `destructive` | 누를 수 있는 것 |
 | `status` | `info` `success` `warning` `danger` | 상태를 나르는 것 (Badge · Alert · Meter) |
 | `variant` | 컴포넌트마다 다름 | **생김새**만 다른 갈래 |
+| `shape` | `pill` `rounded` | 모서리 윤곽. 채움(`variant`)과 따로 논다 (Badge) |
 | `disabled` | boolean | |
 | `invalid` | boolean | 입력 컨트롤 |
 | `required` | boolean | 입력 컨트롤 |
@@ -155,6 +157,9 @@ import { ChevronDown } from '../lib/icons';   // ○
 **이 파일이 아이콘 계약이 된다** — 컴포넌트는 한 줄도 안 바꾸고 여기서 매핑한다.
 직접 import가 하나라도 들어가면 그 날 컴포넌트 33개를 다 고쳐야 한다.
 
+**제품 화면도 마찬가지다.** `import { Icons } from '@ax/react'` 로 가져와 `<Icons.Search />` 처럼 쓴다.
+목록에 없는 아이콘이 필요하면 `lib/icons.ts` 에 먼저 잇고, 피그마 Icons 섹션에도 같은 이름(`Icon/Search`)으로 추가한다.
+
 아이콘은 `currentColor`로 그려진 것만 쓴다. 색이 박힌 SVG에는 토큰이 닿지 않는다.
 크기는 `size-icon-{sm,md,lg}` 계약으로, 컴포넌트 안에서 직접 px를 주지 않는다.
 
@@ -207,13 +212,16 @@ lab/gallery.tsx                테마 랩에서 색을 바꿀 때 같이 움직�
 | 해도 되는 것 | 사람에게 물어봐야 하는 것 |
 |---|---|
 | 기존 컴포넌트로 화면 조립 | 새 토큰 추가 (`semantic/`) |
-| 계약 토큰으로 레이아웃 작성 | 새 아키타입·브랜드 추가 |
+| 계약 토큰으로 레이아웃 작성 | 새 브랜드 추가 · 치수 값 변경 |
 | 새 컴포넌트를 기존 어휘로 작성 | 헤드리스 라이브러리 교체·추가 |
 | `npm run verify` 돌려서 고치기 | 계약 린트를 우회하거나 끄는 것 |
 
 ## 프리셋과 토큰을 늘릴 때
 
-- **프리셋 추가** = `archetype/<이름>.json`(치수만) + `presets.json` 한 덩어리. 둘 다 있어야 한다.
+- **치수는 축이 아니다.** `semantic/layout.json`·`typography.json` 한 벌이 곧 이 저장소의 치수다.
+  다른 치수가 필요한 제품은 프리셋을 늘리는 게 아니라 저장소를 포크해 그 파일을 고친다
+  (출발점 견본: `packages/tokens/templates/`).
+- **프리셋 추가** = 브랜드 파일 + `presets.json` 한 덩어리. 색만 다르다.
 - **토큰 키 추가** = `semantic/` 에 역할 이름으로 + 색이면 `mode/dark.json` 에도 + **컴포넌트가 참조하게**.
   세 번째를 빼먹으면 키만 생기고 화면은 그대로다.
 - 키 이름에 컴포넌트 이름을 넣지 않는다(`surface.cardHeader` ✗). 그건 3층 소관이고 아직 열지 않았다.
@@ -223,7 +231,7 @@ lab/gallery.tsx                테마 랩에서 색을 바꿀 때 같이 움직�
   색 이름을 붙이면 브랜드가 배정을 바꾼 순간 이름이 거짓말이 된다.
 - 재질을 새로 만들기 전에 `npm run ramp -- '#헥스'` 의 중복 경고를 본다.
 - **치수 사다리는 커지는 순서를 지킨다** (`sm < md < lg`, `xs < … < xl`). 같아도 빌드가 막는다(규칙 8).
-  아키타입에서 한 단계만 바꿀 때 이웃 단계와 같아지지 않는지 본다. `font.size`는 본문과 제목이
+  한 단계만 바꿀 때 이웃 단계와 같아지지 않는지 본다. `font.size`는 본문과 제목이
   다른 사다리라 `bodyLg`와 `headingSm`은 같아도 된다.
 - 토큰 JSON을 손으로 고쳤으면 `npm run format:tokens` (규칙 7).
 

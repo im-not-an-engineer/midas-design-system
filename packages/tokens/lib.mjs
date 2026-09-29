@@ -8,11 +8,13 @@
  * 구조:  palette(재질) ← semantic(계약) ← 컴포넌트
  *        브랜드는 semantic 의 일부 키를 다른 재질·단계로 덮는다(brand/<이름>.json).
  *        예전엔 가운데 ramp(역할 램프) 층이 있었다 — 걷어낸 이유는 README 「토큰 구조」.
+ *        치수 delta(archetype/) 층도 있었다 — 걷어낸 이유는 README 「치수」. 치수는 semantic/ 한 벌뿐이고,
+ *        다른 치수가 필요한 제품은 이 저장소를 포크해 semantic/ 을 직접 고친다(견본: templates/).
  *
  * 강제하는 규칙:
  *   1. palette는 CSS로 나가지 않는다.
  *   2. delta는 2층 계약에 이미 있는 키만 덮을 수 있다.
- *   3. 브랜드와 아키타입은 같은 키를 건드릴 수 없다 (브랜드=색, 아키타입=치수).
+ *   3. (폐지 — "브랜드와 아키타입은 같은 키를 건드릴 수 없다"였다. 아키타입 층을 걷어내면서 없앴다)
  *   4. dark.json은 2층의 모든 색 키를 명시적으로 덮어야 한다.
  *   5. 브랜드가 시맨틱 색 키를 덮었으면 brand/<이름>.dark.json이 그 키들을 전부 덮어야 한다.
  *   6. (폐지 — ramp 층을 걷어내면서 없앴다. 번호는 다른 규칙이 가리키고 있어 비워 둔다)
@@ -150,7 +152,7 @@ const LADDERS = [
   ['size.row',      ['sm', 'md', 'lg']],
   ['space.inset',   ['xs', 'sm', 'md', 'lg', 'xl']],
   ['space.stack',   ['xs', 'sm', 'md', 'lg', 'xl']],
-  ['space.inline',  ['xs', 'sm', 'md', 'lg']],
+  ['space.inline',  ['xs', 'sm', 'md', 'lg', 'xl']],
   ['space.section', ['sm', 'md', 'lg']],
   ['font.size',     ['caption', 'body', 'bodyLg'],                          '본문'],
   ['font.size',     ['headingXs', 'headingSm', 'headingMd', 'headingLg', 'display'], '제목'],
@@ -180,14 +182,13 @@ function ladderViolations(base, values, label) {
 const namesIn = async (src, dir) =>
   (await readdir(path.join(src, dir))).map((f) => /^([a-z0-9.-]+)\.json$/.exec(f)?.[1]).filter(Boolean).sort(); // 점 허용: mono.dark.json
 
-/** 층별 파일 목록. 파일이 곧 등록이다 — 브랜드·아키타입을 추가할 때 코드를 고치지 않는다. */
+/** 층별 파일 목록. 파일이 곧 등록이다 — 브랜드를 추가할 때 코드를 고치지 않는다. */
 export async function listLayers(src) {
   const primitive = (await readdir(path.join(src, 'primitive'))).filter((f) => f.endsWith('.json')).sort().map((f) => `primitive/${f}`);
   const semantic = (await readdir(path.join(src, 'semantic'))).filter((f) => f.endsWith('.json')).sort().map((f) => `semantic/${f}`);
   const all = await namesIn(src, 'brand');
   return {
     primitive, semantic,
-    archetypes: await namesIn(src, 'archetype'),
     brands: all.filter((n) => n !== 'default' && !n.endsWith('.dark')),
     brandDarks: new Set(all.filter((n) => n.endsWith('.dark')).map((n) => n.replace(/\.dark$/, ''))),
   };
@@ -197,11 +198,10 @@ export async function listLayers(src) {
  * 한 조합만 해석한다. 테마 랩 미리보기용 — 전체 빌드(~8회 flatten)의 1/4 비용.
  * 규칙 검사는 하지 않는다(저장할 때 buildAll이 한다).
  */
-export async function resolveOne(src, { overlay = {}, brand = 'default', archetype = 'base', mode = 'light' } = {}) {
+export async function resolveOne(src, { overlay = {}, brand = 'default', mode = 'light' } = {}) {
   const L = await listLayers(src);
   const files = [...L.primitive, ...L.semantic];
   if (brand !== 'default') files.push(`brand/${brand}.json`);
-  if (archetype !== 'base') files.push(`archetype/${archetype}.json`);
   if (mode === 'dark') {
     files.push('mode/dark.json');
     if (brand !== 'default' && L.brandDarks.has(brand)) files.push(`brand/${brand}.dark.json`);
@@ -220,17 +220,10 @@ export async function buildAll(src, { overlay = {} } = {}) {
   const base = await flattenTokens(await load([]));
   const contractColorPaths = Object.values(base).filter((t) => t.path.startsWith('color.')).map((t) => t.path);
 
-  const archetypes = {};
-  for (const n of L.archetypes) archetypes[n] = diff(base, await flattenTokens(await load([`archetype/${n}.json`])), `archetype/${n}`);
-
-  // 규칙 8: 치수 사다리 순서. 기본 계약 + 각 아키타입만 본다 — 브랜드는 규칙 3이 치수를 못 건드리게
-  // 막고, 모드는 색만 바꾸므로 치수가 달라지는 축은 아키타입뿐이다.
+  // 규칙 8: 치수 사다리 순서. 치수는 기본 계약 한 벌뿐이다 — 브랜드는 색만, 모드도 색만 바꾼다.
   {
     const baseValues = Object.fromEntries(Object.entries(base).map(([k, t]) => [k, t.value]));
-    const bad = [];
-    for (const v of ladderViolations(base, baseValues, '기본 계약')) bad.push(`  기본 계약          ${v}`);
-    for (const [n, delta] of Object.entries(archetypes))
-      for (const v of ladderViolations(base, { ...baseValues, ...delta }, `archetype/${n}`)) bad.push(`  archetype/${n.padEnd(10)} ${v}`);
+    const bad = ladderViolations(base, baseValues, '기본 계약').map((v) => `  ${v}`);
     if (bad.length) throw new Error(
       `치수 사다리가 뒤집힌 곳 ${bad.length}개:\n${bad.join('\n')}\n` +
       `같은 사다리 안의 단계는 반드시 커져야 합니다 — 같아도 안 됩니다. 컴포넌트가 size="lg" 를 골랐는데 md 와 같거나 작아지면 크기 prop 이 거짓말이 됩니다. — 규칙 8`);
@@ -274,27 +267,18 @@ export async function buildAll(src, { overlay = {} } = {}) {
     brands[n] = { light, dark: composite };
   }
 
-  // 규칙 3: 브랜드 ∩ 아키타입 = ∅
-  {
-    const a = new Set(Object.values(archetypes).flatMap(Object.keys));
-    const collision = [...new Set(Object.values(brands).flatMap((b) => [...Object.keys(b.light), ...Object.keys(b.dark)]))].filter((k) => a.has(k));
-    if (collision.length) throw new Error(
-      `브랜드와 아키타입이 같은 키를 건드립니다 — 축이 섞였습니다:\n  ${collision.join('\n  ')}\n브랜드는 색, 아키타입은 치수입니다. — 규칙 3`);
-  }
-
   const contract = {
     $schema: 'https://ax.design/contract/v1',
     version: 2,
     description: '2층 계약. 이 목록에 없는 CSS 변수/유틸리티는 사용 금지이며 린트가 막습니다.',
     axes: {
-      archetype: { values: ['base', ...L.archetypes], owns: '치수(크기·간격·모서리·글자크기)', decidedAt: '제품 결정 시점' },
       brand: { values: ['default', ...L.brands], owns: '색 이름표 일부를 다른 재질·단계로 덮기 (default 는 semantic 그대로)', decidedAt: '제품 결정 시점' },
       mode: { values: ['light', 'dark'], owns: '색', decidedAt: '런타임' },
     },
     tokens: Object.fromEntries(Object.entries(base).map(([k, t]) => [k, { path: t.path, type: t.type, default: t.value, description: t.description }])),
   };
 
-  return { base, archetypes, brands, dark, contract, css: emitCss({ base, archetypes, brands, dark }) };
+  return { base, brands, dark, contract, css: emitCss({ base, brands, dark }) };
 }
 
 const block = (sel, map, indent = '  ') =>
@@ -302,7 +286,7 @@ const block = (sel, map, indent = '  ') =>
 
 const RESET = ['--color-*','--spacing','--spacing-*','--radius-*','--text-*','--font-*','--font-weight-*','--leading-*','--tracking-*','--shadow-*','--inset-shadow-*','--drop-shadow-*','--ease-*','--animate-*','--blur-*','--aspect-*','--container-*'];
 
-function emitCss({ base, archetypes, brands, dark }) {
+function emitCss({ base, brands, dark }) {
   const baseColors = Object.fromEntries(Object.entries(base).filter(([k]) => k.startsWith('--color-')).map(([k, t]) => [k, t.value]));
   return [
     `/* @ax/tokens — 자동 생성. 직접 수정하지 마세요. src/ 를 고치고 \`npm run build -w @ax/tokens\` 하세요. */`,
@@ -318,9 +302,6 @@ function emitCss({ base, archetypes, brands, dark }) {
     ``,
     `/* 명시적 라이트. OS가 다크여도 이 어트리뷰트가 있으면 라이트로 고정됩니다. 브랜드 블록보다 앞에 있어야 브랜드가 이깁니다. */`,
     block(`[data-mode="light"]`, baseColors),
-    ``,
-    `/* ── 아키타입(문법) — 치수만 ─────────────────────────────────── */`,
-    ...Object.entries(archetypes).map(([n, m]) => `\n${block(`[data-archetype="${n}"]`, m)}`),
     ``,
     `/* ── 브랜드 — 색만. 램프 교체와 시맨틱 재매핑이 리터럴로 굳어 있습니다 ── */`,
     ...Object.entries(brands).map(([n, b]) => `\n${block(`[data-brand="${n}"]`, b.light)}`),

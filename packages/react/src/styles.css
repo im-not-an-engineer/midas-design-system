@@ -74,7 +74,7 @@
 
 /*
  * 그림자 유틸리티. Tailwind의 shadow-* 는 테마 값을 빌드 시점에 인라인해버려
- * [data-archetype] 로 덮어도 바뀌지 않는다 — z-*, duration-* 과 같은 경우다.
+ * [data-brand] 로 덮어도 바뀌지 않는다 — z-*, duration-* 과 같은 경우다.
  * 계약의 --elevation-* 을 var() 로 읽어야 런타임에 테마가 그림자를 바꿀 수 있다.
  */
 @utility shadow-control { box-shadow: var(--elevation-control); }

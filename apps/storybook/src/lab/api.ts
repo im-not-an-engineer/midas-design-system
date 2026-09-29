@@ -14,7 +14,6 @@ export type Overlay = Record<string, Json>;
 export interface Layers {
   primitive: string[];
   semantic: string[];
-  archetypes: string[];
   brands: string[];
   brandDarks: string[];
 }
@@ -68,13 +67,12 @@ export function withoutEdit(overlay: Overlay, file: string, path: string[]): Ove
  * 편집이 기록될 파일을 정한다. 이게 곧 층 모델이다:
  *   재질(팔레트 헥스) → 모든 테마가 공유하는 창고
  *   시맨틱 매핑(어느 재질의 몇 단계인가) → 기본 브랜드면 계약 자체, 파생 브랜드면 그 브랜드
- *   치수 → 기본이면 계약, 아키타입을 골랐으면 그 아키타입
+ *   치수 → 계약 한 벌 (치수는 축이 아니다 — 다른 치수가 필요한 제품은 저장소를 포크한다)
  */
 export const targetFile = {
   palette: () => 'primitive/color.json',
   semanticColor: (brand: string) => (brand === 'default' ? 'semantic/color.json' : `brand/${brand}.json`),
-  dimension: (archetype: string, file: 'layout' | 'typography') =>
-    archetype === 'base' ? `semantic/${file}.json` : `archetype/${archetype}.json`,
+  dimension: (file: 'layout' | 'typography') => `semantic/${file}.json`,
 };
 
 async function post(url: string, body: unknown) {
@@ -90,7 +88,7 @@ export const api = {
     if (!res.ok) throw new Error('개발 서버 없음');
     return res.json();
   },
-  async preview(overlay: Overlay, axes: { brand: string; archetype: string; mode: string }): Promise<Record<string, string>> {
+  async preview(overlay: Overlay, axes: { brand: string; mode: string }): Promise<Record<string, string>> {
     const { vars } = await post('/__ax/preview', { overlay, ...axes });
     return vars;
   },
@@ -115,7 +113,7 @@ export interface Usage {
 
 /**
  * 편집이 실제로 바꾸는 계약 키를 고른다 — 편집 전후의 해석 결과를 비교하는 방식이다.
- * 편집한 경로(palette·semantic·archetype)가 제각각이라 경로에서 키 이름을
+ * 편집한 경로(palette·semantic·brand)가 제각각이라 경로에서 키 이름을
  * 계산하려 들면 층마다 규칙이 달라 어긋난다. 값이 달라진 것이 곧 영향받은 키다.
  */
 export function changedVars(before: Record<string, string> | null, after: Record<string, string> | null): string[] {

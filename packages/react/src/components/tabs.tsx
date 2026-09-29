@@ -10,12 +10,14 @@ import { cn } from '../lib/cn';
  *   line   (기본) 밑줄이 미끄러진다. 페이지 안의 주 구획을 가를 때.
  *   pill   눌린 세그먼트가 떠 보인다. 같은 자료를 다른 방식으로 볼 때(목록/보드/달력).
  *   folder 선택된 탭이 아래 줄을 끊고 내용과 이어진다. 탭이 곧 문서철일 때.
+ *   ghost  그릇도 선도 없이 선택된 탭 뒤에만 옅은 면이 깔린다. 상단 글로벌 메뉴처럼 탭이
+ *          화면 머리에 그냥 놓일 때 — 선이나 상자가 있으면 머리 영역이 한 겹 더 생겨 보인다.
  *
- * line·pill 의 인디케이터는 Base UI 가 주는 --active-tab-* 변수로 움직인다 — 탭 개수·너비를
+ * line·pill·ghost 의 인디케이터는 Base UI 가 주는 --active-tab-* 변수로 움직인다 — 탭 개수·너비를
  * 몰라도 되고, 위치가 바뀌면 미끄러진다. folder 는 인디케이터가 없다(탭 자체가 면을 갖는다).
  */
 
-export type TabsVariant = 'line' | 'pill' | 'folder';
+export type TabsVariant = 'line' | 'pill' | 'folder' | 'ghost';
 
 /** TabsList 가 정한 생김새를 Tab 이 알아야 한다. prop 으로 내리면 쓰는 쪽이 매번 적어야 한다. */
 const VariantCtx = React.createContext<TabsVariant>('line');
@@ -37,6 +39,9 @@ const LIST: Record<TabsVariant, string> = {
     'gap-inline-xs ' +
     'data-[orientation=horizontal]:border-b data-[orientation=horizontal]:border-solid data-[orientation=horizontal]:border-border-default ' +
     'data-[orientation=vertical]:flex-col data-[orientation=vertical]:border-r data-[orientation=vertical]:border-solid data-[orientation=vertical]:border-border-default',
+  // 그릇이 없다. pill 과 달리 목록 자체에는 면도 선도 여백도 두지 않는다.
+  ghost:
+    'gap-inline-xs data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',
 };
 
 const INDICATOR: Record<TabsVariant, string | null> = {
@@ -49,6 +54,21 @@ const INDICATOR: Record<TabsVariant, string | null> = {
     'absolute rounded-control bg-surface-raised shadow-raised transition-[left,width,top,height] duration-normal ease-standard ' +
     'left-(--active-tab-left) w-(--active-tab-width) top-(--active-tab-top) h-(--active-tab-height)',
   folder: null,
+  // pill 과 같은 자리 잡기에 떠 있는 그림자만 뺀다 — 바닥에 깔린 면이지 올라온 세그먼트가 아니다.
+  ghost:
+    'absolute rounded-control bg-surface-sunken transition-[left,width,top,height] duration-normal ease-standard ' +
+    'left-(--active-tab-left) w-(--active-tab-width) top-(--active-tab-top) h-(--active-tab-height)',
+};
+
+/**
+ * 높이. line 만 한 단계 크다(control-lg) — 글자와 밑줄 사이가 control-md 에서는 붙어 보였다(2026-09-29, 사람의 결정).
+ * pill·ghost 는 그릇 안의 세그먼트·머리 메뉴라 버튼 줄과 같은 control-md 에 둔다. folder 는 아직 사람이 정하지 않았다.
+ */
+const TAB_H: Record<TabsVariant, string> = {
+  line: 'h-control-lg',
+  pill: 'h-control-md',
+  folder: 'h-control-md',
+  ghost: 'h-control-md',
 };
 
 const TAB: Record<TabsVariant, string> = {
@@ -73,10 +93,12 @@ const TAB: Record<TabsVariant, string> = {
     'data-[orientation=vertical]:rounded-l-control data-[orientation=vertical]:rounded-r-none ' +
     'data-[orientation=vertical]:mr-[calc(var(--border-width-default)*-1)] ' +
     'data-[orientation=vertical]:data-active:not-data-disabled:border-r-surface-base',
+  // 인디케이터 위에 서야 하는 것은 pill 과 같다.
+  ghost: 'relative rounded-control hover:not-data-disabled:not-data-active:text-fg-default data-active:not-data-disabled:text-fg-default',
 };
 
 export interface TabsListProps extends React.ComponentProps<typeof Base.List> {
-  /** 기본 line. pill 은 '박스/버튼형', folder 는 문서철형. */
+  /** 기본 line. pill 은 '박스/버튼형', folder 는 문서철형, ghost 는 그릇 없는 면형. */
   variant?: TabsVariant;
 }
 
@@ -86,7 +108,7 @@ export function TabsList({ variant = 'line', className, children, ...props }: Ta
     <VariantCtx.Provider value={variant}>
       <Base.List data-variant={variant} className={cn('relative flex', LIST[variant], className)} {...props}>
         {/* 인디케이터를 children 보다 먼저 둔다. 둘 다 자리를 잡은 요소라 나중에 온 쪽이
-            위에 그려지는데, pill 은 인디케이터가 글자 뒤에 있어야 한다. */}
+            위에 그려지는데, pill·ghost 는 인디케이터가 글자 뒤에 있어야 한다. */}
         {indicator != null && <Base.Indicator className={indicator} />}
         {children}
       </Base.List>
@@ -99,11 +121,12 @@ export function Tab({ className, ...props }: React.ComponentProps<typeof Base.Ta
   return (
     <Base.Tab
       className={cn(
-        'inline-flex h-control-md items-center justify-center gap-inline-md px-inset-md',
+        'inline-flex items-center justify-center gap-inline-md px-inset-md',
         'font-sans text-heading-xs font-semibold leading-ui text-fg-muted whitespace-nowrap select-none cursor-pointer',
         'transition-colors duration-fast ease-standard ax-focus-ring',
         'data-disabled:text-fg-disabled data-disabled:cursor-not-allowed',
         '[&_svg]:size-icon-sm',
+        TAB_H[variant],
         TAB[variant],
         className,
       )}
