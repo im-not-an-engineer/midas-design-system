@@ -27,6 +27,10 @@
       "bodyLg": {
         "$value": "{scale.fontSize.16}"
       },
+      "content": {
+        "$value": "{scale.fontSize.14}",
+        "$description": "읽는 글자 — 표 셀·본문 문단. body 는 버튼·입력칸 같은 UI 글자라 workbench 가 13 으로 조이지만, 읽는 글자는 14 아래로 내리지 않는다. 본문 사다리(caption·body·bodyLg)와 따로 논다."
+      },
       "headingXs": {
         "$value": "{scale.fontSize.14}",
         "$description": "제목 사다리의 최하단. 본문보다 한 톤 크지만 제목 대접은 덜 받는 자리 — 탭 이름, 아코디언 질문처럼 줄 안에 서는 제목이다. 본문 사다리(caption·body·bodyLg) 사이에는 끼울 수 없었다: 기본 계약은 14<?<16, consumer 는 16<?<18 이라 척도에 들어갈 값이 없다."

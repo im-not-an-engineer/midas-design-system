@@ -93,6 +93,10 @@
       },
       "lg": {
         "$value": "{scale.space.12}"
+      },
+      "xl": {
+        "$value": "{scale.space.16}",
+        "$description": "선택 박스(체크박스·라디오·스위치) ↔ 레이블. lg 로는 박스와 글자가 붙어 보였다."
       }
     },
     "section": {
@@ -110,6 +114,10 @@
   },
   "radius": {
     "$type": "dimension",
+    "inline": {
+      "$value": "{scale.radius.4}",
+      "$description": "글자 줄 안에 놓이는 작은 표시(상자형 배지·태그) 모서리. control 보다 작아야 20px 높이에서 알약처럼 보이지 않는다"
+    },
     "control": {
       "$value": "{scale.radius.6}",
       "$description": "버튼·인풋 모서리"

@@ -171,7 +171,7 @@ const LADDERS = [
   ['size.row',      ['sm', 'md', 'lg']],
   ['space.inset',   ['xs', 'sm', 'md', 'lg', 'xl']],
   ['space.stack',   ['xs', 'sm', 'md', 'lg', 'xl']],
-  ['space.inline',  ['xs', 'sm', 'md', 'lg']],
+  ['space.inline',  ['xs', 'sm', 'md', 'lg', 'xl']],
   ['space.section', ['sm', 'md', 'lg']],
   ['font.size',     ['caption', 'body', 'bodyLg'],                          '본문'],
   ['font.size',     ['headingXs', 'headingSm', 'headingMd', 'headingLg', 'display'], '제목'],

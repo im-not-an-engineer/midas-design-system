@@ -35,6 +35,11 @@ export { Tabs, TabsList, Tab, TabsPanel } from './components/tabs';
 export { Accordion, AccordionItem, type AccordionItemProps } from './components/accordion';
 export { Collapsible, CollapsibleTrigger, CollapsiblePanel } from './components/collapsible';
 export { NavigationMenu, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, NavigationMenuLinkCard } from './components/navigation-menu';
+export { SideNav, SideNavGroup, SideNavItem, type SideNavGroupProps, type SideNavItemProps } from './components/side-nav';
+export { Pagination, type PaginationProps } from './components/pagination';
+export { SearchInput, type SearchInputProps } from './components/search-input';
+export { ChatComposer, type ChatComposerProps, type ChatAttachment } from './components/chat-composer';
+export { ChatThread, ChatMessage, type ChatMessageProps } from './components/chat-message';
 export { Menubar, MenubarTrigger } from './components/menubar';
 export { Toolbar, ToolbarGroup, ToolbarButton, ToolbarLink, ToolbarInput, ToolbarSeparator } from './components/toolbar';
 export { Toggle, ToggleGroup, type ToggleProps, type ToggleGroupProps } from './components/toggle';
@@ -46,14 +51,14 @@ export { ScrollArea, type ScrollAreaProps } from './components/scroll-area';
 export { Separator, type SeparatorProps } from './components/separator';
 
 export { Avatar, AvatarGroup, type AvatarProps, type AvatarSize } from './components/avatar';
-export { Badge, type BadgeProps, type BadgeVariant } from './components/badge';
+export { Badge, BadgeDot, type BadgeProps, type BadgeDotProps, type BadgeShape, type BadgeVariant } from './components/badge';
 export { Alert, type AlertProps } from './components/alert';
 export { Spinner, type SpinnerProps } from './components/spinner';
 export {
   Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
   type CardProps, type CardHeaderProps,
 } from './components/card';
-export { Progress, Meter, type ProgressProps, type MeterProps } from './components/progress';
+export { Progress, Meter, type ProgressProps, type MeterProps, type ValuePosition } from './components/progress';
 export {
   Field, FieldLabel, FieldDescription, FieldError, Input, Textarea,
   type FieldProps, type InputProps, type TextareaProps,
@@ -69,6 +74,10 @@ export {
   type MenuContentProps, type MenuItemProps, type MenuGroupProps,
 } from './components/menu';
 export {
-  Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell, TableEmpty,
-  type TableProps, type TableRowProps,
+  Table, TableHead, TableBody, TableRow, TableHeaderCell, TableHeaderMenu, TableCell, TableEmpty,
+  type TableProps, type TableRowProps, type TableHeaderMenuProps,
 } from './components/table';
+
+// 아이콘 계약. 제품 화면도 lucide 를 직접 쓰지 않고 이걸 거친다 — 세트를 바꾸면 제품까지 같이 바뀐다.
+// 묶음 이름으로 내보내는 건 Table·Menu 처럼 컴포넌트와 이름이 겹치는 아이콘이 있어서다.  <Icons.Search />
+export * as Icons from './lib/icons';

@@ -1,5 +1,7 @@
+import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell, TableEmpty } from './table';
+import { Table, TableHead, TableBody, TableRow, TableHeaderCell, TableHeaderMenu, TableCell, TableEmpty } from './table';
+import { MenuGroup, MenuRadioGroup, MenuRadioItem, MenuCheckboxItem, MenuSeparator } from './menu';
 import { Button } from './button';
 
 const ROWS = [
@@ -61,4 +63,50 @@ export const 빈상태: Story = {
       </TableBody>
     </Table>
   ),
+};
+
+/** 정렬·필터. 머리 칸에 TableHeaderMenu 를 넣으면 열 이름 옆에 ▾가 붙고, 누르면 메뉴가 열린다. */
+export const 정렬과필터: Story = {
+  render: (args) => {
+    const [sort, setSort] = React.useState('none');
+    return (
+      <Table {...args}>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>ID</TableHeaderCell>
+            <TableHeaderCell aria-sort={sort === 'none' ? undefined : sort === 'asc' ? 'ascending' : 'descending'}>
+              <TableHeaderMenu label="제목">
+                <MenuGroup label="정렬">
+                  <MenuRadioGroup value={sort} onValueChange={(v) => setSort(v as string)}>
+                    <MenuRadioItem value="none">기본 순서</MenuRadioItem>
+                    <MenuRadioItem value="asc">오름차순</MenuRadioItem>
+                    <MenuRadioItem value="desc">내림차순</MenuRadioItem>
+                  </MenuRadioGroup>
+                </MenuGroup>
+              </TableHeaderMenu>
+            </TableHeaderCell>
+            <TableHeaderCell>
+              <TableHeaderMenu label="상태">
+                <MenuGroup label="필터">
+                  <MenuCheckboxItem defaultChecked>진행</MenuCheckboxItem>
+                  <MenuCheckboxItem defaultChecked>대기</MenuCheckboxItem>
+                  <MenuSeparator />
+                  <MenuCheckboxItem>완료</MenuCheckboxItem>
+                </MenuGroup>
+              </TableHeaderMenu>
+            </TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {ROWS.map((r) => (
+            <TableRow key={r.id}>
+              <TableCell className="font-semibold">{r.id}</TableCell>
+              <TableCell>{r.title}</TableCell>
+              <TableCell>{r.status}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  },
 };
