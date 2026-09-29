@@ -18,8 +18,9 @@ import type { Intent, Size } from '../lib/types';
 
 const BASE = [
   'inline-flex shrink-0 items-center justify-center',
-  // 아이콘과 글자 사이. sm 은 상자가 작아 한 단계 더 좁힌다(SIZE 에서 덮는다).
-  'gap-inline-sm',
+  // 아이콘과 글자 사이 6 — SaaS 와 base 가 같은 값이 되게 inset-xs(둘 다 4)의 1.5 배로 만든다.
+  // inline-sm 은 SaaS 4 · base 6 이라 모드마다 달랐다(2026-09-29, 사람의 결정). sm 은 SIZE 에서 덮는다.
+  'gap-[calc(var(--spacing-inset-xs)*1.5)]',
   'font-sans text-body font-semibold leading-ui whitespace-nowrap',
   // 두께도 계약에서 온다 — 'border'(1px 고정)를 쓰면 테마가 두께를 바꿀 수 없다.
   'rounded-control border-width-default border-solid',
@@ -38,6 +39,12 @@ const BASE = [
  * 없고, 스피너도 흐린 회색이라 도는 게 안 보인다.** 그래서 기다리는 동안만 비활성 색을 뺀다 —
  * 누를 수 없다는 건 스피너가 말한다.
  */
+/**
+ * 글자색을 따르던 아이콘은 한 단계 옅게(fg-muted) — 글자와 같은 먹색이면 아이콘이 글자보다 무거워 보였다
+ * (2026-09-29, 사람의 결정). 흰 글자 버튼(primary·destructive)은 그대로다. 비활성이면 글자와 같은 비활성 색을 따른다.
+ */
+const ICON_MUTED = 'not-disabled:[&_svg]:text-fg-muted';
+
 const INTENT: Record<Intent, string> = {
   primary:
     'bg-action-primary-bg-default text-action-primary-fg-default border-action-primary-border-default ' +
@@ -46,11 +53,13 @@ const INTENT: Record<Intent, string> = {
   secondary:
     'bg-action-secondary-bg-default text-action-secondary-fg-default border-action-secondary-border-default ' +
     'hover:not-disabled:bg-action-secondary-bg-hover active:not-disabled:bg-action-secondary-bg-active ' +
-    'disabled:not-data-loading:bg-action-secondary-bg-disabled disabled:not-data-loading:text-action-secondary-fg-disabled',
+    'disabled:not-data-loading:bg-action-secondary-bg-disabled disabled:not-data-loading:text-action-secondary-fg-disabled ' +
+    ICON_MUTED,
   ghost:
     'bg-action-ghost-bg-default text-action-ghost-fg-default border-action-ghost-border-default ' +
     'hover:not-disabled:bg-action-ghost-bg-hover active:not-disabled:bg-action-ghost-bg-active ' +
-    'disabled:not-data-loading:bg-action-ghost-bg-disabled disabled:not-data-loading:text-action-ghost-fg-disabled',
+    'disabled:not-data-loading:bg-action-ghost-bg-disabled disabled:not-data-loading:text-action-ghost-fg-disabled ' +
+    ICON_MUTED,
   destructive:
     'bg-action-destructive-bg-default text-action-destructive-fg-default border-action-destructive-border-default ' +
     'hover:not-disabled:bg-action-destructive-bg-hover active:not-disabled:bg-action-destructive-bg-active ' +

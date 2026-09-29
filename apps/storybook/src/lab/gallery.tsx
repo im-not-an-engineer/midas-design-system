@@ -10,12 +10,12 @@ import {
   Tooltip, TooltipProvider, PreviewCard, PreviewCardTrigger, PreviewCardContent,
   Menu, MenuTrigger, MenuContent, MenuGroup, MenuItem, MenuSeparator,
   AxTheme,
-  Tabs, TabsList, Tab, TabsPanel, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
+  Tabs, TabsList, Tab, TabsPanel, SideNav, SideNavGroup, SideNavItem, Pagination, SearchInput, ChatComposer, ChatThread, ChatMessage, Accordion, AccordionItem, Collapsible, CollapsibleTrigger, CollapsiblePanel,
   Menubar, MenubarTrigger, Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, Toggle, ToggleGroup,
   Chip, ChipGroup,
-  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge, Spinner,
+  ScrollArea, Separator, Avatar, AvatarGroup, Progress, Meter, Badge, BadgeDot, Spinner,
   Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Alert,
-  Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell,
+  Table, TableHead, TableBody, TableRow, TableHeaderCell, TableHeaderMenu, TableCell,
 } from '@ax/react';
 
 /**
@@ -160,6 +160,14 @@ export function Gallery() {
             <TabsList><Tab value="a">개요</Tab><Tab value="b">이슈</Tab><Tab value="c" disabled>결제</Tab></TabsList>
             <TabsPanel value="a">탭 내용</TabsPanel>
           </Tabs>
+          <Tabs defaultValue="a"><TabsList variant="ghost"><Tab value="a">1뎁스 메뉴</Tab><Tab value="b">1뎁스 메뉴</Tab><Tab value="c">1뎁스 메뉴</Tab></TabsList></Tabs>
+          <SideNav aria-label="예시" className="w-[220px]">
+            <SideNavGroup label="범주명">
+              <SideNavItem href="#" active>2뎁스 메뉴</SideNavItem>
+              <SideNavItem href="#">2뎁스 메뉴</SideNavItem>
+              <SideNavItem href="#" disabled>권한 없음</SideNavItem>
+            </SideNavGroup>
+          </SideNav>
           <Accordion defaultValue={['x']} className="w-[300px]">
             <AccordionItem value="x" title="펼쳐진 항목">내용이 보입니다.</AccordionItem>
             <AccordionItem value="y" title="접힌 항목">숨김</AccordionItem>
@@ -167,8 +175,8 @@ export function Gallery() {
           <Collapsible defaultOpen><CollapsibleTrigger render={<Button intent="ghost" size="sm" />}>고급 옵션</CollapsibleTrigger><CollapsiblePanel><p className="text-body text-fg-muted">열린 패널</p></CollapsiblePanel></Collapsible>
           <Menubar><Menu><MenubarTrigger>파일</MenubarTrigger><MenuContent align="start"><MenuItem>새로</MenuItem></MenuContent></Menu><Menu><MenubarTrigger>편집</MenubarTrigger><MenuContent align="start"><MenuItem>실행 취소</MenuItem></MenuContent></Menu></Menubar>
           <Toolbar aria-label="도구"><ToolbarGroup><ToolbarButton><b>B</b></ToolbarButton><ToolbarButton><i>I</i></ToolbarButton></ToolbarGroup><ToolbarSeparator /><ToolbarButton>정렬</ToolbarButton></Toolbar>
-          <ScrollArea className="h-[calc(var(--spacing-inset-sm)+var(--spacing-row-md)*3.5+var(--border-width-default)*2)] w-[220px] rounded-surface border border-solid border-border-default">
-            <ul className="flex flex-col p-inset-sm">{Array.from({ length: 10 }, (_, i) => <li key={i} className="flex h-row-md items-center px-inset-sm text-body">ISSUE-{240 - i}</li>)}</ul>
+          <ScrollArea className="h-[calc(var(--spacing-inset-sm)+var(--spacing-control-md)*3.5+var(--border-width-default)*2)] w-[220px] rounded-surface border border-solid border-border-default">
+            <ul className="flex flex-col p-inset-sm">{Array.from({ length: 10 }, (_, i) => <li key={i} className="flex h-control-md items-center px-inset-sm text-body">ISSUE-{240 - i}</li>)}</ul>
           </ScrollArea>
           <div className="flex w-[220px] flex-col gap-stack-sm text-body"><span>위</span><Separator label="또는" /><span>아래</span></div>
         </Section>
@@ -204,6 +212,14 @@ export function Gallery() {
                 <Badge size="sm" status={undefined} variant={v}>12</Badge>
               </div>
             ))}
+            <div className="flex flex-wrap items-center gap-inline-sm">
+              {TONES.map((t) => (
+                <Badge key={t ?? 'neutral'} status={t} shape="rounded">{t ?? 'neutral'}</Badge>
+              ))}
+              {TONES.map((t) => (
+                <BadgeDot key={`dot-${t ?? 'neutral'}`} status={t ?? 'neutral'} />
+              ))}
+            </div>
           </div>
         </Section>
 
@@ -228,13 +244,24 @@ export function Gallery() {
 
         <Section title="데이터 테이블 — 밀도의 얼굴">
           <Table className="w-[560px]">
-            <TableHead><TableRow><TableHeaderCell>ID</TableHeaderCell><TableHeaderCell>제목</TableHeaderCell><TableHeaderCell>담당</TableHeaderCell><TableHeaderCell>댓글</TableHeaderCell></TableRow></TableHead>
+            <TableHead><TableRow><TableHeaderCell>ID</TableHeaderCell><TableHeaderCell><TableHeaderMenu label="제목"><MenuGroup label="정렬"><MenuItem>오름차순</MenuItem><MenuItem>내림차순</MenuItem></MenuGroup></TableHeaderMenu></TableHeaderCell><TableHeaderCell>담당</TableHeaderCell><TableHeaderCell>댓글</TableHeaderCell></TableRow></TableHead>
             <TableBody>
               <TableRow interactive><TableCell className="font-semibold">ISSUE-241</TableCell><TableCell>토큰 계약 위반 린트</TableCell><TableCell>양희윤</TableCell><TableCell>12</TableCell></TableRow>
               <TableRow interactive selected><TableCell className="font-semibold">ISSUE-238</TableCell><TableCell>선택된 행</TableCell><TableCell>미정</TableCell><TableCell>3</TableCell></TableRow>
               <TableRow interactive><TableCell className="font-semibold">ISSUE-233</TableCell><TableCell>행 높이 검토</TableCell><TableCell>양희윤</TableCell><TableCell>48</TableCell></TableRow>
             </TableBody>
           </Table>
+          <div className="flex w-[560px] items-center justify-between gap-inline-md">
+            <SearchInput placeholder="검색" className="w-[220px]" />
+            <Pagination page={3} pageCount={12} onPageChange={() => {}} size="sm" />
+          </div>
+          <div className="flex w-[560px] flex-col gap-stack-md">
+            <ChatThread>
+              <ChatMessage from="user">이번 달 정산 마감이 언제야?</ChatMessage>
+              <ChatMessage from="assistant">10월 5일입니다. 영수증은 마감 3일 전까지 올려 주세요.</ChatMessage>
+            </ChatThread>
+            <ChatComposer onSend={() => {}} onAttach={() => {}} />
+          </div>
           <Fieldset legend="폼 섹션" description="Fieldset + Field로 짓는 골격">
             <Field className="w-[240px]"><FieldLabel>이름</FieldLabel><Input defaultValue="디자인시스템" /></Field>
             <CheckboxGroup label="알림"><Checkbox value="a" label="배정될 때" defaultChecked /><Checkbox value="b" label="댓글" /></CheckboxGroup>

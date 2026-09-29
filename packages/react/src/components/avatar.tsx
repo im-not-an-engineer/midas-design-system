@@ -5,6 +5,8 @@ import { cn } from '../lib/cn';
 /**
  * 표시 가족 — Avatar. 사람·조직의 얼굴. 이미지가 없거나 실패하면 이름 첫 글자.
  * 크기는 컨트롤 급(sm/md/lg = control 높이)이라 버튼·입력과 한 줄에 놓아도 맞고, xs는 아이콘 급(인라인 멘션).
+ * 표·목록의 사람 칸은 md 가 바닥이다(SaaS 32) — 그보다 작으면 얼굴이 안 읽힌다(2026-09-29, 사람의 결정).
+ * xs·sm 은 글자 줄 안이나 AvatarGroup 처럼 여럿이 겹치는 자리에만 쓴다.
  */
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg';

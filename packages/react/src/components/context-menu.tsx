@@ -27,7 +27,7 @@ export function ContextMenuContent({ className, ...props }: React.ComponentProps
 }
 
 export function ContextMenuItem({ className, destructive, ...props }: React.ComponentProps<typeof Base.Item> & { destructive?: boolean }) {
-  return <Base.Item className={cn(POPUP_ITEM, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)} {...props} />;
+  return <Base.Item data-destructive={destructive || undefined} className={cn(POPUP_ITEM, destructive && 'text-status-danger-fg data-highlighted:bg-status-danger-subtle', className)} {...props} />;
 }
 
 export function ContextMenuGroup({ label, children, ...props }: React.ComponentProps<typeof Base.Group> & { label?: React.ReactNode }) {

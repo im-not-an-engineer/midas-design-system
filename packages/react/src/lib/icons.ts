@@ -1,5 +1,7 @@
 /**
  * 아이콘 진입점. 컴포넌트는 반드시 이 파일을 거친다 — `lucide-react`를 직접 import하지 않는다.
+ * 제품 화면은 `import { Icons } from '@ax/react'` 로 같은 목록을 쓴다(`<Icons.Search />`). 목록에 없는 게
+ * 필요하면 여기에 먼저 잇고, 피그마 Icons 섹션에도 같은 이름으로 추가한다.
  *
  * 세트는 lucide 하나다. 컴포넌트가 직접 import하면 세트를 바꾸는 순간 전 파일을 찾아
  * 고쳐야 하고, 이름이 1:1로 대응하지 않는 아이콘에서 반드시 어긋난다. 그래서 이름을
@@ -13,6 +15,7 @@
  * 쓰는 쪽에서 계약 클래스(`size-icon-sm/md/lg`)로 준다 — 컴포넌트가 `size` prop이나
  * width·height를 직접 주면 아키타입을 바꿔도 아이콘만 안 따라온다.
  */
+// 컴포넌트가 쓰는 것에 더해, SaaS 화면에서 흔히 쓰는 것을 미리 잇는다(2026-09-29) — 피그마 Icons 섹션과 같은 목록이다.
 // 한 줄로 쓴다 — 계약 린트는 한 줄짜리 import/export 만 걷어내므로, 여러 줄로 쪼개면
 // 'lucide-react' 가 클래스 후보로 새어 들어가 빌드가 막힌다.
-export { AlignCenter, AlignLeft, Archive, Check, ChevronDown, ChevronRight, CircleAlert, CircleCheck, CircleSmall, Ellipsis, Info, Minus, Plus, TriangleAlert, X } from 'lucide-react';
+export { AlignCenter, AlignLeft, Archive, ArrowDown, ArrowLeft, ArrowRight, ArrowUp, ArrowUpDown, Ban, Bell, Bookmark, Building2, Calendar, ChartColumn, Check, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, ChevronsLeft, ChevronsRight, ChevronsUpDown, CircleAlert, CircleCheck, CircleHelp, CirclePlus, CircleSmall, CircleX, Clock, Copy, Ellipsis, EllipsisVertical, ExternalLink, Eye, EyeOff, File, FileText, Filter, Folder, Globe, GripVertical, House, Image, Info, LayoutDashboard, LayoutGrid, Link, List, ListFilter, Lock, LogOut, Mail, MapPin, Menu, MessageSquare, Minus, PanelLeft, Paperclip, Pencil, Phone, Plus, Printer, RefreshCw, Save, Search, Send, Settings, Share2, SlidersHorizontal, Sparkles, Square, Star, Table, Tag, ThumbsDown, ThumbsUp, Trash2, TriangleAlert, Upload, User, Users, X } from 'lucide-react';

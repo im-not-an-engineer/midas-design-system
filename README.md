@@ -51,13 +51,13 @@ export default function App() {
 ```
 1. Primitive   palette.slate.900 / palette.stone.900 / palette.blue.600   ← 재질. CSS로 나가지 않는다
       ↓
-2. Semantic    color.fg.default = {palette.slate.900}   --color-fg-default     ← 계약. 컴포넌트는 이 이름만 쓴다
+2. Semantic    color.fg.default = {palette.gray.900}    --color-fg-default     ← 계약. 컴포넌트는 이 이름만 쓴다
       ↓
 3. Component   (아직 없음. 예외가 생길 때만 만든다.)
 ```
 
 **2층이 계약이다.** 키 집합이 모든 테마에서 같고, 테마는 그중 일부만 덮어쓴다.
-현재 계약 토큰 158개 — 전체 목록은 `packages/tokens/dist/contract.json`.
+현재 계약 토큰 161개 — 전체 목록은 `packages/tokens/dist/contract.json`.
 
 **예전엔 가운데 ramp(역할 램프) 층이 있었다 — 걷어냈다.** 시맨틱이 `ramp.neutral.900`(역할)을
 보고 브랜드가 "neutral = slate"를 한 줄로 정하는 구조였다. 이득은 하나 — 색군을 한 줄로 통째로

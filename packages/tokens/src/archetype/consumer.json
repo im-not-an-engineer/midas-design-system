@@ -82,6 +82,9 @@
       },
       "lg": {
         "$value": "{scale.space.16}"
+      },
+      "xl": {
+        "$value": "{scale.space.24}"
       }
     },
     "section": {
@@ -97,6 +100,9 @@
     }
   },
   "radius": {
+    "inline": {
+      "$value": "{scale.radius.8}"
+    },
     "control": {
       "$value": "{scale.radius.12}"
     },
@@ -120,6 +126,9 @@
       },
       "bodyLg": {
         "$value": "{scale.fontSize.18}"
+      },
+      "content": {
+        "$value": "{scale.fontSize.16}"
       },
       "headingXs": {
         "$value": "{scale.fontSize.18}"
