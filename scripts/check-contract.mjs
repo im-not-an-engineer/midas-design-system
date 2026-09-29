@@ -22,7 +22,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const stylesEntry = path.join(root, 'packages/react/src/styles.css');
 
 /** 스캔 대상. 새 패키지를 만들면 여기에 추가한다. */
-const SCAN_DIRS = [path.join(root, 'packages/react/src'), path.join(root, 'apps/playground/src'), path.join(root, 'apps/storybook/src')];
+const SCAN_DIRS = [path.join(root, 'packages/react/src'), path.join(root, 'apps/playground/src'), path.join(root, 'apps/storybook/src'), path.join(root, 'presets')];
 
 /**
  * 후보 추출: 문자열 리터럴 안의 공백으로 나뉜 토큰만 본다.
@@ -86,9 +86,10 @@ export function extractCandidates(src) {
     const before = cleaned.slice(0, openedAt).replace(/\s+$/, '');
     const after = cleaned.slice(closedAt + 1).replace(/^\s+/, '');
     // JSX 속성값으로 바로 붙은 문자열은 className일 때만 클래스다 (side="inline-end" 등 제외).
+    // 속성 이름에 하이픈이 있어도 속성이다 (data-slot="bulk-bar", aria-label="…").
     // 단 `const CARD = '...'` 같은 변수 선언은 속성이 아니다 — 스타일 상수를 모아두는 흔한 방식이라
     // 이걸 속성으로 오인하면 그 파일의 클래스가 통째로 검사에서 빠진다.
-    const attr = /(?:^|[\s(,{])(?:(const|let|var)\s+)?([A-Za-z_$][\w$]*)\s*=\s*\{?\s*$/.exec(before);
+    const attr = /(?:^|[\s(,{])(?:(const|let|var)\s+)?([A-Za-z_$][\w$-]*)\s*=\s*\{?\s*$/.exec(before);
     if (attr && !attr[1] && attr[2] !== 'className') return true;
     const prev = before.slice(-1);
     if (after.startsWith(']')) return true;                                  // 타입/속성 인덱스 ['x']
